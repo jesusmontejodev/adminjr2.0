@@ -1,68 +1,132 @@
 <x-app-layout>
-    <!-- Contenedor principal con ancho máximo de 1440px y centrado -->
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Encabezado con flex-col en móviles -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-            <h1 class="text-2xl sm:text-3xl font-bold text-white" id="caregoria">📂 Categorías</h1>
-            <a href="{{ route('categorias.create') }}"
-                class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg sm:rounded-xl shadow-md transition-colors duration-200 text-center">
-                + Nueva Categoría
-            </a>
-        </div>
+    <!-- Fondo general dark -->
+    <div class="bg-gray-900 min-h-screen text-gray-200">
+        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- Mensaje de éxito -->
-        @if(session('success'))
-            <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg shadow-sm">
-                ✅ {{ session('success') }}
+            <!-- Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-white">
+                        📂 Categorías
+                    </h1>
+                    <p class="text-sm text-gray-400 mt-1">
+                        Administra y organiza tus categorías
+                    </p>
+                </div>
+
+                <a href="{{ route('categorias.create') }}"
+                    class="inline-flex items-center gap-2 px-4 py-2.5
+                    bg-blue-600 hover:bg-blue-500 text-white
+                    font-medium rounded-xl shadow transition">
+                    ➕ Nueva categoría
+                </a>
             </div>
-        @endif
 
-        <!-- Contenedor de tabla responsive -->
-        <div class="bg-white shadow-lg rounded-xl overflow-hidden">
-            <div class="overflow-x-auto">  <!-- Permite scroll horizontal en móviles -->
-                <table class="w-full text-base border-collapse">  <!-- Usamos text-base para mejor legibilidad -->
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-4 py-3 font-semibold text-gray-700 text-left">ID</th>
-                            <th class="px-4 py-3 font-semibold text-gray-700 text-left">Nombre</th>
-                            <th class="px-4 py-3 font-semibold text-gray-700 text-right">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        @forelse($categorias as $categoria)
-                            <tr class="hover:bg-gray-50 transition-colors duration-150">
-                                <td class="px-4 py-3 text-gray-900">{{ $categoria->id }}</td>
-                                <td class="px-4 py-3 text-gray-900">{{ $categoria->nombre }}</td>
-                                <td class="px-4 py-3 text-right space-x-1 sm:space-x-2">
-                                    <a href="{{ route('categorias.edit', $categoria->id) }}"
-                                        class="inline-block px-3 py-1.5 bg-yellow-500 hover:bg-yellow-600 text-gray text-sm rounded shadow transition-colors duration-200">
-                                        ✏️ Editar
-                                    </a>
+            <!-- Success Message -->
+            @if(session('success'))
+                <div class="mb-6 p-4
+                    bg-green-500/10 text-green-300
+                    border border-green-400/30
+                    rounded-xl">
+                    ✅ {{ session('success') }}
+                </div>
+            @endif
 
-                                    <form action="{{ route('categorias.destroy', $categoria->id) }}" method="POST"
-                                        class="inline-block"
-                                        onsubmit="return confirm('¿Seguro que deseas eliminar esta categoría?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="inline-block px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm rounded shadow transition-colors duration-200">
-                                            🗑️ Eliminar
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
+            <!-- Table -->
+            <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead class="bg-gray-900 border-b border-gray-700">
                             <tr>
-                                <td colspan="4" class="px-4 py-6 text-center text-gray-500">
-                                    No hay categorías registradas.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                                <th class="px-5 py-4 text-left font-semibold text-gray-200">
+                                    Nombre
+                                </th>
 
+                                <th class="px-5 py-4 text-right font-semibold text-gray-200">
+                                    Acciones
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="divide-y divide-gray-700">
+                            @forelse($categorias as $categoria)
+                                <tr class="hover:bg-gray-700/50 transition">
+                                    <!-- Nombre -->
+                                    <td class="px-5 py-4 font-medium text-white">
+                                        {{ $categoria->nombre }}
+                                    </td>
+
+                                    <!-- Descripción -->
+                                    {{-- <td class="px-5 py-4">
+                                        @if($categoria->descripcion)
+                                            <span class="inline-block px-3 py-1 text-xs
+                                                bg-blue-500/20 text-blue-300
+                                                border border-blue-400/30 rounded-full">
+                                                {{ Str::limit($categoria->descripcion, 40) }}
+                                            </span>
+                                        @else
+                                            <span class="inline-block px-3 py-1 text-xs
+                                                bg-gray-700 text-gray-300
+                                                border border-gray-600 rounded-full">
+                                                Sin descripción
+                                            </span>
+                                        @endif
+                                    </td> --}}
+
+                                    <!-- Acciones -->
+                                    <td class="px-5 py-4 text-right">
+                                        <div class="flex justify-end gap-2">
+                                            <a href="{{ route('categorias.edit', $categoria) }}"
+                                                class="px-3 py-1.5 text-xs rounded-lg
+                                                bg-yellow-500/20 text-yellow-300
+                                                border border-yellow-400/40
+                                                hover:bg-yellow-500/30 transition">
+                                                ✏️ Editar
+                                            </a>
+
+                                            <form action="{{ route('categorias.destroy', $categoria) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('¿Eliminar esta categoría?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="px-3 py-1.5 text-xs rounded-lg
+                                                    bg-red-500/20 text-red-300
+                                                    border border-red-400/40
+                                                    hover:bg-red-500/30 transition">
+                                                    🗑️ Eliminar
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="px-6 py-12 text-center">
+                                        <p class="text-gray-400 mb-4">
+                                            Aún no has creado categorías
+                                        </p>
+                                        <a href="{{ route('categorias.create') }}"
+                                            class="inline-block px-4 py-2
+                                            bg-blue-600 hover:bg-blue-500
+                                            text-white rounded-lg transition">
+                                            Crear mi primera categoría
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Pagination (opcional) -->
+            @if(method_exists($categorias, 'links'))
+                <div class="mt-6">
+                    {{ $categorias->links() }}
+                </div>
+            @endif
+
+        </div>
     </div>
 </x-app-layout>
-

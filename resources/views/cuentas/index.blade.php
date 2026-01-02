@@ -1,48 +1,104 @@
 <x-app-layout>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-semibold text-white">Cuentas</h1>
-            <a href="{{ route('cuentas.create') }}" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md shadow">
-                Crear Cuenta
+    <!-- Contenedor principal con ancho máximo de 1440px y centrado -->
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Encabezado con flex-col en móviles -->
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <h1 class="text-2xl sm:text-3xl font-bold text-white" id="cuentas">💰 Mis Cuentas</h1>
+            <a href="{{ route('cuentas.create') }}"
+                class="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg sm:rounded-xl shadow-md transition-colors duration-200 text-center">
+                + Nueva Cuenta
             </a>
         </div>
 
+        <!-- Mensaje de éxito -->
         @if(session('success'))
-            <div class="mb-4 px-4 py-3 bg-green-100 border border-green-400 text-green-700 rounded">
-                {{ session('success') }}
+            <div class="mb-6 p-4 bg-green-100 border-l-4 border-green-500 text-green-700 rounded-lg shadow-sm">
+                ✅ {{ session('success') }}
             </div>
         @endif
 
-        <div class="overflow-x-auto bg-white shadow rounded-lg">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Saldo Actual</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($cuentas as $cuenta)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-900">{{ $cuenta->nombre }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-900">${{ number_format($cuenta->saldo_actual, 2) }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-gray-900">{{ $cuenta->descripcion }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex space-x-2">
-                                <a href="{{ route('cuentas.edit', $cuenta) }}" class="px-3 py-1 bg-yellow-400 hover:bg-yellow-500 text-black rounded-md text-sm">Editar</a>
-                                <form action="{{ route('cuentas.destroy', $cuenta) }}" method="POST" onsubmit="return confirm('¿Deseas eliminar esta cuenta?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-3 py-1 bg-red-500 hover:bg-red-600 text-black rounded-md text-sm divide-solid">Eliminar</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+        <!-- Tarjeta de saldo total -->
+        <div class="mb-8">
+            <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white shadow-lg max-w-md">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm opacity-90">Saldo Total</p>
+                        <p class="text-3xl font-bold">
+                            ${{ number_format($cuentas->sum('saldo_actual'), 2) }}
+                        </p>
+                    </div>
+                    <div class="text-4xl">💰</div>
+                </div>
+            </div>
         </div>
+
+        <!-- Contenedor de tabla responsive -->
+        <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full text-base border-collapse">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-3 font-semibold text-gray-700 text-left">ID</th>
+                            <th class="px-4 py-3 font-semibold text-gray-700 text-left">Nombre</th>
+                            <th class="px-4 py-3 font-semibold text-gray-700 text-left">Saldo Actual</th>
+                            <th class="px-4 py-3 font-semibold text-gray-700 text-left">Descripción</th>
+                            <th class="px-4 py-3 font-semibold text-gray-700 text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @forelse($cuentas as $cuenta)
+                            <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                <td class="px-4 py-3 text-gray-900">{{ $cuenta->id }}</td>
+                                <td class="px-4 py-3 text-gray-900 font-medium">
+                                    <div class="flex items-center">
+                                        <span class="mr-2">💰</span>
+                                        {{ $cuenta->nombre }}
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span class="font-semibold {{ $cuenta->saldo_actual >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                                        ${{ number_format($cuenta->saldo_actual, 2) }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3 text-gray-600">
+                                    @if($cuenta->descripcion)
+                                        {{ Str::limit($cuenta->descripcion, 50) }}
+                                    @else
+                                        <span class="text-gray-400">Sin descripción</span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3 text-right space-x-1 sm:space-x-2">
+                                    <a href="{{ route('cuentas.edit', $cuenta) }}"
+                                        class="inline-block px-3 py-1.5 bg-yellow-500 hover:bg-yellow-600 text-gray-800 text-sm rounded shadow transition-colors duration-200">
+                                        ✏️ Editar
+                                    </a>
+
+                                    <form action="{{ route('cuentas.destroy', $cuenta) }}" method="POST"
+                                        class="inline-block"
+                                        onsubmit="return confirm('¿Seguro que deseas eliminar esta cuenta?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="inline-block px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm rounded shadow transition-colors duration-200">
+                                            🗑️ Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-4 py-6 text-center text-gray-500">
+                                    No hay cuentas registradas.
+                                    <a href="{{ route('cuentas.create') }}" class="text-blue-600 hover:text-blue-800 ml-2">
+                                        Crear mi primera cuenta
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 </x-app-layout>

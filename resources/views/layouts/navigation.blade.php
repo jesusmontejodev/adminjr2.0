@@ -23,9 +23,9 @@
         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
             📊 Dashboard
         </x-nav-link>
-        <x-nav-link :href="route('analistajr.index')" :active="request()->routeIs('analistajr.index')">
+        {{-- <x-nav-link :href="route('analistajr.index')" :active="request()->routeIs('analistajr.index')">
             🧠 Analista de datos Jr.
-        </x-nav-link>
+        </x-nav-link> --}}
         <x-nav-link :href="route('cuentas.index')" :active="request()->routeIs('cuentas.*')">
             💳 Cuentas
         </x-nav-link>
@@ -39,7 +39,7 @@
             🔁 Transacciones internas
         </x-nav-link>
 
-    </div>
+    </div>   
 
     <!-- Información del Usuario -->
     <div class="border-t border-gray-200 dark:border-gray-700 p-4">

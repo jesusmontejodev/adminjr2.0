@@ -11,6 +11,7 @@ class Cuentasporcobrar extends Model
 
     // Campos que se pueden asignar masivamente con create()
     protected $fillable = [
+        'id_user',
         'nombre_clave',
         'descripcion',
         'monto',
