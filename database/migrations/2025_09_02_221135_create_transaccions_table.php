@@ -16,14 +16,9 @@ return new class extends Migration
             $table->foreignId('cuenta_id')->constrained('cuentas')->onDelete('cascade');
             $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
             $table->decimal('monto', 12, 2);
-            $table->enum('tipo', ['ingreso', 'gasto', 'inversion', 'transferencia']);
+            $table->enum('tipo', ['ingreso', 'egreso', 'inversion', 'costo']);
             $table->text('descripcion')->nullable();
             $table->date('fecha');
-
-            // Nuevos campos para transferencias
-            $table->foreignId('cuenta_destino_id')->nullable()->constrained('cuentas');
-            $table->foreignId('transaccion_relacionada_id')->nullable()->constrained('transacciones');
-
             $table->timestamps();
 
             // Índices para mejor performance
@@ -31,7 +26,6 @@ return new class extends Migration
             $table->index('tipo');
             $table->index(['cuenta_id', 'fecha']);
         });
-
     }
 
     /**

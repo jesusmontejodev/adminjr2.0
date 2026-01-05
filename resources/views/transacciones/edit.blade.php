@@ -12,14 +12,14 @@
             </div>
         @endif
 
-        <form action="{{ route('transacciones.update', $transaccion->id) }}" method="POST">
+        <form action="{{ route('transacciones.update', $transaccion->id) }}" method="POST" class="space-y-6 bg-white p-6 rounded-lg shadow-md">
             @csrf
             @method('PUT')
             @include('transacciones.form')
 
-            <div class="flex justify-end space-x-3">
-                <a href="{{ route('transacciones.index') }}" class="px-4 py-2 bg-gray-200 rounded-md">Cancelar</a>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md">Actualizar</button>
+            <div class="flex justify-end space-x-3 mt-6">
+                <a href="{{ route('transacciones.index') }}" class="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors">Cancelar</a>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">Actualizar</button>
             </div>
         </form>
 

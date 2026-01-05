@@ -6,7 +6,7 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Transacciones</h1>
-                <p class="text-gray-600 dark:text-gray-400 mt-1">Administra tus ingresos, gastos e inversiones</p>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">Administra tus transacciones financieras</p>
             </div>
 
             <div class="flex items-center space-x-3">
@@ -61,10 +61,10 @@
                                 </svg>
                             </div>
                             <input type="text"
-                                   name="search"
-                                   placeholder="Descripción..."
-                                   value="{{ request('search') }}"
-                                   class="pl-10 w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition">
+                                name="search"
+                                placeholder="Descripción..."
+                                value="{{ request('search') }}"
+                                class="pl-10 w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition">
                         </div>
                     </div>
 
@@ -172,32 +172,68 @@
             </form>
         </div>
 
+        {{-- Resumen de transacciones --}}
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-6 text-white shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm opacity-90 mb-1">Ingresos</p>
+                        <p class="text-2xl font-bold">
+                            ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <div class="text-3xl">💰</div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl p-6 text-white shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm opacity-90 mb-1">Egresos</p>
+                        <p class="text-2xl font-bold">
+                            ${{ number_format($transacciones->where('tipo', 'egreso')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <div class="text-3xl">📤</div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl p-6 text-white shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm opacity-90 mb-1">Costos</p>
+                        <p class="text-2xl font-bold">
+                            ${{ number_format($transacciones->where('tipo', 'costo')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <div class="text-3xl">🏗️</div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm opacity-90 mb-1">Inversiones</p>
+                        <p class="text-2xl font-bold">
+                            ${{ number_format($transacciones->where('tipo', 'inversion')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <div class="text-3xl">📈</div>
+                </div>
+            </div>
+        </div>
+
         {{-- Tabla de transacciones --}}
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700">
             {{-- Header de tabla --}}
             <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Transacciones</h3>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Lista de Transacciones</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            {{ $transacciones->count() }} transacciones encontradas
+                            Mostrando {{ $transacciones->firstItem() ?? 0 }}-{{ $transacciones->lastItem() ?? 0 }} de {{ $transacciones->total() }} transacciones
                         </p>
                     </div>
-
-                    @if($transacciones->count() > 0)
-                        <div class="flex items-center space-x-6">
-                            <div class="text-sm">
-                                <span class="font-medium text-green-600 dark:text-green-400">
-                                    Ingresos: ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
-                                </span>
-                            </div>
-                            <div class="text-sm">
-                                <span class="font-medium text-red-600 dark:text-red-400">
-                                    Gastos: ${{ number_format($transacciones->where('tipo', 'gasto')->sum('monto'), 2) }}
-                                </span>
-                            </div>
-                        </div>
-                    @endif
                 </div>
             </div>
 
@@ -268,14 +304,14 @@
                                                 {{ $transaccion->fecha->format('d/m/Y') }}
                                             </div>
                                             <div class="text-xs text-gray-500 dark:text-gray-400">
-                                                {{ $transaccion->fecha->format('h:i A') }}
+                                                {{ $transaccion->created_at->format('h:i A') }}
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                                        <div class="w-2 h-2 {{ $transaccion->tipo === 'ingreso' ? 'bg-green-500' : ($transaccion->tipo === 'egreso' ? 'bg-red-500' : ($transaccion->tipo === 'costo' ? 'bg-orange-500' : 'bg-blue-500')) }} rounded-full mr-2"></div>
                                         <span class="text-sm text-gray-900 dark:text-white">
                                             {{ $transaccion->cuenta->nombre }}
                                         </span>
@@ -288,22 +324,47 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
-                                        {{ $transaccion->tipo === 'ingreso' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400' :
-                                          ($transaccion->tipo === 'gasto' ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400' :
-                                          ($transaccion->tipo === 'inversion' ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300')) }}">
+                                        @switch($transaccion->tipo)
+                                            @case('ingreso')
+                                                bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400
+                                                @break
+                                            @case('egreso')
+                                                bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400
+                                                @break
+                                            @case('costo')
+                                                bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-400
+                                                @break
+                                            @case('inversion')
+                                                bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400
+                                                @break
+                                            @default
+                                                bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300
+                                        @endswitch">
                                         <span class="w-2 h-2 rounded-full mr-2
-                                            {{ $transaccion->tipo === 'ingreso' ? 'bg-green-500' :
-                                              ($transaccion->tipo === 'gasto' ? 'bg-red-500' :
-                                              ($transaccion->tipo === 'inversion' ? 'bg-blue-500' : 'bg-gray-500')) }}"></span>
+                                            @switch($transaccion->tipo)
+                                                @case('ingreso') bg-green-500 @break
+                                                @case('egreso') bg-red-500 @break
+                                                @case('costo') bg-orange-500 @break
+                                                @case('inversion') bg-blue-500 @break
+                                                @default bg-gray-500
+                                            @endswitch"></span>
                                         {{ ucfirst($transaccion->tipo) }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-semibold
-                                        {{ $transaccion->tipo === 'ingreso' ? 'text-green-600 dark:text-green-400' :
-                                          ($transaccion->tipo === 'gasto' ? 'text-red-600 dark:text-red-400' :
-                                          'text-blue-600 dark:text-blue-400') }}">
-                                        ${{ number_format($transaccion->monto, 2) }}
+                                        @switch($transaccion->tipo)
+                                            @case('ingreso') text-green-600 dark:text-green-400 @break
+                                            @case('egreso') text-red-600 dark:text-red-400 @break
+                                            @case('costo') text-orange-600 dark:text-orange-400 @break
+                                            @case('inversion') text-blue-600 dark:text-blue-400 @break
+                                            @default text-gray-600 dark:text-gray-400
+                                        @endswitch">
+                                        @if($transaccion->tipo === 'ingreso')
+                                            +${{ number_format($transaccion->monto, 2) }}
+                                        @else
+                                            -${{ number_format($transaccion->monto, 2) }}
+                                        @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">
@@ -320,7 +381,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('transacciones.destroy', $transaccion->id) }}"
+                                        <form action="{{ route('transacciones.destroy', $transaccion) }}"
                                               method="POST"
                                               class="inline-block"
                                               onsubmit="return confirm('¿Seguro que deseas eliminar esta transacción?');">
@@ -381,9 +442,7 @@
 
     </div>
 
-
-
-        <script>
+    <script>
         function exportTableToCSV(filename) {
             var csv = [];
             var rows = document.querySelectorAll("#transacciones-table tr");

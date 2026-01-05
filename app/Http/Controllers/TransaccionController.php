@@ -7,6 +7,7 @@ use App\Models\Cuenta;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
 class TransaccionController extends Controller
@@ -121,7 +122,7 @@ class TransaccionController extends Controller
         // Obtener datos para los filtros (solo del usuario)
         $cuentas = $this->getUserCuentas();
         $categorias = $this->getUserCategorias();
-        $tipos = ['ingreso', 'gasto', 'inversion'];
+        $tipos = ['ingreso', 'egreso', 'inversion', 'costo'];
 
         return view('transacciones.index', compact(
             'transacciones',
@@ -164,57 +165,112 @@ class TransaccionController extends Controller
     /**
      * Almacenar nueva transacción
      */
+    /**
+     * Almacenar nueva transacción
+     */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id_usuario' => 'required|exists:users,id',
+            'cuenta' => 'required|string',
+            'monto' => 'required|numeric|min:0.01',
+            'tipo' => 'required|in:ingreso,egreso,inversion,costo',
+            'descripcion' => 'nullable|string|max:500',
+            'categoria' => 'required|string',
+            'fecha' => 'nullable|date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors(),
+                'message' => 'Error de validación'
+            ], 422);
+        }
+
+        $transaccion = null; // ← Inicializar aquí
+
         try {
-            // Validación directa
-            $validated = $request->validate([
-                'cuenta_id' => 'required|exists:cuentas,id',
-                'categoria_id' => 'required|exists:categorias,id',
-                'monto' => 'required|numeric|min:0.01',
-                'descripcion' => 'nullable|string|max:500',
-                'fecha' => 'required|date',
-                'tipo' => 'required|in:ingreso,gasto,inversion',
-            ]);
+            DB::transaction(function () use ($request, &$transaccion) {
+                // Buscar la cuenta por nombre (único en toda la tabla)
+                $cuenta = Cuenta::where('nombre', $request->cuenta)->first();
 
-            // Verificar que la cuenta pertenezca al usuario
-            $this->authorizeCuenta($request->cuenta_id);
+                if (!$cuenta) {
+                    throw new \Exception("La cuenta '{$request->cuenta}' no existe en el sistema");
+                }
 
-            DB::transaction(function () use ($request) {
+                // Verificar que la cuenta pertenezca al usuario especificado
+                if ($cuenta->id_user != $request->id_usuario) {
+                    throw new \Exception("La cuenta '{$request->cuenta}' no pertenece al usuario especificado");
+                }
+
+                // Buscar la categoría por nombre y usuario
+                $categoria = Categoria::where('nombre', $request->categoria)
+                                    ->where('id_user', $request->id_usuario)
+                                    ->first();
+
+                if (!$categoria) {
+                    // Si la categoría no existe, crearla automáticamente
+                    $categoria = Categoria::create([
+                        'id_user' => $request->id_usuario,
+                        'nombre' => $request->categoria,
+                        'color' => '#'.str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT),
+                        'descripcion' => 'Creada automáticamente desde API',
+                    ]);
+                }
+
                 // Crear transacción
                 $transaccion = Transaccion::create([
-                    'cuenta_id'    => $request->cuenta_id,
-                    'categoria_id' => $request->categoria_id,
+                    'cuenta_id'    => $cuenta->id,
+                    'categoria_id' => $categoria->id,
                     'monto'        => $request->monto,
                     'descripcion'  => $request->descripcion,
-                    'fecha'        => $request->fecha,
+                    'fecha'        => $request->fecha ?? now()->format('Y-m-d'),
                     'tipo'         => $request->tipo,
                 ]);
 
                 // Actualizar saldo de la cuenta
-                $cuenta = Cuenta::find($request->cuenta_id);
-
                 if ($request->tipo === 'ingreso') {
                     $cuenta->saldo_actual += $request->monto;
-                } elseif (in_array($request->tipo, ['gasto', 'inversion'])) {
+                } elseif (in_array($request->tipo, ['egreso', 'inversion', 'costo'])) {
                     $cuenta->saldo_actual -= $request->monto;
                 }
 
                 $cuenta->save();
             });
 
-            return redirect()
-                ->route('transacciones.index')
-                ->with('success', 'Transacción registrada correctamente.');
+            // Verificar que la transacción se creó
+            if (!$transaccion) {
+                throw new \Exception('No se pudo crear la transacción');
+            }
+
+            // Cargar relaciones para la respuesta
+            $transaccion->load(['cuenta', 'categoria']);
+
+            return response()->json([
+                'success' => true,
+                'data' => [
+                    'transaccion' => $transaccion,
+                    'saldo_actualizado' => $transaccion->cuenta->saldo_actual,
+                    'detalles' => [
+                        'cuenta' => $transaccion->cuenta->nombre,
+                        'categoria' => $transaccion->categoria->nombre,
+                        'usuario' => $transaccion->cuenta->id_user,
+                        'tipo_operacion' => $transaccion->tipo
+                    ]
+                ],
+                'message' => 'Transacción registrada correctamente'
+            ], 201);
 
         } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Error al registrar la transacción: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+                'trace' => config('app.debug') ? $e->getTraceAsString() : null
+            ], 500);
         }
     }
-
-    /**
+        /**
      * Actualizar transacción existente
      */
     public function update(Request $request, Transaccion $transaccion)
@@ -230,7 +286,7 @@ class TransaccionController extends Controller
                 'monto' => 'required|numeric|min:0.01',
                 'descripcion' => 'nullable|string|max:500',
                 'fecha' => 'required|date',
-                'tipo' => 'required|in:ingreso,gasto,inversion',
+                'tipo' => 'required|in:ingreso,egreso,inversion,costo',
             ]);
 
             // Verificar que la nueva cuenta (si cambia) pertenezca al usuario
@@ -244,7 +300,7 @@ class TransaccionController extends Controller
                 if ($cuentaAnterior) {
                     if ($transaccion->tipo === 'ingreso') {
                         $cuentaAnterior->saldo_actual -= $transaccion->monto;
-                    } elseif (in_array($transaccion->tipo, ['gasto', 'inversion'])) {
+                    } elseif (in_array($transaccion->tipo, ['egreso', 'inversion', 'costo'])) {
                         $cuentaAnterior->saldo_actual += $transaccion->monto;
                     }
                     $cuentaAnterior->save();
@@ -265,7 +321,7 @@ class TransaccionController extends Controller
                 if ($cuentaNueva) {
                     if ($request->tipo === 'ingreso') {
                         $cuentaNueva->saldo_actual += $request->monto;
-                    } elseif (in_array($request->tipo, ['gasto', 'inversion'])) {
+                    } elseif (in_array($request->tipo, ['egreso', 'inversion', 'costo'])) {
                         $cuentaNueva->saldo_actual -= $request->monto;
                     }
                     $cuentaNueva->save();
@@ -298,7 +354,7 @@ class TransaccionController extends Controller
                 if ($cuenta) {
                     if ($transaccion->tipo === 'ingreso') {
                         $cuenta->saldo_actual -= $transaccion->monto;
-                    } elseif (in_array($transaccion->tipo, ['gasto', 'inversion'])) {
+                    } elseif (in_array($transaccion->tipo, ['egreso', 'inversion', 'costo'])) {
                         $cuenta->saldo_actual += $transaccion->monto;
                     }
                     $cuenta->save();
@@ -336,7 +392,7 @@ class TransaccionController extends Controller
             switch ($periodo) {
                 case 'mes':
                     $query->whereMonth('fecha', $fecha->month)
-                          ->whereYear('fecha', $fecha->year);
+                        ->whereYear('fecha', $fecha->year);
                     break;
                 case 'ano':
                     $query->whereYear('fecha', $fecha->year);
@@ -352,25 +408,44 @@ class TransaccionController extends Controller
 
         $estadisticas = [
             'total_ingresos' => $query->clone()->where('tipo', 'ingreso')->sum('monto'),
-            'total_gastos' => $query->clone()->where('tipo', 'gasto')->sum('monto'),
+            'total_egresos' => $query->clone()->where('tipo', 'egreso')->sum('monto'),
+            'total_costos' => $query->clone()->where('tipo', 'costo')->sum('monto'),
             'total_inversiones' => $query->clone()->where('tipo', 'inversion')->sum('monto'),
             'transacciones_count' => $query->clone()->count(),
             'promedio_ingreso' => $query->clone()->where('tipo', 'ingreso')->avg('monto'),
-            'promedio_gasto' => $query->clone()->where('tipo', 'gasto')->avg('monto'),
+            'promedio_egreso' => $query->clone()->where('tipo', 'egreso')->avg('monto'),
+            'promedio_costo' => $query->clone()->where('tipo', 'costo')->avg('monto'),
+            'promedio_inversion' => $query->clone()->where('tipo', 'inversion')->avg('monto'),
         ];
 
-        // Top categorías
-        $topCategorias = DB::table('transacciones')
+        // Top categorías para egresos
+        $topCategoriasEgresos = DB::table('transacciones')
             ->join('categorias', 'transacciones.categoria_id', '=', 'categorias.id')
             ->join('cuentas', 'transacciones.cuenta_id', '=', 'cuentas.id')
             ->where('cuentas.id_user', $userId)
             ->select('categorias.nombre', DB::raw('SUM(transacciones.monto) as total'))
-            ->where('transacciones.tipo', 'gasto')
+            ->where('transacciones.tipo', 'egreso')
             ->groupBy('categorias.id', 'categorias.nombre')
             ->orderBy('total', 'desc')
             ->limit(5)
             ->get();
 
-        return view('transacciones.estadisticas', compact('estadisticas', 'topCategorias'));
+        // Top categorías para costos
+        $topCategoriasCostos = DB::table('transacciones')
+            ->join('categorias', 'transacciones.categoria_id', '=', 'categorias.id')
+            ->join('cuentas', 'transacciones.cuenta_id', '=', 'cuentas.id')
+            ->where('cuentas.id_user', $userId)
+            ->select('categorias.nombre', DB::raw('SUM(transacciones.monto) as total'))
+            ->where('transacciones.tipo', 'costo')
+            ->groupBy('categorias.id', 'categorias.nombre')
+            ->orderBy('total', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('transacciones.estadisticas', compact(
+            'estadisticas',
+            'topCategoriasEgresos',
+            'topCategoriasCostos'
+        ));
     }
 }
