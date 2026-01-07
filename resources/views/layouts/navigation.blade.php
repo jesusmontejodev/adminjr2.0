@@ -38,8 +38,11 @@
         <x-nav-link :href="route('transaccionesinternas.index')" :active="request()->routeIs('infocomisionesinternas.*')">
             🔁 Transacciones internas
         </x-nav-link>
+        <x-nav-link :href="route('numeros-whatsapp.index')" :active="request()->routeIs('numeros-whatsapp.*')">
+            📱 WhatsApp
+        </x-nav-link>
 
-    </div>   
+    </div>
 
     <!-- Información del Usuario -->
     <div class="border-t border-gray-200 dark:border-gray-700 p-4">
