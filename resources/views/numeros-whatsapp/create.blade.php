@@ -127,7 +127,7 @@
                     </div>
 
                     {{-- Número principal --}}
-                    <div class="mb-8">
+                    {{-- <div class="mb-8">
                         <div class="relative flex items-start">
                             <div class="flex items-center h-5">
                                 <input type="checkbox"
@@ -145,7 +145,7 @@
                                 </p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     {{-- Botones --}}
                     <div class="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-100 dark:border-gray-700">

@@ -292,11 +292,9 @@ class NumerosWhatsAppController extends Controller
     /**
      * Eliminar un número
      */
-    public function destroy(NumerosWhatsApp $numero)
+    public function destroy($id)
     {
-        
-
-        $numero->delete();
+        NumerosWhatsApp::destroy($id);
 
         return back()->with('success', 'Número eliminado correctamente.');
     }

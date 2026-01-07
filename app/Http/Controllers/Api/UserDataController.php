@@ -16,21 +16,32 @@ class UserDataController extends Controller
     /**
      * Obtener todos los datos del usuario por número de teléfono
      */
-    public function getUserDataByPhone(Request $request, string $numero): JsonResponse
+    public function getUserDataByPhone($numero)
     {
         try {
-            // Normalizar el número
-            $numeroNormalizado = $this->normalizarNumero($numero);
+            // Normalizar el número (puedes agregar lógica de normalización aquí)
+            $numeroNormalizado = $numero;
 
-            // Buscar el usuario por su número de WhatsApp (con los nuevos campos)
-            $user = $this->findUserByPhone($numeroNormalizado);
+            // Buscar primero el número en NumerosWhatsApp para obtener el user_id
+            $numeroData = NumerosWhatsApp::where('numero_whatsapp', $numeroNormalizado)->first();
+
+            if (!$numeroData) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Número no encontrado en la base de datos',
+                    'numero_buscado' => $numero,
+                ], 404);
+            }
+
+            // Buscar el usuario usando el user_id de NumerosWhatsApp
+            $user = User::find($numeroData->user_id);
 
             if (!$user) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Usuario no encontrado con este número',
+                    'message' => 'Usuario no encontrado para este número',
                     'numero_buscado' => $numero,
-                    'numero_normalizado' => $numeroNormalizado
+                    'user_id' => $numeroData->user_id
                 ], 404);
             }
 
@@ -54,6 +65,7 @@ class UserDataController extends Controller
                 'data' => $data,
                 'timestamp' => now()->toISOString(),
             ]);
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -63,33 +75,19 @@ class UserDataController extends Controller
             ], 500);
         }
     }
-
     /**
      * Helper: Buscar usuario por número de teléfono (actualizado)
      */
-    private function findUserByPhone(string $numero): ?User
+    private function findUserByPhone( $numero )
     {
         $numeroNormalizado = $this->normalizarNumero($numero);
 
-        // Buscar en los nuevos campos de numeros_whats_apps
-        if (class_exists(NumerosWhatsApp::class)) {
-            $numeroWhatsApp = NumerosWhatsApp::where(function($query) use ($numeroNormalizado) {
-                // Buscar en cualquiera de los campos de número
-                $query->where('numero_whatsapp', $numeroNormalizado)
-                    ->orWhere('numero_internacional', $numeroNormalizado)
-                    ->orWhereRaw("CONCAT(codigo_pais, numero_local) = ?", [$this->eliminarSignoMas($numeroNormalizado)])
-                    ->orWhere('numero_local', $this->eliminarCodigoPais($numeroNormalizado));
-            })->first();
+        $numeroWhatsApp = NumerosWhatsApp::where(function($query) use ($numeroNormalizado) {
+            // Buscar en cualquiera de los campos de número
+            $query->where('numero_whatsapp', $numeroNormalizado);
+        })->first();
 
-            if ($numeroWhatsApp && $numeroWhatsApp->user_id) {
-                return User::find($numeroWhatsApp->user_id);
-            }
-        }
-
-        // Búsqueda alternativa en tabla users (si existe campo phone)
-        return User::where('phone', $numeroNormalizado)
-            ->orWhere('phone', 'like', '%' . $this->eliminarSignoMas($numeroNormalizado))
-            ->first();
+        return $numeroWhatsApp;
     }
 
     /**
@@ -220,16 +218,6 @@ class UserDataController extends Controller
         try {
             return Categoria::where('id_user', $userId)
                 ->get()
-                ->map(function ($categoria) {
-                    return [
-                        'id' => $categoria->id,
-                        'nombre' => $categoria->nombre,
-                        'descripcion' => $categoria->descripcion,
-                        'total_transacciones' => $categoria->total_transacciones, // ¡Corregido!
-                        'created_at' => $categoria->created_at->toISOString(),
-                        'updated_at' => $categoria->updated_at->toISOString(),
-                    ];
-                })
                 ->toArray();
         } catch (\Exception $e) {
             // Para debug, puedes registrar el error
