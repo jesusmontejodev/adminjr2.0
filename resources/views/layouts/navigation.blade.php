@@ -2,73 +2,64 @@
     <!-- Google Fonts: Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    rel="stylesheet" />
 
-    <style>
-        nav {
-            font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
+<style>
+    nav {
+        font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
-        /* ===== LINKS ===== */
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 14px 18px;
-            border-radius: 14px;
-            font-size: 13.5px; /* reducido */
-            font-weight: 500;
-            color: #d1d5db;
-            text-decoration: none;
-            border-left: 4px solid transparent;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
+    /* ===== LINKS ===== */
+    .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 14px 18px;
+        border-radius: 14px;
+        font-size: 13.5px; /* 👈 REDUCIDO */
+        font-weight: 500;
+        color: #d1d5db;
+        text-decoration: none;
+        border-left: 4px solid transparent;
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
 
-        .sidebar-link:hover {
-            background-color: rgba(239, 68, 68, 0.18);
-            color: #fee2e2;
-        }
+    .sidebar-link:hover {
+        background-color: rgba(239, 68, 68, 0.18);
+        color: #fee2e2;
+    }
 
-        .sidebar-link.is-active {
-            background-color: rgba(239, 68, 68, 0.25);
-            color: #fecaca;
-            border-left: 4px solid #ef4444;
-        }
+    .sidebar-link.is-active {
+        background-color: rgba(239, 68, 68, 0.25);
+        color: #fecaca;
+        border-left: 4px solid #ef4444;
+    }
 
-        .sidebar-icon {
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            color: inherit;
-        }
+    .sidebar-icon {
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        color: inherit;
+    }
 
-        .material-symbols-outlined {
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 24;
-        }
+    .material-symbols-outlined {
+        font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24;
+    }
 
-        /* ===== SCROLL ===== */
-        nav ::-webkit-scrollbar {
-            width: 6px;
-        }
+    nav ::-webkit-scrollbar {
+        width: 6px;
+    }
 
-        nav ::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-        }
-
-        /* ===== DROPDOWN USUARIO OVERLAY ===== */
-        .user-dropdown {
-            position: absolute;
-            bottom: 72px; /* se monta sobre el perfil */
-            right: 16px;
-            z-index: 50;
-        }
-    </style>
+    nav ::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+    }
+</style>
 </head>
 
 <nav class="w-[300px] min-h-screen bg-[#0e0f13] text-gray-200 flex flex-col border-r border-white/5">
@@ -81,32 +72,43 @@
         </a>
     </div>
 
-    <!-- Navegación Principal -->
-    <div class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            📊 Dashboard
-        </x-nav-link>
-        {{-- <x-nav-link :href="route('analistajr.index')" :active="request()->routeIs('analistajr.index')">
-            🧠 Analista de datos Jr.
-        </x-nav-link> --}}
-        <x-nav-link :href="route('cuentas.index')" :active="request()->routeIs('cuentas.*')">
-            💳 Cuentas
-        </x-nav-link>
-        <x-nav-link :href="route('categorias.index')" :active="request()->routeIs('categorias.*')">
-            🗂️ Categorías
-        </x-nav-link>
-        <x-nav-link :href="route('transacciones.index')" :active="request()->routeIs('transacciones.*')">
-            💸 Transacciones
-        </x-nav-link>
-        <x-nav-link :href="route('transaccionesinternas.index')" :active="request()->routeIs('infocomisionesinternas.*')">
-            🔁 Transacciones internas
-        </x-nav-link>
+    <!-- MENÚ -->
+    <div class="flex-1 px-4 py-6 space-y-3 overflow-y-auto">
+
+        <a href="{{ route('dashboard') }}"
+           @class(['sidebar-link','is-active' => request()->routeIs('dashboard')])>
+            <span class="material-symbols-outlined sidebar-icon">space_dashboard</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="{{ route('cuentas.index') }}"
+           @class(['sidebar-link','is-active' => request()->routeIs('cuentas.*')])>
+            <span class="material-symbols-outlined sidebar-icon">account_balance</span>
+            <span>Cuentas</span>
+        </a>
+
+        <a href="{{ route('categorias.index') }}"
+           @class(['sidebar-link','is-active' => request()->routeIs('categorias.*')])>
+            <span class="material-symbols-outlined sidebar-icon">category</span>
+            <span>Categorías</span>
+        </a>
+
+        <a href="{{ route('transacciones.index') }}"
+           @class(['sidebar-link','is-active' => request()->routeIs('transacciones.*')])>
+            <span class="material-symbols-outlined sidebar-icon">sync_alt</span>
+            <span>Transacciones</span>
+        </a>
+
+        <a href="{{ route('transaccionesinternas.index') }}"
+           @class(['sidebar-link','is-active' => request()->routeIs('infocomisionesinternas.*')])>
+            <span class="material-symbols-outlined sidebar-icon">swap_horiz</span>
+            <span>Transacciones internas</span>
+        </a>
 
     </div>
 
     <!-- USUARIO -->
-    <div class="p-4 border-t border-white/10 relative">
-
+    <div class="p-4 border-t border-white/10">
         <div class="flex items-center justify-between bg-white/5 rounded-xl px-4 py-3">
 
             <div class="flex items-center gap-4 min-w-0">
@@ -120,8 +122,7 @@
                 </div>
             </div>
 
-            <!-- DROPDOWN -->
-            <x-dropdown align="right" width="48" class="user-dropdown">
+            <x-dropdown align="right" width="48">
                 <x-slot name="trigger">
                     <button class="text-gray-400 hover:text-white transition">
                         <span class="material-symbols-outlined">expand_more</span>
@@ -129,10 +130,7 @@
                 </x-slot>
 
                 <x-slot name="content">
-                    <x-dropdown-link :href="route('profile.edit')">
-                        Perfil
-                    </x-dropdown-link>
-
+                    <x-dropdown-link :href="route('profile.edit')">Perfil</x-dropdown-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-dropdown-link
