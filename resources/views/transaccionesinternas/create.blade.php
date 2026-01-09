@@ -9,7 +9,7 @@
                     Cuenta origen:
                 </label>
                 <select name="cuenta_origen_id" id="cuenta_origen_id"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                     required>
                     <option value="">-- Selecciona una cuenta --</option>
                     @foreach($cuentas as $cuenta)
@@ -30,7 +30,7 @@
                     Cuenta destino:
                 </label>
                 <select name="cuenta_destino_id" id="cuenta_destino_id"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                     required>
                     <option value="">-- Selecciona una cuenta --</option>
                     @foreach($cuentas as $cuenta)
@@ -52,8 +52,11 @@
                 </label>
                 <input type="number" step="0.01" min="0.01" name="monto" id="monto"
                     value="{{ old('monto') }}"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
-                    required>
+                    class="text-gray-700 mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+                    required
+                    placeholder="0"
+
+                    >
                 @error('monto')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
@@ -65,7 +68,8 @@
                     Descripción:
                 </label>
                 <textarea name="descripcion" id="descripcion" rows="3"
-                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">{{ old('descripcion') }}</textarea>
+                    placeholder="Descripción"
+                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-gray-700" >{{ old('descripcion') }}</textarea>
                 @error('descripcion')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
