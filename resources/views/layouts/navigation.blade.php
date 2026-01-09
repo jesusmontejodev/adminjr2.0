@@ -104,6 +104,12 @@
             <span class="material-symbols-outlined sidebar-icon">swap_horiz</span>
             <span>Transacciones internas</span>
         </a>
+        <a href="{{ route('numeros-whatsapp.index') }}"
+        @class(['sidebar-link', 'is-active' => request()->routeIs('numeros-whatsapp.*')])>
+            <span class="material-symbols-outlined sidebar-icon">phone_iphone</span>
+            <span>WhatsApp</span>
+        </a>
+
 
     </div>
 

@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
+            <!---<div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm opacity-90 mb-1">Activos</p>
@@ -81,7 +81,7 @@
                     <div class="text-3xl">🌍</div>
                 </div>
             </div>
-        </div>
+        </div>--->
 
         @if($numeros->isEmpty())
             {{-- Estado vacío --}}
@@ -321,32 +321,169 @@
     </script>
 
     <style>
-        .dropdown-menu {
-            animation: dropdownFade 0.2s ease-out;
-        }
+        /* =====================================================
+   VARIABLES BASE (MISMAS QUE CATEGORÍAS)
+===================================================== */
+:root{
+    --red:239,68,68;
+    --glass:rgba(255,255,255,.04);
+    --border-red:rgba(var(--red),.35);
+}
 
-        @keyframes dropdownFade {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+/* =====================================================
+   FONDO GENERAL
+===================================================== */
+body{
+    background:#0f1115;
+}
 
-        #confirmModal {
-            animation: modalFade 0.3s ease-out;
-        }
+/* =====================================================
+   TITULOS
+===================================================== */
+h1{
+    letter-spacing:.3px;
+}
 
-        @keyframes modalFade {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+/* =====================================================
+   BADGE "WHATSAPP ON"
+===================================================== */
+span.bg-gradient-to-r.from-green-100{
+    background:rgba(34,197,94,.12)!important;
+    border:1px solid rgba(34,197,94,.35)!important;
+}
+
+/* =====================================================
+   BOTÓN PRINCIPAL (NUEVO NÚMERO)
+===================================================== */
+a.bg-gradient-to-r.from-green-600{
+    background:rgba(34,197,94,.22)!important;
+    border:1px solid rgba(34,197,94,.45);
+}
+
+a.bg-gradient-to-r.from-green-600:hover{
+    background:rgba(34,197,94,.35)!important;
+    transform:translateY(-2px);
+}
+
+/* =====================================================
+   ALERT SUCCESS
+===================================================== */
+div.bg-gradient-to-r.from-green-500{
+    background:rgba(34,197,94,.18)!important;
+    border:1px solid rgba(34,197,94,.35);
+}
+
+/* =====================================================
+   SUMMARY / STATS CARDS
+===================================================== */
+.grid > div.bg-gradient-to-r{
+    background:var(--glass)!important;
+    border:1px solid var(--border-red);
+    backdrop-filter:blur(12px);
+    color:#fff;
+}
+
+.grid > div.bg-gradient-to-r:hover{
+    transform:translateY(-3px);
+}
+
+/* =====================================================
+   EMPTY STATE CARD
+===================================================== */
+.bg-white.dark\:bg-gray-800.rounded-2xl{
+    background:var(--glass)!important;
+    border:1px solid var(--border-red)!important;
+    backdrop-filter:blur(12px);
+}
+
+/* =====================================================
+   TARJETAS DE NÚMEROS
+===================================================== */
+.grid-cols-3 > div.bg-white{
+    background:var(--glass)!important;
+    border:1px solid var(--border-red)!important;
+    backdrop-filter:blur(12px);
+}
+
+/* Hover tarjeta */
+.grid-cols-3 > div.bg-white:hover{
+    transform:translateY(-4px);
+}
+
+/* =====================================================
+   HEADER DE TARJETA
+===================================================== */
+.grid-cols-3 > div.bg-white > div.border-b{
+    border-bottom:1px solid rgba(255,255,255,.08)!important;
+}
+
+/* =====================================================
+   ICONO WHATSAPP CIRCLE
+===================================================== */
+.bg-gradient-to-r.from-green-100{
+    background:rgba(34,197,94,.15)!important;
+    border:1px solid rgba(34,197,94,.35);
+}
+
+/* =====================================================
+   BADGES
+===================================================== */
+span.bg-gradient-to-r.from-amber-100{
+    background:rgba(245,158,11,.15)!important;
+    border:1px solid rgba(245,158,11,.35);
+}
+
+span.bg-gray-100{
+    background:rgba(255,255,255,.08)!important;
+    border:1px solid rgba(255,255,255,.12);
+}
+
+/* =====================================================
+   INFO BOXES (NUMERO / PAIS)
+===================================================== */
+.bg-gray-50,
+.dark\:bg-gray-900\/50{
+    background:rgba(255,255,255,.05)!important;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+/* =====================================================
+   FOOTER TARJETA
+===================================================== */
+.bg-gray-50.dark\:bg-gray-900\/30{
+    background:rgba(255,255,255,.03)!important;
+    border-top:1px solid rgba(255,255,255,.08)!important;
+}
+
+/* =====================================================
+   DROPDOWN MENU
+===================================================== */
+.dropdown-menu{
+    background:rgba(20,20,25,.95)!important;
+    border:1px solid var(--border-red);
+    backdrop-filter:blur(14px);
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+#confirmModal > div{
+    background:var(--glass)!important;
+    border:1px solid var(--border-red);
+    backdrop-filter:blur(16px);
+}
+
+/* =====================================================
+   BOTONES MODAL
+===================================================== */
+#confirmDeleteBtn{
+    background:rgba(var(--red),.25)!important;
+    border:1px solid rgba(var(--red),.45);
+}
+
+#confirmDeleteBtn:hover{
+    background:rgba(var(--red),.38)!important;
+    transform:translateY(-2px);
+}
     </style>
 </x-app-layout>

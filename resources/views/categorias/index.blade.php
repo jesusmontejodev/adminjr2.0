@@ -1,132 +1,226 @@
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+
 <x-app-layout>
-    <!-- Fondo general dark -->
-    <div class="bg-gray-900 min-h-screen text-gray-200">
-        <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-            <!-- Header -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-                <div>
-                    <h1 class="text-2xl sm:text-3xl font-bold text-white">
-                        📂 Categorías
-                    </h1>
-                    <p class="text-sm text-gray-400 mt-1">
-                        Administra y organiza tus categorías
-                    </p>
-                </div>
+<div class="absolute inset-0 -z-20 bg-[#0f1115]"></div>
 
-                <a href="{{ route('categorias.create') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2.5
-                    bg-blue-600 hover:bg-blue-500 text-white
-                    font-medium rounded-xl shadow transition">
-                    ➕ Nueva categoría
-                </a>
-            </div>
+<div class="relative z-10 p-6 sm:p-10 max-w-[1440px] mx-auto">
 
-            <!-- Success Message -->
-            @if(session('success'))
-                <div class="mb-6 p-4
-                    bg-green-500/10 text-green-300
-                    border border-green-400/30
-                    rounded-xl">
-                    ✅ {{ session('success') }}
-                </div>
-            @endif
+    <!-- HEADER -->
+    <div class="flex justify-between items-center mb-10">
+        <h1 class="flex items-center gap-3 text-white text-2xl font-bold">
+            <span class="icon-circle">
+                <span class="material-symbols-outlined">category</span>
+            </span>
+            Categorías
+        </h1>
 
-            <!-- Table -->
-            <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-xl overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead class="bg-gray-900 border-b border-gray-700">
-                            <tr>
-                                <th class="px-5 py-4 text-left font-semibold text-gray-200">
-                                    Nombre
-                                </th>
-
-                                <th class="px-5 py-4 text-right font-semibold text-gray-200">
-                                    Acciones
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="divide-y divide-gray-700">
-                            @forelse($categorias as $categoria)
-                                <tr class="hover:bg-gray-700/50 transition">
-                                    <!-- Nombre -->
-                                    <td class="px-5 py-4 font-medium text-white">
-                                        {{ $categoria->nombre }}
-                                    </td>
-
-                                    <!-- Descripción -->
-                                    {{-- <td class="px-5 py-4">
-                                        @if($categoria->descripcion)
-                                            <span class="inline-block px-3 py-1 text-xs
-                                                bg-blue-500/20 text-blue-300
-                                                border border-blue-400/30 rounded-full">
-                                                {{ Str::limit($categoria->descripcion, 40) }}
-                                            </span>
-                                        @else
-                                            <span class="inline-block px-3 py-1 text-xs
-                                                bg-gray-700 text-gray-300
-                                                border border-gray-600 rounded-full">
-                                                Sin descripción
-                                            </span>
-                                        @endif
-                                    </td> --}}
-
-                                    <!-- Acciones -->
-                                    <td class="px-5 py-4 text-right">
-                                        <div class="flex justify-end gap-2">
-                                            <a href="{{ route('categorias.edit', $categoria) }}"
-                                                class="px-3 py-1.5 text-xs rounded-lg
-                                                bg-yellow-500/20 text-yellow-300
-                                                border border-yellow-400/40
-                                                hover:bg-yellow-500/30 transition">
-                                                ✏️ Editar
-                                            </a>
-
-                                            <form action="{{ route('categorias.destroy', $categoria) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('¿Eliminar esta categoría?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="px-3 py-1.5 text-xs rounded-lg
-                                                    bg-red-500/20 text-red-300
-                                                    border border-red-400/40
-                                                    hover:bg-red-500/30 transition">
-                                                    🗑️ Eliminar
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="3" class="px-6 py-12 text-center">
-                                        <p class="text-gray-400 mb-4">
-                                            Aún no has creado categorías
-                                        </p>
-                                        <a href="{{ route('categorias.create') }}"
-                                            class="inline-block px-4 py-2
-                                            bg-blue-600 hover:bg-blue-500
-                                            text-white rounded-lg transition">
-                                            Crear mi primera categoría
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Pagination (opcional) -->
-            @if(method_exists($categorias, 'links'))
-                <div class="mt-6">
-                    {{ $categorias->links() }}
-                </div>
-            @endif
-
-        </div>
+        <a href="{{ route('categorias.create') }}" class="btn-primary">
+            <span class="material-symbols-outlined">add</span>
+            Nueva categoría
+        </a>
     </div>
+
+    <!-- TABLA -->
+    <div class="tabla-container">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th class="text-right">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach ($categorias as $categoria)
+                    <tr>
+                        <!-- NOMBRE -->
+                        <td>
+                            <div class="flex items-center gap-2 font-semibold">
+                                <span class="material-symbols-outlined text-red-400 text-[18px]">
+                                    label
+                                </span>
+                                {{ $categoria->nombre }}
+                            </div>
+                        </td>
+
+                        <!-- ACCIONES -->
+                        <td class="acciones-td">
+                            <div class="acciones">
+                                <a href="{{ route('categorias.edit', $categoria) }}"
+                                   class="btn-action btn-edit">
+                                    <span class="material-symbols-outlined icon-btn">
+                                        edit_square
+                                    </span>
+                                    <span class="hidden sm:inline">Editar</span>
+                                </a>
+
+                                <form action="{{ route('categorias.destroy', $categoria) }}"
+                                      method="POST"
+                                      onsubmit="return confirm('¿Eliminar esta categoría?')">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn-action btn-delete">
+                                        <span class="material-symbols-outlined icon-btn">
+                                            delete
+                                        </span>
+                                        <span class="hidden sm:inline">Eliminar</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<style>
+/* ================= ICONOS ================= */
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 20;
+    font-size:18px;
+}
+
+/* ================= ICON CIRCLE ================= */
+.icon-circle {
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:rgba(239,68,68,.18);
+    border:1px solid rgba(239,68,68,.45);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ef4444;
+}
+
+/* ================= BOTÓN PRINCIPAL ================= */
+.btn-primary {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:0 16px;
+    height:40px;
+    border-radius:14px;
+    background:rgba(239,68,68,.22);
+    border:1px solid rgba(239,68,68,.45);
+    color:#fff;
+    font-weight:600;
+    transition:.25s;
+}
+
+.btn-primary:hover {
+    background:rgba(239,68,68,.35);
+    transform:translateY(-2px);
+}
+
+/* ================= TABLA ================= */
+.tabla-container {
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(239,68,68,.35);
+    border-radius:22px;
+    overflow:hidden;
+}
+
+.tabla {
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabla th {
+    padding:14px 18px;
+    font-size:13px;
+    color:#fca5a5;
+    text-align:left;
+}
+
+.tabla td {
+    padding:14px 18px;
+    color:#e5e5e5;
+    border-top:1px solid rgba(255,255,255,.06);
+    vertical-align:middle;
+}
+
+/* ================= ACCIONES ================= */
+.acciones-td {
+    text-align:right;
+}
+
+.acciones {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+}
+
+/* ================= BOTONES ================= */
+.btn-action {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    height:34px;
+    padding:0 14px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:600;
+    color:#fff;
+    transition:.25s;
+    white-space:nowrap;
+}
+
+.icon-btn {
+    width:18px;
+    height:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* ================= COLORES ================= */
+.btn-edit {
+    background:rgba(234,179,8,.18);
+    border:1px solid rgba(234,179,8,.45);
+}
+
+.btn-edit:hover {
+    background:rgba(234,179,8,.3);
+}
+
+.btn-delete {
+    background:rgba(239,68,68,.18);
+    border:1px solid rgba(239,68,68,.45);
+}
+
+.btn-delete:hover {
+    background:rgba(239,68,68,.32);
+}
+
+.btn-action:hover {
+    transform:translateY(-2px);
+}
+
+/* ===== FIX DEFINITIVO FORM EN ACCIONES ===== */
+.acciones form {
+    display:inline-flex;
+    align-items:center;
+    margin:0;
+}
+
+.acciones form button {
+    display:inline-flex;
+    align-items:center;
+}
+
+</style>
+
 </x-app-layout>

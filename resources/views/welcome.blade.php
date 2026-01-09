@@ -73,11 +73,12 @@
 
     <!-- subtítulo -->
    <h2 class="text-3xl md:text-4xl font-medium text-white leading-tight text-center mx-auto">
-    La administración inteligente que 
-    <span class="text-red-500 font-bold">
-        TU NEGOCIO
-    </span> 
-    merece
+    Controla tus
+    <span class="text-red-500 font-bold">finanzas</span>
+    o las de
+    <span class="text-red-500 font-bold">tu negocio</span> 
+    con un mensaje de 
+     <span class="text-red-500 font-bold">WhatsApp</span> 
     </h2>
 
 

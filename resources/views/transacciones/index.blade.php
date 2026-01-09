@@ -173,55 +173,70 @@
         </div>
 
         {{-- Resumen de transacciones --}}
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl p-6 text-white shadow-lg">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm opacity-90 mb-1">Ingresos</p>
-                        <p class="text-2xl font-bold">
-                            ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
-                        </p>
-                    </div>
-                    <div class="text-3xl">💰</div>
-                </div>
-            </div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
 
-            <div class="bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl p-6 text-white shadow-lg">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm opacity-90 mb-1">Egresos</p>
-                        <p class="text-2xl font-bold">
-                            ${{ number_format($transacciones->where('tipo', 'egreso')->sum('monto'), 2) }}
-                        </p>
-                    </div>
-                    <div class="text-3xl">📤</div>
-                </div>
+    {{-- INGRESOS --}}
+    <div class="summary-card border-green">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="summary-label">Ingresos</p>
+                <p class="summary-amount">
+                    ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
+                </p>
             </div>
-
-            <div class="bg-gradient-to-r from-orange-500 to-amber-600 rounded-2xl p-6 text-white shadow-lg">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm opacity-90 mb-1">Costos</p>
-                        <p class="text-2xl font-bold">
-                            ${{ number_format($transacciones->where('tipo', 'costo')->sum('monto'), 2) }}
-                        </p>
-                    </div>
-                    <div class="text-3xl">🏗️</div>
-                </div>
-            </div>
-
-            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-sm opacity-90 mb-1">Inversiones</p>
-                        <p class="text-2xl font-bold">
-                            ${{ number_format($transacciones->where('tipo', 'inversion')->sum('monto'), 2) }}
-                        </p>
-                    </div>
-                    <div class="text-3xl">📈</div>
-                </div>
-            </div>
+            <span class="material-symbols-outlined summary-icon text-green">
+                payments
+            </span>
         </div>
+    </div>
+
+    {{-- EGRESOS --}}
+    <div class="summary-card border-red">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="summary-label">Egresos</p>
+                <p class="summary-amount">
+                    ${{ number_format($transacciones->where('tipo', 'egreso')->sum('monto'), 2) }}
+                </p>
+            </div>
+            <span class="material-symbols-outlined summary-icon text-red">
+                north_east
+            </span>
+        </div>
+    </div>
+
+    {{-- COSTOS --}}
+    <div class="summary-card border-amber">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="summary-label">Costos</p>
+                <p class="summary-amount">
+                    ${{ number_format($transacciones->where('tipo', 'costo')->sum('monto'), 2) }}
+                </p>
+            </div>
+            <span class="material-symbols-outlined summary-icon text-amber">
+                construction
+            </span>
+        </div>
+    </div>
+
+    {{-- INVERSIONES --}}
+    <div class="summary-card border-blue">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="summary-label">Inversiones</p>
+                <p class="summary-amount">
+                    ${{ number_format($transacciones->where('tipo', 'inversion')->sum('monto'), 2) }}
+                </p>
+            </div>
+            <span class="material-symbols-outlined summary-icon text-blue">
+                trending_up
+            </span>
+        </div>
+    </div>
+
+</div>
+
 
         {{-- Tabla de transacciones --}}
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700">
@@ -555,20 +570,261 @@
 
     {{-- Estilos adicionales --}}
     <style>
-        [x-cloak] { display: none !important; }
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            opacity: 0;
-            cursor: pointer;
-        }
-        select {
-            background-position: right 1rem center;
-            background-repeat: no-repeat;
-            background-size: 1rem;
-            padding-right: 2.5rem;
-        }
-        .hover-lift:hover {
-            transform: translateY(-2px);
-            transition: transform 0.2s ease-in-out;
-        }
-    </style>
+/* =====================================================
+   BASE DARK
+===================================================== */
+:root{
+    --primary: 239,68,68; /* red-500 */
+    --bg-glass: rgba(255,255,255,.04);
+    --border-glass: rgba(239,68,68,.35);
+    --text-soft: #9ca3af;
+}
+
+/* Fondo general */
+body{
+    background:#0f1115;
+}
+
+/* =====================================================
+   CARDS / CONTENEDORES
+===================================================== */
+.bg-white,
+.dark\:bg-gray-800{
+    background: var(--bg-glass) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,.08);
+}
+
+.border-gray-100,
+.dark\:border-gray-700{
+    border-color: rgba(255,255,255,.08) !important;
+}
+
+/* =====================================================
+   HEADERS
+===================================================== */
+h1,h2,h3{
+    letter-spacing:.2px;
+}
+
+/* =====================================================
+   BOTONES (UNIFICADOS)
+===================================================== */
+button,
+a{
+    transition:.25s ease;
+}
+
+button:hover,
+a:hover{
+    transform: translateY(-2px);
+}
+
+/* Botones primarios */
+.bg-gradient-to-r.from-blue-600,
+.bg-gradient-to-r.from-green-600{
+    background: rgba(var(--primary),.22) !important;
+    border:1px solid rgba(var(--primary),.45);
+}
+
+.bg-gradient-to-r.from-blue-600:hover,
+.bg-gradient-to-r.from-green-600:hover{
+    background: rgba(var(--primary),.35) !important;
+}
+
+/* =====================================================
+   FILTROS
+===================================================== */
+input,
+select{
+    background: rgba(255,255,255,.06) !important;
+    border:1px solid rgba(255,255,255,.12) !important;
+    color:#fff !important;
+}
+
+input::placeholder{
+    color:#9ca3af;
+}
+
+input:focus,
+select:focus{
+    border-color: rgba(var(--primary),.6) !important;
+    box-shadow: 0 0 0 2px rgba(var(--primary),.25);
+}
+
+/* =====================================================
+   RESUMEN (CARDS SUPERIORES)
+===================================================== */
+.bg-gradient-to-r.from-green-500,
+.bg-gradient-to-r.from-red-500,
+.bg-gradient-to-r.from-orange-500,
+.bg-gradient-to-r.from-blue-500{
+    border-radius:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+}
+
+.bg-gradient-to-r.from-green-500{background:linear-gradient(135deg,#22c55e,#16a34a)}
+.bg-gradient-to-r.from-red-500{background:linear-gradient(135deg,#ef4444,#dc2626)}
+.bg-gradient-to-r.from-orange-500{background:linear-gradient(135deg,#f59e0b,#d97706)}
+.bg-gradient-to-r.from-blue-500{background:linear-gradient(135deg,#3b82f6,#2563eb)}
+
+/* =====================================================
+   TABLA (MISMO ESTILO CATEGORÍAS)
+===================================================== */
+table{
+    border-collapse:collapse;
+}
+
+thead{
+    background: rgba(255,255,255,.03);
+}
+
+th{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#fca5a5 !important;
+}
+
+td{
+    color:#e5e7eb;
+    border-top:1px solid rgba(255,255,255,.06);
+}
+
+tbody tr:hover{
+    background: rgba(255,255,255,.04);
+}
+
+/* =====================================================
+   BADGES (TIPO)
+===================================================== */
+.inline-flex.rounded-full{
+    backdrop-filter: blur(6px);
+    border:1px solid rgba(255,255,255,.12);
+}
+
+/* =====================================================
+   ACCIONES (BOTONES DE TABLA)
+===================================================== */
+td .inline-flex.p-2{
+    width:38px;
+    height:38px;
+    justify-content:center;
+    border-radius:10px;
+}
+
+td .inline-flex.text-blue-600{
+    background:rgba(59,130,246,.18);
+    border:1px solid rgba(59,130,246,.45);
+}
+
+td .inline-flex.text-red-600{
+    background:rgba(239,68,68,.18);
+    border:1px solid rgba(239,68,68,.45);
+}
+
+/* =====================================================
+   PAGINACIÓN
+===================================================== */
+nav[role="navigation"] a,
+nav[role="navigation"] span{
+    background: rgba(255,255,255,.06) !important;
+    border:1px solid rgba(255,255,255,.12) !important;
+    color:#fff !important;
+}
+
+nav[role="navigation"] a:hover{
+    background: rgba(var(--primary),.25) !important;
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+.empty-state,
+td[colspan]{
+    color:var(--text-soft);
+}
+
+/* =====================================================
+   ANIMACIONES SUAVES
+===================================================== */
+@keyframes softFade{
+    from{opacity:0;transform:translateY(8px)}
+    to{opacity:1;transform:none}
+}
+
+tbody tr{
+    animation:softFade .35s ease;
+}
+/* Card de filtros */
+.bg-white.dark\:bg-gray-800.rounded-2xl.shadow-lg.p-6{
+    border:1px solid rgba(var(--primary), .45) !important;
+}
+
+/* Contenedor tabla de transacciones */
+.bg-white.dark\:bg-gray-800.rounded-2xl.shadow-lg.overflow-hidden{
+    border:1px solid rgba(var(--primary), .45) !important;
+}
+
+/* Header de la tabla */
+.bg-gray-50.dark\:bg-gray-900\/50{
+    border-bottom:1px solid rgba(var(--primary), .35) !important;
+}
+
+/* Línea superior de la tabla */
+thead{
+    border-bottom:1px solid rgba(var(--primary), .25);
+}
+
+/* =====================================================
+   SUMMARY CARDS – DARK GLASS STYLE
+===================================================== */
+
+.summary-card{
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:24px;
+    backdrop-filter: blur(12px);
+    transition:.3s;
+}
+
+.summary-card:hover{
+    transform:translateY(-3px);
+    background:rgba(255,255,255,.06);
+}
+
+/* Texto */
+.summary-label{
+    font-size:13px;
+    color:#9ca3af;
+    margin-bottom:4px;
+}
+
+.summary-amount{
+    font-size:22px;
+    font-weight:700;
+    color:#fff;
+}
+
+/* Iconos */
+.summary-icon{
+    font-size:38px;
+    opacity:.9;
+}
+
+/* Colores sutiles */
+.border-green{ border-color: rgba(34,197,94,.45); }
+.border-red{ border-color: rgba(239,68,68,.45); }
+.border-amber{ border-color: rgba(245,158,11,.45); }
+.border-blue{ border-color: rgba(59,130,246,.45); }
+
+.text-green{ color: rgb(34,197,94); }
+.text-red{ color: rgb(239,68,68); }
+.text-amber{ color: rgb(245,158,11); }
+.text-blue{ color: rgb(59,130,246); }
+
+
+</style>
+
 </x-app-layout>
