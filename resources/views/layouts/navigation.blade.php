@@ -81,38 +81,26 @@
         </a>
     </div>
 
-    <!-- MENÚ -->
-    <div class="flex-1 px-4 py-6 space-y-3 overflow-y-auto">
-
-        <a href="{{ route('dashboard') }}"
-           @class(['sidebar-link','is-active' => request()->routeIs('dashboard')])>
-            <span class="material-symbols-outlined sidebar-icon">space_dashboard</span>
-            <span>Dashboard</span>
-        </a>
-
-        <a href="{{ route('cuentas.index') }}"
-           @class(['sidebar-link','is-active' => request()->routeIs('cuentas.*')])>
-            <span class="material-symbols-outlined sidebar-icon">account_balance</span>
-            <span>Cuentas</span>
-        </a>
-
-        <a href="{{ route('categorias.index') }}"
-           @class(['sidebar-link','is-active' => request()->routeIs('categorias.*')])>
-            <span class="material-symbols-outlined sidebar-icon">category</span>
-            <span>Categorías</span>
-        </a>
-
-        <a href="{{ route('transacciones.index') }}"
-           @class(['sidebar-link','is-active' => request()->routeIs('transacciones.*')])>
-            <span class="material-symbols-outlined sidebar-icon">sync_alt</span>
-            <span>Transacciones</span>
-        </a>
-
-        <a href="{{ route('transaccionesinternas.index') }}"
-           @class(['sidebar-link','is-active' => request()->routeIs('infocomisionesinternas.*')])>
-            <span class="material-symbols-outlined sidebar-icon">swap_horiz</span>
-            <span>Transacciones internas</span>
-        </a>
+    <!-- Navegación Principal -->
+    <div class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            📊 Dashboard
+        </x-nav-link>
+        {{-- <x-nav-link :href="route('analistajr.index')" :active="request()->routeIs('analistajr.index')">
+            🧠 Analista de datos Jr.
+        </x-nav-link> --}}
+        <x-nav-link :href="route('cuentas.index')" :active="request()->routeIs('cuentas.*')">
+            💳 Cuentas
+        </x-nav-link>
+        <x-nav-link :href="route('categorias.index')" :active="request()->routeIs('categorias.*')">
+            🗂️ Categorías
+        </x-nav-link>
+        <x-nav-link :href="route('transacciones.index')" :active="request()->routeIs('transacciones.*')">
+            💸 Transacciones
+        </x-nav-link>
+        <x-nav-link :href="route('transaccionesinternas.index')" :active="request()->routeIs('infocomisionesinternas.*')">
+            🔁 Transacciones internas
+        </x-nav-link>
 
     </div>
 

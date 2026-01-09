@@ -11,11 +11,54 @@ use Carbon\Carbon;
 
 class TransaccionController extends Controller
 {
+    // Token de prueba - ponlo en tu .env como API_TEST_TOKEN
+    private $apiToken;
+
+    public function __construct()
+    {
+        // Obtener el token desde .env
+        $this->apiToken = env('API_TEST_TOKEN', 'test-token-123456');
+    }
+
+    /**
+     * Verificar el token Bearer
+     */
+    private function verifyToken(Request $request)
+    {
+        $authHeader = $request->header('Authorization');
+
+        if (!$authHeader) {
+            return [
+                'success' => false,
+                'message' => 'Token de autorización no proporcionado'
+            ];
+        }
+
+        // Extraer el token Bearer
+        $token = str_replace('Bearer ', '', $authHeader);
+
+        // Verificar si el token coincide
+        if ($token !== $this->apiToken) {
+            return [
+                'success' => false,
+                'message' => 'Token inválido o expirado'
+            ];
+        }
+
+        return ['success' => true];
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
         $transacciones = Transaccion::with(['cuenta', 'categoria'])
             ->latest()
             ->get();
@@ -31,33 +74,50 @@ class TransaccionController extends Controller
      */
     public function store(Request $request)
     {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
         try {
             // Validación básica de datos
             $data = $request->validate([
+                'id_usuario' => 'required|integer|exists:users,id',
                 'cuenta'    => 'required|string',
                 'categoria' => 'required|string',
-                'tipo'      => 'required|string|in:ingreso,gasto,inversion',
+                'tipo'      => 'required|string|in:ingreso,gasto,egreso,inversion',
                 'monto'     => 'required|numeric|min:0.01',
                 'descripcion'=> 'nullable|string',
+                'fecha'     => 'nullable|date',
             ]);
 
-            // Verificar existencia de la cuenta
-            $cuenta = Cuenta::where('nombre', $data['cuenta'])->first();
+            // Verificar existencia de la cuenta - usando id_user
+            $cuenta = Cuenta::where('nombre', $data['cuenta'])
+                ->where('id_user', $data['id_usuario'])
+                ->first();
+
             if (!$cuenta) {
                 return response()->json([
                     'success' => false,
-                    'message' => "La cuenta '{$data['cuenta']}' no existe."
+                    'message' => "La cuenta '{$data['cuenta']}' no existe para este usuario."
                 ], 404);
             }
 
-            // Verificar existencia de la categoría
-            $categoria = Categoria::where('nombre', $data['categoria'])->first();
+            // Verificar existencia de la categoría - usando id_user
+            $categoria = Categoria::where('nombre', $data['categoria'])
+                ->where('id_user', $data['id_usuario'])
+                ->first();
+
             if (!$categoria) {
                 return response()->json([
                     'success' => false,
-                    'message' => "La categoría '{$data['categoria']}' no existe."
+                    'message' => "La categoría '{$data['categoria']}' no existe para este usuario."
                 ], 404);
             }
+
+            // Determinar la fecha a usar
+            $fecha = isset($data['fecha']) ? Carbon::parse($data['fecha']) : Carbon::now();
 
             // Crear la transacción
             $transaccion = Transaccion::create([
@@ -65,24 +125,39 @@ class TransaccionController extends Controller
                 'categoria_id' => $categoria->id,
                 'monto'        => $data['monto'],
                 'descripcion'  => $data['descripcion'] ?? null,
-                'fecha'        => Carbon::now(),
+                'fecha'        => $fecha,
                 'tipo'         => $data['tipo']
             ]);
 
             // Actualizar saldo de la cuenta
             if ($data['tipo'] === 'ingreso') {
                 $cuenta->saldo_actual += $data['monto'];
-            } else { // gasto o inversion
+            } else { // gasto, egreso o inversion
                 $cuenta->saldo_actual -= $data['monto'];
+
+                // Verificar que el saldo no sea negativo (opcional)
+                if ($cuenta->saldo_actual < 0) {
+                    // Opcional: puedes decidir si permitir saldo negativo o rechazar
+                    // return response()->json([
+                    //     'success' => false,
+                    //     'message' => 'Saldo insuficiente en la cuenta.'
+                    // ], 400);
+                }
             }
             $cuenta->save();
 
             return response()->json([
                 'success' => true,
                 'message' => 'Transacción registrada correctamente.',
-                'transaccion' => $transaccion
+                'transaccion' => $transaccion->load(['cuenta', 'categoria'])
             ], 201);
 
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error de validación',
+                'errors' => $e->errors()
+            ], 422);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -92,8 +167,14 @@ class TransaccionController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
         $transaccion = Transaccion::with(['cuenta', 'categoria'])->find($id);
         if (!$transaccion) {
             return response()->json(['success' => false, 'message' => 'Transacción no encontrada.'], 404);
@@ -106,15 +187,22 @@ class TransaccionController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
         $transaccion = Transaccion::find($id);
         if (!$transaccion) {
             return response()->json(['success' => false, 'message' => 'Transacción no encontrada.'], 404);
         }
 
         $data = $request->validate([
-            'tipo'        => 'sometimes|string|in:ingreso,gasto,inversion',
+            'tipo'        => 'sometimes|string|in:ingreso,gasto,egreso,inversion',
             'monto'       => 'sometimes|numeric|min:0.01',
             'descripcion' => 'nullable|string',
+            'fecha'       => 'sometimes|date',
         ]);
 
         // Actualizar saldo de la cuenta si cambia el monto
@@ -136,8 +224,14 @@ class TransaccionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
         $transaccion = Transaccion::find($id);
         if (!$transaccion) {
             return response()->json(['success' => false, 'message' => 'Transacción no encontrada.'], 404);
@@ -159,8 +253,14 @@ class TransaccionController extends Controller
     /**
      * Nueva función para obtener todas las cuentas
      */
-    public function cuentas()
+    public function cuentas(Request $request)
     {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
         $cuentas = Cuenta::all();
 
         return response()->json([
@@ -169,8 +269,33 @@ class TransaccionController extends Controller
         ]);
     }
 
-    public function graficos()
+    /**
+     * Obtener cuentas por usuario
+     */
+    public function cuentasPorUsuario(Request $request, $id_usuario)
     {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
+        $cuentas = Cuenta::where('id_user', $id_usuario)->get();
+
+        return response()->json([
+            'success' => true,
+            'cuentas' => $cuentas
+        ]);
+    }
+
+    public function graficos(Request $request)
+    {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
         // Obtener todas las cuentas
         $cuentas = Cuenta::all();
 
@@ -210,5 +335,91 @@ class TransaccionController extends Controller
                 ]
             ]
         ]);
+    }
+
+    /**
+     * Nuevo método para obtener transacciones por usuario
+     */
+    public function porUsuario(Request $request, $id_usuario)
+    {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
+        $transacciones = Transaccion::with(['cuenta', 'categoria'])
+            ->whereHas('cuenta', function($query) use ($id_usuario) {
+                $query->where('id_user', $id_usuario);
+            })
+            ->orWhereHas('categoria', function($query) use ($id_usuario) {
+                $query->where('id_user', $id_usuario);
+            })
+            ->latest()
+            ->get();
+
+        return response()->json([
+            'success' => true,
+            'transacciones' => $transacciones
+        ]);
+    }
+
+    /**
+     * Método para obtener estadísticas por usuario
+     */
+    public function estadisticasPorUsuario(Request $request, $id_usuario)
+    {
+        // Verificar token
+        $tokenCheck = $this->verifyToken($request);
+        if (!$tokenCheck['success']) {
+            return response()->json($tokenCheck, 401);
+        }
+
+        // Obtener cuentas del usuario
+        $cuentas = Cuenta::where('id_user', $id_usuario)->get();
+
+        // Obtener transacciones del usuario
+        $transacciones = Transaccion::with(['cuenta', 'categoria'])
+            ->whereHas('cuenta', function($query) use ($id_usuario) {
+                $query->where('id_user', $id_usuario);
+            })
+            ->get();
+
+        // Cálculos de estadísticas
+        $ingresos = $transacciones->where('tipo', 'ingreso')->sum('monto');
+        $gastos = $transacciones->whereIn('tipo', ['gasto', 'egreso'])->sum('monto');
+        $inversiones = $transacciones->where('tipo', 'inversion')->sum('monto');
+
+        return response()->json([
+            'success' => true,
+            'estadisticas' => [
+                'total_cuentas' => $cuentas->count(),
+                'total_transacciones' => $transacciones->count(),
+                'saldo_total' => $cuentas->sum('saldo_actual'),
+                'ingresos_total' => $ingresos,
+                'gastos_total' => $gastos,
+                'inversiones_total' => $inversiones,
+                'balance' => $ingresos - $gastos - $inversiones
+            ],
+            'cuentas' => $cuentas,
+            'transacciones_recientes' => $transacciones->take(10)
+        ]);
+    }
+
+    /**
+     * Método para verificar si el token es válido (útil para pruebas)
+     */
+    public function verify(Request $request)
+    {
+        $tokenCheck = $this->verifyToken($request);
+
+        if ($tokenCheck['success']) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Token válido'
+            ]);
+        } else {
+            return response()->json($tokenCheck, 401);
+        }
     }
 }
