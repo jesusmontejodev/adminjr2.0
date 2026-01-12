@@ -68,57 +68,117 @@
 <!-- MAIN -->
 <main class="max-w-7xl mx-auto px-6 pt-24 pb-24 relative">
 
-    <!-- HERO -->
-   <section class="text-center space-y-8 relative">
+<!-- HERO -->
+<section class="max-w-7xl mx-auto px-6 pt-24 pb-32 relative overflow-hidden">
 
-    <!-- subtítulo -->
-   <h2 class="text-3xl md:text-4xl font-medium text-white leading-tight text-center mx-auto">
-    Controla tus
-    <span class="text-red-500 font-bold">finanzas</span>
-    o las de
-    <span class="text-red-500 font-bold">tu negocio</span> 
-    con un mensaje de 
-     <span class="text-red-500 font-bold">WhatsApp</span> 
-    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
+        <!-- TEXTO -->
+         
+        <div class="space-y-8 text-center lg:text-left">
+           <!-- glow decorativo -->
+        <div class="absolute inset-0 -z-10 flex justify-center items-center">
+            <div class="w-[60%] h-[60%] bg-red-600/20 blur-3xl rounded-full"></div>
+        </div>
 
-    <!-- descripción -->
-    <p class="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-        <span class="text-white font-medium">Admin JR</span> organiza tus finanzas,
-        controla tus <span class="text-red-500 font-medium">ingresos y egresos</span>,
-        te recuerda pagos y mantiene tu negocio en orden  
-        <span class="text-white font-medium">sin contratar a un administrador</span>.
-        <br><br>
-        Diseñado para 
-        <span class="text-red-500 font-medium">emprendedores</span>,
-        <span class="text-red-500 font-medium">freelancers</span> y
-        <span class="text-red-500 font-medium">pequeños negocios</span>
-        que necesitan  
-        <span class="text-white font-medium">claridad,</span>
-        <span class="text-white font-medium">control</span>
-             y
-        <span class="text-white font-medium">tiempo libre</span>.
-    </p>
+            <h2 class="text-3xl md:text-4xl font-medium text-white leading-tight">
+                
+                Controla tus
+                <span class="text-red-500 font-bold">finanzas</span>
+                o las de
+                <span class="text-red-500 font-bold">tu negocio</span>
+                con un mensaje de
+                <span class="text-red-500 font-bold">WhatsApp</span>
+            </h2>
 
-    <!-- botones -->
-    <div class="flex flex-col sm:flex-row justify-center gap-6 pt-6">
+            <p class="text-lg md:text-xl text-white/70 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                Reporta tus
+                <span class="text-red-500 font-medium">ventas y gastos</span>
+                por <span class="text-red-500 font-medium">WhatsApp</span>
+                y recibe
+                <span class="text-white font-medium">resúmenes automáticos</span>
+                de tu dinero al instante.
+            </p>
 
-        <!-- botón principal -->
-        <a href="{{ asset('PDF/BROCHURE_AVASPACE_ADMIN_JR_2.pdf') }}"
-           download
-           class="px-10 py-4 rounded-full font-semibold
-                  bg-red-600 text-white
-                  hover:bg-red-700 transition
-                  shadow-lg shadow-red-600/30">
-            Descargar brochure
-        </a>
+        </div>
+
+        <!-- MOCKUP -->
+<div class="flex justify-center relative font-montserrat">
+
+    <!-- GLOW -->
+    <div class="absolute -z-10 w-[460px] h-[460px] bg-red-600/15 blur-[160px] rounded-full"></div>
+
+    <!-- FRAME -->
+    <div class="relative bg-white/5 backdrop-blur-xl
+                border border-white/10 rounded-3xl p-8 shadow-2xl">
+
+        <!-- PHONE -->
+        <div class="w-[310px] rounded-[2.6rem]
+                    bg-[#111827] border border-white/10 overflow-hidden">
+
+            <!-- TOP BAR -->
+            <div class="px-5 py-4 flex items-center gap-3
+                        bg-gradient-to-r from-[#075E54] to-[#0b6e63]">
+
+                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center">
+                    <img src="{{ asset('avaspace.svg') }}" alt="Admin JR" class="w-5 h-5">
+                </div>
+
+                <div class="flex-1">
+                    <p class="text-sm font-semibold text-white tracking-wide">
+                        Admin JR 🤖
+                    </p>
+                    <p class="text-[11px] text-white/70">
+                        Asistente financiero 📊
+                    </p>
+                </div>
+            </div>
+
+            <!-- CHAT -->
+            <div class="bg-[#F4F5F7] px-5 py-6 space-y-5 text-[13px] text-left">
+
+                <!-- USER -->
+                <div class="flex justify-end">
+                    <div class="bg-white px-4 py-3 rounded-2xl
+                                max-w-[80%] shadow text-black leading-relaxed">
+                        💸 Venta del día $2,500<br>
+                        💳 pago con tarjeta
+                    </div>
+                </div>
+
+                <!-- ADMIN JR -->
+                <div class="flex justify-start">
+                    <div class="bg-[#e8f5ef] px-4 py-3 rounded-2xl
+                                max-w-[80%] shadow text-black space-y-2">
+
+                        <p class="font-semibold">
+                            ✅ Movimiento registrado
+                        </p>
+
+                        <div class="text-xs space-y-1">
+                            <p>📥 Ingreso: <b>$2,500</b></p>
+                            <p>💳 Método: Tarjeta</p>
+                            <p>📈 Utilidad del día: <b>$1,700</b></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESUMEN -->
+                <div class="flex justify-start">
+                    <div class="bg-white px-4 py-3 rounded-2xl
+                                max-w-[80%] shadow text-black text-xs leading-relaxed">
+
+                        <b>📊 Resumen rápido</b><br>
+                        Hoy llevas un balance positivo ✅<br>
+                        ¿Deseas ver el reporte semanal? 📅
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
-    <!-- glow decorativo -->
-    <div class="absolute inset-0 -z-10 flex justify-center">
-        <div class="w-[60%] h-[60%] bg-red-600/20 blur-3xl rounded-full"></div>
-    </div>
-
+</div>
 </section>
 
     
@@ -135,43 +195,96 @@
         </div>
 
         <h3 class="text-3xl font-extrabold text-white leading-tight">
-            La mejor 
-            <span class="text-red-600">herramienta de automatización</span> 
-            administrativa
+            Tu asistente administrativo
+            <span class="text-red-600">vive en tu WhatsApp</span>
         </h3>
 
         <p class="text-white/70 text-lg leading-relaxed">
-            Admin JR te ayuda a visualizar el estado real de tu negocio en segundos.
-            Centraliza <span class="text-white font-medium">ingresos</span>,
-            <span class="text-white font-medium">egresos</span>,
-            recordatorios y reportes en una sola plataforma diseñada para emprendedores
-            que buscan administrar de forma
+            <span class="text-white font-medium">
+                La mejor herramienta de automatización
+            </span>
+            para controlar tu negocio en segundos.
+            <br><br>
+            No necesitas abrir plataformas complicadas para saber cuánto dinero tienes.
+            Solo envía un texto y
+            <span class="text-white font-medium">Admin JR</span>
+            se encarga del resto: centraliza
+            <span class="text-white font-medium">ingresos</span>,
+            <span class="text-white font-medium">egresos</span> y
+            <span class="text-white font-medium">recordatorios</span>
+            de forma
             <span class="text-red-500 font-medium">simple</span>,
             <span class="text-red-500 font-medium">rápida</span> y
             <span class="text-red-500 font-medium">sin errores</span>.
+            <br><br>
+            Reporta y consulta tu
+            <span class="text-white font-medium">utilidad</span>
+            sin salir de tu chat favorito.
         </p>
+
     </div>
 
-    <!-- IMAGEN (SIN CAMBIOS) -->
-    <div class="flex justify-center">
-        <div class="relative w-full max-w-md rounded-2xl 
-                    overflow-hidden bg-white/10 backdrop-blur-md 
-                    border border-white/10 shadow-2xl">
-            <img 
-                src="{{ asset('images/grafica.jpg') }}" 
-                alt="Dashboard Admin JR"
-                class="w-full h-auto object-cover"
-            >
+    <!-- MOCKUP GRÁFICA / RESUMEN -->
+<div class="flex justify-center relative font-montserrat">
+
+    <!-- glow -->
+    <div class="absolute -z-10 w-[420px] h-[420px] bg-red-600/20 blur-[150px] rounded-full"></div>
+
+    <!-- card -->
+    <div class="relative w-full max-w-md
+                bg-white/10 backdrop-blur-xl
+                border border-white/10 rounded-3xl
+                p-6 shadow-2xl space-y-6">
+
+        <!-- header -->
+        <div>
+            <p class="text-sm text-white/60">
+                Resumen del día
+            </p>
+            <h4 class="text-2xl font-extrabold text-white">
+                $1,950 <span class="text-red-500">MXN</span>
+            </h4>
+            <p class="text-xs text-white/60">
+                Utilidad neta
+            </p>
+        </div>
+
+        <!-- gráfica -->
+        <div class="space-y-3">
+            <div>
+                <div class="flex justify-between text-xs text-white/70 mb-1">
+                    <span>Ingresos</span>
+                    <span>$3,200</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-white/10">
+                    <div class="h-2 rounded-full bg-green-500 w-[85%]"></div>
+                </div>
+            </div>
+
+            <div>
+                <div class="flex justify-between text-xs text-white/70 mb-1">
+                    <span>Egresos</span>
+                    <span>$1,250</span>
+                </div>
+                <div class="w-full h-2 rounded-full bg-white/10">
+                    <div class="h-2 rounded-full bg-red-500 w-[40%]"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="bg-black/30 rounded-xl p-4 text-xs text-white/70 leading-relaxed">
+            Balance actualizado automáticamente a partir de tus mensajes.
         </div>
     </div>
-
+</div>
 </section>
 
   <!-- FEATURES -->
 <section class="mt-32">
-    <h2 class="text-4xl font-extrabold text-center mb-16 text-white">
-        Características <span class="text-red-600">principales</span>
-    </h2>
+    <h3 class="text-3xl font-extrabold text-center mb-16 text-white">
+        Todo el poder de Admin JR, <span class="text-red-600">a un mensaje de distancia</span>
+    </h3>
 
     <div class="grid md:grid-cols-3 gap-12">
 
@@ -189,13 +302,15 @@
             </span>
 
             <h4 class="text-xl font-semibold text-white">
-                Automatiza tus <span class="text-red-500">ingresos y egresos</span>
+                Registro en <span class="text-red-500">3 segundos</span>
+                vía 
+                <span class="text-red-500">WhatsApp</span>
             </h4>
 
             <p class="text-white/70 leading-relaxed">
-                Admin JR registra tus movimientos de manera intuitiva y te permite
-                tener control total de tu flujo de efectivo sin depender de hojas
-                de Excel o procesos manuales.
+                Tu nuevo registro contable es un mensaje de texto. Olvida abrir la computadora o pelear con hojas de Excel. 
+                Reporta una venta o un gasto mientras sucede, directamente en tu chat. Admin JR procesa la información al instante 
+                para que tu flujo de efectivo esté siempre al día.
             </p>
         </div>
 
@@ -217,9 +332,10 @@
             </h4>
 
             <p class="text-white/70 leading-relaxed">
-                Olvídate de pagos atrasados, cuentas pendientes o cargos olvidados.
-                Admin JR envía alertas automáticas para mantener tu negocio al día
-                y evitar fugas de dinero.
+                
+                Tu asistente te avisa qué falta por reportar o cobrar. Recibe recordatorios automáticos por WhatsApp sobre pagos 
+                de clientes o facturas por vencer. Evita fugas de dinero y mantén tus cuentas claras sin tener que revisar agendas
+                o correos traspapelados.
             </p>
         </div>
 
@@ -237,13 +353,13 @@
             </span>
 
             <h4 class="text-xl font-semibold text-white">
-                Reportes <span class="text-red-500">claros y visibles</span>
+                El resumen de tu   <span class="text-red-500">administración 24/7</span>
             </h4>
 
             <p class="text-white/70 leading-relaxed">
-                Obtén reportes fáciles de entender, gráficos dinámicos y
-                resúmenes que muestran exactamente cómo va tu negocio,
-                todo en un solo dashboard.
+                No más dudas sobre cuánto estás ganando. Recibe resúmenes de utilidad y gráficos dinámicos
+                que te dicen exactamente cómo va tu negocio hoy. Obtén respuestas inmediatas por WhatsApp o 
+                profundiza en tu dashboard: información clara para tomar decisiones rápidas.
             </p>
         </div>
 
@@ -280,19 +396,30 @@
         </div>
 
         <h3 class="text-3xl font-extrabold text-white mb-4">
-            Empieza hoy <span class="text-red-600"></span>
+            Activa tu
+            <span class="text-red-600">asistente financiero</span>
         </h3>
 
-        <p class="text-white/70 mb-6">
-            Haz la diferencia y administra mejor tu empresa desde ahora.
+        <p class="text-white/70 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <!---Deja atrás el
+            <span class="text-white font-medium">Excel</span>
+            y las
+            <span class="text-white font-medium">notas de papel</span>.
+            <br>--->
+            Configura tu cuenta en segundos y comienza a recibir
+            <span class="text-red-600 font-medium">reportes automáticos</span>
+            que te permiten
+            <span class="text-white font-medium">controlar tu administración</span>
+            desde hoy mismo.
         </p>
 
         <a href="{{ route('register') }}"
-           class="inline-block px-10 py-3 rounded-full bg-red-600 hover:bg-red-700 transition font-semibold text-white">
+           class="inline-block px-12 py-4 rounded-full bg-red-600 hover:bg-red-700 transition font-semibold text-white shadow-lg shadow-red-600/30">
             Crear cuenta
         </a>
     </div>
 </section>
+
 
 </main>
 
@@ -321,16 +448,8 @@
         <div class="space-y-2 text-sm">
             <h3 class="font-semibold">Equipo</h3>
             <ul class="space-y-1 text-gray-600">
-                <li><a href="#">Nosotros</a></li>
+                <li><a href="{{ route('nosotros') }}">Nosotros</a></li>
                 <li><a href="#">Blog</a></li>
-            </ul>
-        </div>
-
-        <div class="space-y-2 text-sm">
-            <h3 class="font-semibold">Comprar</h3>
-            <ul class="space-y-1 text-gray-600">
-                <li><a href="#">Spacetools</a></li>
-                <li><a href="#">Precios</a></li>
             </ul>
         </div>
 

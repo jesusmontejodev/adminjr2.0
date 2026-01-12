@@ -17,6 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//ruta de nosotros
+Route::get('/nosotros', function () {
+    return view('nosotros');
+})->name('nosotros');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
