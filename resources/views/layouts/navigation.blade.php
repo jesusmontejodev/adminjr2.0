@@ -113,42 +113,54 @@
 
     </div>
 
-    <!-- USUARIO -->
-    <div class="p-4 border-t border-white/10">
-        <div class="flex items-center justify-between bg-white/5 rounded-xl px-4 py-3">
+  <!-- USUARIO -->
+<div class="p-4 border-t border-white/10 relative">
 
-            <div class="flex items-center gap-4 min-w-0">
-                <div class="w-9 h-9 rounded-full bg-red-500/20 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-red-300">person</span>
-                </div>
+    <!-- DROPDOWN FLOTANTE ARRIBA -->
+    <div class="absolute bottom-full left-4 right-4 mb-3 z-50 hidden group-hover:block" id="user-menu">
+        <div class="bg-[#14161c] border border-white/10 rounded-xl shadow-xl overflow-hidden">
+            <a href="{{ route('profile.edit') }}"
+               class="block px-4 py-3 text-sm text-gray-300 hover:bg-red-500/15 hover:text-red-300 transition">
+                Perfil
+            </a>
 
-                <div class="min-w-0">
-                    <p class="text-sm font-medium truncate">{{ Auth::user()->name }}</p>
-                    <p class="text-xs text-gray-400 truncate">{{ Auth::user()->email }}</p>
-                </div>
-            </div>
-
-            <x-dropdown align="right" width="48">
-                <x-slot name="trigger">
-                    <button class="text-gray-400 hover:text-white transition">
-                        <span class="material-symbols-outlined">expand_more</span>
-                    </button>
-                </x-slot>
-
-                <x-slot name="content">
-                    <x-dropdown-link :href="route('profile.edit')">Perfil</x-dropdown-link>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-dropdown-link
-                            :href="route('logout')"
-                            onclick="event.preventDefault(); this.closest('form').submit();">
-                            Cerrar sesión
-                        </x-dropdown-link>
-                    </form>
-                </x-slot>
-            </x-dropdown>
-
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button
+                    type="submit"
+                    class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-red-500/15 hover:text-red-300 transition">
+                    Cerrar sesión
+                </button>
+            </form>
         </div>
     </div>
+
+    <!-- TARJETA USUARIO -->
+    <div
+        class="group flex items-center justify-between bg-white/5 rounded-xl px-4 py-3 cursor-pointer"
+        onclick="document.getElementById('user-menu').classList.toggle('hidden')"
+    >
+
+        <div class="flex items-center gap-4 min-w-0">
+            <div class="w-9 h-9 rounded-full bg-red-500/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-red-300">person</span>
+            </div>
+
+            <div class="min-w-0">
+                <p class="text-sm font-medium truncate">
+                    {{ Auth::user()->name }}
+                </p>
+                <p class="text-xs text-gray-400 truncate">
+                    {{ Auth::user()->email }}
+                </p>
+            </div>
+        </div>
+
+        <span class="material-symbols-outlined text-gray-400">
+            expand_more
+        </span>
+    </div>
+
+</div>
 
 </nav>

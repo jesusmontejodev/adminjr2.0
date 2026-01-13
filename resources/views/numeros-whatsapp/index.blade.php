@@ -9,9 +9,9 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
                 <div class="flex items-center gap-3 mb-2">
-                    <h1 class="text-3xl font-bold text-white">
+                    <h2 class="text-2xl font-bold text-white">
                         WhatsApp connection
-                    </h1>
+                    </h2>
 
                     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold border border-green-500/40 bg-green-500/10 text-green-400">
                         <span class="material-symbols-rounded text-base">
@@ -46,174 +46,146 @@
         @endif
 
         {{-- LISTA VERTICAL --}}
-        <div class="space-y-6 mb-10">
+<div class="space-y-6 mb-10">
 
-           {{-- NUMEROS TOTALES --}}
-<div class="list-card">
+    {{-- NUMEROS TOTALES (solo si hay números) --}}
+    @if($numeros->isNotEmpty())
+        <div class="list-card">
+            <div class="flex items-start gap-6">
+                <div class="icon-box shrink-0">
+                    <span class="material-symbols-rounded text-green-400 text-2xl">
+                        forum
+                    </span>
+                </div>
 
-    <div class="flex items-start gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-1">
+                        <span class="text-red-500 font-bold">Números Totales</span>
+                    </h3>
 
-        {{-- ICONO --}}
-        <div class="icon-box shrink-0">
-            <span class="material-symbols-rounded text-green-400 text-2xl">
-                forum
-            </span>
+                    <p class="text-2xl font-bold text-white">
+                        {{ $numeros->count() }}
+                    </p>
+
+                    <p class="text-sm text-gray-500 mt-3">
+                        Total de números conectados a WhatsApp Business
+                    </p>
+                </div>
+            </div>
         </div>
-        
-        <div>
-            <p class="text-sm text-gray-400 mb-1">
-                Números Totales
-            </p>
+    @endif
 
-            <p class="text-4xl font-bold text-white">
-                {{ $numeros->count() }}
-            </p>
+    {{-- VACÍO --}}
+    @if($numeros->isEmpty())
+        <div class="list-card">
+            <div class="flex items-start gap-6">
+                <div class="icon-box shrink-0">
+                    <span class="material-symbols-rounded text-green-400 text-2xl">
+                        mark_chat_unread
+                    </span>
+                </div>
 
-            <p class="text-sm text-gray-500 mt-3">
-                Total de números conectados a WhatsApp Business
-            </p>
+                <div>
+                    <h3 class="text-xl font-semibold text-white mb-1">
+                        <span class="text-red-500 font-bold">Sin números configurados</span>
+                    </h3>
+
+                    <p class="text-gray-400 text-sm mb-4">
+                        Conecta tu primer número de WhatsApp Business
+                    </p>
+
+                    <a href="{{ route('numeros-whatsapp.create') }}" class="btn-secondary">
+                        + Conectar número
+                    </a>
+                </div>
+            </div>
         </div>
-
-    </div>
+    @endif
 
 </div>
-
-
-            {{-- VACÍO --}}
-            @if($numeros->isEmpty())
-        <div class="list-card">
-
-        <div class="flex items-start gap-6">
-
-            {{-- ICONO --}}
-            <div class="icon-box shrink-0">
-                <span class="material-symbols-rounded text-green-400 text-2xl">
-                    mark_chat_unread
-                </span>
-            </div>
-
-            {{-- TEXTO --}}
-            <div>
-                <h3 class="text-xl font-semibold text-white mb-1">
-                    Sin números configurados
-                </h3>
-
-                <p class="text-gray-400 text-sm mb-4">
-                    Conecta tu primer número de WhatsApp Business
-                </p>
-
-                <a href="{{ route('numeros-whatsapp.create') }}" class="btn-secondary">
-                    + Conectar número
-                </a>
-            </div>
-
-        </div>
-
-    </div>
-            @endif
-        </div>
 
         {{-- GRID TARJETAS --}}
         @if(!$numeros->isEmpty())
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
             @foreach($numeros as $numero)
-            <div class="bg-white/5 border border-red-500/30 rounded-2xl backdrop-blur-xl overflow-hidden transition hover:-translate-y-1">
+<div class="numero-card relative bg-white/5 border border-red-500/30 rounded-2xl backdrop-blur-xl overflow-hidden transition hover:-translate-y-1">
 
-                {{-- HEADER CARD --}}
-                <div class="p-6 border-b border-white/10 flex justify-between items-start">
+    {{-- HEADER --}}
+    <div class="p-6 border-b border-white/10 flex justify-between items-start relative">
 
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-green-500/15 border border-green-500/40 flex items-center justify-center">
-                            <span class="material-symbols-rounded text-green-400 text-2xl">
-                                whatsapp
-                            </span>
-                        </div>
-
-                        <div>
-                            <h3 class="font-bold text-white">
-                                {{ $numero->numero_internacional }}
-                            </h3>
-                            <p class="text-sm text-gray-500">
-                                ID: {{ substr($numero->id, 0, 8) }}...
-                            </p>
-                        </div>
-                    </div>
-
-                    <button class="p-2 text-gray-400 hover:text-white transition">
-                        <span class="material-symbols-rounded">
-                            more_vert
-                        </span>
-                    </button>
-                </div>
-
-                {{-- BADGES --}}
-                <div class="px-6 pt-4 flex flex-wrap gap-2">
-                    @if($numero->es_principal)
-                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-yellow-500/15 border border-yellow-500/40 text-yellow-400">
-                            <span class="material-symbols-rounded text-sm">
-                                star
-                            </span>
-                            Principal
-                        </span>
-                    @endif
-
-                    @if($numero->etiqueta)
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-gray-300">
-                            {{ $numero->etiqueta }}
-                        </span>
-                    @endif
-                </div>
-
-                {{-- INFO --}}
-                <div class="p-6 space-y-4">
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="info-box">
-                            <p>Número local</p>
-                            <strong>{{ $numero->numero_local }}</strong>
-                        </div>
-
-                        <div class="info-box">
-                            <p>WhatsApp</p>
-                            <strong>{{ $numero->numero_whatsapp }}</strong>
-                        </div>
-                    </div>
-
-                    <div class="info-box flex items-center gap-3">
-                        <span class="material-symbols-rounded text-gray-400">
-                            public
-                        </span>
-                        <div>
-                            <p>País</p>
-                            <strong>{{ $numero->pais }}</strong>
-                        </div>
-                    </div>
-
-                </div>
-
-                {{-- FOOTER --}}
-                <div class="px-6 py-4 bg-white/5 border-t border-white/10 flex justify-between items-center">
-
-                    @if($numero->activo)
-                        <div class="flex items-center gap-2 text-green-400 text-sm">
-                            <span class="w-2 h-2 rounded-full bg-green-400"></span>
-                            Activo
-                        </div>
-                    @else
-                        <div class="flex items-center gap-2 text-gray-500 text-sm">
-                            <span class="w-2 h-2 rounded-full bg-gray-400"></span>
-                            Inactivo
-                        </div>
-                    @endif
-
-                    <span class="text-sm text-gray-500">
-                        {{ $numero->created_at->diffForHumans() }}
-                    </span>
-                </div>
-
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-green-500/15 border border-green-500/40 flex items-center justify-center">
+                <span class="material-symbols-rounded text-gray-400 text-sm">
+                    call
+                </span>
             </div>
-            @endforeach
+
+            <div>
+                <h3 class="font-semibold text-white text-base leading-tight">
+                    {{ $numero->numero_internacional }}
+                </h3>
+                <p class="text-xs text-gray-500">
+                    ID: {{ substr($numero->id, 0, 8) }}...
+                </p>
+            </div>
+        </div>
+
+        {{-- BOTÓN EDITAR / OPCIONES --}}
+        <button class="p-2 text-gray-400 hover:text-white transition cursor-pointer">
+            <span class="material-symbols-rounded">
+                more_vert
+            </span>
+        </button>
+    </div>
+
+    {{-- BADGE --}}
+    <div class="px-6 pt-4 flex gap-2">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-gray-300">
+            Personal
+        </span>
+    </div>
+
+    {{-- INFO --}}
+    <div class="p-6 space-y-4">
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="info-box flex items-center gap-2">
+                <span class="material-symbols-rounded text-gray-400 text-sm">
+                    call
+                </span>
+                <div>
+                    <p>Número local</p>
+                    <strong>{{ $numero->numero_local }}</strong>
+                </div>
+            </div>
+             <div class="info-box flex items-center gap-3">
+            <span class="material-symbols-rounded text-gray-400">
+                public
+            </span>
+            <div>
+                <p>País</p>
+                <strong>{{ $numero->pais }}</strong>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    {{-- FOOTER --}}
+    <div class="px-6 py-4 bg-white/5 border-t border-white/10 flex justify-between items-center">
+
+        <div class="flex items-center gap-2 text-gray-500 text-sm">
+            <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+            Inactivo
+        </div>
+
+        <span class="text-sm text-gray-500">
+            {{ $numero->created_at->diffForHumans() }}
+        </span>
+    </div>
+
+</div>
+@endforeach
 
         </div>
         @endif
@@ -275,6 +247,24 @@
             font-size:12px;
             color:#9ca3af;
         }
-    </style>
+        .numero-card{
+    pointer-events: auto;
+}
 
+.numero-card *{
+    pointer-events: auto;
+}
+
+.numero-card::before,
+.numero-card::after{
+    content:none !important;
+}
+.material-symbols-rounded{
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24;
+}
+    </style>
 </x-app-layout>

@@ -184,9 +184,12 @@
                     ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
                 </p>
             </div>
-            <span class="material-symbols-outlined summary-icon text-green">
-                payments
+          <span class="material-symbols-outlined summary-icon text-green">
+                attach_money
             </span>
+
+
+
         </div>
     </div>
 
@@ -200,8 +203,10 @@
                 </p>
             </div>
             <span class="material-symbols-outlined summary-icon text-red">
-                north_east
+                transit_enterexit
             </span>
+
+
         </div>
     </div>
 
@@ -215,8 +220,9 @@
                 </p>
             </div>
             <span class="material-symbols-outlined summary-icon text-amber">
-                construction
-            </span>
+            payments
+        </span>
+
         </div>
     </div>
 
@@ -823,6 +829,23 @@ thead{
 .text-red{ color: rgb(239,68,68); }
 .text-amber{ color: rgb(245,158,11); }
 .text-blue{ color: rgb(59,130,246); }
+
+
+select option{
+    background-color:#0f1115 !important;
+    color:#ffffff !important;
+}
+
+select option:checked{
+    background-color: rgba(var(--primary), .85) !important;
+    color:#ffffff !important;
+}
+
+select option:hover{
+    background-color: rgba(var(--primary), .65) !important;
+    color:#ffffff !important;
+}
+
 
 
 </style>
