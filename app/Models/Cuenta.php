@@ -41,7 +41,7 @@ class Cuenta extends Model
      */
     public function transacciones(): HasMany
     {
-        return $this->hasMany(Transaccion::class, 'id_cuenta');
+        return $this->hasMany(Transaccion::class, 'cuenta_id'); // Cambiado: 'id_cuenta' → 'cuenta_id'
     }
 
     /**

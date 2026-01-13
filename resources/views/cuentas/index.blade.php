@@ -64,7 +64,7 @@
                             </td>
 
                             <td class="saldo-verde">
-                                ${{ number_format($cuenta->saldo, 2) }}
+                                ${{ number_format($cuenta->saldo_actual, 2) }}
                             </td>
 
                             <td class="hidden md:table-cell">
