@@ -441,7 +441,7 @@
             <h3 class="font-semibold">Avisos</h3>
             <ul class="space-y-1 text-gray-600">
                 <li><a href="#">Aviso de privacidad</a></li>
-                <li><a href="#">Términos y condiciones</a></li>
+                <li><a href="{{ route('terminos') }}">Términos y condiciones</a></li>
             </ul>
         </div>
 

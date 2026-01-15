@@ -22,6 +22,10 @@ Route::get('/nosotros', function () {
     return view('nosotros');
 })->name('nosotros');
 
+//ruta de terminos y condiciones
+Route::get('/terminos-y-condiciones', function () {
+    return view('terminos');
+})->name('terminos');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
