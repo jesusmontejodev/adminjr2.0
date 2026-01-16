@@ -12,10 +12,9 @@
 
         <!-- HEADER -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-
             <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                 <span class="icon-circle">
-                    <span class="material-symbols-outlined">account_balance_wallet</span>
+                    <span class="material-symbols-outlined">account_balance</span>
                 </span>
                 Mis Cuentas
             </h1>
@@ -26,15 +25,17 @@
             </a>
         </div>
 
-        <!-- SALDO -->
+        <!-- SALDO TOTAL -->
         <div class="saldo-card mb-10">
             <div>
                 <p class="saldo-label">Saldo Total</p>
-                <p class="saldo-monto">${{ number_format($saldoTotal, 2) }}</p>
+                <p class="saldo-monto">
+                    ${{ number_format($cuentas->sum('saldo_actual'), 2) }}
+                </p>
             </div>
 
             <div class="icon-circle">
-                <span class="material-symbols-outlined">savings</span>
+                <span class="material-symbols-outlined">paid</span>
             </div>
         </div>
 
@@ -63,6 +64,7 @@
                                 {{ $cuenta->nombre }}
                             </td>
 
+                            <!-- SALDO REAL -->
                             <td class="saldo-verde">
                                 ${{ number_format($cuenta->saldo_actual, 2) }}
                             </td>
@@ -72,25 +74,27 @@
                             </td>
 
                             <td class="acciones">
-                                <a href="{{ route('cuentas.edit', $cuenta) }}"
-                                   class="btn-action btn-edit">
-                                    <span class="icon-btn material-symbols-outlined">
-                                        edit_square
-                                    </span>
+                                <a href="{{ route('cuentas.edit', $cuenta->id) }}" class="btn-action btn-edit">
+                                    <span class="icon-btn material-symbols-outlined">edit_square</span>
                                     <span class="hidden sm:inline">Editar</span>
                                 </a>
 
-                                <form action="{{ route('cuentas.destroy', $cuenta) }}" method="POST">
+                                <form action="{{ route('cuentas.destroy', $cuenta->id) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('¿Eliminar esta cuenta?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn-action btn-delete">
-                                        <span class="icon-btn material-symbols-outlined">
-                                            delete
-                                        </span>
-                                        <span class="hidden sm:inline">Eliminar</span>
-                                    </button>
+
+                            <button
+                                onclick="eliminarCuenta({{ $cuenta->id }})"
+                                class="btn-action btn-delete">
+                                <span class="icon-btn material-symbols-outlined">delete</span>
+                                <span class="hidden sm:inline">Eliminar</span>
+                            </button>
+
                                 </form>
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>
@@ -98,7 +102,6 @@
         </div>
 
     </div>
-
     <!-- ESTILOS -->
     <style>
         /* ICONOS NORMALIZADOS */

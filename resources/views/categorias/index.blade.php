@@ -29,7 +29,6 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th class="text-right">Acciones</th>
                 </tr>
             </thead>
 
@@ -45,7 +44,8 @@
                                 {{ $categoria->nombre }}
                             </div>
                         </td>
-
+                        
+                    
                         <!-- ACCIONES -->
                         <td class="acciones-td">
                             <div class="acciones">
