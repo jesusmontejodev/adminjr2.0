@@ -15,7 +15,11 @@
             <div>
                 <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                     <span class="icon-circle">
-                        <span class="material-symbols-outlined">account_balance</span>
+                        <!-- account_balance -->
+                        <svg class="icon-svg" viewBox="0 0 24 24">
+                            <path d="M3 10h18M5 10v8m4-8v8m6-8v8m4-8v8M2 18h20M12 3l9 5H3l9-5z"
+                                  fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
                     </span>
                     Crear Nueva Cuenta
                 </h1>
@@ -25,7 +29,10 @@
             </div>
 
             <a href="{{ route('cuentas.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+                <!-- arrow_back -->
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -48,7 +55,7 @@
             </div>
         @endif
 
-        <!-- FORMULARIO (MISMA ESTRUCTURA) -->
+        <!-- FORMULARIO -->
         <div class="card">
             <form action="{{ route('cuentas.store') }}" method="POST" class="p-6">
                 @csrf
@@ -56,45 +63,41 @@
                 <!-- Nombre -->
                 <div class="mb-6">
                     <label for="nombre" class="label">Nombre de la cuenta *</label>
-                    <input type="text" name="nombre" id="nombre"
-                        value="{{ old('nombre') }}"
-                        class="input"
-                        placeholder="Ej: Cuenta Corriente, Ahorros..."
-                        required autofocus>
+                    <input type="text"
+                           name="nombre"
+                           id="nombre"
+                           value="{{ old('nombre') }}"
+                           class="input"
+                           placeholder="Ej: Cuenta Corriente, Ahorros..."
+                           required autofocus>
                 </div>
 
-<!-- Saldo -->
-<div class="mb-6">
-    <label for="saldo_inicial" class="label">Saldo inicial *</label>
+                <!-- Saldo -->
+                <div class="mb-6">
+                    <label for="saldo_inicial" class="label">Saldo inicial *</label>
 
-    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
+                    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
+                        <span class="px-3 text-red-400 select-none">$</span>
 
-        <!-- SIGNO $ -->
-        <span class="px-3 text-red-400 select-none">
-            $
-        </span>
-
-        <!-- INPUT -->
-        <input
-            type="number"
-            name="saldo_inicial"
-            id="saldo_inicial"
-            value="{{ old('saldo_inicial', 0) }}"
-            step="0.01"
-            min="0"
-            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
-            required
-        >
-    </div>
-</div>
-
+                        <input type="number"
+                               name="saldo_inicial"
+                               id="saldo_inicial"
+                               value="{{ old('saldo_inicial', 0) }}"
+                               step="0.01"
+                               min="0"
+                               class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
+                               required>
+                    </div>
+                </div>
 
                 <!-- Descripción -->
                 <div class="mb-8">
                     <label for="descripcion" class="label">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" rows="4"
-                        class="input"
-                        placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
+                    <textarea name="descripcion"
+                              id="descripcion"
+                              rows="4"
+                              class="input"
+                              placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
                 </div>
 
                 <!-- BOTONES -->
@@ -107,8 +110,13 @@
                         <a href="{{ route('cuentas.index') }}" class="btn-cancel">
                             Cancelar
                         </a>
+
                         <button type="submit" class="btn-primary">
-                            <span class="material-symbols-outlined">add</span>
+                            <!-- add -->
+                            <svg class="icon-svg" viewBox="0 0 24 24">
+                                <path d="M12 5v14M5 12h14"
+                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
                             Crear Cuenta
                         </button>
                     </div>
@@ -120,13 +128,14 @@
 
     <!-- ESTILOS -->
     <style>
-        body { background:#111318 }
+        body{background:#111318}
 
-        .material-symbols-outlined{
-            font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
+        .icon-svg{
+            width:18px;
+            height:18px;
+            stroke:currentColor;
         }
 
-        /* Card */
         .card{
             background:rgba(255,255,255,.04);
             border:1px solid rgba(239,68,68,.35);
@@ -134,7 +143,6 @@
             backdrop-filter:blur(14px);
         }
 
-        /* Icon circle */
         .icon-circle{
             width:38px;
             height:38px;
@@ -147,7 +155,6 @@
             color:#ef4444;
         }
 
-        /* Inputs */
         .label{
             display:block;
             margin-bottom:6px;
@@ -171,7 +178,6 @@
             box-shadow:0 0 0 2px rgba(239,68,68,.25);
         }
 
-        /* Buttons */
         .btn-primary{
             display:inline-flex;
             align-items:center;
@@ -185,9 +191,13 @@
             transition:.25s;
         }
 
-        .btn-primary:hover{ transform:translateY(-2px); background:rgba(239,68,68,.35) }
+        .btn-primary:hover{
+            transform:translateY(-2px);
+            background:rgba(239,68,68,.35);
+        }
 
-        .btn-secondary{
+        .btn-secondary,
+        .btn-cancel{
             display:inline-flex;
             align-items:center;
             gap:6px;
@@ -198,15 +208,6 @@
             color:#fff;
         }
 
-        .btn-cancel{
-            padding:10px 16px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.15);
-            color:#e5e5e5;
-        }
-
-        /* Alerts */
         .alert-success{
             padding:14px 18px;
             border-radius:14px;

@@ -15,7 +15,15 @@
             <div>
                 <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                     <span class="icon-circle">
-                       <span class="material-symbols-outlined sidebar-icon">sync_alt</span>
+                        <!-- sync_alt -->
+                        <svg class="icon-svg" viewBox="0 0 24 24">
+                            <path d="M4 7h11l-3-3M20 17H9l3 3"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                        </svg>
                     </span>
                     Registrar Transacción
                 </h1>
@@ -25,7 +33,14 @@
             </div>
 
             <a href="{{ route('transacciones.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+                <!-- arrow_back -->
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M15 18l-6-6 6-6"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -56,7 +71,14 @@
 
                     <div class="flex gap-3">
                         <button type="submit" class="btn-primary">
-                            <span class="material-symbols-outlined">save</span>
+                            <!-- save -->
+                            <svg class="icon-svg" viewBox="0 0 24 24">
+                                <path d="M5 3h14l2 2v16H3V3h2zM7 3v6h10V3"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      stroke-width="2"
+                                      stroke-linejoin="round"/>
+                            </svg>
                             Guardar Transacción
                         </button>
                     </div>
@@ -66,122 +88,122 @@
 
     </div>
 
-  <style>
-   
-    :root{
-        color-scheme: dark;
-    }
+    <!-- ESTILOS -->
+    <style>
+        :root{ color-scheme: dark; }
+        body{ background:#111318; }
 
-    body{
-        background:#111318;
-    }
+        .icon-svg{
+            width:18px;
+            height:18px;
+            stroke:currentColor;
+        }
 
-    .material-symbols-outlined{
-        font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
-    }
+        .card{
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(239,68,68,.35);
+            border-radius:22px;
+            backdrop-filter:blur(14px);
+        }
 
-    .card{
-        background:rgba(255,255,255,.04);
-        border:1px solid rgba(239,68,68,.35);
-        border-radius:22px;
-        backdrop-filter:blur(14px);
-    }
+        .icon-circle{
+            width:38px;
+            height:38px;
+            border-radius:12px;
+            background:rgba(239,68,68,.18);
+            border:1px solid rgba(239,68,68,.45);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#ef4444;
+        }
 
-    .icon-circle{
-        width:38px;
-        height:38px;
-        border-radius:12px;
-        background:rgba(239,68,68,.18);
-        border:1px solid rgba(239,68,68,.45);
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        color:#ef4444;
-    }
+        /* Labels */
+        .label,
+        .card label{
+            display:block;
+            margin-bottom:6px;
+            font-size:13px;
+            color:#fca5a5 !important;
+            font-weight:500;
+        }
 
-    /*  LABELS ROJOS  */
-    .label,
-    .card label{
-        display:block;
-        margin-bottom:6px;
-        font-size:13px;
-        color:#fca5a5 !important;
-        font-weight:500;
-    }
+        .input{
+            width:100%;
+            padding:12px 14px;
+            border-radius:14px;
+            background:rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.12);
+            color:#fff;
+        }
 
-    .input{
-        width:100%;
-        padding:12px 14px;
-        border-radius:14px;
-        background:rgba(255,255,255,.06);
-        border:1px solid rgba(255,255,255,.12);
-        color:#fff;
-    }
+        .input::placeholder{ color:#9ca3af; }
 
-    .input::placeholder{
-        color:#9ca3af;
-    }
+        .input:focus{
+            outline:none;
+            border-color:#ef4444;
+            box-shadow:0 0 0 2px rgba(239,68,68,.25);
+        }
 
-    .input:focus{
-        outline:none;
-        border-color:#ef4444;
-        box-shadow:0 0 0 2px rgba(239,68,68,.25);
-    }
+        /* Select oscuro real */
+        select.input{
+            background-color:rgba(255,255,255,.06);
+            color:#fff;
+        }
 
-    /* 🔥 SELECT OSCURO REAL */
-    select.input{
-        background-color:rgba(255,255,255,.06);
-        color:#fff;
-    }
+        select.input option{
+            background-color:#111318;
+            color:#ffffff;
+        }
 
-    select.input option{
-        background-color:#111318;
-        color:#ffffff;
-    }
+        select.input option:checked,
+        select.input option:hover{
+            background-color:#ef4444;
+            color:#ffffff;
+        }
 
-    select.input option:checked{
-        background-color:#ef4444;
-        color:#ffffff;
-    }
+        .btn-primary{
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
+            padding:10px 18px;
+            border-radius:14px;
+            background:rgba(239,68,68,.25);
+            border:1px solid rgba(239,68,68,.45);
+            color:#fff;
+            font-weight:600;
+            transition:.25s;
+        }
 
-    select.input option:hover{
-        background-color:#ef4444;
-        color:#ffffff;
-    }
+        .btn-primary:hover{
+            transform:translateY(-2px);
+            background:rgba(239,68,68,.35);
+        }
 
-    .btn-primary{
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
-        padding:10px 18px;
-        border-radius:14px;
-        background:rgba(239,68,68,.25);
-        border:1px solid rgba(239,68,68,.45);
-        color:#fff;
-        font-weight:600;
-        transition:.25s;
-    }
+        .btn-secondary{
+            display:inline-flex;
+            align-items:center;
+            gap:6px;
+            padding:10px 16px;
+            border-radius:14px;
+            background:rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.15);
+            color:#fff;
+        }
 
-    .btn-primary:hover{
-        transform:translateY(-2px);
-        background:rgba(239,68,68,.35);
-    }
+        .alert-error{
+            padding:14px 18px;
+            border-radius:14px;
+            background:rgba(239,68,68,.15);
+            border:1px solid rgba(239,68,68,.35);
+            color:#fecaca;
+        }
 
-    .btn-secondary{
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
-        padding:10px 16px;
-        border-radius:14px;
-        background:rgba(255,255,255,.06);
-        border:1px solid rgba(255,255,255,.15);
-        color:#fff;
-    }
+        .error-text{
+            margin-top:6px;
+            font-size:12px;
+            color:#fecaca;
+        }
+    </style>
 
-    .error-text{
-        margin-top:6px;
-        font-size:12px;
-        color:#fecaca;
-    }
-</style>
 </x-app-layout>

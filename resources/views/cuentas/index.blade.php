@@ -14,13 +14,19 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                 <span class="icon-circle">
-                    <span class="material-symbols-outlined">account_balance</span>
+                    <!-- icon: bank -->
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M3 10h18M5 6h14M6 10v8M10 10v8M14 10v8M18 10v8M4 18h16"/>
+                    </svg>
                 </span>
                 Mis Cuentas
             </h1>
 
             <a href="{{ route('cuentas.create') }}" class="btn-primary">
-                <span class="material-symbols-outlined">add</span>
+                <!-- icon: plus -->
+                <svg class="icon-svg-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
                 Nueva Cuenta
             </a>
         </div>
@@ -35,7 +41,11 @@
             </div>
 
             <div class="icon-circle">
-                <span class="material-symbols-outlined">paid</span>
+                <!-- icon: money -->
+                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="2" y="6" width="20" height="12" rx="2"/>
+                    <circle cx="12" cy="12" r="3"/>
+                </svg>
             </div>
         </div>
 
@@ -58,13 +68,13 @@
                             <td>{{ $cuenta->id }}</td>
 
                             <td class="font-semibold flex items-center gap-2">
-                                <span class="material-symbols-outlined text-red-400 text-[18px]">
-                                    account_balance
-                                </span>
+                                <!-- icon: bank small -->
+                                <svg class="icon-inline text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M3 10h18M5 6h14M6 10v8M10 10v8M14 10v8M18 10v8M4 18h16"/>
+                                </svg>
                                 {{ $cuenta->nombre }}
                             </td>
 
-                            <!-- SALDO REAL -->
                             <td class="saldo-verde">
                                 ${{ number_format($cuenta->saldo_actual, 2) }}
                             </td>
@@ -75,26 +85,28 @@
 
                             <td class="acciones">
                                 <a href="{{ route('cuentas.edit', $cuenta->id) }}" class="btn-action btn-edit">
-                                    <span class="icon-btn material-symbols-outlined">edit_square</span>
+                                    <!-- icon: edit -->
+                                    <svg class="icon-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                        <path d="M4 20h4l10-10-4-4L4 16v4Z"/>
+                                    </svg>
                                     <span class="hidden sm:inline">Editar</span>
                                 </a>
 
                                 <form action="{{ route('cuentas.destroy', $cuenta->id) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('¿Eliminar esta cuenta?')">
+                                      method="POST"
+                                      onsubmit="return confirm('¿Eliminar esta cuenta?')">
                                     @csrf
                                     @method('DELETE')
 
-                            <button
-                                onclick="eliminarCuenta({{ $cuenta->id }})"
-                                class="btn-action btn-delete">
-                                <span class="icon-btn material-symbols-outlined">delete</span>
-                                <span class="hidden sm:inline">Eliminar</span>
-                            </button>
-
+                                    <button type="submit" class="btn-action btn-delete">
+                                        <!-- icon: trash -->
+                                        <svg class="icon-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                            <path d="M3 6h18M8 6V4h8v2M9 10v6M15 10v6M6 6l1 14h10l1-14"/>
+                                        </svg>
+                                        <span class="hidden sm:inline">Eliminar</span>
+                                    </button>
                                 </form>
                             </td>
-
                         </tr>
                     @endforeach
                 </tbody>
@@ -102,15 +114,28 @@
         </div>
 
     </div>
+
     <!-- ESTILOS -->
     <style>
-        /* ICONOS NORMALIZADOS */
-        .material-symbols-outlined {
-            font-variation-settings:
-                'FILL' 0,
-                'wght' 400,
-                'GRAD' 0,
-                'opsz' 20;
+        /* SVG sizes */
+        .icon-svg {
+            width:20px;
+            height:20px;
+        }
+
+        .icon-svg-sm {
+            width:18px;
+            height:18px;
+        }
+
+        .icon-inline {
+            width:18px;
+            height:18px;
+        }
+
+        .icon-btn-svg {
+            width:18px;
+            height:18px;
         }
 
         /* Círculo iconos */
@@ -150,7 +175,6 @@
             display:flex;
             justify-content:space-between;
             align-items:center;
-            width:100%;
             max-width:420px;
             padding:22px 26px;
             border-radius:20px;
@@ -199,7 +223,7 @@
             font-weight:700;
         }
 
-        /* ACCIONES */
+        /* Acciones */
         .acciones {
             display:flex;
             justify-content:flex-end;
@@ -219,16 +243,6 @@
             color:#fff;
             transition:.25s;
             white-space:nowrap;
-        }
-
-        .icon-btn {
-            width:18px;
-            height:18px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:18px;
-            line-height:1;
         }
 
         .btn-edit {

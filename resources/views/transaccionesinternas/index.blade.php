@@ -1,5 +1,4 @@
 <x-app-layout>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <div class="absolute inset-0 -z-20 bg-[#0f1115]"></div>
 
@@ -9,18 +8,24 @@
     <div class="flex justify-between items-center mb-10">
         <h1 class="flex items-center gap-3 text-white text-2xl font-bold">
             <span class="icon-circle">
-                <span class="material-symbols-outlined sidebar-icon">swap_horiz</span>
+                <!-- SVG swap -->
+                <svg class="icon-svg" viewBox="0 0 24 24">
+                    <path d="M7 7h11l-4-4m4 14H7l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
             </span>
             Transacciones internas
         </h1>
 
         <a href="{{ route('transaccionesinternas.create') }}" class="btn-primary">
-            <span class="material-symbols-outlined">add</span>
+            <!-- SVG plus -->
+            <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
             Nueva transferencia
         </a>
     </div>
 
-    <!-- TABLA / CARD -->
+    <!-- TABLA -->
     <div class="tabla-container">
         <table class="tabla">
             <thead>
@@ -45,9 +50,11 @@
 
                     <td class="acciones-td">
                         <div class="acciones">
-                            <a href="{{ route('transaccionesinternas.edit', $t) }}"
-                               class="btn-action btn-edit">
-                                <span class="material-symbols-outlined icon-btn">edit</span>
+                            <a href="{{ route('transaccionesinternas.edit', $t) }}" class="btn-action btn-edit">
+                                <!-- SVG edit -->
+                                <svg class="icon-btn" viewBox="0 0 24 24">
+                                    <path d="M4 20h4l10-10-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                </svg>
                                 Editar
                             </a>
 
@@ -57,7 +64,11 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn-action btn-delete">
-                                    <span class="material-symbols-outlined icon-btn">delete</span>
+                                    <!-- SVG delete -->
+                                    <svg class="icon-btn" viewBox="0 0 24 24">
+                                        <path d="M3 6h18M8 6v14m8-14v14M5 6l1 14h12l1-14M9 6V4h6v2"
+                                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
                                     Eliminar
                                 </button>
                             </form>
@@ -77,10 +88,10 @@
 </div>
 
 <style>
-/* ================= ICONOS ================= */
-.material-symbols-outlined{
-    font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
-    font-size:18px;
+/* ================= ICONOS SVG ================= */
+.icon-svg{
+    width:18px;
+    height:18px;
 }
 
 /* ================= ICON CIRCLE ================= */
@@ -115,7 +126,7 @@
     transform:translateY(-2px);
 }
 
-/* ================= TABLA CARD ================= */
+/* ================= TABLA ================= */
 .tabla-container{
     background:rgba(255,255,255,.04);
     border:1px solid rgba(239,68,68,.35);
@@ -139,7 +150,6 @@
     padding:16px 18px;
     color:#e5e5e5;
     border-top:1px solid rgba(255,255,255,.06);
-    vertical-align:middle;
 }
 
 /* ================= ACCIONES ================= */
@@ -168,7 +178,8 @@
 }
 
 .icon-btn{
-    font-size:18px;
+    width:18px;
+    height:18px;
 }
 
 /* Editar */
@@ -193,4 +204,5 @@
     transform:translateY(-2px);
 }
 </style>
+
 </x-app-layout>
