@@ -4,97 +4,46 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Cashier\Exceptions\IncompletePayment;
-use Stripe\Stripe;
-use Stripe\Price;
-use Stripe\Product;
 
 class SuscripcionController extends Controller
 {
-    // Mostrar página de planes
+    // Mostrar página de planes (sólo básico)
     public function planes()
     {
+        // Solo un plan: Básico
         $planes = [
             [
                 'id' => 'basico',
-                'nombre' => 'Básico',
-                'descripcion' => 'Perfecto para empezar',
-                'precio_mensual' => 10,
-                'precio_anual' => 96,
+                'nombre' => 'Plan Básico',
+                'descripcion' => 'Todo lo necesario para empezar',
+                'precio_mensual' => 459, // $459 MXN
+                'moneda' => 'MXN',
                 'caracteristicas' => [
-                    'Hasta 3 números de WhatsApp',
-                    '5 cuentas bancarias',
-                    'Reportes básicos',
-                    'Soporte por email',
+                    '✅ Hasta 3 números de WhatsApp',
+                    '✅ 5 cuentas bancarias',
+                    '✅ Reportes básicos',
+                    '✅ Soporte por email',
                 ],
-                'limites' => [
-                    'whatsapp' => 3,
-                    'cuentas' => 5,
-                ],
-                'precio_id_mensual' => config('services.stripe.price_basico'),
-                'popular' => false,
-            ],
-            [
-                'id' => 'pro',
-                'nombre' => 'Pro',
-                'descripcion' => 'Para hacer crecer tu negocio',
-                'precio_mensual' => 20,
-                'precio_anual' => 192,
-                'caracteristicas' => [
-                    'Hasta 10 números de WhatsApp',
-                    '20 cuentas bancarias',
-                    'Reportes avanzados',
-                    'Análisis de tendencias',
-                    'API Access limitado',
-                    'Soporte prioritario',
-                ],
-                'limites' => [
-                    'whatsapp' => 10,
-                    'cuentas' => 20,
-                ],
-                'precio_id_mensual' => config('services.stripe.price_pro'),
+                'precio_id' => $this->getPrecioBasico(),
                 'popular' => true,
-            ],
-            [
-                'id' => 'empresa',
-                'nombre' => 'Empresa',
-                'descripcion' => 'Para equipos y grandes volúmenes',
-                'precio_mensual' => 50,
-                'precio_anual' => 480,
-                'caracteristicas' => [
-                    'Números de WhatsApp ilimitados',
-                    'Cuentas bancarias ilimitadas',
-                    'Dashboard personalizado',
-                    'API Access completo',
-                    'Soporte 24/7 dedicado',
-                    'Entrenamiento personalizado',
-                    'Migración asistida',
-                ],
-                'limites' => [
-                    'whatsapp' => 'Ilimitado',
-                    'cuentas' => 'Ilimitado',
-                ],
-                'precio_id_mensual' => config('services.stripe.price_empresa'),
-                'popular' => false,
-            ],
+            ]
         ];
 
         return view('suscripcion.planes', compact('planes'));
     }
 
-    // Crear nueva suscripción
+    // Crear nueva suscripción al plan BÁSICO (usado desde formulario tradicional)
     public function crear(Request $request)
     {
         $request->validate([
             'payment_method' => 'required|string',
-            'plan' => 'required|string',
-            'plan_name' => 'nullable|string',
-            'billing_period' => 'nullable|in:monthly,annual',
         ]);
 
         $user = Auth::user();
         $paymentMethod = $request->payment_method;
-        $plan = $request->plan;
+        $precioId = $this->getPrecioBasico();
 
         try {
             // Si el usuario no tiene cliente Stripe, crearlo
@@ -105,37 +54,37 @@ class SuscripcionController extends Controller
             // Actualizar método de pago por defecto
             $user->updateDefaultPaymentMethod($paymentMethod);
 
-            // Verificar si ya tiene suscripción
+            // Verificar si ya tiene suscripción activa
             if ($user->subscribed('default')) {
-                // Cambiar plan si ya tiene suscripción
-                $user->subscription('default')->swap($plan);
-
                 return response()->json([
-                    'success' => true,
-                    'message' => 'Plan actualizado exitosamente',
-                    'action' => 'updated'
+                    'success' => false,
+                    'message' => 'Ya tienes una suscripción activa.',
+                    'action' => 'already_subscribed'
                 ]);
             }
 
             // Crear nueva suscripción con período de prueba
-            $subscription = $user->newSubscription('default', $plan)
+            $subscription = $user->newSubscription('default', $precioId)
                 ->trialDays(14)
                 ->create($paymentMethod, [
                     'email' => $user->email,
+                    'metadata' => [
+                        'plan_name' => 'Plan Básico',
+                        'user_id' => $user->id,
+                    ]
                 ]);
 
-            // Registrar en logs
-            \Log::info('Nueva suscripción creada', [
+            Log::info('Nueva suscripción Básica creada', [
                 'user_id' => $user->id,
                 'stripe_subscription_id' => $subscription->stripe_id,
-                'plan' => $plan,
+                'price_id' => $precioId,
             ]);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Suscripción creada exitosamente. ¡Disfruta de 14 días de prueba!',
+                'message' => '¡Suscripción Básica creada exitosamente! Disfruta de 14 días de prueba.',
                 'action' => 'created',
-                'subscription' => $subscription->stripe_id
+                'subscription_id' => $subscription->id
             ]);
 
         } catch (IncompletePayment $exception) {
@@ -148,14 +97,89 @@ class SuscripcionController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Error al crear suscripción: ' . $e->getMessage(), [
+            Log::error('Error al crear suscripción Básica: ' . $e->getMessage(), [
                 'user_id' => $user->id ?? null,
-                'plan' => $plan,
+                'price_id' => $precioId,
+                'error_trace' => $e->getTraceAsString()
             ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
+                'message' => 'Error al procesar la suscripción. Por favor, verifica tu información de pago.'
+            ], 500);
+        }
+    }
+
+    // Método simplificado para suscribirse directamente al básico
+    public function suscribirseBasico(Request $request)
+    {
+        $request->validate([
+            'payment_method' => 'required|string',
+        ]);
+
+        $user = Auth::user();
+        $precioId = $this->getPrecioBasico();
+
+        try {
+            // Verificar si ya está suscrito
+            if ($user->subscribed('default')) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Ya tienes una suscripción activa.',
+                    'code' => 'ALREADY_SUBSCRIBED'
+                ]);
+            }
+
+            // Crear o obtener cliente Stripe
+            if (!$user->stripe_id) {
+                $user->createAsStripeCustomer();
+            }
+
+            // Actualizar método de pago primero
+            $user->updateDefaultPaymentMethod($request->payment_method);
+
+            // Crear suscripción - usando 'default' como nombre
+            $subscription = $user->newSubscription('default', $precioId)
+                ->trialDays(14)
+                ->create($request->payment_method, [
+                    'email' => $user->email,
+                    'metadata' => [
+                        'plan' => 'basico',
+                        'user_id' => $user->id,
+                    ]
+                ]);
+
+            Log::info('Usuario suscrito al Plan Básico', [
+                'user_id' => $user->id,
+                'subscription_id' => $subscription->id,
+                'price_id' => $precioId,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => '¡Te has suscrito al Plan Básico! Disfruta de 14 días de prueba.',
+                'subscription_id' => $subscription->id,
+                'trial_ends_at' => $subscription->trial_ends_at?->format('Y-m-d H:i:s'),
+            ]);
+
+        } catch (IncompletePayment $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Se requiere autenticación adicional para completar el pago.',
+                'requires_action' => true,
+                'payment_intent_client_secret' => $exception->payment->client_secret
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Error en suscribirseBasico: ' . $e->getMessage(), [
+                'user_id' => $user->id,
+                'price_id' => $precioId,
+                'error' => $e->getTraceAsString()
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al procesar la suscripción: ' . $this->getErrorMessage($e)
             ], 500);
         }
     }
@@ -174,22 +198,56 @@ class SuscripcionController extends Controller
                 ->with('error', 'No tienes una suscripción activa.');
         }
 
-        // Cancelar suscripción (mantiene activa hasta el final del período)
-        $user->subscription('default')->cancel();
+        // Cancelar suscripción
+        $subscription = $user->subscription('default');
+        $endsAt = $subscription->ends_at;
 
-        // Guardar razón de cancelación
-        if ($request->reason) {
-            // Aquí puedes guardar en tu base de datos
-            \Log::info('Suscripción cancelada', [
-                'user_id' => $user->id,
-                'reason' => $request->reason,
-                'ends_at' => $user->subscription('default')->ends_at,
-            ]);
-        }
+        $subscription->cancel();
+
+        Log::info('Suscripción Básica cancelada', [
+            'user_id' => $user->id,
+            'reason' => $request->reason,
+            'ends_at' => $endsAt,
+        ]);
 
         return redirect()->route('dashboard')
-            ->with('success', 'Suscripción cancelada. Tendrás acceso hasta ' .
-                   $user->subscription('default')->ends_at->format('d/m/Y') . '.');
+            ->with('success', 'Suscripción Básica cancelada. Acceso hasta ' .
+                   ($endsAt ? $endsAt->format('d/m/Y') : 'fin del período') . '.');
+    }
+
+    // Obtener información de suscripción actual
+    public function infoSuscripcion()
+    {
+        $user = Auth::user();
+
+        $data = [
+            'tiene_suscripcion' => $user->tieneSuscripcionActiva(),
+            'plan_actual' => $user->tieneSuscripcionActiva() ? 'basico' : null,
+            'estado' => $this->getEstadoSuscripcion($user),
+            'trial_ends_at' => $user->trial_ends_at,
+            'en_periodo_gracia' => $user->enPeriodoDeGracia(),
+        ];
+
+        // Solo agregar información de límites si está suscrito
+        if ($user->tieneSuscripcionActiva()) {
+            $data['limites'] = [
+                'whatsapp' => [
+                    'actual' => $user->numerosWhatsApp()->count(),
+                    'limite' => 3,
+                    'puede_agregar' => $user->numerosWhatsApp()->count() < 3,
+                ],
+                'cuentas' => [
+                    'actual' => $user->cuentas()->count(),
+                    'limite' => 5,
+                    'puede_agregar' => $user->cuentas()->count() < 5,
+                ],
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
     }
 
     // Reanudar suscripción
@@ -204,12 +262,10 @@ class SuscripcionController extends Controller
 
         $user->subscription('default')->resume();
 
-        \Log::info('Suscripción reanudada', [
-            'user_id' => $user->id,
-        ]);
+        Log::info('Suscripción reanudada', ['user_id' => $user->id]);
 
         return redirect()->route('dashboard')
-            ->with('success', 'Suscripción reanudada exitosamente.');
+            ->with('success', 'Suscripción Básica reanudada.');
     }
 
     // Actualizar método de pago
@@ -224,31 +280,33 @@ class SuscripcionController extends Controller
         try {
             $user->updateDefaultPaymentMethod($request->payment_method);
 
-            \Log::info('Método de pago actualizado', [
-                'user_id' => $user->id,
-            ]);
-
             return response()->json([
                 'success' => true,
-                'message' => 'Método de pago actualizado exitosamente'
+                'message' => 'Método de pago actualizado correctamente'
             ]);
 
         } catch (\Exception $e) {
-            \Log::error('Error al actualizar método de pago: ' . $e->getMessage(), [
-                'user_id' => $user->id,
+            Log::error('Error al actualizar método de pago: ' . $e->getMessage(), [
+                'user_id' => $user->id
             ]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
+                'message' => 'Error al actualizar el método de pago: ' . $e->getMessage()
             ], 500);
         }
     }
 
-    // Obtener facturas
+    // Ver facturas
     public function facturas()
     {
         $user = Auth::user();
+
+        if (!$user->subscribed('default')) {
+            return redirect()->route('planes')
+                ->with('error', 'No tienes suscripciones activas.');
+        }
+
         $invoices = $user->invoices();
 
         return view('suscripcion.facturas', compact('invoices'));
@@ -261,83 +319,109 @@ class SuscripcionController extends Controller
 
         return $user->downloadInvoice($id, [
             'vendor' => config('app.name'),
-            'product' => 'Suscripción ' . config('app.name'),
-            'street' => 'Dirección de tu empresa',
-            'location' => 'Ciudad, País',
-            'phone' => '+1234567890',
-            'email' => 'facturacion@tudominio.com',
-            'url' => config('app.url'),
-            'vendor_vat' => 'NIF/VAT si aplica',
+            'product' => 'Plan Básico - ' . config('app.name'),
         ]);
     }
 
-    // Portal de facturación
+    // Portal de facturación de Stripe
     public function portalFacturacion()
     {
         $user = Auth::user();
 
+        if (!$user->subscribed('default')) {
+            return redirect()->route('planes')
+                ->with('error', 'No tienes una suscripción activa.');
+        }
+
         return $user->redirectToBillingPortal(route('dashboard'));
     }
 
-    // Sincronizar planes desde Stripe (para administradores)
-    public function sincronizarPlanes()
+    // ============================================
+    // MÉTODOS PRIVADOS AUXILIARES
+    // ============================================
+
+    /**
+     * Obtiene el ID del precio del plan básico
+     */
+    private function getPrecioBasico()
     {
-        Stripe::setApiKey(config('services.stripe.secret'));
+        // Obtener directamente del .env
+        $precioId = env('STRIPE_PRICE_BASICO');
 
-        try {
-            // Obtener productos de Stripe
-            $products = Product::all(['limit' => 10]);
-            $prices = Price::all(['limit' => 10, 'active' => true]);
-
-            // Aquí puedes sincronizar con tu base de datos
-            foreach ($products as $product) {
-                // Guardar en tu tabla de productos
-            }
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Planes sincronizados exitosamente',
-                'products' => count($products->data),
-                'prices' => count($prices->data),
+        // Si está vacío o es el placeholder, loguear error
+        if (empty($precioId) || $precioId === 'price_1MotKDEnLYCXf8OxBASICO') {
+            Log::critical('STRIPE_PRICE_BASICO no configurado en .env', [
+                'valor_actual' => $precioId
             ]);
 
-        } catch (\Exception $e) {
-            \Log::error('Error al sincronizar planes: ' . $e->getMessage());
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ], 500);
+            throw new \Exception(
+                'El sistema de suscripciones no está configurado correctamente. ' .
+                'Por favor, contacta al soporte técnico.'
+            );
         }
+
+        // Validar formato básico
+        if (!str_starts_with($precioId, 'price_')) {
+            Log::error('Formato inválido para STRIPE_PRICE_BASICO', [
+                'valor' => $precioId
+            ]);
+
+            throw new \Exception('Configuración de precio inválida');
+        }
+
+        return $precioId;
     }
 
-    // Obtener información de suscripción actual (API)
-    public function infoSuscripcion()
-    {
-        $user = Auth::user();
+    /**
+     * Obtiene el estado de la suscripción del usuario
+     */
 
-        return response()->json([
-            'success' => true,
-            'data' => [
-                'tiene_suscripcion' => $user->tieneSuscripcionActiva(),
-                'plan_actual' => $user->getPlanActual(),
-                'info_suscripcion' => $user->getInfoSuscripcion(),
-                'limites' => [
-                    'whatsapp' => [
-                        'actual' => $user->numerosWhatsApp()->count(),
-                        'limite' => $user->getLimiteWhatsApp(),
-                        'puede_agregar' => $user->puedeAgregarWhatsApp(),
-                    ],
-                    'cuentas' => [
-                        'actual' => $user->cuentas()->count(),
-                        'limite' => $user->getLimiteCuentas(),
-                        'puede_agregar' => $user->puedeAgregarCuenta(),
-                    ],
-                ],
-                'estado' => $user->getEstadoSuscripcionAttribute(),
-                'trial_ends_at' => $user->trial_ends_at,
-                'en_periodo_gracia' => $user->enPeriodoDeGracia(),
-            ]
-        ]);
+    private function getEstadoSuscripcion($user)
+    {
+        if (!$user->tieneSuscripcionActiva()) {
+            return 'Sin suscripción';
+        }
+
+        if ($user->onTrial()) {
+            return 'En período de prueba';
+        }
+
+        if ($user->enPeriodoDeGracia()) {
+            return 'En período de gracia';
+        }
+
+        return 'Activa';
+    }
+
+    /**
+     * Convierte errores de Stripe a mensajes amigables
+     */
+    private function getErrorMessage(\Exception $e)
+    {
+        $message = $e->getMessage();
+
+        // Errores comunes de Stripe
+        if (str_contains($message, 'No such price')) {
+            return 'El plan seleccionado no existe. Contacta al soporte.';
+        }
+
+        if (str_contains($message, 'invalid plan')) {
+            return 'El plan seleccionado no es válido.';
+        }
+
+        if (str_contains($message, 'card_declined')) {
+            return 'Tu tarjeta fue rechazada. Por favor, usa otro método de pago.';
+        }
+
+        if (str_contains($message, 'insufficient_funds')) {
+            return 'Fondos insuficientes en tu tarjeta.';
+        }
+
+        if (str_contains($message, 'expired_card')) {
+            return 'Tu tarjeta ha expirado. Actualiza tu método de pago.';
+        }
+
+        // Si no es un error conocido, devolver mensaje genérico
+        return 'Ocurrió un error al procesar el pago. Intenta de nuevo o contacta al soporte.';
     }
 }

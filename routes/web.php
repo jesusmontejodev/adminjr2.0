@@ -1,93 +1,77 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TransaccionController;
 use App\Http\Controllers\TransaccionInternaController;
 use App\Http\Controllers\InfocomisionesController;
-use App\Http\Controllers\CuentasporcobrarController;
 use App\Http\Controllers\GraficasController;
 use App\Http\Controllers\MensajesDeEntrenamientoController;
 use App\Http\Controllers\NumerosWhatsAppController;
+use App\Http\Controllers\SuscripcionController;
 
-// ============= NUEVAS IMPORTACIONES PARA SUSCRIPCIÓN =============
-use App\Http\Controllers\SuscripcionController; // Agrega esto
-
+// ============= RUTAS PÚBLICAS =============
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
-// Ruta de nosotros
 Route::get('/nosotros', function () {
     return view('nosotros');
 })->name('nosotros');
 
-// ============= NUEVA RUTA PÚBLICA PARA PLANES =============
-Route::get('/planes', [SuscripcionController::class, 'planes'])
-    ->name('planes');
+// ============= RUTAS DE SUSCRIPCIÓN PÚBLICAS =============
+Route::get('/planes', [SuscripcionController::class, 'planes'])->name('planes');
+Route::get('/suscripcion/info', [SuscripcionController::class, 'infoSuscripcion'])->name('suscripcion.info');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// ============= RUTAS QUE REQUIEREN AUTENTICACIÓN =============
+Route::middleware(['auth', 'verified'])->group(function () {
 
-Route::middleware('auth')->group(function () {
+    // Dashboard (accesible con o sin suscripción)
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Perfil (accesible con o sin suscripción)
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // ==================== RUTAS DE SUSCRIPCIÓN ====================
+    Route::prefix('suscripcion')->name('suscripcion.')->group(function () {
+        Route::post('/crear', [SuscripcionController::class, 'crear'])->name('crear');
+        Route::post('/suscribirse-basico', [SuscripcionController::class, 'suscribirseBasico'])->name('suscribirse-basico');
+        Route::post('/cancelar', [SuscripcionController::class, 'cancelar'])->name('cancelar');
+        Route::post('/reanudar', [SuscripcionController::class, 'reanudar'])->name('reanudar');
+        Route::post('/actualizar-metodo-pago', [SuscripcionController::class, 'actualizarMetodoPago'])->name('actualizar-metodo-pago');
+        Route::get('/facturas', [SuscripcionController::class, 'facturas'])->name('facturas');
+        Route::get('/facturas/{id}/descargar', [SuscripcionController::class, 'descargarFactura'])->name('descargar-factura');
+        Route::get('/portal-facturacion', [SuscripcionController::class, 'portalFacturacion'])->name('portal-facturacion');
+    });
 });
 
-// ============= GRUPO PRINCIPAL CON TUS RUTAS EXISTENTES + SUSCRIPCIÓN =============
-Route::middleware(['auth', 'verified'])->group(function () {
+// ============= RUTAS QUE REQUIEREN SUSCRIPCIÓN ACTIVA =============
+Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function () {
+    // También puedes usar 'suscripcion' como alias
 
-    // ==================== NUEVAS RUTAS DE SUSCRIPCIÓN ====================
-    Route::prefix('suscripcion')->group(function () {
-        Route::post('/crear', [SuscripcionController::class, 'crear'])
-            ->name('suscripcion.crear');
-
-        Route::post('/cancelar', [SuscripcionController::class, 'cancelar'])
-            ->name('suscripcion.cancelar');
-
-        Route::post('/reanudar', [SuscripcionController::class, 'reanudar'])
-            ->name('suscripcion.reanudar');
-
-        Route::post('/actualizar-metodo-pago', [SuscripcionController::class, 'actualizarMetodoPago'])
-            ->name('suscripcion.actualizar-metodo-pago');
-
-        Route::get('/facturas', [SuscripcionController::class, 'facturas'])
-            ->name('suscripcion.facturas');
-
-        Route::get('/facturas/{id}/descargar', [SuscripcionController::class, 'descargarFactura'])
-            ->name('suscripcion.descargar-factura');
-
-        Route::get('/portal-facturacion', [SuscripcionController::class, 'portalFacturacion'])
-            ->name('suscripcion.portal-facturacion');
-    });
-
-    // ==================== TUS RUTAS EXISTENTES (MANTENER) ====================
+    // ==================== FUNCIONALIDADES PREMIUM ====================
     Route::resource('cuentas', CuentaController::class);
     Route::resource('categorias', CategoriaController::class);
     Route::resource('transaccionesinternas', TransaccionInternaController::class);
     Route::resource('transacciones', TransaccionController::class)
         ->parameters(['transacciones' => 'transaccion']);
     Route::resource('mensajes', MensajesDeEntrenamientoController::class);
-
-    // Rutas para CRUD de comisiones
     Route::resource('comisiones', InfocomisionesController::class);
+    Route::resource('analistajr', GraficasController::class);
 
-    // Mostrar formulario para concretar
+    // Ruta especial para comisiones
     Route::get('comisiones/{id}/concretar', [InfocomisionesController::class, 'concretarView'])
         ->name('comisiones.concretar.view');
-
-    // Guardar la transacción de la comisión
     Route::post('comisiones/{id}/concretar', [InfocomisionesController::class, 'concretar'])
         ->name('comisiones.concretar');
 
-    Route::resource('analistajr', GraficasController::class);
-
-    // ============= RUTAS PARA NÚMEROS DE WHATSAPP =============
+    // ============= NÚMEROS DE WHATSAPP =============
     Route::resource('numeros-whatsapp', NumerosWhatsAppController::class)
         ->names([
             'index' => 'numeros-whatsapp.index',
@@ -99,7 +83,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'destroy' => 'numeros-whatsapp.destroy',
         ]);
 
-    // Ruta adicional para marcar como principal
     Route::post('numeros-whatsapp/{numerosWhatsApp}/marcar-principal',
         [NumerosWhatsAppController::class, 'marcarPrincipal'])
         ->name('numeros-whatsapp.marcar-principal');

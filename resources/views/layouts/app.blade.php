@@ -52,7 +52,7 @@
                                     <div class="px-4 py-2 bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-700/30 rounded-lg">
                                         <span class="text-green-400 text-sm font-semibold">
                                             <i class="fas fa-crown mr-2"></i>
-                                            {{ auth()->user()->getInfoSuscripcion()['plan'] }}
+                                            {{-- {{ auth()->user()->getInfoSuscripcion()['plan'] }} --}}
                                         </span>
                                     </div>
                                     <a href="{{ route('dashboard') }}"

@@ -167,11 +167,11 @@
                     <div class="mb-2">
                         <div class="flex justify-between items-center mb-1">
                             <span class="text-xs text-gray-400">
-                                @if(auth()->user()->tieneSuscripcionActiva())
+                                {{-- @if(auth()->user()->tieneSuscripcionActiva())
                                     {{ auth()->user()->getInfoSuscripcion()['plan'] }}
                                 @else
                                     Plan Gratis
-                                @endif
+                                @endif --}}
                             </span>
                             <span class="text-xs font-medium text-gray-300">
                                 @if(auth()->user()->tieneAccesoPremium())
@@ -240,7 +240,7 @@
                                 @else
                                     <div class="text-xs text-green-400 bg-green-900/20 px-3 py-1.5 rounded-lg border border-green-800/30">
                                         <i class="fas fa-check-circle mr-1.5"></i>
-                                        Activo hasta {{ auth()->user()->getFechaFinSuscripcion()->format('d/m') }}
+                                        {{-- Activo hasta {{ auth()->user()->getFechaFinSuscripcion()->format('d/m') }} --}}
                                     </div>
                                 @endif
 
@@ -370,7 +370,7 @@
                         @auth
                             @if(auth()->user()->tieneSuscripcionActiva())
                                 <span class="text-green-400 font-semibold">
-                                    {{ auth()->user()->getInfoSuscripcion()['plan'] }}
+                                    {{-- {{ auth()->user()->getInfoSuscripcion()['plan'] }} --}}
                                 </span>
                             @else
                                 <span class="text-gray-500">Plan Gratis</span>
