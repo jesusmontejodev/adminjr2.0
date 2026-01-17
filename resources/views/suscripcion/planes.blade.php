@@ -14,7 +14,7 @@
                         <div class="px-3 py-1.5 bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-700/30 rounded-lg">
                             <span class="text-green-400 text-sm font-semibold">
                                 <i class="fas fa-crown mr-1.5"></i>
-                                {{-- {{ auth()->user()->getInfoSuscripcion()['plan'] }} --}}
+                                {{ auth()->user()->getPlanActualNombre() ?? 'Plan Básico' }}
                             </span>
                         </div>
                         <a href="{{ route('dashboard') }}"
@@ -118,12 +118,10 @@
                                 @auth
                                     @if(auth()->user()->tieneSuscripcionActiva())
                                         @if(auth()->user()->getPlanActualId() === config('services.stripe.price_basico'))
-
                                             <button class="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-lg text-sm">
                                                 <i class="fas fa-check mr-2"></i>Plan Actual
                                             </button>
                                         @else
-                                            <!-- Mostrar que ya tiene otro plan -->
                                             <div class="text-center p-3 bg-yellow-900/20 border border-yellow-800/30 rounded-lg mb-3">
                                                 <p class="text-yellow-400 text-sm">
                                                     Ya tienes una suscripción activa
@@ -131,7 +129,7 @@
                                             </div>
                                         @endif
                                     @else
-                                        <button onclick="subscribe('{{ config('services.stripe.price_basico') }}')"
+                                        <button onclick="subscribe()"
                                                 class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg border border-red-700 transition text-sm">
                                             Comenzar Prueba Gratis
                                         </button>
@@ -148,7 +146,7 @@
                 </div>
             </div>
 
-            <!-- COMPARACIÓN (Opción: quitar o modificar) -->
+            <!-- COMPARACIÓN -->
             <div class="bg-gray-900/50 rounded-xl p-6 mb-10 border border-gray-800">
                 <h3 class="text-xl font-bold text-white mb-6 text-center">¿Qué incluye el Plan Básico?</h3>
 
@@ -253,7 +251,7 @@
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-                    <p class="text-gray-400 text-sm mt-1" id="modal-plan-title">Plan Básico - $10/mes</p>
+                    <p class="text-gray-400 text-sm mt-1">Plan Básico - $459/mes</p>
                 </div>
 
                 <!-- Body -->
@@ -284,11 +282,11 @@
                     <div class="flex justify-between items-center mb-4">
                         <div>
                             <p class="text-gray-400 text-xs">Total a pagar hoy</p>
-                            <p class="text-xl font-bold text-white" id="modal-total">$0.00</p>
+                            <p class="text-xl font-bold text-white">$0.00</p>
                         </div>
                         <div class="text-right">
                             <p class="text-gray-400 text-xs">Próximo pago</p>
-                            <p class="text-sm font-semibold text-white" id="modal-next-payment">En 14 días</p>
+                            <p class="text-sm font-semibold text-white">En 14 días</p>
                         </div>
                     </div>
 
@@ -316,14 +314,10 @@
     const stripe = Stripe('{{ config("services.stripe.key") }}');
     const elements = stripe.elements();
     let cardElement;
-
-    let selectedPlanId = null;
     let isLoading = false;
 
     // Función para suscribirse
-    function subscribe(planId) {
-        selectedPlanId = planId;
-
+    function subscribe() {
         // Inicializar elemento de tarjeta
         if (!cardElement) {
             cardElement = elements.create('card', {
@@ -361,9 +355,9 @@
 
         if (cardElement) {
             cardElement.unmount();
+            cardElement = null;
         }
 
-        selectedPlanId = null;
         isLoading = false;
 
         // Restaurar botón
@@ -411,8 +405,8 @@
                 return;
             }
 
-            // Enviar al servidor
-            const response = await fetch('{{ route("suscripcion.crear") }}', {
+            // Enviar al servidor usando el endpoint simplificado
+            const response = await fetch('{{ route("suscripcion.suscribirse-basico") }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -420,9 +414,7 @@
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    payment_method: paymentMethod.id,
-                    plan: selectedPlanId,
-                    plan_name: 'basico'
+                    payment_method: paymentMethod.id
                 })
             });
 
@@ -430,7 +422,7 @@
 
             if (data.success) {
                 // Éxito
-                alert('¡Suscripción creada exitosamente! Disfruta de 14 días de prueba.');
+                alert(data.message);
 
                 // Redirigir después de 1.5 segundos
                 setTimeout(() => {
@@ -506,6 +498,18 @@
     document.addEventListener('DOMContentLoaded', function() {
         toggleBilling('mensual');
     });
+
+    // Validar entrada de tarjeta en tiempo real
+    if (cardElement) {
+        cardElement.on('change', function(event) {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+    }
 </script>
 @endpush
 </x-app-layout>
