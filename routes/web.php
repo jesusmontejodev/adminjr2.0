@@ -29,9 +29,15 @@ Route::get('/nosotros', function () {
     return view('nosotros');
 })->name('nosotros');
 
+
 // ============= RUTAS DE SUSCRIPCIÓN PÚBLICAS =============
 Route::get('/planes', [SuscripcionController::class, 'planes'])->name('planes');
 Route::get('/suscripcion/info', [SuscripcionController::class, 'infoSuscripcion'])->name('suscripcion.info');
+
+
+Route::get('/terminos-y-condiciones', function () {
+    return view('terminos');
+})->name('terminos');
 
 // ============= RUTAS QUE REQUIEREN AUTENTICACIÓN =============
 Route::middleware(['auth', 'verified'])->group(function () {
