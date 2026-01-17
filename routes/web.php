@@ -11,6 +11,14 @@ use App\Http\Controllers\GraficasController;
 use App\Http\Controllers\MensajesDeEntrenamientoController;
 use App\Http\Controllers\NumerosWhatsAppController;
 use App\Http\Controllers\SuscripcionController;
+use App\Http\Controllers\StripeWebhookController;
+
+
+
+
+
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])
+    ->name('cashier.webhook');
 
 // ============= RUTAS PÚBLICAS =============
 Route::get('/', function () {
@@ -28,12 +36,12 @@ Route::get('/suscripcion/info', [SuscripcionController::class, 'infoSuscripcion'
 // ============= RUTAS QUE REQUIEREN AUTENTICACIÓN =============
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    // Dashboard (accesible con o sin suscripción)
+    // Dashboard
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    // Perfil (accesible con o sin suscripción)
+    // Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -48,12 +56,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/facturas', [SuscripcionController::class, 'facturas'])->name('facturas');
         Route::get('/facturas/{id}/descargar', [SuscripcionController::class, 'descargarFactura'])->name('descargar-factura');
         Route::get('/portal-facturacion', [SuscripcionController::class, 'portalFacturacion'])->name('portal-facturacion');
+
+        // Admin only
+        Route::post('/crear-manual', [SuscripcionController::class, 'crearManual'])
+            ->middleware('admin')
+            ->name('crear-manual');
     });
 });
 
 // ============= RUTAS QUE REQUIEREN SUSCRIPCIÓN ACTIVA =============
 Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function () {
-    // También puedes usar 'suscripcion' como alias
 
     // ==================== FUNCIONALIDADES PREMIUM ====================
     Route::resource('cuentas', CuentaController::class);
