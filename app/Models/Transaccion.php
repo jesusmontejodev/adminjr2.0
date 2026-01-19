@@ -29,6 +29,7 @@ class Transaccion extends Model
         return $this->belongsTo(Cuenta::class);
     }
 
+    
     public function categoria()
     {
         return $this->belongsTo(Categoria::class);
