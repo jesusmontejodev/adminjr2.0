@@ -75,7 +75,7 @@
 
                             <td class="acciones">
                                 <a href="{{ route('cuentas.edit', $cuenta->id) }}" class="btn-action btn-edit">
-                                    <span class="icon-btn material-symbols-outlined">edit_square</span>
+                                    <span class="icon-btn material-symbols-outlined">delete</span>
                                     <span class="hidden sm:inline">Editar</span>
                                 </a>
 
