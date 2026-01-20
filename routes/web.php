@@ -29,6 +29,11 @@ Route::get('/nosotros', function () {
     return view('nosotros');
 })->name('nosotros');
 
+//ruta de aviso de privacidad
+Route::get('/privacidad', function () {
+    return view('privacidad');
+})->name('aviso-de-privacidad');
+
 
 // ============= RUTAS DE SUSCRIPCIÓN PÚBLICAS =============
 Route::get('/planes', [SuscripcionController::class, 'planes'])->name('planes');

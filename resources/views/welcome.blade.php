@@ -367,24 +367,158 @@
 </section>
 
 
-    <!-- FAQ -->
-    <!---<section class="mt-32 max-w-3xl mx-auto">
-        <h2 class="text-4xl font-extrabold text-center mb-12 text-white">
-            Preguntas <span class="text-red-600">frecuentes</span>
-        </h2>
+    <!---preguntas frecuentes--->
+    <section class="mt-32 max-w-3xl mx-auto">
+    <h2 class="text-4xl font-extrabold text-center mb-12 text-white">
+        Preguntas <span class="text-red-600">frecuentes</span>
+    </h2>
 
-        <div class="space-y-6">
-            <div class="bg-white/10 p-6 rounded-xl border border-white/10">
-                <h4 class="font-semibold text-white">¿Puedo usar Admin Jr gratis?</h4>
-                <p class="text-white/70 mt-2">Sí, puedes comenzar sin costo.</p>
-            </div>
+    <div class="space-y-4">
 
-            <div class="bg-white/10 p-6 rounded-xl border border-white/10">
-                <h4 class="font-semibold text-white">¿Es compatible con celular?</h4>
-                <p class="text-white/70 mt-2">Totalmente responsive.</p>
+        <!-- ITEM -->
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Qué es Admin JR?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                Admin JR es un asistente administrativo digital que funciona desde WhatsApp
+                y te ayuda a llevar el control de tus ingresos y gastos de forma simple y ordenada.
             </div>
         </div>
-    </section>-->
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Necesito descargar una app?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                No. Admin JR funciona directamente en WhatsApp, sin descargas ni plataformas complicadas.
+                <br><em> Mientras menos apps, más control.</em>
+            </div>
+        </div>
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Para quién es Admin JR?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                Para emprendedores, pequeños negocios y freelancers que:
+                <ul class="list-disc pl-5 mt-2 space-y-1">
+                    <li>Llevan su administración solos</li>
+                    <li>No tienen tiempo para Excel</li>
+                    <li>Quieren claridad real de su dinero</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Qué problemas me ayuda a resolver?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>No saber cuánto ganas realmente</li>
+                    <li>Desorden financiero</li>
+                    <li>Gastos que “se pierden”</li>
+                    <li>Falta de control del dinero</li>
+                </ul>
+                <p class="mt-2">Admin JR te ayuda a ordenar sin complicarte.</p>
+            </div>
+        </div>
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Necesito saber de contabilidad?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                No. Admin JR está diseñado para personas sin conocimientos contables.
+                Solo registras movimientos de dinero de forma sencilla.
+            </div>
+        </div>
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Admin JR reemplaza a un contador?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                No. Admin JR no sustituye a un contador, pero sí te permite tener tu información
+                organizada y lista cuando la necesites.
+            </div>
+        </div>
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Mi información está segura?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                Sí. Tu información es privada y confidencial. Solo tú tienes acceso a tus datos.
+            </div>
+        </div>
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Cuánto cuesta Admin JR?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                El costo es de <strong>$459 MXN al mes</strong>, mucho menos que contratar
+                a un asistente administrativo tradicional.
+                <br><em> Sin contratos largos ni compromisos forzosos.</em>
+            </div>
+        </div>
+
+        <div class="border border-white/10 rounded-xl overflow-hidden">
+            <button onclick="toggleFaq(this)"
+                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
+                ¿Puedo ver cómo funciona antes de pagar?
+                <span class="text-red-600 text-xl">+</span>
+            </button>
+            <div class="hidden px-6 pb-6 text-white/70">
+                Sí. Puedes crear una cuenta demo y conocer Admin JR antes de tomar cualquier decisión.
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-12 text-center">
+        <p class="text-white text-lg mb-2">
+            Empieza a tener control de tu dinero sin complicarte.
+        </p>
+        <p class="text-white/70 mb-6">
+            Agenda una demo gratuita y conoce cómo funciona Admin JR.
+        </p>
+        <a href="#"
+           class="inline-block bg-red-600 hover:bg-red-700 transition
+                  text-white font-semibold px-8 py-3 rounded-xl">
+            Crea una cuenta
+        </a>
+    </div>
+</section>
+
+<script>
+function toggleFaq(button) {
+    const content = button.nextElementSibling;
+    const icon = button.querySelector('span');
+
+    content.classList.toggle('hidden');
+    icon.textContent = content.classList.contains('hidden') ? '+' : '−';
+}
+</script>
 
     <!-- CTA -->
 <section class="mt-32 flex justify-center">
@@ -440,7 +574,7 @@
         <div class="space-y-2 text-sm">
             <h3 class="font-semibold">Avisos</h3>
             <ul class="space-y-1 text-gray-600">
-                <li><a href="#">Aviso de privacidad</a></li>
+                <li><a href="{{ route('aviso-de-privacidad') }}">Aviso de privacidad</a></li>
                 <li><a href="{{ route('terminos') }}">Términos y condiciones</a></li>
             </ul>
         </div>
