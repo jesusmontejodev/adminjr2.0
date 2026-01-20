@@ -1,12 +1,9 @@
 <x-app-layout>
-
-    <!-- Fondo base -->
-    <div class="absolute inset-0 -z-20 bg-[#0b0b0e]"></div>
-
     <!-- Glow rojo -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[85%] h-[85%] bg-red-600/40 blur-[140px] rounded-full"></div>
-        <div class="absolute w-[55%] h-[55%] bg-red-500/30 blur-[100px] rounded-full"></div>
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
     </div>
 
     <h1><span class="text-red-500 font-medium">
@@ -109,7 +106,7 @@
         border-radius: 18px;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(239, 68, 68, 0.35);
-        box-shadow: none; /* 👈 SIN luminosidad */
+        box-shadow: none; 
         display: flex;
         flex-direction: column;
         gap: 8px;

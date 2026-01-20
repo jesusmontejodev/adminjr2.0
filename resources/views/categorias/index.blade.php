@@ -1,24 +1,37 @@
-<head>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
-</head>
-
 <x-app-layout>
 
-<div class="absolute inset-0 -z-20 bg-[#0f1115]"></div>
+<!-- Glow rojo -->
+    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
+    </div>
+
 
 <div class="relative z-10 p-6 sm:p-10 max-w-[1440px] mx-auto">
 
     <!-- HEADER -->
-    <div class="flex justify-between items-center mb-10">
-        <h1 class="flex items-center gap-3 text-white text-2xl font-bold">
-            <span class="icon-circle">
-                <span class="material-symbols-outlined">category</span>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
+            <h1 class="flex items-center gap-3 text-white text-xl font-bold">
+                <span class="icon-circle">
+                    <!-- SVG account_balance -->
+                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5
+                        a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9
+                        a2 2 0 00-2-2M5 11V9a2 2 0 012-2
+                        m0 0V5a2 2 0 012-2h6
+                        a2 2 0 012 2v2M7 7h10"/>
+                </svg>
             </span>
-            Categorías
-        </h1>
+                Categorias
+            </h1>
 
         <a href="{{ route('categorias.create') }}" class="btn-primary">
-            <span class="material-symbols-outlined">add</span>
+           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 4v16m8-8H4"/>
+                </svg>
             Nueva categoría
         </a>
     </div>
@@ -38,9 +51,15 @@
                         <!-- NOMBRE -->
                         <td>
                             <div class="flex items-center gap-2 font-semibold">
-                                <span class="material-symbols-outlined text-red-400 text-[18px]">
-                                    label
-                                </span>
+                                <svg class="w-[18px] h-[18px] text-red-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M7 7h10l4 5-4 5H7a2 2 0 01-2-2V9a2 2 0 012-2z"/>
+                                </svg>
                                 {{ $categoria->nombre }}
                             </div>
                         </td>
@@ -51,9 +70,10 @@
                             <div class="acciones">
                                 <a href="{{ route('categorias.edit', $categoria) }}"
                                    class="btn-action btn-edit">
-                                    <span class="material-symbols-outlined icon-btn">
-                                        edit_square
-                                    </span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/>
+                                    </svg>
                                     <span class="hidden sm:inline">Editar</span>
                                 </a>
 
@@ -64,9 +84,11 @@
                                     @method('DELETE')
 
                                     <button type="submit" class="btn-action btn-delete">
-                                        <span class="material-symbols-outlined icon-btn">
-                                            delete
-                                        </span>
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M3 6h18M8 6V4h8v2M6 6v14a2 2 0 002 2h8
+                                                a2 2 0 002-2V6M10 11v6M14 11v6"/>
+                                        </svg>
                                         <span class="hidden sm:inline">Eliminar</span>
                                     </button>
                                 </form>

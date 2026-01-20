@@ -1,11 +1,24 @@
 {{-- resources/views/transacciones/index.blade.php --}}
 <x-app-layout>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+         <!-- Glow rojo -->
+    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
+    </div>
 
         {{-- Header mejorado --}}
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
-                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Transacciones</h1>
+                <h1 class="flex items-center gap-3 text-white text-xl font-bold">
+                <span class="icon-circle">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                    </svg>
+                </span>
+                Transacciones
+            </h1>
                 <p class="text-gray-600 dark:text-gray-400 mt-1">Administra tus transacciones financieras</p>
             </div>
 
@@ -14,7 +27,7 @@
                 <button onclick="exportTableToCSV('transacciones.csv')"
                     class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
                     title="Exportar a CSV">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                     Exportar CSV
@@ -22,7 +35,7 @@
 
                 <a href="{{ route('transacciones.create') }}"
                     class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     Nueva Transacción
@@ -56,7 +69,7 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Buscar</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                                 </svg>
                             </div>
@@ -120,7 +133,7 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Desde</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
                             </div>
@@ -135,7 +148,7 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Hasta</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                                 </svg>
                             </div>
@@ -184,11 +197,17 @@
                     ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
                 </p>
             </div>
-          <span class="material-symbols-outlined summary-icon text-green">
-                attach_money
-            </span>
-
-
+            <svg class="w-7 h-7 text-green-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 3v18"/>
+                <path d="M17 7c0-2.2-2.2-4-5-4s-5 1.8-5 4
+                        2.2 4 5 4 5 1.8 5 4-2.2 4-5 4-5-1.8-5-4"/>
+            </svg>
 
         </div>
     </div>
@@ -202,11 +221,16 @@
                     ${{ number_format($transacciones->where('tipo', 'egreso')->sum('monto'), 2) }}
                 </p>
             </div>
-            <span class="material-symbols-outlined summary-icon text-red">
-                transit_enterexit
-            </span>
-
-
+            <svg class="w-7 h-7 text-red-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M12 4v12"/>
+                <path d="M6 12l6 6 6-6"/>
+            </svg>
         </div>
     </div>
 
@@ -219,10 +243,17 @@
                     ${{ number_format($transacciones->where('tipo', 'costo')->sum('monto'), 2) }}
                 </p>
             </div>
-            <span class="material-symbols-outlined summary-icon text-amber">
-            payments
-        </span>
-
+            <svg class="w-7 h-7 text-yellow-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <rect x="3" y="6" width="18" height="12" rx="2"/>
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M3 9h2M19 9h2M3 15h2M19 15h2"/>
+            </svg>
         </div>
     </div>
 
@@ -235,9 +266,16 @@
                     ${{ number_format($transacciones->where('tipo', 'inversion')->sum('monto'), 2) }}
                 </p>
             </div>
-            <span class="material-symbols-outlined summary-icon text-blue">
-                trending_up
-            </span>
+            <svg class="w-7 h-7 text-blue-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <path d="M3 17l6-6 4 4 7-7"/>
+                <path d="M14 4h7v7"/>
+            </svg>
         </div>
     </div>
 
@@ -845,9 +883,22 @@ select option:hover{
     background-color: rgba(var(--primary), .65) !important;
     color:#ffffff !important;
 }
+ .icon-btn {
+            width:18px;
+            height:18px;
+        }
 
-
-
+.icon-circle {
+            width:38px;
+            height:38px;
+            border-radius:12px;
+            background:rgba(239,68,68,.18);
+            border:1px solid rgba(239,68,68,.45);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#ef4444;
+        }
 </style>
 
 </x-app-layout>

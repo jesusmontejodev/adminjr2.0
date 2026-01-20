@@ -1,11 +1,9 @@
 <x-app-layout>
 
-    <!-- Fondo -->
-    <div class="absolute inset-0 -z-20 bg-[#111318]"></div>
-
-    <!-- Glow -->
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[90%] h-[90%] bg-red-600/25 blur-[160px] rounded-full"></div>
+     <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
     </div>
 
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -15,7 +13,7 @@
             <div>
                 <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                     <span class="icon-circle">
-                       <span class="material-symbols-outlined sidebar-icon">sync_alt</span>
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                     </span>
                     Registrar Transacción
                 </h1>
@@ -25,7 +23,10 @@
             </div>
 
             <a href="{{ route('transacciones.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 18l-6-6 6-6"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -56,7 +57,6 @@
 
                     <div class="flex gap-3">
                         <button type="submit" class="btn-primary">
-                            <span class="material-symbols-outlined">save</span>
                             Guardar Transacción
                         </button>
                     </div>

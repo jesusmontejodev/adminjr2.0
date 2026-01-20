@@ -1,13 +1,4 @@
 <x-app-layout>
-
-    <!-- Fondo -->
-    <div class="absolute inset-0 -z-20 bg-[#111318]"></div>
-
-    <!-- Glow -->
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[90%] h-[90%] bg-red-600/25 blur-[160px] rounded-full"></div>
-    </div>
-
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         <!-- HEADER -->
@@ -28,8 +19,11 @@
                 </p>
             </div>
 
-            <a href="{{ route('categorias.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+            <a href="{{ route('cuentas.index') }}" class="btn-secondary">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 18l-6-6 6-6"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -99,7 +93,7 @@
                             <span class="material-symbols-outlined">
                                 {{ isset($categoria) ? 'save' : 'add' }}
                             </span>
-                            {{ isset($categoria) ? 'Actualizar' : 'Crear Categoría' }}
+                            {{ isset($categoria) ? 'Actualizar' : 'Crear categoría' }}
                         </button>
                     </div>
                 </div>

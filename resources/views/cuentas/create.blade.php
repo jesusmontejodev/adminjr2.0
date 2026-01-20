@@ -1,31 +1,36 @@
 <x-app-layout>
-
-    <!-- Fondo -->
-    <div class="absolute inset-0 -z-20 bg-[#111318]"></div>
-
-    <!-- Glow -->
+    
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[90%] h-[90%] bg-red-600/25 blur-[160px] rounded-full"></div>
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 40%, transparent 35%);">
+        </div>
     </div>
 
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         <!-- HEADER -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-            <div>
-                <h1 class="flex items-center gap-3 text-white text-xl font-bold">
-                    <span class="icon-circle">
-                        <span class="material-symbols-outlined">account_balance</span>
-                    </span>
-                    Crear Nueva Cuenta
-                </h1>
+    <div>
+        <h1 class="flex items-center gap-3 text-white text-xl font-bold">
+            <span class="icon-circle">
+                <!-- SVG tarjeta / cuenta -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                </svg>
+            </span>
+            Crear Nueva Cuenta
+        </h1>
                 <p class="mt-2 text-sm text-red-300">
                     Agrega una nueva cuenta para gestionar tus finanzas
                 </p>
             </div>
 
             <a href="{{ route('cuentas.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 18l-6-6 6-6"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -48,7 +53,7 @@
             </div>
         @endif
 
-        <!-- FORMULARIO (MISMA ESTRUCTURA) -->
+        <!-- FORMULARIO -->
         <div class="card">
             <form action="{{ route('cuentas.store') }}" method="POST" class="p-6">
                 @csrf
@@ -63,31 +68,24 @@
                         required autofocus>
                 </div>
 
-<!-- Saldo -->
-<div class="mb-6">
-    <label for="saldo_inicial" class="label">Saldo inicial *</label>
+                <!-- Saldo -->
+                <div class="mb-6">
+                    <label for="saldo_inicial" class="label">Saldo inicial *</label>
 
-    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
-
-        <!-- SIGNO $ -->
-        <span class="px-3 text-red-400 select-none">
-            $
-        </span>
-
-        <!-- INPUT -->
-        <input
-            type="number"
-            name="saldo_inicial"
-            id="saldo_inicial"
-            value="{{ old('saldo_inicial', 0) }}"
-            step="0.01"
-            min="0"
-            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
-            required
-        >
-    </div>
-</div>
-
+                    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
+                        <span class="px-3 text-red-400 select-none">$</span>
+                        <input
+                            type="number"
+                            name="saldo_inicial"
+                            id="saldo_inicial"
+                            value="{{ old('saldo_inicial', 0) }}"
+                            step="0.01"
+                            min="0"
+                            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
+                            required
+                        >
+                    </div>
+                </div>
 
                 <!-- Descripción -->
                 <div class="mb-8">
@@ -108,7 +106,6 @@
                             Cancelar
                         </a>
                         <button type="submit" class="btn-primary">
-                            <span class="material-symbols-outlined">add</span>
                             Crear Cuenta
                         </button>
                     </div>
@@ -122,11 +119,8 @@
     <style>
         body { background:#111318 }
 
-        .material-symbols-outlined{
-            font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
-        }
+        svg { flex-shrink:0 }
 
-        /* Card */
         .card{
             background:rgba(255,255,255,.04);
             border:1px solid rgba(239,68,68,.35);
@@ -134,7 +128,6 @@
             backdrop-filter:blur(14px);
         }
 
-        /* Icon circle */
         .icon-circle{
             width:38px;
             height:38px;
@@ -147,7 +140,6 @@
             color:#ef4444;
         }
 
-        /* Inputs */
         .label{
             display:block;
             margin-bottom:6px;
@@ -171,7 +163,6 @@
             box-shadow:0 0 0 2px rgba(239,68,68,.25);
         }
 
-        /* Buttons */
         .btn-primary{
             display:inline-flex;
             align-items:center;
@@ -206,7 +197,6 @@
             color:#e5e5e5;
         }
 
-        /* Alerts */
         .alert-success{
             padding:14px 18px;
             border-radius:14px;

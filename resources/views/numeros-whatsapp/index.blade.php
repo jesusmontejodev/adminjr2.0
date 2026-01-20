@@ -1,7 +1,10 @@
 <x-app-layout>
-
-    {{-- GOOGLE MATERIAL ICONS --}}
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
+ <!-- Glow rojo -->
+    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
+    </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
@@ -14,11 +17,22 @@
                     </h2>
 
                     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold border border-green-500/40 bg-green-500/10 text-green-400">
-                        <span class="material-symbols-rounded text-base">
-                            check_circle
-                        </span>
+                        <svg class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M9 12l2 2 4-4"/>
+                            <path stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 21a9 9 0 100-18 9 9 0 000 18z"/>
+                        </svg>
                         WhatsApp On
                     </span>
+
                 </div>
 
                 <p class="text-gray-400">
@@ -27,10 +41,20 @@
             </div>
 
             <a href="{{ route('numeros-whatsapp.create') }}"
-               class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-green-500/20 border border-green-500/40 text-white font-semibold hover:bg-green-500/35 transition">
-                <span class="material-symbols-rounded">
-                    add
-                </span>
+                class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-green-500/20 border border-green-500/40 text-white font-semibold hover:bg-green-500/35 transition">
+                <svg class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 5v14"/>
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 12h14"/>
+                </svg>
                 Nuevo número
             </a>
         </div>
@@ -38,9 +62,23 @@
         {{-- SUCCESS --}}
         @if (session('success'))
             <div class="mb-6 p-4 rounded-xl border border-green-500/40 bg-green-500/15 text-green-300 flex items-center gap-3">
-                <span class="material-symbols-rounded">
-                    done_all
-                </span>
+                <svg class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <!-- Primer check -->
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 12l3 3 5-5"/>
+
+                    <!-- Segundo check -->
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M10 12l3 3 7-7"/>
+                </svg>
+
                 {{ session('success') }}
             </div>
         @endif
@@ -53,9 +91,20 @@
         <div class="list-card">
             <div class="flex items-start gap-6">
                 <div class="icon-box shrink-0">
-                    <span class="material-symbols-rounded text-green-400 text-2xl">
-                        forum
-                    </span>
+                    <svg class="w-6 h-6 text-green-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2l-3 3v-3H9a2 2 0 01-2-2v-1"/>
+                        <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 4H5a2 2 0 00-2 2v6a2 2 0 002 2h2l3 3v-3h5a2 2 0 002-2V6a2 2 0 00-2-2z"/>
+                    </svg>
+
                 </div>
 
                 <div>
@@ -80,9 +129,17 @@
         <div class="list-card">
             <div class="flex items-start gap-6">
                 <div class="icon-box shrink-0">
-                    <span class="material-symbols-rounded text-green-400 text-2xl">
-                        mark_chat_unread
-                    </span>
+                    <svg class="w-6 h-6 text-green-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+                <!-- Burbuja de chat -->
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M7 6h8a3 3 0 013 3v4a3 3 0 01-3 3h-2l-3 3v-3H7a3 3 0 01-3-3V9a3 3 0 013-3z"/>
+                    </svg>
+
                 </div>
 
                 <div>
@@ -116,9 +173,23 @@
 
         <div class="flex items-center gap-3">
             <div class="w-12 h-12 rounded-xl bg-green-500/15 border border-green-500/40 flex items-center justify-center">
-                <span class="material-symbols-rounded text-gray-400 text-sm">
-                    call
-                </span>
+                <svg class="w-4 h-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M3 5.5a2.5 2.5 0 012.5-2.5h1.2
+                            a2 2 0 012 1.6l.6 2.4
+                            a2 2 0 01-.5 1.9l-1.2 1.2
+                            a16 16 0 006.9 6.9l1.2-1.2
+                            a2 2 0 011.9-.5l2.4.6
+                            a2 2 0 011.6 2v1.2
+                            A2.5 2.5 0 0118.5 21
+                            A15.5 15.5 0 013 5.5z"/>
+                </svg>
+
             </div>
 
             <div>
@@ -133,9 +204,14 @@
 
         {{-- BOTÓN EDITAR / OPCIONES --}}
         <button class="p-2 text-gray-400 hover:text-white transition cursor-pointer">
-            <span class="material-symbols-rounded">
-                more_vert
-            </span>
+            <svg class="w-5 h-5 text-gray-400"
+                fill="currentColor"
+                viewBox="0 0 24 24">
+                <circle cx="12" cy="5" r="1.8"/>
+                <circle cx="12" cy="12" r="1.8"/>
+                <circle cx="12" cy="19" r="1.8"/>
+            </svg>
+
         </button>
     </div>
 
@@ -151,18 +227,53 @@
 
         <div class="grid grid-cols-2 gap-4">
             <div class="info-box flex items-center gap-2">
-                <span class="material-symbols-rounded text-gray-400 text-sm">
-                    call
-                </span>
+                <svg class="w-4 h-4 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                            19.86 19.86 0 0 1-8.63-3.07
+                            19.5 19.5 0 0 1-6-6
+                            19.86 19.86 0 0 1-3.07-8.67
+                            A2 2 0 0 1 4.11 2h3
+                            a2 2 0 0 1 2 1.72
+                            c.12.81.3 1.6.54 2.36
+                            a2 2 0 0 1-.45 2.11L8.09 9.91
+                            a16 16 0 0 0 6 6
+                            l1.72-1.72
+                            a2 2 0 0 1 2.11-.45
+                            c.76.24 1.55.42 2.36.54
+                            a2 2 0 0 1 1.72 2z"/>
+                </svg>
                 <div>
                     <p>Número local</p>
                     <strong>{{ $numero->numero_local }}</strong>
                 </div>
             </div>
              <div class="info-box flex items-center gap-3">
-            <span class="material-symbols-rounded text-gray-400">
-                public
-            </span>
+            <svg class="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <!-- Círculo del planeta -->
+                <circle cx="12" cy="12" r="10"/>
+
+                <!-- Meridiano vertical -->
+                <path d="M12 2a15 15 0 010 20"/>
+
+                <!-- Meridiano horizontal -->
+                <path d="M2 12h20"/>
+
+                <!-- Paralelos -->
+                <path d="M4 8h16"/>
+                <path d="M4 16h16"/>
+            </svg>
             <div>
                 <p>País</p>
                 <strong>{{ $numero->pais }}</strong>
