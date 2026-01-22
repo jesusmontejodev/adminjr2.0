@@ -206,6 +206,23 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // ============= RUTAS PARA BUSCAR POR TELÉFONO =============
 
+});
+
+// ==================== RUTA PARA ESTADO DE API ====================
+Route::get('/status', function () {
+    return response()->json([
+        'status' => 'online',
+        'timestamp' => now()->toDateTimeString(),
+        'version' => '1.0',
+        'services' => [
+            'stripe' => config('services.stripe.key') ? 'configured' : 'not_configured',
+            'suscripciones' => 'enabled',
+        ]
+    ]);
+});
+
+
+
     // Rutas públicas por teléfono
     Route::get('telefono/{numero}/data', [UserDataController::class, 'getUserDataByPhone'])
         ->name('api.telefono.data');
@@ -231,17 +248,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('telefono/numeros-whatsapp', [UserDataController::class, 'getNumerosWhatsAppByPhoneQuery'])
         ->name('api.telefono.numeros-whatsapp.query');
-});
-
-// ==================== RUTA PARA ESTADO DE API ====================
-Route::get('/status', function () {
-    return response()->json([
-        'status' => 'online',
-        'timestamp' => now()->toDateTimeString(),
-        'version' => '1.0',
-        'services' => [
-            'stripe' => config('services.stripe.key') ? 'configured' : 'not_configured',
-            'suscripciones' => 'enabled',
-        ]
-    ]);
-});
