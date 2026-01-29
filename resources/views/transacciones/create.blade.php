@@ -13,7 +13,7 @@
             <div>
                 <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                     <span class="icon-circle">
-                       <span class="material-symbols-outlined sidebar-icon">sync_alt</span>
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                     </span>
                     Registrar Transacción
                 </h1>
@@ -23,7 +23,10 @@
             </div>
 
             <a href="{{ route('transacciones.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 18l-6-6 6-6"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -63,122 +66,122 @@
 
     </div>
 
-    <!-- ESTILOS -->
-    <style>
-        :root{ color-scheme: dark; }
-        body{ background:#111318; }
+  <style>
+   
+    :root{
+        color-scheme: dark;
+    }
 
-        .icon-svg{
-            width:18px;
-            height:18px;
-            stroke:currentColor;
-        }
+    body{
+        background:#111318;
+    }
 
-        .card{
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(239,68,68,.35);
-            border-radius:22px;
-            backdrop-filter:blur(14px);
-        }
+    .material-symbols-outlined{
+        font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
+    }
 
-        .icon-circle{
-            width:38px;
-            height:38px;
-            border-radius:12px;
-            background:rgba(239,68,68,.18);
-            border:1px solid rgba(239,68,68,.45);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#ef4444;
-        }
+    .card{
+        background:rgba(255,255,255,.04);
+        border:1px solid rgba(239,68,68,.35);
+        border-radius:22px;
+        backdrop-filter:blur(14px);
+    }
 
-        /* Labels */
-        .label,
-        .card label{
-            display:block;
-            margin-bottom:6px;
-            font-size:13px;
-            color:#fca5a5 !important;
-            font-weight:500;
-        }
+    .icon-circle{
+        width:38px;
+        height:38px;
+        border-radius:12px;
+        background:rgba(239,68,68,.18);
+        border:1px solid rgba(239,68,68,.45);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#ef4444;
+    }
 
-        .input{
-            width:100%;
-            padding:12px 14px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.12);
-            color:#fff;
-        }
+    /*  LABELS ROJOS  */
+    .label,
+    .card label{
+        display:block;
+        margin-bottom:6px;
+        font-size:13px;
+        color:#fca5a5 !important;
+        font-weight:500;
+    }
 
-        .input::placeholder{ color:#9ca3af; }
+    .input{
+        width:100%;
+        padding:12px 14px;
+        border-radius:14px;
+        background:rgba(255,255,255,.06);
+        border:1px solid rgba(255,255,255,.12);
+        color:#fff;
+    }
 
-        .input:focus{
-            outline:none;
-            border-color:#ef4444;
-            box-shadow:0 0 0 2px rgba(239,68,68,.25);
-        }
+    .input::placeholder{
+        color:#9ca3af;
+    }
 
-        /* Select oscuro real */
-        select.input{
-            background-color:rgba(255,255,255,.06);
-            color:#fff;
-        }
+    .input:focus{
+        outline:none;
+        border-color:#ef4444;
+        box-shadow:0 0 0 2px rgba(239,68,68,.25);
+    }
 
-        select.input option{
-            background-color:#111318;
-            color:#ffffff;
-        }
+    /* 🔥 SELECT OSCURO REAL */
+    select.input{
+        background-color:rgba(255,255,255,.06);
+        color:#fff;
+    }
 
-        select.input option:checked,
-        select.input option:hover{
-            background-color:#ef4444;
-            color:#ffffff;
-        }
+    select.input option{
+        background-color:#111318;
+        color:#ffffff;
+    }
 
-        .btn-primary{
-            display:inline-flex;
-            align-items:center;
-            gap:6px;
-            padding:10px 18px;
-            border-radius:14px;
-            background:rgba(239,68,68,.25);
-            border:1px solid rgba(239,68,68,.45);
-            color:#fff;
-            font-weight:600;
-            transition:.25s;
-        }
+    select.input option:checked{
+        background-color:#ef4444;
+        color:#ffffff;
+    }
 
-        .btn-primary:hover{
-            transform:translateY(-2px);
-            background:rgba(239,68,68,.35);
-        }
+    select.input option:hover{
+        background-color:#ef4444;
+        color:#ffffff;
+    }
 
-        .btn-secondary{
-            display:inline-flex;
-            align-items:center;
-            gap:6px;
-            padding:10px 16px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.15);
-            color:#fff;
-        }
+    .btn-primary{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:10px 18px;
+        border-radius:14px;
+        background:rgba(239,68,68,.25);
+        border:1px solid rgba(239,68,68,.45);
+        color:#fff;
+        font-weight:600;
+        transition:.25s;
+    }
 
-        .alert-error{
-            padding:14px 18px;
-            border-radius:14px;
-            background:rgba(239,68,68,.15);
-            border:1px solid rgba(239,68,68,.35);
-            color:#fecaca;
-        }
+    .btn-primary:hover{
+        transform:translateY(-2px);
+        background:rgba(239,68,68,.35);
+    }
 
-        .error-text{
-            margin-top:6px;
-            font-size:12px;
-            color:#fecaca;
-        }
-    </style>
+    .btn-secondary{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:10px 16px;
+        border-radius:14px;
+        background:rgba(255,255,255,.06);
+        border:1px solid rgba(255,255,255,.15);
+        color:#fff;
+    }
 
+    .error-text{
+        margin-top:6px;
+        font-size:12px;
+        color:#fecaca;
+    }
+</style>
 </x-app-layout>

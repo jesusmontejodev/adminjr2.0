@@ -10,20 +10,27 @@
 
         <!-- HEADER -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-            <div>
-                <h1 class="flex items-center gap-3 text-white text-xl font-bold">
-                    <span class="icon-circle">
-                        <span class="material-symbols-outlined">account_balance</span>
-                    </span>
-                    Crear Nueva Cuenta
-                </h1>
+    <div>
+        <h1 class="flex items-center gap-3 text-white text-xl font-bold">
+            <span class="icon-circle">
+                <!-- SVG tarjeta / cuenta -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                </svg>
+            </span>
+            Crear Nueva Cuenta
+        </h1>
                 <p class="mt-2 text-sm text-red-300">
                     Agrega una nueva cuenta para gestionar tus finanzas
                 </p>
             </div>
 
             <a href="{{ route('cuentas.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 18l-6-6 6-6"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -54,49 +61,38 @@
                 <!-- Nombre -->
                 <div class="mb-6">
                     <label for="nombre" class="label">Nombre de la cuenta *</label>
-                    <input type="text"
-                           name="nombre"
-                           id="nombre"
-                           value="{{ old('nombre') }}"
-                           class="input"
-                           placeholder="Ej: Cuenta Corriente, Ahorros..."
-                           required autofocus>
+                    <input type="text" name="nombre" id="nombre"
+                        value="{{ old('nombre') }}"
+                        class="input"
+                        placeholder="Ej: Cuenta Corriente, Ahorros..."
+                        required autofocus>
                 </div>
 
                 <!-- Saldo -->
                 <div class="mb-6">
                     <label for="saldo_inicial" class="label">Saldo inicial *</label>
 
-    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
-
-        <!-- SIGNO $ -->
-        <span class="px-3 text-red-400 select-none">
-            $
-        </span>
-
-        <!-- INPUT -->
-        <input
-            type="number"
-            name="saldo_inicial"
-            id="saldo_inicial"
-            value="{{ old('saldo_inicial', 0) }}"
-            step="0.01"
-            min="0"
-            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
-            required
-        >
-    </div>
-</div>
-
+                    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
+                        <span class="px-3 text-red-400 select-none">$</span>
+                        <input
+                            type="number"
+                            name="saldo_inicial"
+                            id="saldo_inicial"
+                            value="{{ old('saldo_inicial', 0) }}"
+                            step="0.01"
+                            min="0"
+                            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
+                            required
+                        >
+                    </div>
+                </div>
 
                 <!-- Descripción -->
                 <div class="mb-8">
                     <label for="descripcion" class="label">Descripción</label>
-                    <textarea name="descripcion"
-                              id="descripcion"
-                              rows="4"
-                              class="input"
-                              placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
+                    <textarea name="descripcion" id="descripcion" rows="4"
+                        class="input"
+                        placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
                 </div>
 
                 <!-- BOTONES -->
@@ -109,9 +105,7 @@
                         <a href="{{ route('cuentas.index') }}" class="btn-cancel">
                             Cancelar
                         </a>
-
                         <button type="submit" class="btn-primary">
-                            <span class="material-symbols-outlined">add</span>
                             Crear Cuenta
                         </button>
                     </div>
@@ -123,13 +117,10 @@
 
     <!-- ESTILOS -->
     <style>
-        body{background:#111318}
+        body { background:#111318 }
 
-        .material-symbols-outlined{
-            font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
-        }
+        svg { flex-shrink:0 }
 
-        /* Card */
         .card{
             background:rgba(255,255,255,.04);
             border:1px solid rgba(239,68,68,.35);
@@ -185,13 +176,9 @@
             transition:.25s;
         }
 
-        .btn-primary:hover{
-            transform:translateY(-2px);
-            background:rgba(239,68,68,.35);
-        }
+        .btn-primary:hover{ transform:translateY(-2px); background:rgba(239,68,68,.35) }
 
-        .btn-secondary,
-        .btn-cancel{
+        .btn-secondary{
             display:inline-flex;
             align-items:center;
             gap:6px;
@@ -210,7 +197,6 @@
             color:#e5e5e5;
         }
 
-        /* Alerts */
         .alert-success{
             padding:14px 18px;
             border-radius:14px;

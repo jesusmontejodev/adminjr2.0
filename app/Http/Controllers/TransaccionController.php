@@ -98,35 +98,46 @@ class TransaccionController extends Controller
     /**
      * Mostrar todas las transacciones del usuario
      */
-    public function index(Request $request)
-    {
-        $query = $this->transaccionesDelUsuario();
+   public function index(Request $request)
+{
+    $query = $this->transaccionesDelUsuario();
 
-        // Filtros seguros
-        $this->aplicarFiltros($query, $request);
+    // Filtros seguros
+    $this->aplicarFiltros($query, $request);
 
-        // Ordenamiento seguro
-        $campoOrden = $this->validarCampoOrden($request->input('sort_by', 'fecha'));
-        $direccionOrden = $this->validarDireccionOrden($request->input('sort_dir', 'desc'));
+    // 🔥 TOTALES SIN PAGINAR (CLONANDO EL QUERY)
+    $totalIngresos   = (clone $query)->where('tipo', 'ingreso')->sum('monto');
+    $totalEgresos    = (clone $query)->where('tipo', 'egreso')->sum('monto');
+    $totalCostos     = (clone $query)->where('tipo', 'costo')->sum('monto');
+    $totalInversion  = (clone $query)->where('tipo', 'inversion')->sum('monto');
 
-        $query->orderBy($campoOrden, $direccionOrden);
+    // Ordenamiento seguro
+    $campoOrden = $this->validarCampoOrden($request->input('sort_by', 'fecha'));
+    $direccionOrden = $this->validarDireccionOrden($request->input('sort_dir', 'desc'));
 
-        // Paginación con límite máximo
-        $porPagina = min($request->input('per_page', 20), 100);
-        $transacciones = $query->paginate($porPagina);
+    $query->orderBy($campoOrden, $direccionOrden);
 
-        // Obtener datos para los filtros
-        $cuentas = $this->getUserCuentas();
-        $categorias = $this->getUserCategorias();
-        $tipos = ['ingreso', 'egreso', 'inversion', 'costo'];
+    // Paginación con límite máximo
+    $porPagina = min($request->input('per_page', 20), 100);
+    $transacciones = $query->paginate($porPagina);
 
-        return view('transacciones.index', compact(
-            'transacciones',
-            'cuentas',
-            'categorias',
-            'tipos'
-        ));
-    }
+    // Obtener datos para los filtros
+    $cuentas = $this->getUserCuentas();
+    $categorias = $this->getUserCategorias();
+    $tipos = ['ingreso', 'egreso', 'inversion', 'costo'];
+
+    return view('transacciones.index', compact(
+        'transacciones',
+        'cuentas',
+        'categorias',
+        'tipos',
+        'totalIngresos',
+        'totalEgresos',
+        'totalCostos',
+        'totalInversion'
+    ));
+}
+
 
     /**
      * Aplicar filtros seguros

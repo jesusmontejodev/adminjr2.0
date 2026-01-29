@@ -6,28 +6,12 @@
             <div>
                 <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                     <span class="icon-circle">
-
-                        {{-- ICONO CATEGORY / EDIT --}}
-                        @if(isset($categoria))
-                            <!-- edit -->
-                            <svg class="icon-svg" viewBox="0 0 24 24">
-                                <path d="M4 20h4l10-10-4-4L4 16v4zM14 6l4 4"
-                                      fill="none" stroke="currentColor" stroke-width="2"
-                                      stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        @else
-                            <!-- category -->
-                            <svg class="icon-svg" viewBox="0 0 24 24">
-                                <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"
-                                      fill="none" stroke="currentColor" stroke-width="2"/>
-                            </svg>
-                        @endif
-
+                        <span class="material-symbols-outlined">
+                            {{ isset($categoria) ? 'edit' : 'category' }}
+                        </span>
                     </span>
-
                     {{ isset($categoria) ? 'Editar Categoría' : 'Nueva Categoría' }}
                 </h1>
-
                 <p class="mt-2 text-sm text-red-300">
                     {{ isset($categoria)
                         ? 'Modifica la información de la categoría'
@@ -35,8 +19,11 @@
                 </p>
             </div>
 
-            <a href="{{ route('categorias.index') }}" class="btn-secondary">
-                <span class="material-symbols-outlined">arrow_back</span>
+            <a href="{{ route('cuentas.index') }}" class="btn-secondary">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 18l-6-6 6-6"/>
+                </svg>
                 Volver
             </a>
         </div>
@@ -102,12 +89,11 @@
                         <a href="{{ route('categorias.index') }}" class="btn-cancel">
                             Cancelar
                         </a>
-
                         <button type="submit" class="btn-primary">
                             <span class="material-symbols-outlined">
                                 {{ isset($categoria) ? 'save' : 'add' }}
                             </span>
-                            {{ isset($categoria) ? 'Actualizar' : 'Crear Categoría' }}
+                            {{ isset($categoria) ? 'Actualizar' : 'Crear categoría' }}
                         </button>
                     </div>
                 </div>
@@ -117,13 +103,11 @@
 
     </div>
 
-    <!-- ESTILOS -->
     <style>
-        body{ background:#111318 }
+        body { background:#111318 }
 
-        .icon-svg{
-            width:18px;
-            height:18px;
+        .material-symbols-outlined{
+            font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
         }
 
         .card{
