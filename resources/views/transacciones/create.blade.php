@@ -54,7 +54,6 @@
 
                     <div class="flex gap-3">
                         <button type="submit" class="btn-primary">
-                            <span class="material-symbols-outlined">save</span>
                             Guardar Transacción
                         </button>
                     </div>

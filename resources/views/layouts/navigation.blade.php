@@ -1,67 +1,3 @@
-<head>
-    <!-- Google Fonts: Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    rel="stylesheet" />
-
-<style>
-    nav {
-        font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    /* ===== LINKS ===== */
-    .sidebar-link {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        padding: 14px 18px;
-        border-radius: 14px;
-        font-size: 13.5px; /* 👈 REDUCIDO */
-        font-weight: 500;
-        color: #d1d5db;
-        text-decoration: none;
-        border-left: 4px solid transparent;
-        transition: background-color 0.2s ease, color 0.2s ease;
-    }
-
-    .sidebar-link:hover {
-        background-color: rgba(239, 68, 68, 0.18);
-        color: #fee2e2;
-    }
-
-    .sidebar-link.is-active {
-        background-color: rgba(239, 68, 68, 0.25);
-        color: #fecaca;
-        border-left: 4px solid #ef4444;
-    }
-
-    .sidebar-icon {
-        font-size: 20px;
-        display: flex;
-        align-items: center;
-        color: inherit;
-    }
-
-    .material-symbols-outlined {
-        font-variation-settings:
-            'FILL' 0,
-            'wght' 400,
-            'GRAD' 0,
-            'opsz' 24;
-    }
-
-    nav ::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    nav ::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.15);
-        border-radius: 10px;
-    }
-</style>
-</head>
-
 <nav class="w-[300px] min-h-screen bg-[#0e0f13] text-gray-200 flex flex-col border-r border-white/5">
 
     <!-- LOGO -->
@@ -100,7 +36,9 @@
                 ],
                 [
                     'route' => 'transaccionesinternas.index',
-                    'icon' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>',
+                    'icon' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round"stroke-linejoin="round"stroke-width="2"d="M4 12a8 8 0 0113.66-5.66L20 8"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12a8 8 0 01-13.66 5.66L4 16"/>
+                        </svg>',
                     'text' => 'Transacciones internas'
                 ],
                 [
@@ -269,7 +207,6 @@
                                         <svg class="w-3 h-3 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
                                         </svg>
-                                        Acceso hasta {{ auth()->user()->getFechaFinSuscripcion()->format('d/m') }}
                                     </div>
                                 @else
                                     <div class="flex items-center text-xs text-green-400 bg-green-900/20 px-3 py-2 rounded-lg border border-green-800/30">
@@ -331,55 +268,119 @@
 
     </div>
 
-  <!-- USUARIO -->
-<div class="p-4 border-t border-white/10 relative">
+    <!-- USUARIO -->
+    <div class="p-4 border-t border-white/10 relative">
+        <!-- DROPDOWN FLOTANTE -->
+        <div class="absolute bottom-full left-4 right-4 mb-2 z-50 hidden" id="user-menu">
+            <div class="bg-[#14161c] border border-white/10 rounded-lg shadow-xl overflow-hidden">
+                <!-- Opción de Perfil -->
+                <a href="{{ route('profile.edit') }}"
+                   class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-red-500/10 hover:text-red-300 transition">
+                    <svg class="w-4 h-4 mr-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                    </svg>
+                    Perfil
+                </a>
 
-    <!-- DROPDOWN FLOTANTE ARRIBA -->
-    <div class="absolute bottom-full left-4 right-4 mb-3 z-50 hidden group-hover:block" id="user-menu">
-        <div class="bg-[#14161c] border border-white/10 rounded-xl shadow-xl overflow-hidden">
-            <a href="{{ route('profile.edit') }}"
-               class="block px-4 py-3 text-sm text-gray-300 hover:bg-red-500/15 hover:text-red-300 transition">
-                Perfil
-            </a>
+                <!-- Facturas si tiene suscripción -->
+                @auth
+                    @if(auth()->user()->tieneSuscripcionActiva())
+                        <a href="{{ route('suscripcion.facturas') }}"
+                           class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-red-500/10 hover:text-red-300 transition">
+                            <svg class="w-4 h-4 mr-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2h6a2 2 0 002-2V6a2 2 0 00-2-2H4zm2 6a1 1 0 011-1h1a1 1 0 110 2H7a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2h-1z" clip-rule="evenodd"/>
+                                <path d="M13.828 7.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101a.75.75 0 00-.363-1.176.75.75 0 00-.927.238l-.94 1.004a2.5 2.5 0 113.536-3.536l4-4a2.5 2.5 0 013.536 3.536l-1.004.94a.75.75 0 001.176.363l1.101-1.102a4 4 0 000-5.656z"/>
+                            </svg>
+                            Facturas
+                        </a>
 
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button
-                    type="submit"
-                    class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-red-500/15 hover:text-red-300 transition">
-                    Cerrar sesión
-                </button>
-            </form>
+                        <a href="{{ route('suscripcion.portal-facturacion') }}"
+                           target="_blank"
+                           class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-red-500/10 hover:text-red-300 transition">
+                            <svg class="w-4 h-4 mr-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"/>
+                                <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd"/>
+                            </svg>
+                            Gestión de Suscripción
+                        </a>
+                    @endif
+                @endauth
+
+                <!-- Planes -->
+                <a href="{{ route('planes') }}"
+                   class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-red-500/10 hover:text-red-300 transition">
+                    <svg class="w-4 h-4 mr-3 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                    </svg>
+                    Planes Premium
+                </a>
+
+                <!-- Separador -->
+                <div class="border-t border-white/10 my-1"></div>
+
+                <!-- Cerrar Sesión -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button
+                        type="submit"
+                        class="flex items-center w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-red-500/10 hover:text-red-300 transition">
+                        <svg class="w-4 h-4 mr-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V4a1 1 0 00-1-1H3zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+                        </svg>
+                        Cerrar sesión
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <!-- TARJETA USUARIO -->
-    <div
-        class="group flex items-center justify-between bg-white/5 rounded-xl px-4 py-3 cursor-pointer"
-        onclick="document.getElementById('user-menu').classList.toggle('hidden')"
-    >
+        <!-- TARJETA USUARIO -->
+        <div
+            class="flex items-center justify-between bg-white/5 rounded-lg px-4 py-3 cursor-pointer hover:bg-white/10 transition"
+            onclick="document.getElementById('user-menu').classList.toggle('hidden')"
+        >
+            <div class="flex items-center gap-3 min-w-0">
+                <!-- Avatar -->
+                <div class="relative">
+                    <div class="w-9 h-9 rounded-full bg-red-500/20 flex items-center justify-center">
+                        <svg class="w-5 h-5 text-red-300" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <!-- Indicador de plan premium -->
+                    @auth
+                        @if(auth()->user()->tieneAccesoPremium())
+                            <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center">
+                                <svg class="w-2 h-2 text-black" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                            </div>
+                        @endif
+                    @endauth
+                </div>
 
-        <div class="flex items-center gap-4 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-red-500/20 flex items-center justify-center">
-                <span class="material-symbols-outlined text-red-300">person</span>
+                <div class="min-w-0">
+                    <p class="text-sm font-medium truncate">
+                        {{ Auth::user()->name }}
+                    </p>
+                    <p class="text-xs text-gray-400 truncate">
+                        @auth
+                            @if(auth()->user()->tieneSuscripcionActiva())
+                                <span class="text-green-400 font-semibold">
+                                    Premium
+                                </span>
+                            @else
+                                <span class="text-gray-500">Plan Gratis</span>
+                            @endif
+                        @endauth
+                    </p>
+                </div>
             </div>
 
-            <div class="min-w-0">
-                <p class="text-sm font-medium truncate">
-                    {{ Auth::user()->name }}
-                </p>
-                <p class="text-xs text-gray-400 truncate">
-                    {{ Auth::user()->email }}
-                </p>
-            </div>
+            <svg class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
         </div>
-
-        <span class="material-symbols-outlined text-gray-400">
-            expand_more
-        </span>
     </div>
-
-</div>
 
 </nav>
 
