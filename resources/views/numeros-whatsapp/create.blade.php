@@ -1,11 +1,10 @@
 <x-app-layout>
-
-    <!-- Fondo -->
-    <div class="absolute inset-0 -z-20 bg-[#111318]"></div>
-
     <!-- Glow -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[90%] h-[90%] bg-green-600/25 blur-[160px] rounded-full"></div>
+            <div class="w-[90%] h-[90%] rounded-full blur-[160px]"
+                style="background: radial-gradient(circle,rgba(34,197,94,0.35) 0%,rgba(34,197,94,0.08) 45%, transparent 70% );">
+            </div>
+
     </div>
 
     <div class="relative z-10 max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -15,7 +14,7 @@
             <a href="{{ route('numeros-whatsapp.index') }}" class="text-white/60 hover:text-white transition">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
                 </svg>
             </a>
 

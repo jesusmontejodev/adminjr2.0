@@ -1,6 +1,12 @@
 <x-app-layout>
 
-<div class="absolute inset-0 -z-20 bg-[#0f1115]"></div>
+<!-- Glow rojo -->
+    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
+    </div>
+
 
 <div class="relative z-10 p-6 sm:p-10 max-w-[1440px] mx-auto">
 
@@ -8,19 +14,13 @@
     <div class="flex justify-between items-center mb-10">
         <h1 class="flex items-center gap-3 text-white text-2xl font-bold">
             <span class="icon-circle">
-                <!-- icon: category -->
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/>
-                </svg>
+                <span class="material-symbols-outlined">category</span>
             </span>
-            Categorías
-        </h1>
+                Categorias
+            </h1>
 
         <a href="{{ route('categorias.create') }}" class="btn-primary">
-            <!-- icon: add -->
-            <svg class="icon-svg-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12h14"/>
-            </svg>
+            <span class="material-symbols-outlined">add</span>
             Nueva categoría
         </a>
     </div>
@@ -41,11 +41,9 @@
                         <!-- NOMBRE -->
                         <td>
                             <div class="flex items-center gap-2 font-semibold">
-                                <!-- icon: label -->
-                                <svg class="icon-inline text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                    <path d="M3 12l9-9h9v9l-9 9L3 12Z"/>
-                                    <circle cx="16" cy="8" r="1.5"/>
-                                </svg>
+                                <span class="material-symbols-outlined text-red-400 text-[18px]">
+                                    label
+                                </span>
                                 {{ $categoria->nombre }}
                             </div>
                         </td>
@@ -55,10 +53,9 @@
                             <div class="acciones">
                                 <a href="{{ route('categorias.edit', $categoria) }}"
                                    class="btn-action btn-edit">
-                                    <!-- icon: edit -->
-                                    <svg class="icon-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                        <path d="M4 20h4l10-10-4-4L4 16v4Z"/>
-                                    </svg>
+                                    <span class="material-symbols-outlined icon-btn">
+                                        edit_square
+                                    </span>
                                     <span class="hidden sm:inline">Editar</span>
                                 </a>
 
@@ -69,10 +66,9 @@
                                     @method('DELETE')
 
                                     <button type="submit" class="btn-action btn-delete">
-                                        <!-- icon: trash -->
-                                        <svg class="icon-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                            <path d="M3 6h18M8 6V4h8v2M9 10v6M15 10v6M6 6l1 14h10l1-14"/>
-                                        </svg>
+                                        <span class="material-symbols-outlined icon-btn">
+                                            delete
+                                        </span>
                                         <span class="hidden sm:inline">Eliminar</span>
                                     </button>
                                 </form>

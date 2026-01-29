@@ -1,11 +1,9 @@
 <x-app-layout>
-
-    <!-- Fondo -->
-    <div class="absolute inset-0 -z-20 bg-[#111318]"></div>
-
-    <!-- Glow -->
+    
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[90%] h-[90%] bg-red-600/25 blur-[160px] rounded-full"></div>
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 40%, transparent 35%);">
+        </div>
     </div>
 
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -15,11 +13,7 @@
             <div>
                 <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                     <span class="icon-circle">
-                        <!-- account_balance -->
-                        <svg class="icon-svg" viewBox="0 0 24 24">
-                            <path d="M3 10h18M5 10v8m4-8v8m6-8v8m4-8v8M2 18h20M12 3l9 5H3l9-5z"
-                                  fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-                        </svg>
+                        <span class="material-symbols-outlined">account_balance</span>
                     </span>
                     Crear Nueva Cuenta
                 </h1>
@@ -29,10 +23,7 @@
             </div>
 
             <a href="{{ route('cuentas.index') }}" class="btn-secondary">
-                <!-- arrow_back -->
-                <svg class="icon-svg" viewBox="0 0 24 24">
-                    <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
+                <span class="material-symbols-outlined">arrow_back</span>
                 Volver
             </a>
         </div>
@@ -76,19 +67,27 @@
                 <div class="mb-6">
                     <label for="saldo_inicial" class="label">Saldo inicial *</label>
 
-                    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
-                        <span class="px-3 text-red-400 select-none">$</span>
+    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
 
-                        <input type="number"
-                               name="saldo_inicial"
-                               id="saldo_inicial"
-                               value="{{ old('saldo_inicial', 0) }}"
-                               step="0.01"
-                               min="0"
-                               class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
-                               required>
-                    </div>
-                </div>
+        <!-- SIGNO $ -->
+        <span class="px-3 text-red-400 select-none">
+            $
+        </span>
+
+        <!-- INPUT -->
+        <input
+            type="number"
+            name="saldo_inicial"
+            id="saldo_inicial"
+            value="{{ old('saldo_inicial', 0) }}"
+            step="0.01"
+            min="0"
+            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
+            required
+        >
+    </div>
+</div>
+
 
                 <!-- Descripción -->
                 <div class="mb-8">
@@ -112,11 +111,7 @@
                         </a>
 
                         <button type="submit" class="btn-primary">
-                            <!-- add -->
-                            <svg class="icon-svg" viewBox="0 0 24 24">
-                                <path d="M12 5v14M5 12h14"
-                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
+                            <span class="material-symbols-outlined">add</span>
                             Crear Cuenta
                         </button>
                     </div>
@@ -130,12 +125,11 @@
     <style>
         body{background:#111318}
 
-        .icon-svg{
-            width:18px;
-            height:18px;
-            stroke:currentColor;
+        .material-symbols-outlined{
+            font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
         }
 
+        /* Card */
         .card{
             background:rgba(255,255,255,.04);
             border:1px solid rgba(239,68,68,.35);
@@ -208,6 +202,15 @@
             color:#fff;
         }
 
+        .btn-cancel{
+            padding:10px 16px;
+            border-radius:14px;
+            background:rgba(255,255,255,.06);
+            border:1px solid rgba(255,255,255,.15);
+            color:#e5e5e5;
+        }
+
+        /* Alerts */
         .alert-success{
             padding:14px 18px;
             border-radius:14px;

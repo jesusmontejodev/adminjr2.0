@@ -1,11 +1,10 @@
 <x-app-layout>
 
-    <!-- Fondo -->
-    <div class="absolute inset-0 -z-20 bg-[#111318]"></div>
-
-    <!-- Glow -->
+    <!-- Glow rojo -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[90%] h-[90%] bg-red-600/25 blur-[160px] rounded-full"></div>
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
     </div>
 
     <div class="relative z-10 p-6 sm:p-10">
@@ -14,19 +13,13 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                 <span class="icon-circle">
-                    <!-- icon: bank -->
-                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                        <path d="M3 10h18M5 6h14M6 10v8M10 10v8M14 10v8M18 10v8M4 18h16"/>
-                    </svg>
+                    <span class="material-symbols-outlined">account_balance</span>
                 </span>
                 Mis Cuentas
             </h1>
 
             <a href="{{ route('cuentas.create') }}" class="btn-primary">
-                <!-- icon: plus -->
-                <svg class="icon-svg-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 5v14M5 12h14"/>
-                </svg>
+                <span class="material-symbols-outlined">add</span>
                 Nueva Cuenta
             </a>
         </div>
@@ -41,11 +34,7 @@
             </div>
 
             <div class="icon-circle">
-                <!-- icon: money -->
-                <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <rect x="2" y="6" width="20" height="12" rx="2"/>
-                    <circle cx="12" cy="12" r="3"/>
-                </svg>
+                <span class="material-symbols-outlined">paid</span>
             </div>
         </div>
 
@@ -68,10 +57,9 @@
                             <td>{{ $cuenta->id }}</td>
 
                             <td class="font-semibold flex items-center gap-2">
-                                <!-- icon: bank small -->
-                                <svg class="icon-inline text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                    <path d="M3 10h18M5 6h14M6 10v8M10 10v8M14 10v8M18 10v8M4 18h16"/>
-                                </svg>
+                                <span class="material-symbols-outlined text-red-400 text-[18px]">
+                                    account_balance
+                                </span>
                                 {{ $cuenta->nombre }}
                             </td>
 
@@ -85,10 +73,7 @@
 
                             <td class="acciones">
                                 <a href="{{ route('cuentas.edit', $cuenta->id) }}" class="btn-action btn-edit">
-                                    <!-- icon: edit -->
-                                    <svg class="icon-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                        <path d="M4 20h4l10-10-4-4L4 16v4Z"/>
-                                    </svg>
+                                    <span class="icon-btn material-symbols-outlined">edit_square</span>
                                     <span class="hidden sm:inline">Editar</span>
                                 </a>
 
@@ -98,13 +83,13 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn-action btn-delete">
-                                        <!-- icon: trash -->
-                                        <svg class="icon-btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-                                            <path d="M3 6h18M8 6V4h8v2M9 10v6M15 10v6M6 6l1 14h10l1-14"/>
-                                        </svg>
-                                        <span class="hidden sm:inline">Eliminar</span>
-                                    </button>
+                            <button
+                                onclick="eliminarCuenta({{ $cuenta->id }})"
+                                class="btn-action btn-delete">
+                                <span class="icon-btn material-symbols-outlined">delete</span>
+                                <span class="hidden sm:inline">Eliminar</span>
+                            </button>
+
                                 </form>
                             </td>
                         </tr>
@@ -117,25 +102,13 @@
 
     <!-- ESTILOS -->
     <style>
-        /* SVG sizes */
-        .icon-svg {
-            width:20px;
-            height:20px;
-        }
-
-        .icon-svg-sm {
-            width:18px;
-            height:18px;
-        }
-
-        .icon-inline {
-            width:18px;
-            height:18px;
-        }
-
-        .icon-btn-svg {
-            width:18px;
-            height:18px;
+        /* ICONOS NORMALIZADOS */
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 20;
         }
 
         /* Círculo iconos */
@@ -151,7 +124,6 @@
             color:#ef4444;
         }
 
-        /* Botón principal */
         .btn-primary {
             display:inline-flex;
             align-items:center;
@@ -170,7 +142,6 @@
             transform:translateY(-2px);
         }
 
-        /* Saldo */
         .saldo-card {
             display:flex;
             justify-content:space-between;
@@ -182,28 +153,16 @@
             border:1px solid rgba(239,68,68,.35);
         }
 
-        .saldo-label {
-            font-size:13px;
-            color:#fca5a5;
-        }
+        .saldo-label { font-size:13px; color:#fca5a5 }
+        .saldo-monto { font-size:26px; font-weight:800; color:#fff }
 
-        .saldo-monto {
-            font-size:26px;
-            font-weight:800;
-            color:#fff;
-        }
-
-        /* Tabla */
         .tabla-container {
             background:rgba(255,255,255,.04);
             border:1px solid rgba(239,68,68,.35);
             border-radius:22px;
         }
 
-        .tabla {
-            width:100%;
-            border-collapse:collapse;
-        }
+        .tabla { width:100%; border-collapse:collapse }
 
         .tabla th {
             padding:14px 18px;
@@ -215,15 +174,12 @@
         .tabla td {
             padding:16px 18px;
             color:#e5e5e5;
-            border-top:1px solid rgba(255,255,255,.06);
         }
 
-        .saldo-verde {
-            color:#22c55e;
-            font-weight:700;
-        }
 
-        /* Acciones */
+        .saldo-verde { color:#22c55e; font-weight:700 }
+
+        /* ACCIONES */
         .acciones {
             display:flex;
             justify-content:flex-end;
@@ -243,6 +199,16 @@
             color:#fff;
             transition:.25s;
             white-space:nowrap;
+        }
+
+        .icon-btn {
+            width:18px;
+            height:18px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:18px;
+            line-height:1;
         }
 
         .btn-edit {

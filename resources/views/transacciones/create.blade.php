@@ -1,11 +1,9 @@
 <x-app-layout>
 
-    <!-- Fondo -->
-    <div class="absolute inset-0 -z-20 bg-[#111318]"></div>
-
-    <!-- Glow -->
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[90%] h-[90%] bg-red-600/25 blur-[160px] rounded-full"></div>
+     <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
     </div>
 
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -15,15 +13,7 @@
             <div>
                 <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                     <span class="icon-circle">
-                        <!-- sync_alt -->
-                        <svg class="icon-svg" viewBox="0 0 24 24">
-                            <path d="M4 7h11l-3-3M20 17H9l3 3"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"/>
-                        </svg>
+                       <span class="material-symbols-outlined sidebar-icon">sync_alt</span>
                     </span>
                     Registrar Transacción
                 </h1>
@@ -33,14 +23,7 @@
             </div>
 
             <a href="{{ route('transacciones.index') }}" class="btn-secondary">
-                <!-- arrow_back -->
-                <svg class="icon-svg" viewBox="0 0 24 24">
-                    <path d="M15 18l-6-6 6-6"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"/>
-                </svg>
+                <span class="material-symbols-outlined">arrow_back</span>
                 Volver
             </a>
         </div>
@@ -71,14 +54,7 @@
 
                     <div class="flex gap-3">
                         <button type="submit" class="btn-primary">
-                            <!-- save -->
-                            <svg class="icon-svg" viewBox="0 0 24 24">
-                                <path d="M5 3h14l2 2v16H3V3h2zM7 3v6h10V3"
-                                      fill="none"
-                                      stroke="currentColor"
-                                      stroke-width="2"
-                                      stroke-linejoin="round"/>
-                            </svg>
+                            <span class="material-symbols-outlined">save</span>
                             Guardar Transacción
                         </button>
                     </div>

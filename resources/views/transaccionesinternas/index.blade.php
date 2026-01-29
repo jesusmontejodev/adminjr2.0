@@ -1,26 +1,28 @@
 <x-app-layout>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <div class="absolute inset-0 -z-20 bg-[#0f1115]"></div>
 
 <div class="relative z-10 p-6 sm:p-10 max-w-[1440px] mx-auto">
 
+    <!-- Glow rojo -->
+    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
+    </div>
+
     <!-- HEADER -->
     <div class="flex justify-between items-center mb-10">
         <h1 class="flex items-center gap-3 text-white text-2xl font-bold">
             <span class="icon-circle">
-                <!-- SVG swap -->
-                <svg class="icon-svg" viewBox="0 0 24 24">
-                    <path d="M7 7h11l-4-4m4 14H7l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+                <span class="material-symbols-outlined sidebar-icon">swap_horiz</span>
             </span>
-            Transacciones internas
-        </h1>
+                Transacciones internas
+            </h1>
 
         <a href="{{ route('transaccionesinternas.create') }}" class="btn-primary">
-            <!-- SVG plus -->
-            <svg class="icon-svg" viewBox="0 0 24 24">
-                <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <span class="material-symbols-outlined">add</span>
             Nueva transferencia
         </a>
     </div>
@@ -50,11 +52,9 @@
 
                     <td class="acciones-td">
                         <div class="acciones">
-                            <a href="{{ route('transaccionesinternas.edit', $t) }}" class="btn-action btn-edit">
-                                <!-- SVG edit -->
-                                <svg class="icon-btn" viewBox="0 0 24 24">
-                                    <path d="M4 20h4l10-10-4-4L4 16v4z" fill="none" stroke="currentColor" stroke-width="2"/>
-                                </svg>
+                            <a href="{{ route('transaccionesinternas.edit', $t) }}"
+                               class="btn-action btn-edit">
+                                <span class="material-symbols-outlined icon-btn">edit</span>
                                 Editar
                             </a>
 
@@ -64,11 +64,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn-action btn-delete">
-                                    <!-- SVG delete -->
-                                    <svg class="icon-btn" viewBox="0 0 24 24">
-                                        <path d="M3 6h18M8 6v14m8-14v14M5 6l1 14h12l1-14M9 6V4h6v2"
-                                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
+                                    <span class="material-symbols-outlined icon-btn">delete</span>
                                     Eliminar
                                 </button>
                             </form>

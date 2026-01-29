@@ -1,5 +1,8 @@
 <x-app-layout>
 
+    {{-- GOOGLE MATERIAL ICONS --}}
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0,0" rel="stylesheet" />
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     {{-- HEADER --}}
@@ -10,55 +13,50 @@
                     WhatsApp connection
                 </h2>
 
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold border border-green-500/40 bg-green-500/10 text-green-400">
-                    {{-- check_circle --}}
-                    <svg class="icon-svg text-green-400" viewBox="0 0 24 24">
-                        <path d="M9 12l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                    WhatsApp On
-                </span>
-            </div>
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold border border-green-500/40 bg-green-500/10 text-green-400">
+                        <span class="material-symbols-rounded text-base">
+                            check_circle
+                        </span>
+                        WhatsApp On
+                    </span>
+                </div>
 
             <p class="text-gray-400">
                 Gestiona y configura tus números de WhatsApp
             </p>
         </div>
 
-        <a href="{{ route('numeros-whatsapp.create') }}"
-           class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-green-500/20 border border-green-500/40 text-white font-semibold hover:bg-green-500/35 transition">
-            {{-- add --}}
-            <svg class="icon-svg" viewBox="0 0 24 24">
-                <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            Nuevo número
-        </a>
-    </div>
-
-    {{-- SUCCESS --}}
-    @if (session('success'))
-        <div class="mb-6 p-4 rounded-xl border border-green-500/40 bg-green-500/15 text-green-300 flex items-center gap-3">
-            {{-- done_all --}}
-            <svg class="icon-svg" viewBox="0 0 24 24">
-                <path d="M4 12l3 3 5-5M10 12l3 3 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            {{ session('success') }}
+            <a href="{{ route('numeros-whatsapp.create') }}"
+               class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-green-500/20 border border-green-500/40 text-white font-semibold hover:bg-green-500/35 transition">
+                <span class="material-symbols-rounded">
+                    add
+                </span>
+                Nuevo número
+            </a>
         </div>
-    @endif
+
+        {{-- SUCCESS --}}
+        @if (session('success'))
+            <div class="mb-6 p-4 rounded-xl border border-green-500/40 bg-green-500/15 text-green-300 flex items-center gap-3">
+                <span class="material-symbols-rounded">
+                    done_all
+                </span>
+                {{ session('success') }}
+            </div>
+        @endif
 
     {{-- LISTA VERTICAL --}}
     <div class="space-y-6 mb-10">
 
-        @if($numeros->isNotEmpty())
-            <div class="list-card">
-                <div class="flex items-start gap-6">
-                    <div class="icon-box shrink-0">
-                        {{-- forum --}}
-                        <svg class="icon-svg text-green-400" viewBox="0 0 24 24">
-                            <path d="M21 15a4 4 0 01-4 4H7l-4 3V7a4 4 0 014-4h10a4 4 0 014 4z"
-                                  fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
+    {{-- NUMEROS TOTALES (solo si hay números) --}}
+    @if($numeros->isNotEmpty())
+        <div class="list-card">
+            <div class="flex items-start gap-6">
+                <div class="icon-box shrink-0">
+                    <span class="material-symbols-rounded text-green-400 text-2xl">
+                        forum
+                    </span>
+                </div>
 
                     <div>
                         <h3 class="text-xl font-semibold text-white mb-1">
@@ -77,17 +75,15 @@
             </div>
         @endif
 
-        @if($numeros->isEmpty())
-            <div class="list-card">
-                <div class="flex items-start gap-6">
-                    <div class="icon-box shrink-0">
-                        {{-- mark_chat_unread --}}
-                        <svg class="icon-svg text-green-400" viewBox="0 0 24 24">
-                            <path d="M21 6v9a4 4 0 01-4 4H7l-4 3V6a4 4 0 014-4h10a4 4 0 014 4z"
-                                  fill="none" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="18" cy="6" r="3" fill="currentColor"/>
-                        </svg>
-                    </div>
+    {{-- VACÍO --}}
+    @if($numeros->isEmpty())
+        <div class="list-card">
+            <div class="flex items-start gap-6">
+                <div class="icon-box shrink-0">
+                    <span class="material-symbols-rounded text-green-400 text-2xl">
+                        mark_chat_unread
+                    </span>
+                </div>
 
                     <div>
                         <h3 class="text-xl font-semibold text-white mb-1">
@@ -115,16 +111,15 @@
         @foreach($numeros as $numero)
         <div class="numero-card bg-white/5 border border-red-500/30 rounded-2xl backdrop-blur-xl overflow-hidden transition hover:-translate-y-1">
 
-            {{-- HEADER --}}
-            <div class="p-6 border-b border-white/10 flex justify-between items-start">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-green-500/15 border border-green-500/40 flex items-center justify-center">
-                        {{-- call --}}
-                        <svg class="icon-svg text-gray-400" viewBox="0 0 24 24">
-                            <path d="M22 16.9v3a2 2 0 01-2.2 2A19.8 19.8 0 012 4.2 2 2 0 014 2h3a2 2 0 012 1.7l.6 3a2 2 0 01-.5 1.7l-2 2a16 16 0 007 7l2-2a2 2 0 011.7-.5l3 .6a2 2 0 011.7 2z"
-                                  fill="none" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </div>
+    {{-- HEADER --}}
+    <div class="p-6 border-b border-white/10 flex justify-between items-start relative">
+
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-green-500/15 border border-green-500/40 flex items-center justify-center">
+                <span class="material-symbols-rounded text-gray-400 text-sm">
+                    call
+                </span>
+            </div>
 
                     <div>
                         <h3 class="font-semibold text-white text-base">
@@ -136,27 +131,45 @@
                     </div>
                 </div>
 
-                {{-- more --}}
-                <svg class="icon-svg text-gray-400 hover:text-white cursor-pointer" viewBox="0 0 24 24">
-                    <circle cx="12" cy="5" r="1.8"/>
-                    <circle cx="12" cy="12" r="1.8"/>
-                    <circle cx="12" cy="19" r="1.8"/>
-                </svg>
-            </div>
+        {{-- BOTÓN EDITAR / OPCIONES --}}
+        <button class="p-2 text-gray-400 hover:text-white transition cursor-pointer">
+            <span class="material-symbols-rounded">
+                more_vert
+            </span>
+        </button>
+    </div>
 
-            {{-- INFO --}}
-            <div class="p-6 space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="info-box">
-                        <p>Número local</p>
-                        <strong>{{ $numero->numero_local }}</strong>
-                    </div>
-                    <div class="info-box">
-                        <p>País</p>
-                        <strong>{{ $numero->pais }}</strong>
-                    </div>
+    {{-- BADGE --}}
+    <div class="px-6 pt-4 flex gap-2">
+        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs bg-white/10 border border-white/20 text-gray-300">
+            Personal
+        </span>
+    </div>
+
+    {{-- INFO --}}
+    <div class="p-6 space-y-4">
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="info-box flex items-center gap-2">
+                <span class="material-symbols-rounded text-gray-400 text-sm">
+                    call
+                </span>
+                <div>
+                    <p>Número local</p>
+                    <strong>{{ $numero->numero_local }}</strong>
                 </div>
             </div>
+             <div class="info-box flex items-center gap-3">
+            <span class="material-symbols-rounded text-gray-400">
+                public
+            </span>
+            <div>
+                <p>País</p>
+                <strong>{{ $numero->pais }}</strong>
+            </div>
+        </div>
+        </div>
+    </div>
 
             {{-- FOOTER --}}
             <div class="px-6 py-4 bg-white/5 border-t border-white/10 flex justify-between items-center">
