@@ -14,11 +14,11 @@
 
 <!-- HEADER -->
 <header class="max-w-7xl mx-auto px-6 py-6">
-    <div class="flex justify-between items-center rounded-full px-8 py-4 
-                bg-white/10 backdrop-blur-md border border-white/10 shadow-lg">
+    <div class="flex justify-between items-center rounded-full px-6 sm:px-8 py-4 
+                bg-white/10 backdrop-blur-md border border-white/10 shadow-lg gap-2 sm:gap-0">
 
         <!-- LOGO + NOMBRE -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-3 shrink-0">
             <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-10">
             <span class="text-white font-bold text-lg tracking-wide">
                 Avaspace
@@ -26,15 +26,19 @@
         </div>
 
         <!-- ACCIONES -->
-        <div class="flex gap-4">
+        <div class="flex gap-3 sm:gap-4">
             <a href="{{ route('login') }}"
-               class="px-6 py-2 rounded-full border border-white/40 text-sm 
+               class="min-w-[120px] sm:min-w-0
+                      text-center whitespace-nowrap
+                      px-5 py-2 rounded-full border border-white/40 text-sm 
                       hover:bg-white hover:text-black transition font-medium">
-                Iniciar sesión 
+                Iniciar sesión
             </a>
 
             <a href="{{ route('register') }}"
-               class="px-6 py-2 rounded-full border border-red-900 bg-red-600 
+               class="min-w-[120px] sm:min-w-0
+                      text-center whitespace-nowrap
+                      px-5 py-2 rounded-full border border-red-900 bg-red-600 text-white text-sm
                       hover:bg-white hover:text-black transition font-medium">
                 Crear cuenta
             </a>
