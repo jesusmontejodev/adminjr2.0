@@ -571,7 +571,7 @@ function toggleFaq(button) {
                 <h2 class="text-xl font-semibold">Controla tus gastos</h2>
             </div>
             <p class="text-sm text-gray-600 max-w-sm">
-                Avaspace, la herramienta para vendedores.
+                Convierte tus números en decisiones inteligentes para hacer crecer tu negocio.
             </p>
         </div>
 
@@ -587,17 +587,15 @@ function toggleFaq(button) {
             <h3 class="font-semibold">Equipo</h3>
             <ul class="space-y-1 text-gray-600">
                 <li><a href="{{ route('nosotros') }}">Nosotros</a></li>
-                <li><a href="#">Blog</a></li>
             </ul>
         </div>
 
         <div class="space-y-2 text-sm">
             <h3 class="font-semibold">Social</h3>
             <ul class="space-y-1 text-gray-600">
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">YouTube</a></li>
-                <li><a href="#">LinkedIn</a></li>
+                <li><a href="https://www.facebook.com/avaspace.io">Facebook</a></li>
+                <li><a href="https://www.instagram.com/avaspace.io/">Instagram</a></li>
+                <li><a href="https://www.youtube.com/@avaspace">YouTube</a></li>
             </ul>
         </div>
     </div>

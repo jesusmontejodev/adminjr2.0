@@ -92,7 +92,7 @@
                             name="phone_number"
                             :value="old('phone_number')"
                             placeholder="Ej: 5512345678"
-                            autocomplete="tel" />
+                            autocomplete="tel"/>
                     </div>
                 </div>
 
@@ -154,8 +154,8 @@
             <div class="mt-2">
                 <p class="text-xs text-gray-500 text-center">
                     Al registrarte, aceptas nuestros
-                    <a href="#" class="text-red-400 hover:text-red-300 transition">Términos de Servicio</a> y
-                    <a href="#" class="text-red-400 hover:text-red-300 transition">Política de Privacidad</a>.
+                    <a href="{{ route('aviso-de-privacidad') }}" class="text-red-400 hover:text-red-300 transition">Aviso de privacidad</a> y
+                    <a href="{{ route('terminos') }}" class="text-red-400 hover:text-red-300 transition">Terminos y condiciones</a>.
                 </p>
             </div>
 
