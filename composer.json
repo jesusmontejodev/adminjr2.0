@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "giggsey/libphonenumber-for-php": "^9.0",
+        "guzzlehttp/guzzle": "^7.10",
         "laravel/cashier": "^16.2",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.2",

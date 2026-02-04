@@ -27,6 +27,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'pm_type',
         'pm_last_four',
         'trial_ends_at',
+        'phone_number',    // NUEVO: Agregar este campo
+        'country_code',    // NUEVO: Agregar este campo
     ];
 
     /**
@@ -39,6 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'phone_number',    // OPCIONAL: Oculta el número de teléfono en respuestas JSON si lo prefieres
     ];
 
     /**
@@ -52,7 +55,73 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'trial_ends_at' => 'datetime',
+            'phone_number' => 'string',    // NUEVO: Cast para phone_number
+            'country_code' => 'string',    // NUEVO: Cast para country_code
         ];
+    }
+
+    // =============== MÉTODOS NUEVOS PARA TELÉFONO ===============
+
+    /**
+     * Get the full phone number with country code.
+     *
+     * @return string|null
+     */
+    public function getFullPhoneNumberAttribute(): ?string
+    {
+        if ($this->phone_number && $this->country_code) {
+            return $this->country_code . $this->phone_number;
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if phone number is complete (both fields present or both absent).
+     *
+     * @return bool
+     */
+    public function hasCompletePhone(): bool
+    {
+        // Both must be present or both absent for consistency
+        return ($this->phone_number && $this->country_code) ||
+               (!$this->phone_number && !$this->country_code);
+    }
+
+    /**
+     * Validate phone number format.
+     *
+     * @return bool
+     */
+    public function hasValidPhoneFormat(): bool
+    {
+        if (!$this->phone_number || !$this->country_code) {
+            return false;
+        }
+
+        // Basic validation: country code should start with +
+        if (!str_starts_with($this->country_code, '+')) {
+            return false;
+        }
+
+        // Basic phone number validation (digits only, optional spaces, hyphens, parentheses)
+        $cleanPhone = preg_replace('/[^0-9]/', '', $this->phone_number);
+
+        return strlen($cleanPhone) >= 7 && strlen($cleanPhone) <= 15;
+    }
+
+    /**
+     * Get the formatted phone number for display.
+     *
+     * @return string|null
+     */
+    public function getFormattedPhoneAttribute(): ?string
+    {
+        if (!$this->full_phone_number) {
+            return null;
+        }
+
+        return "{$this->country_code} {$this->phone_number}";
     }
 
     // ==================== MÉTODOS DE SUSCRIPCIÓN ACTUALIZADOS ====================
@@ -420,5 +489,36 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getPuedeAgregarCuentasAttribute(): bool
     {
         return $this->puedeAgregarCuenta();
+    }
+
+    /**
+     * Verificar si el usuario tiene número de teléfono completo
+     *
+     * @return bool
+     */
+    public function getTieneTelefonoAttribute(): bool
+    {
+        return !empty($this->phone_number) && !empty($this->country_code);
+    }
+
+    /**
+     * Obtener el número de teléfono enmascarado para mostrar
+     * Útil para mostrar en interfaces sin exponer el número completo
+     *
+     * @return string|null
+     */
+    public function getTelefonoEnmascaradoAttribute(): ?string
+    {
+        if (!$this->phone_number || !$this->country_code) {
+            return null;
+        }
+
+        // Enmascarar parte del número: +52 55****8910
+        $visibleDigits = 4;
+        $maskedNumber = substr($this->phone_number, 0, 2) .
+                    str_repeat('*', strlen($this->phone_number) - $visibleDigits - 2) .
+                    substr($this->phone_number, -$visibleDigits);
+
+        return $this->country_code . ' ' . $maskedNumber;
     }
 }
