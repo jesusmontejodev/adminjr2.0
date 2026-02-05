@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,9 +30,21 @@
     @stack('styles')
 </head>
 
-<body class="font-sans antialiased bg-[#0b0b0e] text-gray-100">
+<body id="body" class="font-sans antialiased bg-white text-gray-900 dark:bg-[#0b0b0e] dark:text-gray-100">
 
-<div class="flex h-screen overflow-hidden bg-[#0b0b0e]">
+
+<div class="flex h-screen overflow-hidden bg-white dark:bg-[#0b0b0e]">
+
+<!-- BOTÓN MODO CLARO / OSCURO -->
+<button id="toggleTheme"
+    class="fixed bottom-6 right-6 z-50 px-3 py-2 rounded-lg
+           bg-gray-200 text-gray-900
+           dark:bg-gray-800 dark:text-gray-100
+           shadow hover:scale-105 transition">
+    🌙
+</button>
+
+
 
     <!-- SIDEBAR (solo mostrar si está autenticado) -->
     @auth
@@ -40,7 +52,7 @@
     @endauth
 
     <!-- CONTENIDO -->
-    <div class="flex-1 flex flex-col overflow-hidden bg-[#12141a]">
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-100 dark:bg-[#12141a]">
 
         <!-- Header dinámico para planes -->
         @if(request()->routeIs('planes') || request()->routeIs('suscripcion.*'))
@@ -82,16 +94,19 @@
                 </div>
             </header>
         @else
-            @isset($header)
-                <header class="bg-[#12141a] border-b border-white/5">
-                    <div class="py-6 px-6">
+        @isset($header)
+            <header class="bg-white dark:bg-[#12141a] border-b border-white/5">
+                <div class="flex justify-between items-center py-6 px-6">
+                    <div>
                         {{ $header }}
                     </div>
-                </header>
-            @endisset
+                </div>
+            </header>
+        @endisset
         @endif
 
-        <main class="flex-1 overflow-y-auto p-6 bg-[#12141a] relative">
+        <main class="flex-1 overflow-y-auto p-6 bg-gray-100 dark:bg-[#12141a] relative">
+
 
             <!-- Glow rojo -->
             <div class="absolute inset-0 -z-10 flex justify-center items-center pointer-events-none">
@@ -191,6 +206,34 @@
         showToast('{{ session("info") }}', 'info');
     @endif
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const html = document.documentElement;
+    const btn = document.getElementById('toggleTheme');
+
+    if (localStorage.getItem('theme') === 'dark') {
+        html.classList.add('dark');
+    }
+
+    if (!btn) return;
+
+    btn.textContent = html.classList.contains('dark') ? '☀️' : '🌙';
+
+    btn.addEventListener('click', function () {
+        html.classList.toggle('dark');
+
+        if (html.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+            btn.textContent = '🌙';
+        } else {
+            localStorage.setItem('theme', 'light');
+            btn.textContent = '☀️';
+        }
+    });
+});
+</script>
+
+
 
 @stack('scripts')
 
