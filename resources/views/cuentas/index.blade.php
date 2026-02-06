@@ -1,9 +1,17 @@
 <x-app-layout>
+
+    <!-- Glow rojo -->
+    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
+            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
+        </div>
+    </div>
+
     <div class="relative z-10 p-6 sm:p-10">
 
         <!-- HEADER -->
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-            <h1 class="flex items-center gap-3 text-xl font-bold">
+            <h1 class="flex items-center gap-3 text-white text-xl font-bold">
                 <span class="icon-circle">
                     <!-- SVG account_balance -->
                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,4 +120,117 @@
         </div>
 
     </div>
+
+    <!-- ESTILOS -->
+    <style>
+        svg { flex-shrink:0 }
+
+        .icon-circle {
+            width:38px;
+            height:38px;
+            border-radius:12px;
+            background:rgba(239,68,68,.18);
+            border:1px solid rgba(239,68,68,.45);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#ef4444;
+        }
+
+        .btn-primary {
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+            padding:8px 16px;
+            border-radius:14px;
+            background:rgba(239,68,68,.22);
+            border:1px solid rgba(239,68,68,.45);
+            color:#fff;
+            font-weight:600;
+            transition:.25s;
+        }
+
+        .btn-primary:hover {
+            background:rgba(239,68,68,.35);
+            transform:translateY(-2px);
+        }
+
+        .saldo-card {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            max-width:420px;
+            padding:22px 26px;
+            border-radius:20px;
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(239,68,68,.35);
+        }
+
+        .saldo-label { font-size:13px; color:#fca5a5 }
+        .saldo-monto { font-size:26px; font-weight:800; color:#fff }
+
+        .tabla-container {
+            background:rgba(255,255,255,.04);
+            border:1px solid rgba(239,68,68,.35);
+            border-radius:22px;
+        }
+
+        .tabla { width:100%; border-collapse:collapse }
+
+        .tabla th {
+            padding:14px 18px;
+            font-size:13px;
+            color:#fca5a5;
+            text-align:left;
+        }
+
+        .tabla td {
+            padding:16px 18px;
+            color:#e5e5e5;
+        }
+
+
+        .saldo-verde { color:#22c55e; font-weight:700 }
+
+        .acciones {
+            display:flex;
+            justify-content:flex-end;
+            gap:8px;
+            flex-wrap:wrap;
+        }
+
+        .btn-action {
+            display:flex;
+            align-items:center;
+            gap:6px;
+            height:34px;
+            padding:0 12px;
+            border-radius:10px;
+            font-size:13px;
+            font-weight:600;
+            color:#fff;
+            transition:.25s;
+            white-space:nowrap;
+        }
+
+        .icon-btn {
+            width:18px;
+            height:18px;
+        }
+
+        .btn-edit {
+            background:rgba(234,179,8,.18);
+            border:1px solid rgba(234,179,8,.45);
+        }
+
+        .btn-delete {
+            background:rgba(239,68,68,.18);
+            border:1px solid rgba(239,68,68,.45);
+        }
+
+        .btn-action:hover {
+            transform:translateY(-2px);
+        }
+    </style>
+
 </x-app-layout>

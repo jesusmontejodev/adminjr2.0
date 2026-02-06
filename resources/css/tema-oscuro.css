@@ -1,0 +1,59 @@
+.dark main {
+    background: #16181d;
+}
+
+/* textos */
+.dark h1 { color: #fff; }
+.dark h2 { color: #c9c9c9; }
+.dark h4 { color: #fff; }
+
+/* cards */
+.dark .aplicaciones-icons {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(239,68,68,.35);
+}
+
+.dark .aplicaciones-icons:hover {
+    box-shadow: 0 12px 28px rgba(0,0,0,.45);
+}
+
+.dark .aplicaciones-icons:hover h4 {
+    color: #ff6b6b;
+}
+
+/* numero */
+.dark .numero-card {
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(239,68,68,.35);
+}
+
+.dark .numero-card:hover {
+    box-shadow: 0 12px 28px rgba(0,0,0,.45);
+}
+
+.dark .numero-label {
+    color: #fca5a5;
+}
+
+.dark .numero-phone {
+    color: #fff;
+}
+
+/* whatsapp */
+.dark .whatsapp-icon {
+    background: rgba(239,68,68,.18);
+}
+
+.dark .whatsapp-btn {
+    background: rgba(239,68,68,.18);
+    border: 1px solid rgba(239,68,68,.45);
+    color: #fff;
+}
+
+.dark .whatsapp-btn:hover {
+    background: rgba(239,68,68,.35);
+}
+/* TODOS LOS SPAN EN ROJO (ambos modos) */
+span {
+    color: #ef4444;
+}

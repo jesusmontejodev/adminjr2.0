@@ -25,9 +25,14 @@
     <!-- Stripe.js -->
     <script src="https://js.stripe.com/v3/"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite([
+    'resources/css/app.css',
+    'resources/css/estructura.css',
+    'resources/css/tema-claro.css',
+    'resources/css/tema-oscuro.css',
+    'resources/js/app.js'
+])
 
-    @stack('styles')
 </head>
 
 <body id="body" class="font-sans antialiased bg-white text-gray-900 dark:bg-[#0b0b0e] dark:text-gray-100">

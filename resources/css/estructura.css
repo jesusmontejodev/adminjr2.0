@@ -1,0 +1,124 @@
+/* ====== LAYOUT GENERAL ====== */
+main {
+    background: #16181d;
+    min-height: 100vh;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ====== HERO ====== */
+h1 {
+    color: #ef4444; /* ROJO principal */
+    font-size: 22px;
+    font-weight: 800;
+}
+
+h2 {
+    color: #fca5a5; /* rojo suave */
+    font-size: 15px;
+}
+
+h4 {
+    color: #ef4444;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ====== APLICACIONES ====== */
+.aplicaciones-container {
+    display: flex;
+    gap: 24px;
+    margin: 28px 0 48px;
+}
+
+.aplicaciones-icons {
+    width: 210px;
+    padding: 24px;
+    border-radius: 22px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(239,68,68,.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    transition: .3s;
+}
+
+.aplicaciones-icons:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.45);
+}
+
+.aplicaciones-icons img {
+    width: 120px;
+    border-radius: 20px;
+    transition: .3s;
+}
+
+.aplicaciones-icons:hover img {
+    transform: scale(1.08);
+}
+
+.aplicaciones-icons:hover h4 {
+    color: #ff6b6b;
+}
+
+/* ====== NUMERO CARD ====== */
+.numero-card {
+    margin-top: 18px;
+    padding: 20px 26px;
+    width: fit-content;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(239,68,68,.35);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.numero-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.45);
+}
+
+.numero-label {
+    font-size: 12px;
+    color: #fca5a5;
+}
+
+.numero-phone {
+    font-size: 20px;
+    font-weight: 700;
+    color: #ef4444;
+}
+
+/* ====== WHATSAPP ====== */
+.whatsapp-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(239,68,68,.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp-btn {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(239,68,68,.18);
+    border: 1px solid rgba(239,68,68,.45);
+    color: #ef4444;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    transition: .25s;
+}
+
+.whatsapp-btn:hover {
+    background: rgba(239,68,68,.35);
+    transform: translateY(-2px);
+}

@@ -1,0 +1,63 @@
+html:not(.dark) main {
+    background: #f9fafb;
+}
+
+/* ====== TEXTOS (SIGUEN ROJOS) ====== */
+html:not(.dark) h1 {
+    color: #ef4444;
+}
+
+html:not(.dark) h2 {
+    color: #b91c1c; /* rojo más sobrio */
+}
+
+html:not(.dark) h4 {
+    color: #ef4444;
+}
+
+/* ====== APLICACIONES ====== */
+html:not(.dark) .aplicaciones-icons {
+    background: #ffffff;
+    border: 1px solid rgba(239,68,68,.35);
+}
+
+html:not(.dark) .aplicaciones-icons:hover {
+    box-shadow: 0 12px 28px rgba(239,68,68,.18);
+}
+
+html:not(.dark) .aplicaciones-icons:hover h4 {
+    color: #dc2626;
+}
+
+/* ====== NUMERO CARD ====== */
+html:not(.dark) .numero-card {
+    background: #ffffff;
+    border: 1px solid rgba(239,68,68,.35);
+}
+
+html:not(.dark) .numero-card:hover {
+    box-shadow: 0 12px 28px rgba(239,68,68,.18);
+}
+
+html:not(.dark) .numero-label {
+    color: #dc2626;
+}
+
+html:not(.dark) .numero-phone {
+    color: #ef4444;
+}
+
+/* ====== WHATSAPP ====== */
+html:not(.dark) .whatsapp-icon {
+    background: rgba(239,68,68,.18);
+}
+
+html:not(.dark) .whatsapp-btn {
+    background: rgba(239,68,68,.18);
+    border: 1px solid rgba(239,68,68,.45);
+    color: #ef4444;
+}
+
+html:not(.dark) .whatsapp-btn:hover {
+    background: rgba(239,68,68,.35);
+}
