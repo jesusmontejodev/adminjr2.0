@@ -40,17 +40,6 @@
 
 <div class="flex h-screen overflow-hidden bg-white dark:bg-[#0b0b0e]">
 
-<!-- BOTÓN MODO CLARO / OSCURO -->
-<button id="toggleTheme"
-    class="fixed bottom-6 right-6 z-50 px-3 py-2 rounded-lg
-           bg-gray-200 text-gray-900
-           dark:bg-gray-800 dark:text-gray-100
-           shadow hover:scale-105 transition">
-    🌙
-</button>
-
-
-
     <!-- SIDEBAR (solo mostrar si está autenticado) -->
     @auth
         @include('layouts.navigation')
@@ -134,6 +123,10 @@
 
 <!-- Scripts globales -->
 <script>
+    // Forzar tema oscuro permanentemente
+    document.documentElement.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+
     // Mostrar notificación toast
     function showToast(message, type = 'success') {
         const container = document.getElementById('toast-container');
@@ -210,35 +203,22 @@
     @if(session('info'))
         showToast('{{ session("info") }}', 'info');
     @endif
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const html = document.documentElement;
-    const btn = document.getElementById('toggleTheme');
 
-    if (localStorage.getItem('theme') === 'dark') {
-        html.classList.add('dark');
-    }
-
-    if (!btn) return;
-
-    btn.textContent = html.classList.contains('dark') ? '☀️' : '🌙';
-
-    btn.addEventListener('click', function () {
-        html.classList.toggle('dark');
-
-        if (html.classList.contains('dark')) {
+    // Asegurar que el tema oscuro se mantenga
+    document.addEventListener('DOMContentLoaded', function () {
+        // Verificar y forzar tema oscuro
+        if (!document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
-            btn.textContent = '🌙';
-        } else {
-            localStorage.setItem('theme', 'light');
-            btn.textContent = '☀️';
+        }
+
+        // Eliminar cualquier botón de cambio de tema que pueda existir
+        const themeToggle = document.getElementById('toggleTheme');
+        if (themeToggle) {
+            themeToggle.remove();
         }
     });
-});
 </script>
-
-
 
 @stack('scripts')
 
