@@ -6,6 +6,9 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/estructura.css',     // ← Añadir esto
+                'resources/css/tema-claro.css',     // ← Añadir esto
+                'resources/css/tema-oscuro.css',    // ← Añadir esto
                 'resources/js/app.js',
                 'resources/js/analistajr/dashboard.js'
             ],
@@ -14,13 +17,13 @@ export default defineConfig({
     ],
     server: {
         hmr: {
-            overlay: false, // quita overlay molesto
+            overlay: false,
         },
     },
     esbuild: {
         legalComments: 'none'
     },
     build: {
-        sourcemap: false, // desactiva mapas que usan eval
+        sourcemap: false,
     }
 });
