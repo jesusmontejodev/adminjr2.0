@@ -13,39 +13,58 @@
 <body class="min-h-screen bg-gradient-to-br from-black via-[#0f1115] to-[#1a1d23] text-white overflow-x-hidden">
 
 <!-- HEADER -->
-<header class="max-w-7xl mx-auto px-6 py-6">
-    <div class="flex justify-between items-center rounded-full px-6 sm:px-8 py-4 
-                bg-white/10 backdrop-blur-md border border-white/10 shadow-lg gap-2 sm:gap-0">
+<header class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
+    <div
+        class="flex items-center justify-between
+               rounded-full
+               px-4 sm:px-8 py-3 sm:py-4
+               bg-white/10 backdrop-blur-md
+               border border-white/10 shadow-lg
+               gap-2">
 
-        <!-- LOGO + NOMBRE -->
-        <div class="flex items-center gap-3 shrink-0">
-            <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-10">
-            <span class="text-white font-bold text-lg tracking-wide">
+        <!-- LOGO -->
+        <div class="flex items-center gap-2 shrink-0">
+            <img src="{{ asset('avaspace.svg') }}"
+                 alt="Avaspace"
+                 class="h-8 sm:h-10">
+
+            <span class="text-white font-bold
+                         text-base sm:text-lg
+                         tracking-wide">
                 Avaspace
             </span>
         </div>
 
         <!-- ACCIONES -->
-        <div class="flex gap-3 sm:gap-4">
+        <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+
             <a href="{{ route('login') }}"
-               class="min-w-[120px] sm:min-w-0
-                      text-center whitespace-nowrap
-                      px-5 py-2 rounded-full border border-white/40 text-sm 
-                      hover:bg-white hover:text-black transition font-medium">
+               class="px-4 sm:px-5 py-2
+                      rounded-full
+                      border border-white/40
+                      text-xs sm:text-sm
+                      whitespace-nowrap
+                      hover:bg-white hover:text-black
+                      transition font-medium">
                 Iniciar sesión
             </a>
 
             <a href="{{ route('register') }}"
-               class="min-w-[120px] sm:min-w-0
-                      text-center whitespace-nowrap
-                      px-5 py-2 rounded-full border border-red-900 bg-red-600 text-white text-sm
-                      hover:bg-white hover:text-black transition font-medium">
+               class="px-4 sm:px-5 py-2
+                      rounded-full
+                      bg-red-600 border border-red-600
+                      text-xs sm:text-sm text-white
+                      whitespace-nowrap
+                      hover:bg-white hover:text-black
+                      transition font-medium">
                 Crear cuenta
             </a>
+
         </div>
 
     </div>
 </header>
+
 
 <!-- VIDEO -->
     <section class="relative mt-24 flex justify-center">
@@ -506,7 +525,7 @@
         <p class="text-white/70 mb-6">
             Agenda una demo gratuita y conoce cómo funciona Admin JR.
         </p>
-        <a href="#"
+        <a href="{{ route('register') }}"
            class="inline-block bg-red-600 hover:bg-red-700 transition
                   text-white font-semibold px-8 py-3 rounded-xl">
             Crea una cuenta
