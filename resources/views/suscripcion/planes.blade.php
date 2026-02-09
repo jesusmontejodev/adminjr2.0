@@ -147,7 +147,7 @@
             </div>
 
             <!-- COMPARACIÓN -->
-           <!---- <div class="bg-gray-900/50 rounded-xl p-6 mb-10 border border-gray-800">
+        <!---- <div class="bg-gray-900/50 rounded-xl p-6 mb-10 border border-gray-800">
                 <h3 class="text-xl font-bold text-white mb-6 text-center">¿Qué incluye el Plan Básico?</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

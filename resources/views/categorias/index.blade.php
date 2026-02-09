@@ -1,13 +1,4 @@
 <x-app-layout>
-
-<!-- Glow rojo -->
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
-            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
-        </div>
-    </div>
-
-
 <div class="relative z-10 p-6 sm:p-10 max-w-[1440px] mx-auto">
 
     <!-- HEADER -->
@@ -42,8 +33,10 @@
             <thead>
                 <tr>
                     <th>Nombre</th>
-                </tr>
+                    <th></th>
+                </tr>   
             </thead>
+
 
             <tbody>
                 @foreach ($categorias as $categoria)
@@ -101,148 +94,4 @@
         </table>
     </div>
 </div>
-
-<style>
-/* ================= ICONOS ================= */
-.material-symbols-outlined {
-    font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 20;
-    font-size:18px;
-}
-
-/* ================= ICON CIRCLE ================= */
-.icon-circle {
-    width:38px;
-    height:38px;
-    border-radius:12px;
-    background:rgba(239,68,68,.18);
-    border:1px solid rgba(239,68,68,.45);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#ef4444;
-}
-
-/* ================= BOTÓN PRINCIPAL ================= */
-.btn-primary {
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:0 16px;
-    height:40px;
-    border-radius:14px;
-    background:rgba(239,68,68,.22);
-    border:1px solid rgba(239,68,68,.45);
-    color:#fff;
-    font-weight:600;
-    transition:.25s;
-}
-
-.btn-primary:hover {
-    background:rgba(239,68,68,.35);
-    transform:translateY(-2px);
-}
-
-/* ================= TABLA ================= */
-.tabla-container {
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(239,68,68,.35);
-    border-radius:22px;
-    overflow:hidden;
-}
-
-.tabla {
-    width:100%;
-    border-collapse:collapse;
-}
-
-.tabla th {
-    padding:14px 18px;
-    font-size:13px;
-    color:#fca5a5;
-    text-align:left;
-}
-
-.tabla td {
-    padding:14px 18px;
-    color:#e5e5e5;
-    border-top:1px solid rgba(255,255,255,.06);
-    vertical-align:middle;
-}
-
-/* ================= ACCIONES ================= */
-.acciones-td {
-    text-align:right;
-}
-
-.acciones {
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    gap:10px;
-}
-
-/* ================= BOTONES ================= */
-.btn-action {
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    height:34px;
-    padding:0 14px;
-    border-radius:10px;
-    font-size:13px;
-    font-weight:600;
-    color:#fff;
-    transition:.25s;
-    white-space:nowrap;
-}
-
-.icon-btn {
-    width:18px;
-    height:18px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-/* ================= COLORES ================= */
-.btn-edit {
-    background:rgba(234,179,8,.18);
-    border:1px solid rgba(234,179,8,.45);
-}
-
-.btn-edit:hover {
-    background:rgba(234,179,8,.3);
-}
-
-.btn-delete {
-    background:rgba(239,68,68,.18);
-    border:1px solid rgba(239,68,68,.45);
-}
-
-.btn-delete:hover {
-    background:rgba(239,68,68,.32);
-}
-
-.btn-action:hover {
-    transform:translateY(-2px);
-}
-
-/* ===== FIX DEFINITIVO FORM EN ACCIONES ===== */
-.acciones form {
-    display:inline-flex;
-    align-items:center;
-    margin:0;
-}
-
-.acciones form button {
-    display:inline-flex;
-    align-items:center;
-}
-
-</style>
-
 </x-app-layout>
