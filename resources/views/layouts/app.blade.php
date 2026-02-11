@@ -28,7 +28,7 @@
     @vite([
     'resources/css/app.css',
     'resources/css/estructura.css',
-    'resources/css/tema-claro.css',
+    'resources/css/temas-claro.css',
     'resources/css/tema-oscuro.css',
     'resources/js/app.js'
 ])

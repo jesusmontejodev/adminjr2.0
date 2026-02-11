@@ -25,8 +25,7 @@
             <div class="flex items-center space-x-3">
                 {{-- Botón de exportación --}}
                 <button onclick="exportTableToCSV('transacciones.csv')"
-                    class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-700 hover:to-emerald-800 text-white rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5"
-                    title="Exportar a CSV">
+                    class="btn-exportar-outline" title="Exportar a CSV">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
@@ -34,7 +33,7 @@
                 </button>
 
                 <a href="{{ route('transacciones.create') }}"
-                    class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl hover:-translate-y-0.5">
+                    class="btn-nueva-outline">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -62,10 +61,10 @@
                 <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Filtros</h2>
             </div>
 
-            <form action="{{ route('transacciones.index') }}" method="GET" class="space-y-4">
+            <form action="{{ route('transacciones.index') }}" method="GET" class="space-y-4 filtros-form">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {{-- Búsqueda --}}
-                    <div>
+                    <div class="filtros-footer">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Buscar</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -133,9 +132,6 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Desde</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
                             </div>
                             <input type="date"
                                    name="fecha_desde"
@@ -148,9 +144,6 @@
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Hasta</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                </svg>
                             </div>
                             <input type="date"
                                    name="fecha_hasta"
@@ -164,18 +157,21 @@
                 <div class="flex flex-wrap items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                     <div>
                         @if(request()->anyFilled(['search', 'tipo', 'cuenta_id', 'categoria_id', 'fecha_desde', 'fecha_hasta']))
-                            <a href="{{ route('transacciones.index') }}"
-                               class="inline-flex items-center px-4 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                                </svg>
-                                Limpiar filtros
-                            </a>
+                                            <a href="{{ route('transacciones.index') }}" class="btn-limpiar">
+                        <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M6 18L18 6M6 6l12 12"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"/>
+                        </svg>
+                        Limpiar filtros
+                    </a>
+
                         @endif
                     </div>
 
-                    <button type="submit"
-                            class="inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg shadow transition-all duration-200 hover:shadow-lg">
+                    <button type="submit" class="btn-filtrar">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>

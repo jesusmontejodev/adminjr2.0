@@ -1,0 +1,829 @@
+/*DISEÑO DE DASHBOARD*/
+/* TITULOS PRINCIPALES */
+html:not(.dark) main h1,
+html:not(.dark) main h4 {
+    color: #ef4444;
+}
+
+/* =========================
+   SUBTÍTULOS
+   ========================= */
+html:not(.dark) main h2 {
+    color: #111827;
+}
+
+/* =========================
+   SPANS ESPECÍFICOS
+   ========================= */
+html:not(.dark) main .hero-highlight,
+html:not(.dark) main .numero-label {
+    color: #ef4444;
+}
+
+html:not(.dark) main .hero-soon {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+/* =========================
+   TEXTO GENERAL
+   ========================= */
+html:not(.dark) main .numero-phone {
+    color: #111827;
+}
+
+/* =========================
+   CARDS APLICACIONES
+   ========================= */
+html:not(.dark) main .aplicaciones-icons {
+    background: #ffffff;
+    border: 1px solid rgba(239,68,68,.45);
+    transition: border-color .25s ease, transform .25s ease;
+}
+
+html:not(.dark) main .aplicaciones-icons h4 {
+    color: #111827;
+    transition: color .25s ease;
+}
+
+html:not(.dark) main .aplicaciones-icons:hover {
+    border-color: #ef4444;
+    transform: translateY(-2px);
+}
+
+html:not(.dark) main .aplicaciones-icons:hover h4 {
+    color: #ef4444;
+}
+
+/* =========================
+    CARD NÚMERO
+   ========================= */
+html:not(.dark) main .numero-card {
+    background: #ffffff;
+    border: 1px solid rgba(239,68,68,.45);
+    transition: border-color .25s ease, transform .25s ease;
+}
+
+html:not(.dark) main .numero-card:hover {
+    border-color: #ef4444;
+    transform: translateY(-2px);
+}
+
+/* =========================
+    WHATSAPP
+   ========================= */
+html:not(.dark) main .whatsapp-icon {
+    background: rgba(239,68,68,.18);
+}
+
+html:not(.dark) main .whatsapp-btn {
+    background: #ef4444;
+    border: 1px solid #ef4444;
+    color: #ffffff;
+    transition: background .25s ease, border-color .25s ease;
+}
+
+html:not(.dark) main .whatsapp-btn:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+}
+
+/* =========================
+    AQUI TERMINA
+   ========================= */
+
+/*DISEÑO DE CUENTAS, CATEGORIA, TRANSACCIONES INTERNAS*/
+
+/*DISEÑO DE TODOS LOS LISTADOS*/
+html:not(.dark) main .tabla-container {
+    background: #ffffff;
+    border: 1px solid rgba(239,68,68,.35);
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+html:not(.dark) main .tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+html:not(.dark) main .tabla th {
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #d56c6c;
+    color: #f8f4f4;
+    text-align: left;
+    border-bottom: 1px solid rgba(239,68,68,.35);
+}
+
+html:not(.dark) main .tabla td {
+    padding: 16px 18px;
+    color: #000000;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    vertical-align: middle;
+}
+
+html:not(.dark) main .tabla tbody tr:hover {
+    background: rgba(239,68,68,.12);
+}
+
+/* =========================
+SALDOS
+   ========================= */
+html:not(.dark) main .saldo-verde {
+    color: #16a34a;
+    font-weight: 700;
+}
+
+/* =========================
+ACCIONES
+   ========================= */
+html:not(.dark) main .acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+html:not(.dark) main .td-acciones {
+    white-space: nowrap;
+}
+
+/* BOTÓN BASE */
+html:not(.dark) main .btn-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+    transition: background .25s ease, transform .25s ease;
+    white-space: nowrap;
+}
+
+/* EDITAR */
+html:not(.dark) main .btn-edit {
+    background: transparent;
+    border: 1.5px solid #facc15;   /* amarillo */
+    color: #ca8a04;               /* texto amarillo oscuro */
+}
+
+html:not(.dark) main .btn-edit:hover {
+    background: #facc15;
+    color: #713f12;
+    transform: translateY(-2px);
+}
+
+/* ELIMINAR */
+html:not(.dark) main .btn-delete {
+    background: transparent;
+    border: 1.5px solid #ef4444;   /* rojo */
+    color: #ef4444;
+}
+
+html:not(.dark) main .btn-delete:hover {
+    background: #ef4444;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+    ICONOS CIRCULARES
+   ========================= */
+html:not(.dark) main .icon-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: rgba(239,68,68,.18);
+    border: 1px solid rgba(239,68,68,.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aa1313;
+}
+
+/* =========================
+   BOTÓN NUEVA CUENTA
+   ========================= */
+html:not(.dark) main .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 14px;
+
+    background: transparent;
+    border: 1.5px solid #ef4444;
+    color: #ef4444;
+
+    font-weight: 600;
+    transition: background .25s ease, color .25s ease, transform .25s ease;
+    white-space: nowrap;
+}
+
+html:not(.dark) main .btn-primary:hover {
+    background: #ef4444;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   SALDO TOTAL CARD
+   ========================= */
+html:not(.dark) main .saldo-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 420px;
+    padding: 22px 26px;
+    border-radius: 20px;
+    background: #ffffff;
+    border: 1px solid rgba(239,68,68,.35);
+}
+
+html:not(.dark) main .saldo-label {
+    font-size: 13px;
+    color: #b91c1c;
+}
+
+html:not(.dark) main .saldo-monto {
+    font-size: 26px;
+    font-weight: 800;
+    color: #111827;
+}
+
+/* =========================
+   FIX ICONO + TEXTO CUENTA
+   ========================= */
+html:not(.dark) main .celda-flex {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #111827;
+}
+
+html:not(.dark) main .celda-flex svg {
+    color: #ef4444;
+    flex-shrink: 0;
+}
+/* =========================
+    AQUI TERMINA
+   ========================= */
+
+/*INCIIO DE DISEÑO DE TRANSACCIONES*/
+html:not(.dark) main .summary-card{
+    background:#ffffff;
+    border-radius:20px;
+    padding:20px 22px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 8px 18px rgba(0,0,0,.04);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+html:not(.dark) main .summary-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
+}
+
+/* Texto */
+html:not(.dark) main .summary-label{
+    font-size:13px;
+    font-weight:600;
+    color:#6b7280;
+    margin-bottom:6px;
+}
+
+html:not(.dark) main .summary-amount{
+    font-size:24px;
+    font-weight:800;
+    color:#111827;
+}
+
+/* Iconos */
+html:not(.dark) main .summary-card svg{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
+}
+
+/* =========================
+   BORDES POR TIPO
+   ========================= */
+
+/* INGRESOS */
+html:not(.dark) main .summary-card.border-green{
+    border:1.5px solid rgba(22,163,74,.35);
+}
+html:not(.dark) main .summary-card.border-green svg{
+    color:#22c55e;
+}
+
+/* EGRESOS */
+html:not(.dark) main .summary-card.border-red{
+    border:1.5px solid rgba(239,68,68,.35);
+}
+html:not(.dark) main .summary-card.border-red svg{
+    color:#ef4444;
+}
+
+/* COSTOS */
+html:not(.dark) main .summary-card.border-amber{
+    border:1.5px solid rgba(245,158,11,.35);
+}
+html:not(.dark) main .summary-card.border-amber svg{
+    color:#f59e0b;
+}
+
+/* INVERSIONES */
+html:not(.dark) main .summary-card.border-blue{
+    border:1.5px solid rgba(59,130,246,.35);
+}
+html:not(.dark) main .summary-card.border-blue svg{
+    color:#3b82f6;
+}
+
+/* CONTENEDOR DE LA TABLA */
+html:not(.dark) main #transacciones-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(0,0,0,.08);
+}
+
+/* TH IGUAL QUE OTRAS TABLAS */
+html:not(.dark) main #transacciones-table th {
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #d56c6c; /* tu color */
+    color: #f8f4f4;
+    text-align: left;
+    border-bottom: 1px solid rgba(239,68,68,.35);
+}
+
+/* TD */
+html:not(.dark) main #transacciones-table td {
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #111827;
+    background: #ffffff;
+}
+
+/* HOVER FILA */
+html:not(.dark) main #transacciones-table tbody tr:hover {
+    background: #fdf2f2;
+}
+
+/* SPAN (CATEGORIA Y TIPO) */
+html:not(.dark) main #transacciones-table span.inline-flex {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb;
+    color: #374151 !important;
+    font-weight: 600;
+}
+
+/* PUNTO DE COLOR (BOLITA) */
+html:not(.dark) main #transacciones-table span.w-2.h-2 {
+    box-shadow: 0 0 0 2px #ffffff;
+}
+
+/* ICONOS DE FECHA */
+html:not(.dark) main #transacciones-table .bg-blue-100 {
+    background: #fee2e2 !important;
+}
+
+/* ACCIONES */
+html:not(.dark) main #transacciones-table a,
+html:not(.dark) main #transacciones-table button {
+    border-radius: 8px;
+}
+/*boton de filtro*/
+html:not(.dark) main .btn-filtrar{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:10px 22px;
+    border-radius:14px;
+    background:transparent;
+    border:1.5px solid #ef4444; /* rojo */
+    color:#ef4444;
+    font-weight:600;
+    transition:background .25s ease, color .25s ease, transform .25s ease;
+}
+html:not(.dark) main .btn-filtrar:hover{
+    background:#ef4444;
+    color:#ffffff;
+    transform:translateY(-2px);
+}
+/*filtrooos*/
+html:not(.dark) main .filtros-card{
+    background:#ffffff;
+    border-radius:20px;
+    padding:24px;
+    margin-bottom:32px;
+    border:1.5px solid #ef4444;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
+/* Header */
+html:not(.dark) main .filtros-card .filtros-header{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:18px;
+    color:#991b1b;
+    font-weight:600;
+}
+/* Labels */
+html:not(.dark) main .filtros-card label{
+    font-size:.85rem;
+    font-weight:600;
+    color:#6b7280;
+}
+/* Inputs & selects */
+html:not(.dark) main .filtros-card input,
+html:not(.dark) main .filtros-card select{
+    width:100%;
+    padding:11px 14px;
+    border-radius:14px;
+    border:1.5px solid #e5e7eb;
+    background:#fff;
+    color:#111827;
+    transition:border .25s ease, box-shadow .25s ease, transform .2s ease;
+}
+html:not(.dark) main .filtros-card input:focus,
+html:not(.dark) main .filtros-card select:focus{
+    outline:none;
+    border-color:#ef4444;
+    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+}
+/* Footer */
+html:not(.dark) main .filtros-card .filtros-footer{
+    margin-top:20px;
+    padding-top:16px;
+    border-top:1px solid #f3f4f6;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+/* Botón limpiar */
+html:not(.dark) main .btn-limpiar{
+    padding:10px 18px;
+    border-radius:14px;
+    border:1.5px solid #d1d5db;
+    color:#374151;
+    background:transparent;
+    font-weight:500;
+    transition:background .2s ease, transform .2s ease, border .2s ease;
+}
+html:not(.dark) main .btn-limpiar:hover{
+    background:#fee2e2;
+    border-color:#ef4444;
+    color:#991b1b;
+    transform:translateY(-1px);
+}
+/* ICONO EDITAR (AMARILLO)*/
+html:not(.dark) main td a[title="Editar"]{
+    background: transparent;
+    border: 1.5px solid #facc15;
+    color: #ca8a04;
+    border-radius: 10px;
+    transition: background .25s ease, transform .25s ease, color .25s ease;
+}
+html:not(.dark) main td a[title="Editar"]:hover{
+    background: #facc15;
+    color: #713f12;
+    transform: translateY(-2px);
+}
+/*ICONO ELIMINAR (ROJO)*/
+html:not(.dark) main td button[title="Eliminar"]{
+    background: transparent;
+    border: 1.5px solid #ef4444;
+    color: #ef4444;
+    border-radius: 10px;
+    transition: background .25s ease, transform .25s ease, color .25s ease;
+}
+html:not(.dark) main td button[title="Eliminar"]:hover{
+    background: #ef4444;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+/* SELECT – ESTADO BASE*/
+html:not(.dark) main .filtros-form select{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    width:100%;
+    padding:12px 44px 12px 16px;
+    border-radius:14px;
+    /* 🔥 Borde activo desde el inicio */
+    background:linear-gradient(180deg, #fff5f5, #fee2e2);
+    border:1.5px solid #ef4444;
+    color:#7f1d1d;
+    font-size:.9rem;
+    font-weight:500;
+    cursor:pointer;
+    transition:
+        box-shadow .25s ease,
+        transform .15s ease;
+    /* Flecha */
+    background-image:
+        url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ef4444' viewBox='0 0 20 20'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 14px center;
+    background-size:18px;
+}
+/* Hover */
+html:not(.dark) main .filtros-form select:hover{
+    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+}
+/* Focus */
+html:not(.dark) main .filtros-form select:focus{
+    outline:none;
+    box-shadow:0 0 0 4px rgba(239,68,68,.22);
+}
+/* OPCIONES (dropdown) */
+html:not(.dark) main .filtros-form option{
+    background:#ffffff;
+    color:#7f1d1d;
+    font-weight:400;
+}
+/* opción seleccionada */
+html:not(.dark) main .filtros-form option:checked{
+    background:#fee2e2;
+    color:#991b1b;
+}
+/* Hover */
+html:not(.dark) main .filtros-form select:hover{
+    background: linear-gradient(180deg, #fff5f5, #fee2e2);
+    border-color: #ef4444;
+    transform: translateY(-1px);
+}
+
+/* Focus */
+html:not(.dark) main .filtros-form select:focus{
+    outline: none;
+    background: #ffffff;
+    border-color: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239,68,68,.18);
+}
+/* Opciones */
+html:not(.dark) main .filtros-form option{
+    background: #ffffff;
+    color: #000000;
+    font-weight: 500;
+}
+/* Opción seleccionada */
+html:not(.dark) main .filtros-form option:checked{
+    background: #fee2e2;
+    color: #991b1b;
+}
+/* EXPORTAR CSV – VERDE */
+html:not(.dark) main .btn-exportar-outline{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 22px;
+    border-radius:14px;
+    background:transparent;
+    border:1.5px solid #16a34a;
+    color:#16a34a;
+    font-weight:600;
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .2s ease,
+        box-shadow .3s ease;
+}
+html:not(.dark) main .btn-exportar-outline:hover{
+    background:linear-gradient(to right, #16a34a, #15803d);
+    color:#ffffff;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(22,163,74,.45);
+}
+/* NUEVA TRANSACCIÓN – AZUL */
+html:not(.dark) main .btn-nueva-outline{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 22px;
+    border-radius:14px;
+
+    background:transparent;
+    border:1.5px solid #2563eb;
+    color:#2563eb;
+
+    font-weight:600;
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .2s ease,
+        box-shadow .3s ease;
+}
+html:not(.dark) main .btn-nueva-outline:hover{
+    background:linear-gradient(to right, #2563eb, #1d4ed8);
+    color:#ffffff;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(37,99,235,.45);
+}
+/* Botón limpiar – FIX DEFINITIVO de transacciòn */
+html:not(.dark) main .btn-limpiar{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    height:40px;                 /* 🔒 evita deformación */
+    padding:0 18px;
+
+    border-radius:14px;
+    border:1.5px solid #d1d5db;
+    background:#ffffff;
+
+    color:#374151;
+    font-size:14px;
+    font-weight:500;
+
+    white-space:nowrap;          /* 🔒 no se rompe el texto */
+    transition:
+        background .2s ease,
+        color .2s ease,
+        border .2s ease,
+        transform .15s ease;
+}
+/* SVG fijo */
+html:not(.dark) main .btn-limpiar svg{
+    width:16px;
+    height:16px;
+    flex-shrink:0;               /* 🔒 evita que se aplaste */
+}
+/* Hover */
+html:not(.dark) main .btn-limpiar:hover{
+    background:#fee2e2;
+    border-color:#ef4444;
+    color:#991b1b;
+    transform:translateY(-1px);
+}
+
+/*AQUI TERMINAAAAAAA*/
+/* =========================
+   WHATSAPP – MODO CLARO PRO
+   ========================= */
+/* ===== TITULO ===== */
+html:not(.dark) .whatsapp-section h2 {
+    color: #ef4444;
+    font-weight: 700;
+}
+
+
+/* ===== CARD RESUMEN ===== */
+.list-card{
+    background: #ffffff;
+    border: 2px solid #c20a0a86;
+    border-radius: 20px;
+    padding: 26px;
+
+    width: 100%;
+    max-width: 360px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.06);
+    transition: all .25s ease;
+}
+
+.list-card:hover{
+    border-color: #ef4444;
+    transform: translateY(-4px);
+    box-shadow: 0 18px 45px rgba(239,68,68,.15);
+}
+
+
+/* ===== ICONO PRINCIPAL ===== */
+.icon-box{
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+
+    background: rgba(197, 34, 34, 0.12);
+    border: 1.5px solid rgba(197, 34, 34, 0.45);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #22c55e;
+}
+
+html:not(.dark) main .icon-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+html:not(.dark) main .icon-box svg{
+    width: 20px;
+    height: 20px;
+    color: #a60202;
+    flex-shrink: 0;
+}
+
+
+/* ===== BOTÓN ===== */
+.btn-secondary{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 20px;
+    border-radius: 999px;
+
+    background: rgba(239,68,68,.08);
+    border: 1.5px solid #ef4444;
+    color: #ef4444;
+
+    font-weight: 600;
+    transition: all .25s ease;
+}
+
+.btn-secondary:hover{
+    background: #ef4444;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+
+/* ===== NUMERO CARD ===== */
+.numero-card{
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    border-radius: 22px;
+
+    box-shadow: 0 14px 35px rgba(0,0,0,.06);
+    transition: all .25s ease;
+}
+
+.numero-card:hover{
+    border-color: #22c55e;
+    transform: translateY(-5px);
+    box-shadow: 0 20px 48px rgba(34,197,94,.16);
+}
+
+
+/* ===== HEADER CARD ===== */
+.numero-card h3{
+    color: #111827;
+    font-weight: 600;
+}
+
+.numero-card p{
+    color: #374151;
+}
+
+
+/* ===== BADGE ===== */
+.numero-card span.inline-flex{
+    background: rgba(34,197,94,.12);
+    border: 1px solid rgba(34,197,94,.4);
+    color: #16a34a;
+    font-weight: 600;
+}
+
+
+/* ===== INFO BOX ===== */
+.info-box{
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.info-box p{
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.info-box strong{
+    font-size: 15px;
+    color: #111827;
+}
+
+
+/* ===== FOOTER ===== */
+.numero-card .border-t{
+    background: #f9fafb;
+}
+
+.numero-card .border-t span{
+    color: #6b7280;
+}
+
+.numero-card .border-t .bg-gray-400{
+    background: #9ca3af;
+}
