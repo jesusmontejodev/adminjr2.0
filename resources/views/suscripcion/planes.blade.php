@@ -1,24 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
+        <div class="suscripciones-light">
         <div class="flex justify-between items-center">
             <div>
-                <h2 class="font-semibold text-2xl text-white leading-tight">
-                    {{ __('Planes de Suscripción') }}
-                </h2>
-                <p class="text-gray-400 mt-1">Elige el plan perfecto para tu negocio</p>
+                    <h2 class="suscripciones-header-title">
+
+                        {{ __('Planes de Suscripción') }}
+                    </h2>
+                    <p class="text-gray-600 dark:text-gray-400 mt-1">
+                        Elige el plan perfecto para tu negocio
+                    </p>
             </div>
 
             @auth
                 @if(auth()->user()->tieneSuscripcionActiva())
                     <div class="flex items-center space-x-3">
-                        <div class="px-3 py-1.5 bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-700/30 rounded-lg">
-                            <span class="text-green-400 text-sm font-semibold">
+                        <div class="px-3 py-1.5 bg-green-100 dark:bg-gradient-to-r dark:from-green-900/30 dark:to-emerald-900/30 border border-green-300 dark:border-green-700/30 rounded-lg">
+                            <span class="text-green-700 dark:text-green-400 text-sm font-semibold">
                                 <i class="fas fa-crown mr-1.5"></i>
                                 {{ auth()->user()->getPlanActualNombre() ?? 'Plan Básico' }}
                             </span>
                         </div>
                         <a href="{{ route('dashboard') }}"
-                           class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition text-sm">
+                           class="px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg transition text-sm text-gray-900 dark:text-white">
                             <i class="fas fa-tachometer-alt mr-1.5"></i>Dashboard
                         </a>
                     </div>
@@ -27,38 +31,38 @@
         </div>
     </x-slot>
 
-    <div class="py-8">
+    <div class="py-8 bg-gray-50 dark:bg-transparent">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <!-- Mensaje destacado -->
             <div class="mb-10 text-center">
-                <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-900/20 to-pink-900/20 border border-red-800/30 rounded-full mb-4">
-                    <span class="text-red-400 text-sm font-medium">
+                <div class="inline-flex items-center px-4 py-2 bg-red-100 dark:bg-gradient-to-r dark:from-red-900/20 dark:to-pink-900/20 border border-red-300 dark:border-red-800/30 rounded-full mb-4">
+                    <span class="text-red-600 dark:text-red-400 text-sm font-medium">
                         <i class="fas fa-gift mr-2"></i>
                         Prueba 14 días gratis - Sin tarjeta requerida
                     </span>
                 </div>
-                <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
                     Potencia tu <span class="bg-gradient-to-r from-red-500 to-pink-600 bg-clip-text text-transparent">negocio</span>
                 </h1>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+                <p class="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
                     Desde emprendedores hasta grandes empresas, tenemos un plan diseñado para cada necesidad.
                 </p>
             </div>
 
             <!-- Switch Anual/Mensual (Opcional - puedes quitar si solo es mensual) -->
             <div class="flex justify-center mb-10">
-                <div class="bg-gray-900/50 rounded-xl p-1 inline-flex border border-gray-800">
+                <div class="bg-gray-200 dark:bg-gray-900/50 rounded-xl p-1 inline-flex border border-gray-300 dark:border-gray-800">
                     <button id="toggle-mensual"
-                            class="px-5 py-2.5 rounded-lg font-medium text-sm transition-all bg-red-900/30 text-white"
+                            class="px-5 py-2.5 rounded-lg font-medium text-sm transition-all bg-red-200 dark:bg-red-900/30 text-gray-900 dark:text-white"
                             onclick="toggleBilling('mensual')">
                         <i class="fas fa-calendar-day mr-2"></i>Pago Mensual
                     </button>
                     <button id="toggle-anual"
-                            class="px-5 py-2.5 rounded-lg font-medium text-sm transition-all text-gray-400 hover:text-white"
+                            class="px-5 py-2.5 rounded-lg font-medium text-sm transition-all text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                             onclick="toggleBilling('anual')">
                         <i class="fas fa-calendar-alt mr-2"></i>Pago Anual
-                        <span class="text-green-400 text-xs ml-1 bg-green-900/30 px-2 py-0.5 rounded">-20%</span>
+                        <span class="text-green-600 dark:text-green-400 text-xs ml-1 bg-green-200 dark:bg-green-900/30 px-2 py-0.5 rounded">-20%</span>
                     </button>
                 </div>
             </div>
@@ -68,40 +72,40 @@
                 <div class="w-full max-w-md">
                     <!-- Plan Básico -->
                     <div class="relative group">
-                        <div class="absolute -inset-0.5 bg-gradient-to-r from-gray-600 to-gray-800 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
-                        <div class="relative bg-gray-900/80 backdrop-blur-sm border border-gray-800 rounded-2xl p-6">
+                        <div class="absolute -inset-0.5 bg-gradient-to-r from-gray-400 to-gray-600 dark:from-gray-600 dark:to-gray-800 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+                        <div class="relative bg-white dark:bg-gray-900/80 backdrop-blur-sm border border-gray-300 dark:border-gray-800 rounded-2xl p-6">
                             <div class="mb-6">
                                 <div class="flex justify-between items-start mb-4">
                                     <div>
-                                        <h3 class="text-xl font-bold text-white">Básico</h3>
-                                        <p class="text-gray-400 text-sm mt-1">Para empezar</p>
+                                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Básico</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Para empezar</p>
                                     </div>
-                                    <span class="px-3 py-1 bg-gray-800 text-gray-300 text-xs rounded-full">Popular</span>
+                                    <span class="px-3 py-1 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded-full">Popular</span>
                                 </div>
 
                                 <div class="mb-6">
-                                    <div class="text-4xl font-bold text-white mb-1">
-                                        $459<span class="text-gray-400 text-lg">/mes</span>
+                                    <div class="text-4xl font-bold text-gray-900 dark:text-white mb-1">
+                                        $459<span class="text-gray-600 dark:text-gray-400 text-lg">/mes</span>
                                     </div>
-                                    <p class="text-gray-400 text-sm">Facturación mensual</p>
+                                    <p class="text-gray-600 dark:text-gray-400 text-sm">Facturación mensual</p>
                                 </div>
 
                                 <ul class="space-y-3 mb-8">
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-green-500 mt-1 mr-3 text-sm"></i>
-                                        <span class="text-gray-300">Hasta 3 números WhatsApp</span>
+                                        <span class="text-gray-700 dark:text-gray-300">Hasta 3 números WhatsApp</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-green-500 mt-1 mr-3 text-sm"></i>
-                                        <span class="text-gray-300">5 cuentas conectadas</span>
+                                        <span class="text-gray-700 dark:text-gray-300">5 cuentas conectadas</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-green-500 mt-1 mr-3 text-sm"></i>
-                                        <span class="text-gray-300">Reportes básicos</span>
+                                        <span class="text-gray-700 dark:text-gray-300">Reportes básicos</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-check text-green-500 mt-1 mr-3 text-sm"></i>
-                                        <span class="text-gray-300">Soporte por email</span>
+                                        <span class="text-gray-700 dark:text-gray-300">Soporte por email</span>
                                     </li>
                                     <li class="flex items-start text-gray-500">
                                         <i class="fas fa-times mt-1 mr-3 text-sm"></i>
@@ -122,8 +126,8 @@
                                                 <i class="fas fa-check mr-2"></i>Plan Actual
                                             </button>
                                         @else
-                                            <div class="text-center p-3 bg-yellow-900/20 border border-yellow-800/30 rounded-lg mb-3">
-                                                <p class="text-yellow-400 text-sm">
+                                            <div class="text-center p-3 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-800/30 rounded-lg mb-3">
+                                                <p class="text-yellow-600 dark:text-yellow-400 text-sm">
                                                     Ya tienes una suscripción activa
                                                 </p>
                                             </div>
@@ -189,7 +193,7 @@
 
             <!-- FAQ -->
             <div class="mb-8">
-                <h3 class="text-xl font-bold text-white mb-6 text-center">Preguntas Frecuentes</h3>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 text-center">Preguntas Frecuentes</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                     @php
@@ -214,9 +218,9 @@
                     @endphp
 
                     @foreach($faqs as $faq)
-                        <div class="bg-gray-900/30 rounded-lg p-4 border border-gray-800">
-                            <h4 class="font-semibold text-white mb-2">{{ $faq['q'] }}</h4>
-                            <p class="text-gray-400 text-sm">{{ $faq['a'] }}</p>
+                        <div class="bg-white dark:bg-gray-900/30 rounded-lg p-4 border border-gray-300 dark:border-gray-800">
+                            <h4 class="font-semibold text-gray-900 dark:text-white mb-2">{{ $faq['q'] }}</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">{{ $faq['a'] }}</p>
                         </div>
                     @endforeach
                 </div>
@@ -224,8 +228,8 @@
 
             <!-- CTA Final -->
             <div class="text-center">
-                <p class="text-gray-400 mb-6">
-                    ¿Tienes más preguntas? <a href="mailto:soporte@avaspace.io" class="text-red-400 hover:text-red-300">Contáctanos</a>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    ¿Tienes más preguntas? <a href="mailto:soporte@avaspace.io" class="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300">Contáctanos</a>
                 </p>
                 <p class="text-sm text-gray-500">
                     <i class="fas fa-lock mr-1"></i>
@@ -241,34 +245,34 @@
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
         <div class="absolute inset-0 flex items-center justify-center p-4">
-            <div class="bg-gray-900 rounded-xl border border-gray-800 shadow-2xl w-full max-w-md">
+            <div class="bg-white dark:bg-gray-900 rounded-xl border border-gray-300 dark:border-gray-800 shadow-2xl w-full max-w-md">
 
                 <!-- Header -->
-                <div class="p-6 border-b border-gray-800">
+                <div class="p-6 border-b border-gray-300 dark:border-gray-800">
                     <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-bold text-white">Completar Suscripción</h3>
-                        <button onclick="closePaymentModal()" class="text-gray-400 hover:text-white">
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">Completar Suscripción</h3>
+                        <button onclick="closePaymentModal()" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-                    <p class="text-gray-400 text-sm mt-1">Plan Básico - $459/mes</p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Plan Básico - $459/mes</p>
                 </div>
 
                 <!-- Body -->
                 <div class="p-6">
                     <div class="mb-4">
-                        <label class="block text-gray-300 text-sm font-medium mb-2">
+                        <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
                             Información de tarjeta
                         </label>
-                        <div id="card-element" class="p-3 bg-gray-800/50 border border-gray-700 rounded-lg">
+                        <div id="card-element" class="p-3 bg-gray-100 dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-lg">
                             <!-- Stripe Card Element -->
                         </div>
-                        <div id="card-errors" class="text-red-400 text-xs mt-2"></div>
+                        <div id="card-errors" class="text-red-500 text-xs mt-2"></div>
                     </div>
 
                     <div class="flex items-center mb-4">
-                        <input type="checkbox" id="save-card" checked class="w-4 h-4 text-red-600 bg-gray-800 border-gray-700 rounded">
-                        <label for="save-card" class="ml-2 text-gray-300 text-sm">Guardar tarjeta para pagos futuros</label>
+                        <input type="checkbox" id="save-card" checked class="w-4 h-4 text-red-600 bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-700 rounded">
+                        <label for="save-card" class="ml-2 text-gray-700 dark:text-gray-300 text-sm">Guardar tarjeta para pagos futuros</label>
                     </div>
 
                     <div class="text-xs text-gray-500">
@@ -278,15 +282,15 @@
                 </div>
 
                 <!-- Footer -->
-                <div class="p-6 border-t border-gray-800">
+                <div class="p-6 border-t border-gray-300 dark:border-gray-800">
                     <div class="flex justify-between items-center mb-4">
                         <div>
-                            <p class="text-gray-400 text-xs">Total a pagar hoy</p>
-                            <p class="text-xl font-bold text-white">$0.00</p>
+                            <p class="text-gray-500 text-xs">Total a pagar hoy</p>
+                            <p class="text-xl font-bold text-gray-900 dark:text-white">$0.00</p>
                         </div>
                         <div class="text-right">
-                            <p class="text-gray-400 text-xs">Próximo pago</p>
-                            <p class="text-sm font-semibold text-white">En 14 días</p>
+                            <p class="text-gray-500 text-xs">Próximo pago</p>
+                            <p class="text-sm font-semibold text-gray-900 dark:text-white">En 14 días</p>
                         </div>
                     </div>
 
@@ -300,12 +304,14 @@
                     </button>
 
                     <p class="text-center text-gray-500 text-xs mt-3">
-                        Al suscribirte, aceptas nuestros <a href="#" class="text-red-400">Términos</a>
+                        Al suscribirte, aceptas nuestros <a href="#" class="text-red-500 dark:text-red-400">Términos</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+
 
 @push('scripts')
 <script src="https://js.stripe.com/v3/"></script>

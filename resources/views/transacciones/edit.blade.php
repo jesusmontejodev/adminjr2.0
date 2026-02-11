@@ -1,4 +1,5 @@
 <x-app-layout>
+    <div class="form-create relative">
     <!-- Glow rojo -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
         <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
@@ -54,6 +55,7 @@
             </form>
         </div>
 
+    </div>
     </div>
 
     <!-- ESTILOS -->

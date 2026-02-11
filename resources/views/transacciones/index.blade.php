@@ -64,7 +64,7 @@
             <form action="{{ route('transacciones.index') }}" method="GET" class="space-y-4 filtros-form">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {{-- Búsqueda --}}
-                    <div class="filtros-footer">
+                    <div class="filtros-footer ">
                         <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Buscar</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

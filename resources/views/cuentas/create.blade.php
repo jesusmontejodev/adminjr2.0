@@ -1,120 +1,110 @@
 <x-app-layout>
-    
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+    <div class="form-create relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="absolute inset-0 -z-10 flex justify-center items-center">
         <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
             style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 40%, transparent 35%);">
         </div>
     </div>
-
-    <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
-        <!-- HEADER -->
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-    <div>
-        <h1 class="flex items-center gap-3 text-white text-xl font-bold">
-            <span class="icon-circle">
-                <!-- SVG tarjeta / cuenta -->
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
-                </svg>
-            </span>
-            Crear Nueva Cuenta
-        </h1>
-                <p class="mt-2 text-sm text-red-300">
-                    Agrega una nueva cuenta para gestionar tus finanzas
-                </p>
-            </div>
-
-            <a href="{{ route('cuentas.index') }}" class="btn-secondary">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 18l-6-6 6-6"/>
-                </svg>
-                Volver
-            </a>
+    <!-- HEADER -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
+        <div>
+            <h1 class="flex items-center gap-3 text-xl font-bold">
+                <span class="icon-circle">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                    </svg>
+                </span>
+                Crear Nueva Cuenta
+            </h1>
+            <p class="mt-2 text-sm">
+                Agrega una nueva cuenta para gestionar tus finanzas
+            </p>
         </div>
 
-        <!-- MENSAJES -->
-        @if (session('success'))
-            <div class="alert-success mb-6">
-                {{ session('success') }}
+        <a href="{{ route('cuentas.index') }}">
+             <button type="submit" class="btn-primary">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 18l-6-6 6-6"/>
+            </svg>
+            Volver
+            </button>   
+        </a>
+    </div>
+
+    <!-- MENSAJES -->
+    @if (session('success'))
+        <div class="alert-success mb-6">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert-error mb-6">
+            <strong>Corrige los errores:</strong>
+            <ul class="list-disc pl-5 mt-2 text-sm">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    <!-- FORMULARIO -->
+    <div class="card">
+        <form action="{{ route('cuentas.store') }}" method="POST" class="p-6">
+            @csrf
+
+            <div class="mb-6">
+                <label for="nombre" class="label">Nombre de la cuenta *</label>
+                <input type="text" name="nombre" id="nombre"
+                    value="{{ old('nombre') }}"
+                    class="input"
+                    placeholder="Ej: Cuenta Corriente, Ahorros..."
+                    required autofocus>
             </div>
-        @endif
-
-        @if ($errors->any())
-            <div class="alert-error mb-6">
-                <strong>Corrige los errores:</strong>
-                <ul class="list-disc pl-5 mt-2 text-sm">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <!-- FORMULARIO -->
-        <div class="card">
-            <form action="{{ route('cuentas.store') }}" method="POST" class="p-6">
-                @csrf
-
-                <!-- Nombre -->
-                <div class="mb-6">
-                    <label for="nombre" class="label">Nombre de la cuenta *</label>
-                    <input type="text" name="nombre" id="nombre"
-                        value="{{ old('nombre') }}"
-                        class="input"
-                        placeholder="Ej: Cuenta Corriente, Ahorros..."
-                        required autofocus>
-                </div>
 
                 <!-- Saldo -->
-                <div class="mb-6">
-                    <label for="saldo_inicial" class="label">Saldo inicial *</label>
-
-                    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
-                        <span class="px-3 text-red-400 select-none">$</span>
+                    <div class="mb-6">
+                        <label for="saldo_inicial" class="label">Saldo inicial *</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 select-none pointer-events-none">
+                            $
+                        </span>
                         <input
                             type="number"
                             name="saldo_inicial"
                             id="saldo_inicial"
-                            value="{{ old('saldo_inicial', 0) }}"
                             step="0.01"
                             min="0"
-                            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
+                            class="input"
+                            style="padding-left:3rem;"
                             required
                         >
                     </div>
                 </div>
 
-                <!-- Descripción -->
-                <div class="mb-8">
-                    <label for="descripcion" class="label">Descripción</label>
-                    <textarea name="descripcion" id="descripcion" rows="4"
-                        class="input"
-                        placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
+            <div class="mb-8">
+                <label for="descripcion" class="label">Descripción</label>
+                <textarea name="descripcion" id="descripcion" rows="4"
+                    class="input"
+                    placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
+            </div>
+
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-4 pt-6">
+                <p class="text-xs">
+                    Los campos marcados con * son obligatorios
+                </p>
+
+                <div class="flex gap-3">
+                    <a href="{{ route('cuentas.index') }}" class="btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn-primary">Crear Cuenta</button>
                 </div>
-
-                <!-- BOTONES -->
-                <div class="flex flex-col sm:flex-row sm:justify-between gap-4 pt-6 border-t border-white/10">
-                    <p class="text-xs text-gray-400">
-                        Los campos marcados con * son obligatorios
-                    </p>
-
-                    <div class="flex gap-3">
-                        <a href="{{ route('cuentas.index') }}" class="btn-cancel">
-                            Cancelar
-                        </a>
-                        <button type="submit" class="btn-primary">
-                            Crear Cuenta
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-
+            </div>
+        </form>
     </div>
-
+</div>
     <!-- ESTILOS -->
     <style>
         body { background:#111318 }

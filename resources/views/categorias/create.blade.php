@@ -19,13 +19,15 @@
                 </p>
             </div>
 
-            <a href="{{ route('cuentas.index') }}" class="btn-secondary">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 18l-6-6 6-6"/>
-                </svg>
-                Volver
-            </a>
+             <a href="{{ route('categorias.index') }}">
+             <button type="submit" class="btn-primary">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 18l-6-6 6-6"/>
+            </svg>
+            Volver
+            </button>   
+        </a>
         </div>
 
         <!-- ERRORES -->

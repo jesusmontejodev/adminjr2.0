@@ -1,4 +1,5 @@
 <x-app-layout>
+    <div class="form-create relative">
     <!-- Glow rojo -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
         <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
@@ -22,13 +23,13 @@
                 </h1>
             </div>
                 <br>
-
-                <a href="{{ route('transaccionesinternas.index') }}" class="btn-secondary">
+ <a href="{{ route('transaccionesinternas.index') }}">
+            <button type="submit" class="btn-primary">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 18l-6-6 6-6"/>
                 </svg>
-                Volver
+</button>
             </a>
 </div>
 
@@ -122,10 +123,9 @@
 
                 {{-- FOOTER --}}
                 <div class="flex justify-between pt-6 border-t border-white/10">
-                    <a href="{{ route('transaccionesinternas.index') }}"
-                       class="btn-secondary">
-                        Cancelar
-                    </a>
+                     <div class="flex gap-3">
+                    <a href="{{ route('transaccionesinternas.index') }}" class="btn-cancel">Cancelar</a>
+                </div>
 
                     <button type="submit" class="btn-primary">
                         Guardar cambios
@@ -135,6 +135,7 @@
             </form>
         </div>
 
+    </div>
     </div>
 
     <!-- ESTILOS -->

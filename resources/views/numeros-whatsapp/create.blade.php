@@ -1,23 +1,9 @@
 <x-app-layout>
-    <!-- Glow -->
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
-            <div class="w-[90%] h-[90%] rounded-full blur-[160px]"
-                style="background: radial-gradient(circle,rgba(34,197,94,0.35) 0%,rgba(34,197,94,0.08) 45%, transparent 70% );">
-            </div>
-
-    </div>
-
+    <div class="form-create relative">
     <div class="relative z-10 max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         <!-- HEADER -->
-        <div class="flex items-center gap-3 mb-8">
-            <a href="{{ route('numeros-whatsapp.index') }}" class="text-white/60 hover:text-white transition">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-            </a>
-
+         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <span class="icon-circle">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
@@ -27,8 +13,15 @@
             <h1 class="text-white text-xl font-bold">
                 Agregar número de WhatsApp
             </h1>
+            <button type="submit" class="btn-primary">
+                     <a href="{{ route('numeros-whatsapp.index') }}" class="text-white/60 hover:text-white transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 18l-6-6 6-6"/>
+            </svg>
+            </a>
+</button>
         </div>
-
         <!-- CARD -->
         <div class="card">
             <form action="{{ route('numeros-whatsapp.store') }}" method="POST" class="p-6 space-y-6">
@@ -99,7 +92,7 @@
 
                 {{-- FOOTER --}}
                 <div class="flex justify-between pt-6 border-t border-white/10">
-                    <a href="{{ route('numeros-whatsapp.index') }}" class="btn-secondary">
+                    <a href="{{ route('numeros-whatsapp.index') }}" class="btn-cancel">
                         Cancelar
                     </a>
                     <button type="submit" class="btn-primary">
@@ -110,9 +103,9 @@
         </div>
 
         <!-- INFO -->
-        <div class="mt-6 card-info">
-            <h4 class="text-green-400 font-semibold mb-2">Requisitos importantes</h4>
-            <ul class="text-sm text-white/70 space-y-2">
+        <div class="mt-6 info-box">
+            <h4 class="text-red-400 font-semibold mb-2">Requisitos importantes</h4>
+            <ul class="text-sm text-gray/70 space-y-2">
                 <li>✔ El número debe estar registrado en WhatsApp Business API</li>
                 <li>✔ Asegúrate de tener los permisos necesarios</li>
                 <li>✔ Solo puedes tener un número marcado como principal</li>
@@ -120,6 +113,7 @@
         </div>
 
     </div>
+</div>
 
     <!-- JS ORIGINAL COMPLETO (SIN CAMBIOS) -->
     <script>

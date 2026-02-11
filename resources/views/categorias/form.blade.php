@@ -1,4 +1,5 @@
 <x-app-layout>
+    <div class="form-create">
     <!-- Glow rojo -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
         <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
@@ -27,13 +28,15 @@
                 </p>
             </div>
 
-            <a href="{{ route('categorias.index') }}" class="btn-secondary">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 18l-6-6 6-6"/>
-                </svg>
-                Volver
-            </a>
+            <a href="{{ route('categorias.index') }}">
+             <button type="submit" class="btn-primary">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 18l-6-6 6-6"/>
+            </svg>
+            Volver
+            </button>   
+        </a>
         </div>
 
         <!-- ERRORES -->
@@ -94,6 +97,7 @@
             </form>
         </div>
 
+    </div>
     </div>
 
     <style>

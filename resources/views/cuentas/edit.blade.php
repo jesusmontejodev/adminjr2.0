@@ -1,5 +1,5 @@
 <x-app-layout>
-
+<div class="form-create relative">
      <div class="absolute inset-0 -z-10 flex justify-center items-center">
         <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
             style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 40%, transparent 35%);">
@@ -25,13 +25,15 @@
                 </p>
             </div>
 
-            <a href="{{ route('cuentas.index') }}" class="btn-secondary">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 18l-6-6 6-6"/>
-                </svg>
-                Volver
-            </a>
+            <a href="{{ route('cuentas.index') }}">
+             <button type="submit" class="btn-primary">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 18l-6-6 6-6"/>
+            </svg>
+            Volver
+            </button>   
+        </a>
 
         </div>
 
@@ -97,6 +99,7 @@
         </div>
 
     </div>
+</div>
 
     <!-- ESTILOS -->
     <style>

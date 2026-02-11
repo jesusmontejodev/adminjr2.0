@@ -61,7 +61,7 @@
 
         <!-- Header dinámico para planes -->
         @if(request()->routeIs('planes') || request()->routeIs('suscripcion.*'))
-            <header class="bg-gradient-to-r from-gray-900 to-gray-800 border-b border-white/10 shadow-xl">
+            <header class="bg-white dark:bg-gradient-to-r dark:from-gray-900 dark:to-gray-800 border-b border-gray-200 dark:border-white/10 shadow-xl">
                 <div class="py-8 px-6">
                     <div class="flex justify-between items-center">
                         <div>
@@ -72,28 +72,39 @@
                         </div>
 
                         @auth
-                            <div class="flex items-center space-x-4">
-                                <!-- Badge de estado de suscripción -->
-                                @if(auth()->user()->tieneSuscripcionActiva())
-                                    <div class="px-4 py-2 bg-gradient-to-r from-green-900/30 to-emerald-900/30 border border-green-700/30 rounded-lg">
-                                        <span class="text-green-400 text-sm font-semibold">
-                                            <i class="fas fa-crown mr-2"></i>
-                                            {{-- {{ auth()->user()->getInfoSuscripcion()['plan'] }} --}}
-                                        </span>
-                                    </div>
-                                    <a href="{{ route('dashboard') }}"
-                                        class="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition">
-                                        <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
-                                    </a>
-                                @elseif(auth()->user()->enPeriodoDeGracia())
-                                    <div class="px-4 py-2 bg-gradient-to-r from-yellow-900/30 to-amber-900/30 border border-yellow-700/30 rounded-lg">
-                                        <span class="text-yellow-400 text-sm font-semibold">
-                                            <i class="fas fa-clock mr-2"></i>
-                                            Período de Gracia
-                                        </span>
-                                    </div>
-                                @endif
-                            </div>
+                           <div class="flex items-center space-x-4">
+    @if(auth()->user()->tieneSuscripcionActiva())
+        <div class="px-4 py-2 
+            bg-green-100 dark:bg-gradient-to-r dark:from-green-900/30 dark:to-emerald-900/30 
+            border border-green-300 dark:border-green-700/30 
+            rounded-lg">
+            <span class="text-green-700 dark:text-green-400 text-sm font-semibold">
+                <i class="fas fa-crown mr-2"></i>
+                {{-- {{ auth()->user()->getInfoSuscripcion()['plan'] }} --}}
+            </span>
+        </div>
+
+        <a href="{{ route('dashboard') }}"
+           class="px-4 py-2 
+           bg-gray-200 dark:bg-gray-800 
+           hover:bg-gray-300 dark:hover:bg-gray-700 
+           rounded-lg transition 
+           text-gray-900 dark:text-white">
+            <i class="fas fa-tachometer-alt mr-2"></i>Dashboard
+        </a>
+
+    @elseif(auth()->user()->enPeriodoDeGracia())
+        <div class="px-4 py-2 
+            bg-yellow-100 dark:bg-gradient-to-r dark:from-yellow-900/30 dark:to-amber-900/30 
+            border border-yellow-300 dark:border-yellow-700/30 
+            rounded-lg">
+            <span class="text-yellow-700 dark:text-yellow-400 text-sm font-semibold">
+                <i class="fas fa-clock mr-2"></i>
+                Período de Gracia
+            </span>
+        </div>
+    @endif
+</div>
                         @endauth
                     </div>
                 </div>

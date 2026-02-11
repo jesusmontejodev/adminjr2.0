@@ -1,4 +1,5 @@
 <x-app-layout>
+    <div class="form-create relative">
    <!-- Glow rojo -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
         <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
@@ -9,7 +10,7 @@
     <div class="relative z-10 max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         <!-- HEADER -->
-        <div class="flex items-center gap-3 mb-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <span class="icon-circle">
                 <span class="icon-circle">
                     <!-- SVG account_balance -->
@@ -21,12 +22,14 @@
             <h1 class="text-white text-xl font-bold">
                 Transferencia entre cuentas
             </h1>
-           <a href="{{ route('transaccionesinternas.index') }}" class="btn-secondary">
+            
+           <a href="{{ route('transaccionesinternas.index') }}">
+            <button type="submit" class="btn-primary">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M15 18l-6-6 6-6"/>
                 </svg>
-                Volver
+</button>
             </a>
         </div>
 
@@ -84,19 +87,23 @@
                 </div>
 
                 {{-- Monto --}}
-                <div>
-                    <label for="monto" class="label">
-                        Monto *
-                    </label>
-                    <input type="number"
-                           step="0.01"
-                           min="0.01"
-                           name="monto"
-                           id="monto"
-                           value="{{ old('monto') }}"
-                           class="input"
-                           placeholder="0.00"
-                           required>
+               <div class="mb-6">
+                        <label for="monto" class="label">monto *</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 select-none pointer-events-none">
+                            $
+                        </span>
+                        <input
+                            type="number"
+                            name="saldo_inicial"
+                            id="saldo_inicial"
+                            step="0.01"
+                            min="0"
+                            class="input"
+                            style="padding-left:3rem;"
+                            required
+                        >
+                    </div>
                     @error('monto')
                         <p class="error-text">{{ $message }}</p>
                     @enderror
@@ -128,6 +135,7 @@
         </div>
 
     </div>
+</div>
 
     <!-- ESTILOS -->
     <style>

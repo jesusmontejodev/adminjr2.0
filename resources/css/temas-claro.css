@@ -686,7 +686,7 @@ html:not(.dark) .whatsapp-section h2 {
 /* ===== CARD RESUMEN ===== */
 .list-card{
     background: #ffffff;
-    border: 2px solid #c20a0a86;
+    border: 1px solid #c20a0a86;
     border-radius: 20px;
     padding: 26px;
 
@@ -743,7 +743,7 @@ html:not(.dark) main .icon-box svg{
     padding: 12px 20px;
     border-radius: 999px;
 
-    background: rgba(239,68,68,.08);
+    background: transparent;
     border: 1.5px solid #ef4444;
     color: #ef4444;
 
@@ -761,7 +761,7 @@ html:not(.dark) main .icon-box svg{
 /* ===== NUMERO CARD ===== */
 .numero-card{
     background: #ffffff;
-    border: 2px solid #e5e7eb;
+    border: 2px solid #c20a0a86; /* MISMO borde que "Números Totales" */
     border-radius: 22px;
 
     box-shadow: 0 14px 35px rgba(0,0,0,.06);
@@ -769,10 +769,11 @@ html:not(.dark) main .icon-box svg{
 }
 
 .numero-card:hover{
-    border-color: #22c55e;
+    border-color: #ef4444;
     transform: translateY(-5px);
-    box-shadow: 0 20px 48px rgba(34,197,94,.16);
+    box-shadow: 0 20px 48px rgba(239,68,68,.18);
 }
+
 
 
 /* ===== HEADER CARD ===== */
@@ -788,30 +789,39 @@ html:not(.dark) main .icon-box svg{
 
 /* ===== BADGE ===== */
 .numero-card span.inline-flex{
-    background: rgba(34,197,94,.12);
-    border: 1px solid rgba(34,197,94,.4);
-    color: #16a34a;
+    background: rgba(197, 34, 34, 0.12);
+    border: 1px solid rgba(197, 34, 34, 0.4);
+    color: #a31616;
     font-weight: 600;
 }
 
 
-/* ===== INFO BOX ===== */
 .info-box{
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
+    background: #fff5f5; /* fondo rojito suave */
+    border: 1.5px solid rgba(239,68,68,.45);
     border-radius: 14px;
     padding: 14px;
+
+    box-shadow: 0 6px 16px rgba(239,68,68,.08);
+    transition: all .25s ease;
+}
+
+
+.info-box:hover{
+    border-color: #ef4444;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(239,68,68,.18);
 }
 
 .info-box p{
     font-size: 12px;
-    color: #6b7280;
+    color: #991b1b;
     margin-bottom: 4px;
 }
 
 .info-box strong{
     font-size: 15px;
-    color: #111827;
+    color: #7f1d1d;
 }
 
 
@@ -821,9 +831,165 @@ html:not(.dark) main .icon-box svg{
 }
 
 .numero-card .border-t span{
-    color: #6b7280;
+    color: #982626;
 }
 
 .numero-card .border-t .bg-gray-400{
-    background: #9ca3af;
+    background: #ff0000;
+}
+.badge-whatsapp-on{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 14px;
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, #c52222, #a31616);
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    border: 1px solid rgba(197, 34, 34, 0.6);
+    box-shadow: 0 0 12px rgba(197, 34, 34, 0.35);
+
+    transition: all .25s ease;
+}
+
+.badge-whatsapp-on:hover{
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(197, 34, 34, 0.55);
+}
+
+.badge-whatsapp-on svg{
+    width: 16px;
+    height: 16px;
+}
+
+/*FORMULARIOOOOOOS DE AGREGAR O CREAR*/
+html:not(.dark) .form-create .card{
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+    border-radius:22px;
+    box-shadow:0 15px 35px rgba(0,0,0,.05);
+}
+
+html:not(.dark) .form-create .icon-circle{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    background:#ffe4e6;
+    border:1px solid #fecdd3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#ef4444;
+}
+
+html:not(.dark) .form-create h1{
+    color:#111827;
+}
+
+html:not(.dark) .form-create p{
+    color:#6b7280;
+}
+
+html:not(.dark) .form-create .label{
+    font-size:13px;
+    color:#374151;
+    font-weight:600;
+}
+
+html:not(.dark) .form-create .input{
+    padding:12px 14px;
+    border-radius:14px;
+    background:#f9fafb;
+    border:1px solid #e5e7eb;
+    color:#111827;
+}
+
+html:not(.dark) .form-create .input::placeholder{
+    color:#9ca3af;
+}
+
+html:not(.dark) .form-create .input:focus{
+    outline:none;
+    border-color:#ef4444;
+    box-shadow:0 0 0 3px rgba(239,68,68,.15);
+    background:#fff;
+}
+
+html:not(.dark) .form-create .saldo-wrapper{
+    background:#f9fafb;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+}
+
+html:not(.dark) .form-create .btn-primary{
+    background:#ef4444;
+    border:1px solid #dc2626;
+    color:white;
+    padding:11px 22px;
+    border-radius:14px;
+    font-weight:600;
+}
+
+html:not(.dark) .form-create .btn-primary:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+}
+
+html:not(.dark) .form-create .btn-cancel{
+    background:#f3f4f6;
+    border:1px solid #e5e7eb;
+    color:#374151;
+    padding:11px 22px;
+    border-radius:14px;
+}
+
+html:not(.dark) .form-create .alert-success{
+    background:#dcfce7;
+    border:1px solid #86efac;
+    color:#166534;
+    border-radius:14px;
+    padding:14px;
+}
+
+html:not(.dark) .form-create .alert-error{
+    background:#fee2e2;
+    border:1px solid #fecaca;
+    color:#991b1b;
+    border-radius:14px;
+    padding:14px;
+}
+html:not(.dark) input[type="number"]::-webkit-outer-spin-button,
+html:not(.dark) input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+html:not(.dark) .form-create select.input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    color: #111827;
+    padding-right: 2.5rem; /* espacio para flecha */
+}
+html:not(.dark) select.input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-color: #ffffff;
+    color: #111827;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%236b7280' viewBox='0 0 20 20'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5' stroke='%236b7280' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+
+    padding-right: 40px;
 }

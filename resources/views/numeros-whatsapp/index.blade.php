@@ -5,23 +5,31 @@
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
 
             <div class="space-y-3">
-                <div class="flex flex-wrap items-center gap-3">
-                    <section class="whatsapp-section">
-                        <h2 class="text-2xl font-bold">
-                            WhatsApp connection
-                        </h2>
-                    </section>
-                    <span
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-semibold
-                               border border-green-500/40 bg-green-500/10 text-green-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 21a9 9 0 100-18 9 9 0 000 18z"/>
-                        </svg>
-                        WhatsApp On
-                    </span>
+    <div class="flex flex-wrap items-center gap-3">
+        <section class="whatsapp-section">
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+                <span class="icon-circle">
+                <svg class="w-6 h-6 text-red-500"
+                     xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 32 32"
+                     fill="currentColor"
+                     aria-hidden="true">
+                    <path d="M16 3C9.373 3 4 8.373 4 15c0 2.637.87 5.073 2.33 7.054L4 29l7.194-2.25A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 21.5a9.43 9.43 0 01-4.816-1.324l-.344-.203-4.266 1.332 1.39-4.15-.223-.37A9.454 9.454 0 016.5 15C6.5 9.757 10.757 5.5 16 5.5S25.5 9.757 25.5 15 21.243 24.5 16 24.5zm4.792-6.82c-.262-.132-1.55-.764-1.79-.85-.24-.088-.414-.132-.588.132-.174.262-.676.85-.83 1.026-.152.174-.304.196-.566.064-.262-.132-1.108-.408-2.11-1.3-.78-.696-1.306-1.556-1.458-1.818-.152-.262-.016-.404.116-.536.12-.118.262-.304.394-.458.132-.152.174-.262.262-.436.088-.174.044-.326-.022-.458-.064-.132-.588-1.418-.806-1.946-.212-.51-.426-.44-.588-.448-.152-.008-.326-.01-.5-.01s-.458.064-.698.326c-.24.262-.918.894-.918 2.178 0 1.284.94 2.524 1.072 2.7.132.174 1.85 2.82 4.48 3.954.626.27 1.114.432 1.494.554.628.2 1.2.172 1.652.104.504-.074 1.55-.634 1.77-1.246.218-.612.218-1.136.152-1.246-.064-.108-.24-.174-.502-.306z"/>
+                </svg>
+                </span>
+                WhatsApp connection
+            </h2>
+        </section>
+
+        <span class="badge-whatsapp-on">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12l2 2 4-4"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 21a9 9 0 100-18 9 9 0 000 18z"/>
+            </svg>
+            WhatsApp on
+        </span>
                 </div>
                 <p class="text-gray-700 max-w-xl">
                     Gestiona y configura tus números de WhatsApp
@@ -62,23 +70,23 @@
 
             @if($numeros->isNotEmpty())
                 <div class="list-card">
-                    <div class="flex items-start gap-6">
-                        <div class="icon-box shrink-0">
-                            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2l-3 3v-3H9a2 2 0 01-2-2v-1"/>
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 4H5a2 2 0 00-2 2v6a2 2 0 002 2h2l3 3v-3h5a2 2 0 002-2V6a2 2 0 00-2-2z"/>
+                                        <div class="flex items-start gap-6">
+                        <span class="icon-circle">
+                            <svg class="w-6 h-6 text-red-500"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true">
+                                <path d="M21 6.5a2.5 2.5 0 00-2.5-2.5H5.5A2.5 2.5 0 003 6.5v7A2.5 2.5 0 005.5 16H9l3 3 3-3h3.5A2.5 2.5 0 0021 13.5v-7z"/>
                             </svg>
-                        </div>
-
+                        </span>
                         <div>
+
                             <h3 class="text-lg font-semibold text-black">
                                 Números Totales
                             </h3>
 
-                            <p class="text-3xl font-bold text-green-600 mt-1">
+                            <p class="text-3xl font-bold text-red-600 mt-1">
                                 {{ $numeros->count() }}
                             </p>
 
@@ -94,13 +102,17 @@
             @if($numeros->isEmpty())
                 <div class="list-card">
                     <div class="flex items-start gap-6">
-                        <div class="icon-box shrink-0">
-                            <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M7 6h8a3 3 0 013 3v4a3 3 0 01-3 3h-2l-3 3v-3H7a3 3 0 01-3-3V9a3 3 0 013-3z"/>
-                            </svg>
-                        </div>
+                    <div class="icon-box shrink-0">
+                        <svg class="w-6 h-6 text-green-400"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true">
+                            <path d="M7 5h10a4 4 0 014 4v5a4 4 0 01-4 4h-3l-2.5 2.5L9 18H7a4 4 0 01-4-4V9a4 4 0 014-4z"/>
+                        </svg>
+                    </div>
+                </div>
+
 
                         <div>
                             <h3 class="text-xl font-semibold text-white">
@@ -129,40 +141,34 @@
 
 
                 @foreach($numeros as $numero)
-                    <div
-                        class="numero-card relative bg-white/5 border border-red-500/30 rounded-2xl
-                                backdrop-blur-xl overflow-hidden transition hover:-translate-y-1
-                                shadow-lg shadow-black/20">
+                    <div class="numero-card relative overflow-hidden">
 
                         {{-- HEADER --}}
-                        <div class="p-6 border-b border-white/10 flex justify-between items-start">
+                       <div class="p-6 border-b border-white/10 flex justify-between items-start">
                             <div class="flex items-center gap-3">
-                                <div
-                                    class="w-12 h-12 rounded-xl bg-green-500/15 border border-green-500/40
-                                            flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2
-                            19.86 19.86 0 0 1-8.63-3.07
-                            19.5 19.5 0 0 1-6-6
-                            19.86 19.86 0 0 1-3.07-8.67
-                            A2 2 0 0 1 4.11 2h3
-                            a2 2 0 0 1 2 1.72
-                            c.12.81.3 1.6.54 2.36
-                            a2 2 0 0 1-.45 2.11L8.09 9.91
-                            a16 16 0 0 0 6 6
-                            l1.72-1.72
-                            a2 2 0 0 1 2.11-.45
-                            c.76.24 1.55.42 2.36.54
-                            a2 2 0 0 1 1.72 2z"/>
-                </svg>
-                                </div>
-
+                                <div>
+                                    <span class="icon-circle">
+                                        <svg class="w-5 h-5 text-red-500"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            aria-hidden="true">
+                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                                                    19.86 19.86 0 0 1-8.63-3.07
+                                                    19.5 19.5 0 0 1-6-6
+                                            19.86 19.86 0 0 1-3.07-8.67
+                                            A2 2 0 0 1 4.11 2h3
+                                            a2 2 0 0 1 2 1.72
+                                            c.12.81.3 1.6.54 2.36
+                                            a2 2 0 0 1-.45 2.11L8.09 9.91
+                                            a16 16 0 0 0 6 6
+                                            l1.72-1.72
+                                            a2 2 0 0 1 2.11-.45
+                                            c.76.24 1.55.42 2.36.54
+                                            a2 2 0 0 1 1.72 2z"/>
+                                </svg>
+                            </span>
+                        </div>
                                 <div>
                                     <h3 class="font-semibold text-white">
                                         {{ $numero->numero_internacional }}
