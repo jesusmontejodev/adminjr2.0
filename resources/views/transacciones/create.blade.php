@@ -1,11 +1,5 @@
 <x-app-layout>
     <div class="form-create relative">
-     <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
-            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
-        </div>
-    </div>
-
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         <!-- HEADER -->

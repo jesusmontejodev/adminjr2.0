@@ -993,3 +993,28 @@ html:not(.dark) select.input {
 
     padding-right: 40px;
 }
+/* =========================
+   INPUTS Y SELECTS ROJOS TRANSPARENTES TRANSACCIONES
+   ========================= */
+
+html:not(.dark) main .filtros-form input,
+html:not(.dark) main .filtros-form select{
+    background: transparent !important;
+    border: 1.5px solid #ef4444 !important;
+    color: #7f1d1d !important;
+    font-weight: 500;
+}
+
+/* Hover */
+html:not(.dark) main .filtros-form input:hover,
+html:not(.dark) main .filtros-form select:hover{
+    box-shadow: 0 0 0 3px rgba(239,68,68,.15);
+}
+
+/* Focus */
+html:not(.dark) main .filtros-form input:focus,
+html:not(.dark) main .filtros-form select:focus{
+    outline: none !important;
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 4px rgba(239,68,68,.25) !important;
+}

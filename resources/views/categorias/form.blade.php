@@ -1,12 +1,5 @@
 <x-app-layout>
-    <div class="form-create">
-    <!-- Glow rojo -->
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
-            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 45%, transparent 70%);">
-        </div>
-    </div>
-
+    <div class="form-create">   
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-white">
 
         <!-- HEADER -->
@@ -99,91 +92,4 @@
 
     </div>
     </div>
-
-    <style>
-        .material-symbols-outlined{
-            font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
-        }
-
-        .card{
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(239,68,68,.35);
-            border-radius:22px;
-            backdrop-filter:blur(14px);
-        }
-
-        .icon-circle{
-            width:38px;
-            height:38px;
-            border-radius:12px;
-            background:rgba(239,68,68,.18);
-            border:1px solid rgba(239,68,68,.45);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#ef4444;
-        }
-
-        .label{
-            display:block;
-            margin-bottom:6px;
-            font-size:13px;
-            color:#fca5a5;
-            font-weight:500;
-        }
-
-        .input{
-            width:100%;
-            padding:12px 14px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.12);
-            color:#fff;
-        }
-
-        .input:focus{
-            outline:none;
-            border-color:#ef4444;
-            box-shadow:0 0 0 2px rgba(239,68,68,.25);
-        }
-
-        .btn-primary{
-            display:inline-flex;
-            align-items:center;
-            gap:6px;
-            padding:10px 18px;
-            border-radius:14px;
-            background:rgba(239,68,68,.25);
-            border:1px solid rgba(239,68,68,.45);
-            color:#fff;
-            font-weight:600;
-            transition:.25s;
-        }
-
-        .btn-primary:hover{
-            transform:translateY(-2px);
-            background:rgba(239,68,68,.35);
-        }
-
-        .btn-secondary,
-        .btn-cancel{
-            display:inline-flex;
-            align-items:center;
-            gap:6px;
-            padding:10px 16px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.15);
-            color:#e5e5e5;
-        }
-
-        .alert-error{
-            padding:14px 18px;
-            border-radius:14px;
-            background:rgba(239,68,68,.15);
-            border:1px solid rgba(239,68,68,.35);
-            color:#fecaca;
-        }
-    </style>
-
 </x-app-layout>

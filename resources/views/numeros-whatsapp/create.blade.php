@@ -23,85 +23,102 @@
 </button>
         </div>
         <!-- CARD -->
-        <div class="card">
-            <form action="{{ route('numeros-whatsapp.store') }}" method="POST" class="p-6 space-y-6">
-                @csrf
+<div class="card max-w-md mx-auto">
+    <form action="{{ route('numeros-whatsapp.store') }}"
+          method="POST"
+          class="space-y-6">
+        @csrf
 
-                {{-- País --}}
-                <div>
-                    <label for="pais" class="label">
-                        País *
-                    </label>
-                    <select name="pais" id="pais" class="input" required>
-                        <option value="">Selecciona un país</option>
-                        @foreach($paises as $codigo => $nombre)
-                            <option value="{{ $codigo }}"
-                                    {{ old('pais') == $codigo ? 'selected' : '' }}>
-                                {{ $nombre }} ({{ $codigo }})
-                            </option>
-                        @endforeach
-                    </select>
-                    @error('pais')
-                        <p class="error-text">{{ $message }}</p>
-                    @enderror
+        <div class="space-y-6 p-6">
+
+            {{-- País --}}
+            <div class="space-y-2">
+                <label for="pais" class="label block">
+                    País *
+                </label>
+
+                <select name="pais"
+                        id="pais"
+                        class="input w-full"
+                        required>
+                    <option value="">Selecciona un país</option>
+                    @foreach($paises as $codigo => $nombre)
+                        <option value="{{ $codigo }}"
+                                {{ old('pais') == $codigo ? 'selected' : '' }}>
+                            {{ $nombre }} ({{ $codigo }})
+                        </option>
+                    @endforeach
+                </select>
+
+                @error('pais')
+                    <p class="error-text">{{ $message }}</p>
+                @enderror
+            </div>
+
+            {{-- Número --}}
+            <div class="space-y-2">
+                <label for="numero_local" class="label block">
+                    Número de teléfono *
+                    <span id="codigo-pais-hint"
+                          class="text-xs text-white/50 ml-2"></span>
+                </label>
+
+                <div class="relative w-full">
+                    <span id="codigo-pais-display"
+                          class="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 font-medium pointer-events-none">
+                        +
+                    </span>
+
+                    <input type="tel"
+                           name="numero_local"
+                           id="numero_local"
+                           class="input w-full pl-14"
+                           placeholder="5512345678"
+                           value="{{ old('numero_local') }}"
+                           required>
                 </div>
 
-                {{-- Número --}}
-                <div>
-                    <label for="numero_local" class="label">
-                        Número de teléfono *
-                        <span id="codigo-pais-hint" class="text-xs text-white/50 ml-2"></span>
-                    </label>
+                <p class="text-xs text-white/50">
+                    Ingresa solo el número local (sin código de país)
+                </p>
 
-                    <div class="relative">
-                        <span id="codigo-pais-display"
-                              class="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 font-medium">
-                            +
-                        </span>
-                        <input type="tel"
-                               name="numero_local"
-                               id="numero_local"
-                               class="input pl-16"
-                               placeholder="5512345678"
-                               value="{{ old('numero_local') }}"
-                               required>
-                    </div>
+                @error('numero_local')
+                    <p class="error-text">{{ $message }}</p>
+                @enderror
+            </div>
 
-                    <p class="text-xs text-white/50 mt-2">
-                        Ingresa solo el número local (sin código de país)
-                    </p>
+            {{-- Etiqueta --}}
+            <div class="space-y-2">
+                <label for="etiqueta" class="label block">
+                    Etiqueta
+                    <span class="text-xs text-white/50">(opcional)</span>
+                </label>
 
-                    @error('numero_local')
-                        <p class="error-text">{{ $message }}</p>
-                    @enderror
-                </div>
+                <input type="text"
+                       name="etiqueta"
+                       id="etiqueta"
+                       class="input w-full"
+                       placeholder="Ej: Personal, Trabajo, Marketing..."
+                       value="{{ old('etiqueta') }}">
+            </div>
 
-                {{-- Etiqueta --}}
-                <div>
-                    <label for="etiqueta" class="label">
-                        Etiqueta
-                        <span class="text-xs text-white/50">(opcional)</span>
-                    </label>
-                    <input type="text"
-                           name="etiqueta"
-                           id="etiqueta"
-                           class="input"
-                           placeholder="Ej: Personal, Trabajo, Marketing..."
-                           value="{{ old('etiqueta') }}">
-                </div>
-
-                {{-- FOOTER --}}
-                <div class="flex justify-between pt-6 border-t border-white/10">
-                    <a href="{{ route('numeros-whatsapp.index') }}" class="btn-cancel">
-                        Cancelar
-                    </a>
-                    <button type="submit" class="btn-primary">
-                        Conectar número
-                    </button>
-                </div>
-            </form>
         </div>
 
+        {{-- FOOTER --}}
+        <div class="flex justify-between items-center px-6 py-4 border-t border-white/10">
+            <a href="{{ route('numeros-whatsapp.index') }}"
+               class="btn-cancel">
+                Cancelar
+            </a>
+
+            <button type="submit"
+                    class="btn-primary">
+                Conectar número
+            </button>
+        </div>
+
+    </form>
+</div>
         <!-- INFO -->
         <div class="mt-6 info-box">
             <h4 class="text-red-400 font-semibold mb-2">Requisitos importantes</h4>
@@ -162,103 +179,4 @@
             actualizarCodigoPais();
         });
     </script>
-
-    <!-- ESTILOS -->
-    <style>
-        body { background:#111318 }
-
-        .card{
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(34,197,94,.35);
-            border-radius:22px;
-            backdrop-filter:blur(14px);
-        }
-
-        .card-info{
-            background:rgba(34,197,94,.08);
-            border:1px solid rgba(34,197,94,.25);
-            border-radius:18px;
-            padding:16px;
-        }
-
-        .icon-circle{
-            width:38px;
-            height:38px;
-            border-radius:12px;
-            background:rgba(34,197,94,.18);
-            border:1px solid rgba(34,197,94,.45);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#22c55e;
-        }
-
-        .label{
-            display:block;
-            margin-bottom:6px;
-            font-size:13px;
-            color:#86efac;
-            font-weight:500;
-        }
-
-        .input{
-            width:100%;
-            padding:12px 14px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.12);
-            color:#fff;
-        }
-
-        .input:focus{
-            outline:none;
-            border-color:#22c55e;
-            box-shadow:0 0 0 2px rgba(34,197,94,.25);
-        }
-
-        .btn-primary{
-            padding:10px 18px;
-            border-radius:14px;
-            background:rgba(34,197,94,.25);
-            border:1px solid rgba(34,197,94,.45);
-            color:#fff;
-            font-weight:600;
-            transition:.25s;
-        }
-
-        .btn-primary:hover{
-            background:rgba(34,197,94,.35);
-            transform:translateY(-2px);
-        }
-
-        .btn-secondary{
-            padding:10px 18px;
-            border-radius:14px;
-            background:rgba(255,255,255,.08);
-            border:1px solid rgba(255,255,255,.18);
-            color:#fff;
-        }
-
-        .btn-secondary:hover{
-            background:rgba(255,255,255,.15);
-        }
-
-        .error-text{
-            margin-top:6px;
-            font-size:12px;
-            color:#fecaca;
-        }
-
-        select option{
-            background:#111318;
-            color:#fff;
-        }
-
-        select option:checked,
-        select option:hover{
-            background:#22c55e;
-            color:#fff;
-        }
-    </style>
-
 </x-app-layout>

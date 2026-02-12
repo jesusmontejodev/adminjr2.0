@@ -1,10 +1,5 @@
 <x-app-layout>
     <div class="form-create relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-<div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[85%] h-[85%] rounded-full blur-[180px]"
-            style="background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, rgba(239,68,68,0.05) 40%, transparent 35%);">
-        </div>
-    </div>
     <!-- HEADER -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
         <div>
@@ -107,10 +102,6 @@
 </div>
     <!-- ESTILOS -->
     <style>
-        body { background:#111318 }
-
-        svg { flex-shrink:0 }
-
         .card{
             background:rgba(255,255,255,.04);
             border:1px solid rgba(239,68,68,.35);
@@ -151,56 +142,6 @@
             outline:none;
             border-color:#ef4444;
             box-shadow:0 0 0 2px rgba(239,68,68,.25);
-        }
-
-        .btn-primary{
-            display:inline-flex;
-            align-items:center;
-            gap:6px;
-            padding:10px 18px;
-            border-radius:14px;
-            background:rgba(239,68,68,.25);
-            border:1px solid rgba(239,68,68,.45);
-            color:#fff;
-            font-weight:600;
-            transition:.25s;
-        }
-
-        .btn-primary:hover{ transform:translateY(-2px); background:rgba(239,68,68,.35) }
-
-        .btn-secondary{
-            display:inline-flex;
-            align-items:center;
-            gap:6px;
-            padding:10px 16px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.15);
-            color:#fff;
-        }
-
-        .btn-cancel{
-            padding:10px 16px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.15);
-            color:#e5e5e5;
-        }
-
-        .alert-success{
-            padding:14px 18px;
-            border-radius:14px;
-            background:rgba(34,197,94,.15);
-            border:1px solid rgba(34,197,94,.35);
-            color:#86efac;
-        }
-
-        .alert-error{
-            padding:14px 18px;
-            border-radius:14px;
-            background:rgba(239,68,68,.15);
-            border:1px solid rgba(239,68,68,.35);
-            color:#fecaca;
         }
     </style>
 

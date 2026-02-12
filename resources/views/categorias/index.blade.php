@@ -1,9 +1,8 @@
 <x-app-layout>
 <div class="relative z-10 p-6 sm:p-10 max-w-[1440px] mx-auto">
-
     <!-- HEADER -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-            <h1 class="flex items-center gap-3 text-white text-xl font-bold">
+         <h1 class="flex items-center gap-3 text-gray-900 dark:text-white text-xl font-bold">
                 <span class="icon-circle">
                     <!-- SVG account_balance -->
                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
