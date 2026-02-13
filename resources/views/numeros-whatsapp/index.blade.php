@@ -179,9 +179,19 @@
                                 </div>
                             </div>
 
-                             <button class="p-2 text-gray-400 hover:text-white transition cursor-pointer">
-                                ⋮
-                            </button>
+                    {{-- BOTÓN EDITAR / OPCIONES --}}
+                <a href="{{ route('numeros-whatsapp.edit', $numero->id) }}"
+                class="p-2 text-gray-400 hover:text-white transition cursor-pointer">
+                    <svg class="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24">
+                        <circle cx="12" cy="5" r="1.8"/>
+                        <circle cx="12" cy="12" r="1.8"/>
+                        <circle cx="12" cy="19" r="1.8"/>
+                    </svg>
+                </a>
+
+
                         </div>
 
                         {{-- BADGE --}}

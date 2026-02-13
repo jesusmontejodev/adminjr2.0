@@ -369,4 +369,70 @@ class NumerosWhatsAppController extends Controller
 
         return $this->formatLocalNumber($ejemplo, $countryCode);
     }
+    /**
+ * Mostrar un número específico
+ */
+public function show($id)
+{
+    $numero = NumerosWhatsApp::where('id', $id)
+        ->where('user_id', Auth::id())
+        ->first();
+
+    if (!$numero) {
+        return redirect()->route('numeros-whatsapp.index')
+            ->with('error', 'Número no encontrado');
+    }
+
+    return view('numeros-whatsapp.index', compact('numero'));
+}
+
+
+/**
+ * Mostrar formulario de edición
+ */
+public function edit($id)
+{
+    $numero = NumerosWhatsApp::where('id', $id)
+        ->where('user_id', Auth::id())
+        ->firstOrFail();
+
+    return view('numeros-whatsapp.edit', [
+        'numero' => $numero,
+        'paises' => array_map(fn($p) => $p['nombre'], $this->paises),
+    ]);
+}
+
+/**
+ * Actualizar número
+ */
+public function update(Request $request, $id)
+{
+    $numero = NumerosWhatsApp::where('id', $id)
+        ->where('user_id', Auth::id())
+        ->firstOrFail();
+
+    $validated = $request->validate([
+        'pais' => 'required|string|size:2|in:' . implode(',', array_keys($this->paises)),
+        'numero_local' => 'required|string|max:20',
+        'etiqueta' => 'nullable|string|max:50',
+    ]);
+
+    $processedNumber = $this->processPhoneNumber(
+        $validated['numero_local'],
+        $validated['pais']
+    );
+
+    $numero->update([
+        'numero_whatsapp' => $processedNumber['whatsapp'],
+        'numero_internacional' => $processedNumber['international'],
+        'codigo_pais' => $processedNumber['country_code'],
+        'numero_local' => $processedNumber['local'],
+        'pais' => $validated['pais'],
+        'etiqueta' => $validated['etiqueta'],
+    ]);
+
+    return redirect()->route('numeros-whatsapp.index')
+        ->with('success', 'Número actualizado correctamente.');
+}
+
 }

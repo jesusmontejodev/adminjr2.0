@@ -1018,3 +1018,112 @@ html:not(.dark) main .filtros-form select:focus{
     border-color: #dc2626 !important;
     box-shadow: 0 0 0 4px rgba(239,68,68,.25) !important;
 }
+/* =====================================================
+   EDITAR NÚMERO WHATSAPP – LIGHT MODE
+   ===================================================== */
+
+html:not(.dark) main .edit-whatsapp-card{
+    background:#ffffff;
+    border:2px solid rgba(239,68,68,.35);
+    border-radius:22px;
+    padding:32px;
+    box-shadow:0 14px 35px rgba(0,0,0,.06);
+}
+
+/* TITULO */
+html:not(.dark) main .edit-whatsapp-title{
+    color:#ef4444;
+    font-weight:700;
+}
+
+/* SUBTEXTO */
+html:not(.dark) main .edit-whatsapp-subtitle{
+    color:#6b7280;
+}
+
+/* SECCIONES */
+html:not(.dark) main .edit-section{
+    border-top:1px solid rgba(239,68,68,.25);
+    padding-top:24px;
+}
+
+/* LABELS */
+html:not(.dark) main .edit-label{
+    font-size:13px;
+    font-weight:600;
+    color:#991b1b;
+}
+
+/* INPUTS */
+html:not(.dark) main .edit-input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:14px;
+    background:#f9fafb;
+    border:1px solid #e5e7eb;
+    color:#111827;
+    transition:all .2s ease;
+}
+
+html:not(.dark) main .edit-input::placeholder{
+    color:#9ca3af;
+}
+
+html:not(.dark) main .edit-input:focus{
+    outline:none;
+    border-color:#ef4444;
+    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+    background:#ffffff;
+}
+
+/* SELECT */
+html:not(.dark) main .edit-select{
+    appearance:none;
+    background-color:#f9fafb;
+    border:1px solid #e5e7eb;
+    color:#111827;
+    border-radius:14px;
+    padding:12px 40px 12px 14px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ef4444' viewBox='0 0 20 20'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5' stroke='%23ef4444' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    background-size:16px;
+}
+
+html:not(.dark) main .edit-select:focus{
+    border-color:#ef4444;
+    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+    background:#ffffff;
+}
+
+/* BOTONES */
+html:not(.dark) main .btn-save{
+    background:#ef4444;
+    border:1.5px solid #dc2626;
+    color:#ffffff;
+    padding:12px 22px;
+    border-radius:14px;
+    font-weight:600;
+    transition:.25s;
+}
+
+html:not(.dark) main .btn-save:hover{
+    background:#dc2626;
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(239,68,68,.35);
+}
+
+html:not(.dark) main .btn-cancel{
+    background:#f3f4f6;
+    border:1px solid #e5e7eb;
+    color:#374151;
+    padding:12px 22px;
+    border-radius:14px;
+    transition:.2s;
+}
+
+html:not(.dark) main .btn-cancel:hover{
+    background:#fee2e2;
+    border-color:#ef4444;
+    color:#991b1b;
+}

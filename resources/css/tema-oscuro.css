@@ -949,3 +949,114 @@ select option {
     background-color: #111827; /* fondo oscuro */
     color: #eeeeee;
 }
+/* =====================================================
+   EDITAR NÚMERO WHATSAPP – DARK MODE (MATCH DISEÑO)
+   ===================================================== */
+
+html.dark main .edit-whatsapp-card{
+    background:#18181b;
+    border:2px solid rgba(239,68,68,.35);
+    border-radius:22px;
+    padding:32px;
+    box-shadow:0 18px 45px rgba(0,0,0,.45);
+}
+
+/* TITULO */
+html.dark main .edit-whatsapp-title{
+    color:#f9fafb;
+    font-weight:700;
+}
+
+/* SUBTEXTO */
+html.dark main .edit-whatsapp-subtitle{
+    color:#9ca3af;
+}
+
+/* SECCIONES */
+html.dark main .edit-section{
+    border-top:1px solid rgba(239,68,68,.25);
+    padding-top:24px;
+}
+
+/* LABELS */
+html.dark main .edit-label{
+    font-size:13px;
+    font-weight:600;
+    color:#fca5a5;
+}
+
+/* INPUTS */
+html.dark main .edit-input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:14px;
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.15);
+    color:#ffffff;
+    transition:all .2s ease;
+}
+
+html.dark main .edit-input::placeholder{
+    color:#9ca3af;
+}
+
+html.dark main .edit-input:focus{
+    outline:none;
+    border-color:#ef4444;
+    box-shadow:0 0 0 3px rgba(239,68,68,.25);
+    background:rgba(255,255,255,.08);
+}
+
+/* SELECT */
+html.dark main .edit-select{
+    appearance:none;
+    background-color:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.15);
+    color:#ffffff;
+    border-radius:14px;
+    padding:12px 40px 12px 14px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fca5a5' viewBox='0 0 20 20'%3E%3Cpath d='M5.25 7.5L10 12.25L14.75 7.5' stroke='%23fca5a5' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+    background-size:16px;
+}
+
+html.dark main .edit-select:focus{
+    border-color:#ef4444;
+    box-shadow:0 0 0 3px rgba(239,68,68,.25);
+}
+
+/* BOTONES */
+html.dark main .btn-save{
+    background:rgba(239,68,68,.25);
+    border:1.5px solid rgba(239,68,68,.45);
+    color:#ffffff;
+    padding:12px 22px;
+    border-radius:14px;
+    font-weight:600;
+    transition:.25s;
+}
+
+html.dark main .btn-save:hover{
+    background:rgba(239,68,68,.4);
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(239,68,68,.35);
+}
+
+html.dark main .btn-cancel{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.15);
+    color:#e5e7eb;
+    padding:12px 22px;
+    border-radius:14px;
+    transition:.2s;
+}
+
+html.dark main .btn-cancel:hover{
+    background:rgba(255,255,255,.12);
+    border-color:rgba(239,68,68,.35);
+}
+.edit-whatsapp-title{
+    color: #ef4444; /* rojo intenso */
+    font-weight: 700;
+}
