@@ -222,35 +222,49 @@
         showToast('{{ session("info") }}', 'info');
     @endif
 </script>
+
+<script>
+(function () {
+    const theme = localStorage.getItem('theme');
+
+    if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+})();
+</script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const html = document.documentElement;
     const btn = document.getElementById('toggleTheme');
-
-    if (localStorage.getItem('theme') === 'dark') {
-        html.classList.add('dark');
-    }
+    const html = document.documentElement;
 
     if (!btn) return;
 
-    btn.textContent = html.classList.contains('dark') ? '☀️' : '🌙';
+    function actualizarEmoji() {
+        if (html.classList.contains('dark')) {
+            btn.textContent = '🌙'; // estás en dark
+        } else {
+            btn.textContent = '☀️'; // estás en light
+        }
+    }
+
+    actualizarEmoji();
 
     btn.addEventListener('click', function () {
         html.classList.toggle('dark');
 
         if (html.classList.contains('dark')) {
             localStorage.setItem('theme', 'dark');
-            btn.textContent = '🌙';
         } else {
             localStorage.setItem('theme', 'light');
-            btn.textContent = '☀️';
         }
+
+        actualizarEmoji();
     });
 });
 </script>
-
-
-
 @stack('scripts')
 
 </body>
