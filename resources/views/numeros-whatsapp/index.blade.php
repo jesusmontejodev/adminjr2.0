@@ -179,7 +179,7 @@
                                 </div>
                             </div>
 
-                            <button class="p-2 text-gray-400 hover:text-white transition">
+                             <button class="p-2 text-gray-400 hover:text-white transition cursor-pointer">
                                 ⋮
                             </button>
                         </div>

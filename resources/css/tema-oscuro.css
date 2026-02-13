@@ -378,7 +378,7 @@ html.dark main #transacciones-table th{
     padding:14px 18px;
     font-size:13px;
     font-weight:600;
-    background:#7f1d1d;
+    background:rgba(239,68,68,.35);
     color:#fca5a5;
     text-align:left;
     border-bottom:1px solid rgba(239,68,68,.35);
@@ -940,4 +940,12 @@ html.dark main .bg-slate-900,
 html.dark main .bg-blue-900 {
     background: #18181b !important; /* gris neutro elegante */
     border: 1px solid rgba(239,68,68,.35);
+}
+select {
+    color: #fca5a5; /* rojo claro */
+}
+
+select option {
+    background-color: #111827; /* fondo oscuro */
+    color: #eeeeee;
 }

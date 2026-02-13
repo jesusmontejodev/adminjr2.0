@@ -40,22 +40,19 @@
 <div class="mb-4">
     <label for="monto" class="label">Monto *</label>
 
-    <div class="flex items-center bg-white/5 border border-white/10 rounded-xl px-2">
-
-        <!-- SIGNO $ -->
-        <span class="px-3 text-red-400 select-none">
+    <div class="relative">
+        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 select-none pointer-events-none">
             $
         </span>
 
-        <!-- INPUT -->
         <input
             type="number"
             name="monto"
             id="monto"
-            value="{{ old('monto', $transaccion->monto ?? '') }}"
             step="0.01"
-            min="0.01"
-            class="bg-transparent border-0 focus:ring-0 focus:outline-none text-white w-full py-3 pl-1"
+            min="0"
+            class="input"
+            style="padding-left:3rem;"
             placeholder="0.00"
             required
         >
@@ -65,7 +62,6 @@
         <p class="error-text">{{ $message }}</p>
     @enderror
 </div>
-
 
 
 {{-- Tipo --}}
