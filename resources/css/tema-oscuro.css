@@ -295,7 +295,7 @@ html.dark main .celda-flex svg {
    ========================= */
 
 html.dark main .summary-card{
-    background:#111827;
+    background:#18181b; /* gris neutro elegante */
     border-radius:20px;
     padding:20px 22px;
     border:1px solid rgba(255,255,255,.08);
@@ -368,7 +368,7 @@ html.dark main .summary-card.border-blue svg{
 html.dark main #transacciones-table{
     border-collapse:separate;
     border-spacing:0;
-    background:#0f172a;
+    background:#141414;
     border-radius:14px;
     overflow:hidden;
     box-shadow:0 8px 22px rgba(0,0,0,.35);
@@ -388,7 +388,8 @@ html.dark main #transacciones-table td{
     padding:14px 18px;
     font-size:13px;
     color:#e5e7eb;
-    background:#0f172a;
+    background:#141414;
+
 }
 
 html.dark main #transacciones-table tbody tr:hover{
@@ -444,7 +445,7 @@ html.dark main .filtros-card select{
     padding:11px 14px;
     border-radius:14px;
     border:1.5px solid rgba(255,255,255,.12);
-    background:#0f172a;
+    background:#141414;
     color:#f9fafb;
     transition:border .25s ease, box-shadow .25s ease, transform .2s ease;
 }
@@ -488,7 +489,7 @@ html.dark main .btn-limpiar{
     padding:0 18px;
     border-radius:14px;
     border:1.5px solid rgba(255,255,255,.18);
-    background:#0f172a;
+    background:#141414;
     color:#e5e7eb;
     font-size:14px;
     font-weight:500;
@@ -589,7 +590,7 @@ html.dark .whatsapp-section h2 {
 
 /* ===== CARD RESUMEN ===== */
 html.dark .list-card{
-    background: #111827;
+    background: transparent; /* gris neutro elegante */
     border: 1px solid rgba(239,68,68,.35);
     border-radius: 20px;
     padding: 26px;
@@ -658,7 +659,7 @@ html.dark .btn-secondary:hover{
 
 /* ===== NUMERO CARD ===== */
 html.dark .numero-card{
-    background: #0f172a;
+    background: #18181b; /* mismo gris neutro */
     border: 2px solid rgba(239,68,68,.35);
     border-radius: 22px;
 
@@ -724,7 +725,7 @@ html.dark .info-box strong{
 
 /* ===== FOOTER ===== */
 html.dark .numero-card .border-t{
-    background: #111827;
+    background: #18181b; /* corregido, antes era azul */
 }
 
 html.dark .numero-card .border-t span{
@@ -926,4 +927,17 @@ html.dark main .filtros-form select:focus{
     outline: none !important;
     border-color: #ef4444 !important;
     box-shadow: 0 0 0 4px rgba(239,68,68,.30) !important;
+}
+/* =========================
+   FIX CONTENEDORES AZULES
+   ========================= */
+
+html.dark main .filtros-card,
+html.dark main .lista-card,
+html.dark main .tabla-container,
+html.dark main .bg-slate-800,
+html.dark main .bg-slate-900,
+html.dark main .bg-blue-900 {
+    background: #18181b !important; /* gris neutro elegante */
+    border: 1px solid rgba(239,68,68,.35);
 }

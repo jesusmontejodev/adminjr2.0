@@ -46,7 +46,7 @@
         @endif
 
         {{-- Card de filtros --}}
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-8 border border-gray-100 dark:border-gray-700">
+        <div class="bg-white dark:bg-[#18181b] rounded-2xl shadow-lg p-6 mb-8 border border-gray-100 dark:border-gray-700">
             <div class="flex items-center mb-4">
                 <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
@@ -273,7 +273,7 @@
         {{-- Tabla de transacciones --}}
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700">
             {{-- Header de tabla --}}
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 dark:bg-[#1a1a1a]">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Lista de Transacciones</h3>
@@ -481,7 +481,7 @@
 
             {{-- Paginación --}}
             @if(method_exists($transacciones, 'links'))
-                <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/30">
+                <div class="px-6 py-4 border-t border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-[#181818]">
                     {{ $transacciones->withQueryString()->links() }}
                 </div>
             @endif

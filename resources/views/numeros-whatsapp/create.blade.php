@@ -3,18 +3,17 @@
     <div class="relative z-10 max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
         <!-- HEADER -->
-         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
             <span class="icon-circle">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
                 </svg>
             </span>
-
             <h1 class="text-white text-xl font-bold">
                 Agregar número de WhatsApp
             </h1>
             <button type="submit" class="btn-primary">
-                     <a href="{{ route('numeros-whatsapp.index') }}" class="text-white/60 hover:text-white transition">
+                        <a href="{{ route('numeros-whatsapp.index') }}" class="text-white/60 hover:text-white transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 18l-6-6 6-6"/>
@@ -39,7 +38,15 @@
 
                 <select name="pais"
                         id="pais"
-                        class="input w-full"
+                        class="input w-full 
+                            bg-neutral-900 
+                            border border-red-500/60 
+                            text-red-300 
+                            focus:outline-none 
+                            focus:ring-2 
+                            focus:ring-red-500/40 
+                            focus:border-red-500 
+                            rounded-xl"
                         required>
                     <option value="">Selecciona un país</option>
                     @foreach($paises as $codigo => $nombre)

@@ -10,10 +10,10 @@
             <h2 class="text-2xl font-bold flex items-center gap-2">
                 <span class="icon-circle">
                 <svg class="w-6 h-6 text-red-500"
-                     xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 32 32"
-                     fill="currentColor"
-                     aria-hidden="true">
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 32 32"
+                        fill="currentColor"
+                        aria-hidden="true">
                     <path d="M16 3C9.373 3 4 8.373 4 15c0 2.637.87 5.073 2.33 7.054L4 29l7.194-2.25A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 21.5a9.43 9.43 0 01-4.816-1.324l-.344-.203-4.266 1.332 1.39-4.15-.223-.37A9.454 9.454 0 016.5 15C6.5 9.757 10.757 5.5 16 5.5S25.5 9.757 25.5 15 21.243 24.5 16 24.5zm4.792-6.82c-.262-.132-1.55-.764-1.79-.85-.24-.088-.414-.132-.588.132-.174.262-.676.85-.83 1.026-.152.174-.304.196-.566.064-.262-.132-1.108-.408-2.11-1.3-.78-.696-1.306-1.556-1.458-1.818-.152-.262-.016-.404.116-.536.12-.118.262-.304.394-.458.132-.152.174-.262.262-.436.088-.174.044-.326-.022-.458-.064-.132-.588-1.418-.806-1.946-.212-.51-.426-.44-.588-.448-.152-.008-.326-.01-.5-.01s-.458.064-.698.326c-.24.262-.918.894-.918 2.178 0 1.284.94 2.524 1.072 2.7.132.174 1.85 2.82 4.48 3.954.626.27 1.114.432 1.494.554.628.2 1.2.172 1.652.104.504-.074 1.55-.634 1.77-1.246.218-.612.218-1.136.152-1.246-.064-.108-.24-.174-.502-.306z"/>
                 </svg>
                 </span>
@@ -31,7 +31,7 @@
             WhatsApp on
         </span>
                 </div>
-                <p class="text-gray-700 max-w-xl">
+                <p class="text-gray-700 dark:text-neutral-400 max-w-xl">
                     Gestiona y configura tus números de WhatsApp
                 </p>
 
@@ -82,7 +82,7 @@
                         </span>
                         <div>
 
-                            <h3 class="text-lg font-semibold text-black">
+                           <h3 class="text-lg font-semibold text-gray-900 dark:text-neutral-200">
                                 Números Totales
                             </h3>
 
@@ -91,7 +91,7 @@
                             </p>
 
 
-                            <p class="text-sm text-white-500 mt-2">
+                           <p class="text-sm text-neutral-400 mt-2">
                                 Total de números conectados a WhatsApp Business
                             </p>
                         </div>
@@ -173,7 +173,7 @@
                                     <h3 class="font-semibold text-white">
                                         {{ $numero->numero_internacional }}
                                     </h3>
-                                    <p class="text-xs text-gray-500">
+                                   <p class="text-xs text-neutral-500">
                                         ID: {{ substr($numero->id, 0, 8) }}...
                                     </p>
                                 </div>
@@ -249,8 +249,8 @@
 
                         {{-- FOOTER --}}
                         <div
-                            class="px-6 py-4 bg-white/5 border-t border-white/10
-                                   flex justify-between items-center text-sm text-gray-500">
+                            class="px-6 py-4 bg-neutral-900 border-t border-neutral-800
+                            flex justify-between items-center text-sm text-neutral-400">
                             <span class="flex items-center gap-2">
                                 <span class="w-2 h-2 rounded-full bg-gray-400"></span>
                                 Inactivo
