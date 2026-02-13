@@ -90,7 +90,6 @@
             </header>
         @endisset
         @endif
-
         <main class="flex-1 overflow-y-auto p-6 bg-gray-100 dark:bg-[#12141a] relative">
             <div class="absolute inset-0 -z-10 flex justify-center items-center pointer-events-none">
                 <div class="w-[85%] h-[85%] bg-red-600/30 blur-[140px] rounded-full"></div>
@@ -103,8 +102,19 @@
         </main>
     </div>
 </div>
-
 <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-3"></div>
+<!-- BOTÓN TEMA -->
+<button id="toggleTheme"
+    class="fixed bottom-7 right-7 z-50
+            w-9 h-9 rounded-full
+            bg-[#141414]/90 dark:bg-[#1a1c23]
+            border border-red-500/30
+            backdrop-blur-md
+            shadow-[0_0_12px_rgba(239,68,68,0.25)]
+            hover:shadow-[0_0_20px_rgba(239,68,68,0.45)]
+            hover:scale-110 transition-all duration-200
+            flex items-center justify-center text-lg">
+</button>
 
 <script>
     function showToast(message, type = 'success') {
@@ -157,6 +167,7 @@
 <script>
 (function () {
     const theme = localStorage.getItem('theme');
+
     if (theme === 'dark') {
         document.documentElement.classList.add('dark');
     } else {
@@ -173,19 +184,28 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!btn) return;
 
     function actualizarEmoji() {
-        btn.textContent = html.classList.contains('dark') ? '🌙' : '☀️';
+        if (html.classList.contains('dark')) {
+            btn.textContent = '🌙'; // estás en dark
+        } else {
+            btn.textContent = '☀️'; // estás en light
+        }
     }
 
     actualizarEmoji();
 
     btn.addEventListener('click', function () {
         html.classList.toggle('dark');
-        localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+
+        if (html.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+
         actualizarEmoji();
     });
 });
 </script>
-
 @stack('scripts')
 </body>
 </html>
