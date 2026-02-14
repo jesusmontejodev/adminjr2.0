@@ -150,17 +150,16 @@
                 <div class="flex flex-wrap items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
                     <div>
                         @if(request()->anyFilled(['search', 'tipo', 'cuenta_id', 'categoria_id', 'fecha_desde', 'fecha_hasta']))
-                                            <a href="{{ route('transacciones.index') }}" class="btn-limpiar">
-                        <svg viewBox="0 0 24 24" fill="none">
-                            <path d="M6 18L18 6M6 6l12 12"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"/>
-                        </svg>
-                        Limpiar filtros
-                    </a>
-
+                            <a href="{{ route('transacciones.index') }}" class="btn-limpiar">
+                                <svg viewBox="0 0 24 24" fill="none">
+                                    <path d="M6 18L18 6M6 6l12 12"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"/>
+                                </svg>
+                                Limpiar filtros
+                            </a>
                         @endif
                     </div>
 
@@ -175,100 +174,97 @@
         </div>
 
         {{-- Resumen de transacciones --}}
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-
-    {{-- INGRESOS --}}
-    <div class="summary-card border-green">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="summary-label">Ingresos</p>
-                <p class="summary-amount">
-                    ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
-                </p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            {{-- INGRESOS --}}
+            <div class="summary-card border-green">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="summary-label">Ingresos</p>
+                        <p class="summary-amount">
+                            ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <svg class="w-7 h-7 text-green-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3v18"/>
+                        <path d="M17 7c0-2.2-2.2-4-5-4s-5 1.8-5 4
+                                2.2 4 5 4 5 1.8 5 4-2.2 4-5 4-5-1.8-5-4"/>
+                    </svg>
+                </div>
             </div>
-            <svg class="w-7 h-7 text-green-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M12 3v18"/>
-                <path d="M17 7c0-2.2-2.2-4-5-4s-5 1.8-5 4
-                        2.2 4 5 4 5 1.8 5 4-2.2 4-5 4-5-1.8-5-4"/>
-            </svg>
 
-        </div>
-    </div>
-
-    {{-- EGRESOS --}}
-    <div class="summary-card border-red">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="summary-label">Egresos</p>
-                <p class="summary-amount">
-                    ${{ number_format($transacciones->where('tipo', 'egreso')->sum('monto'), 2) }}
-                </p>
+            {{-- EGRESOS --}}
+            <div class="summary-card border-red">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="summary-label">Egresos</p>
+                        <p class="summary-amount">
+                            ${{ number_format($transacciones->where('tipo', 'egreso')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <svg class="w-7 h-7 text-red-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 4v12"/>
+                        <path d="M6 12l6 6 6-6"/>
+                    </svg>
+                </div>
             </div>
-            <svg class="w-7 h-7 text-red-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M12 4v12"/>
-                <path d="M6 12l6 6 6-6"/>
-            </svg>
-        </div>
-    </div>
 
-    {{-- COSTOS --}}
-    <div class="summary-card border-amber">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="summary-label">Costos</p>
-                <p class="summary-amount">
-                    ${{ number_format($transacciones->where('tipo', 'costo')->sum('monto'), 2) }}
-                </p>
+            {{-- COSTOS --}}
+            <div class="summary-card border-amber">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="summary-label">Costos</p>
+                        <p class="summary-amount">
+                            ${{ number_format($transacciones->where('tipo', 'costo')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <svg class="w-7 h-7 text-yellow-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="3" y="6" width="18" height="12" rx="2"/>
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M3 9h2M19 9h2M3 15h2M19 15h2"/>
+                    </svg>
+                </div>
             </div>
-            <svg class="w-7 h-7 text-yellow-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <rect x="3" y="6" width="18" height="12" rx="2"/>
-                <circle cx="12" cy="12" r="3"/>
-                <path d="M3 9h2M19 9h2M3 15h2M19 15h2"/>
-            </svg>
-        </div>
-    </div>
 
-    {{-- INVERSIONES --}}
-    <div class="summary-card border-blue">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="summary-label">Inversiones</p>
-                <p class="summary-amount">
-                    ${{ number_format($transacciones->where('tipo', 'inversion')->sum('monto'), 2) }}
-                </p>
+            {{-- INVERSIONES --}}
+            <div class="summary-card border-blue">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="summary-label">Inversiones</p>
+                        <p class="summary-amount">
+                            ${{ number_format($transacciones->where('tipo', 'inversion')->sum('monto'), 2) }}
+                        </p>
+                    </div>
+                    <svg class="w-7 h-7 text-blue-400"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M3 17l6-6 4 4 7-7"/>
+                        <path d="M14 4h7v7"/>
+                    </svg>
+                </div>
             </div>
-            <svg class="w-7 h-7 text-blue-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M3 17l6-6 4 4 7-7"/>
-                <path d="M14 4h7v7"/>
-            </svg>
         </div>
-    </div>
-
-</div>
 
         {{-- Tabla de transacciones --}}
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700">
@@ -278,7 +274,7 @@
                     <div>
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Lista de Transacciones</h3>
                         <p class="text-sm text-gray-600 dark:text-gray-400">
-                            Mostrando {{ $transacciones->firstItem() ?? 0 }}-{{ $transacciones->lastItem() ?? 0 }} de {{ $transacciones->total() }} transacciones
+                            Mostrando {{ $transacciones->count() }} {{ $transacciones->count() == 1 ? 'transacción' : 'transacciones' }}
                         </p>
                     </div>
                 </div>
@@ -294,11 +290,11 @@
                                    class="group inline-flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition">
                                     <span>Fecha</span>
                                     @if(request('sort_by') == 'fecha')
-                                        <svg class="w-4 h-4 {{ request('sort_dir') == 'asc' ? 'rotate-180' : '' }}">
+                                        <svg class="w-4 h-4 {{ request('sort_dir') == 'asc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
                                         </svg>
                                     @else
-                                        <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition">
+                                        <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
                                         </svg>
                                     @endif
@@ -318,11 +314,11 @@
                                    class="group inline-flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition">
                                     <span>Monto</span>
                                     @if(request('sort_by') == 'monto')
-                                        <svg class="w-4 h-4 {{ request('sort_dir') == 'asc' ? 'rotate-180' : '' }}">
+                                        <svg class="w-4 h-4 {{ request('sort_dir') == 'asc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
                                         </svg>
                                     @else
-                                        <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition">
+                                        <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
                                         </svg>
                                     @endif
@@ -478,15 +474,7 @@
                     </tbody>
                 </table>
             </div>
-
-            {{-- Paginación --}}
-            @if(method_exists($transacciones, 'links'))
-                <div class="px-6 py-4 border-t border-gray-200 dark:border-[#2a2a2a] bg-gray-50 dark:bg-[#181818]">
-                    {{ $transacciones->withQueryString()->links() }}
-                </div>
-            @endif
         </div>
-
     </div>
 
     <script>
