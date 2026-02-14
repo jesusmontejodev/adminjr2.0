@@ -6,9 +6,9 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                // 'resources/css/estructura.css',  // ← Eliminado
-                // 'resources/css/tema-claro.css',  // ← Eliminado
-                // 'resources/css/tema-oscuro.css', // ← Eliminado
+                'resources/css/estructura.css',     // ← Añadir esto
+                'resources/css/temas-claro.css',     // ← Añadir esto
+                'resources/css/tema-oscuro.css',    // ← Añadir esto
                 'resources/js/app.js',
                 'resources/js/analistajr/dashboard.js'
             ],
