@@ -9,62 +9,109 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navBar = document.getElementById('navBar');
+
+    // Toggle menú móvil
+    menuBtn.addEventListener('click', function () {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Efecto scroll (transparencia)
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 50) {
+            navBar.classList.add('bg-black/60','backdrop-blur-md','shadow-2xl');
+            navBar.classList.remove('bg-white/5','backdrop-blur-sm');
+        } else {
+            navBar.classList.remove('bg-black/60','backdrop-blur-md','shadow-2xl');
+            navBar.classList.add('bg-white/5','backdrop-blur-sm');
+        }
+    });
+});
+</script>
 
 <body class="min-h-screen bg-gradient-to-br from-black via-[#0f1115] to-[#1a1d23] text-white overflow-x-hidden">
-
 <!-- HEADER -->
-<header class="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6">
-    <div
-        class="flex items-center justify-between
-               rounded-full
-               px-4 sm:px-8 py-3 sm:py-4
-               bg-white/10 backdrop-blur-md
-               border border-white/10 shadow-lg
-               gap-2">
+<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-3 transition-all duration-300">
+    <nav id="navBar" class="
+        flex items-center justify-between
+        w-full max-w-5xl
+        rounded-full
+        px-6 py-3
+        bg-white/5
+        backdrop-blur-sm
+        border border-white/10
+        shadow-lg
+        transition-all duration-300
+        relative
+    ">
 
         <!-- LOGO -->
-        <div class="flex items-center gap-2 shrink-0">
+        <div class="flex items-center gap-2">
             <img src="{{ asset('avaspace.svg') }}"
                  alt="Avaspace"
-                 class="h-8 sm:h-10">
-
-            <span class="text-white font-bold
-                         text-base sm:text-lg
-                         tracking-wide">
-                Avaspace
-            </span>
+                 class="h-7 sm:h-8">
         </div>
 
-        <!-- ACCIONES -->
-        <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+        <!-- MENU DESKTOP -->
+        <div class="hidden md:flex items-center gap-8 text-sm text-white/80
+                absolute left-1/2 -translate-x-1/2">
+        <a href="#contacto" class="hover:text-white transition">Contacto</a>
+        <a href="#funciones" class="hover:text-white transition">Funciones</a>
+        <a href="#precios" class="hover:text-white transition">Precios</a>
+        <!---<a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
+        <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>--->
+    </div>
 
-            <a href="{{ route('login') }}"
-               class="px-4 sm:px-5 py-2
-                      rounded-full
-                      border border-white/40
-                      text-xs sm:text-sm
-                      whitespace-nowrap
-                      hover:bg-white hover:text-black
-                      transition font-medium">
+</div>
+
+            <!-- BOTÓN HAMBURGUESA -->
+            <button id="menuBtn" class="md:hidden text-white ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+                     viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- MENU MÓVIL -->
+        <div id="mobileMenu" class="
+            absolute top-full right-4 mt-4
+            hidden
+            w-52
+            bg-black/90
+            backdrop-blur-xl
+            border border-white/10
+            rounded-2xl
+            shadow-2xl
+            p-4
+            space-y-3
+            text-white
+        ">
+            <a href="#contacto" class="block hover:text-red-500">Contacto</a>
+            <a href="#funciones" class="block hover:text-red-500">Funciones</a>
+            <a href="#precios" class="block hover:text-red-500">Precios</a>
+
+            <hr class="border-white/10">
+
+            <a href="{{ route('login') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
+                      text-white font-medium py-2 rounded-xl">
                 Iniciar sesión
             </a>
 
             <a href="{{ route('register') }}"
-               class="px-4 sm:px-5 py-2
-                      rounded-full
-                      bg-red-600 border border-red-600
-                      text-xs sm:text-sm text-white
-                      whitespace-nowrap
-                      hover:bg-white hover:text-black
-                      transition font-medium">
+               class="block text-center bg-red-600 hover:bg-red-700 transition
+                      text-white font-medium py-2 rounded-xl">
                 Crear cuenta
             </a>
-
         </div>
 
-    </div>
+    </nav>
 </header>
-
 
 <!-- VIDEO -->
     <section class="relative mt-24 flex justify-center">
