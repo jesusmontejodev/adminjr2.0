@@ -33,6 +33,54 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<!--CHAT BOT-->
+<script>
+function sendMessage() {
+    const input = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Mensaje del usuario
+    const userMsg = document.createElement("div");
+    userMsg.className = "bg-green-400 text-black p-2 rounded-full w-fit ml-auto text-sm";
+    userMsg.innerText = text;
+    chatBox.appendChild(userMsg);
+
+    input.value = "";
+
+    // Simular respuesta con delay
+    setTimeout(() => {
+        const botMsg = document.createElement("div");
+        botMsg.className = "bg-black/40 p-3 rounded-xl text-sm space-y-1";
+
+        // Extraer número (monto)
+        const amountMatch = text.match(/\d+/);
+        const amount = amountMatch ? amountMatch[0] : "0";
+
+        // Extraer concepto
+        const description = text.replace(/\d+/g, "").trim() || "Gasto";
+
+        const today = new Date().toLocaleDateString("es-MX");
+
+        botMsg.innerHTML = `
+            ✅ <b>¡Listo! Gasto registrado</b><br>
+            💰 Valor: $${amount} MXN<br>
+            📅 Fecha: ${today}<br>
+            🏷 Categoría: Alimentación<br>
+            📝 Descripción: ${description}<br>
+            💳 Método de pago: Efectivo
+        `;
+
+        chatBox.appendChild(botMsg);
+
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+    }, 800);
+}
+</script>
+
 <body class="min-h-screen bg-gradient-to-br from-black via-[#0f1115] to-[#1a1d23] text-white overflow-x-hidden">
 <!-- HEADER -->
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-3 transition-all duration-300">
@@ -40,20 +88,19 @@ document.addEventListener("DOMContentLoaded", function () {
         flex items-center justify-between
         w-full max-w-5xl
         rounded-full
-        px-6 py-3
+        px-6 py-4
         bg-white/5
         backdrop-blur-sm
         border border-white/10
         shadow-lg
         transition-all duration-300
-        relative
-    ">
+        relative">
 
         <!-- LOGO -->
         <div class="flex items-center gap-2">
             <img src="{{ asset('avaspace.svg') }}"
-                 alt="Avaspace"
-                 class="h-7 sm:h-8">
+                    alt="Avaspace"
+                    class="h-7 sm:h-8">
         </div>
 
         <!-- MENU DESKTOP -->
@@ -62,8 +109,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <a href="#contacto" class="hover:text-white transition">Contacto</a>
         <a href="#funciones" class="hover:text-white transition">Funciones</a>
         <a href="#precios" class="hover:text-white transition">Precios</a>
-        <!---<a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
-        <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>--->
+        <a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
+        <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>
     </div>
 
 </div>
@@ -71,9 +118,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <!-- BOTÓN HAMBURGUESA -->
             <button id="menuBtn" class="md:hidden text-white ml-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
-                     viewBox="0 0 24 24" stroke="currentColor">
+                        viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M4 6h16M4 12h16M4 18h16" />
+                            d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
         </div>
@@ -112,42 +159,161 @@ document.addEventListener("DOMContentLoaded", function () {
 
     </nav>
 </header>
+<section class="relative pt-44 pb-36 flex flex-col items-center text-center overflow-hidden">
 
+    <!-- Glow principal -->
+    <div class="absolute inset-0 -z-20 flex justify-center items-center">
+        <div class="w-[65%] h-[65%] bg-red-700/20 blur-[140px] rounded-full"></div>
+    </div>
+
+    <!-- Glow secundario -->
+    <div class="absolute top-1/4 -z-10 w-[420px] h-[420px] bg-red-600/20 blur-[160px] rounded-full"></div>
+
+    <!-- Badge -->
+    <div class="mb-8 px-6 py-2.5 rounded-full
+                bg-white/5 border border-white/10
+                backdrop-blur-xl text-sm text-white/80
+                flex items-center gap-3 shadow-lg shadow-red-600/10">
+
+        <div class="w-6 h-6 flex items-center justify-center">
+            <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-7">
+        </div>
+
+        <span class="tracking-wide">
+            Tu asistente financiero inteligente
+        </span>
+    </div>
+
+    <!-- Título -->
+    <h2 class="text-4xl md:text-6xl xl:text-7xl font-semibold leading-[1.05] max-w-5xl">
+        Organiza tu dinero sin abrir planillas<br>
+        Solo envía un <span class="text-red-500">WhatsApp</span>.
+    </h2>
+
+    <!-- Subrayado decorativo -->
+    <div class="mt-4 w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+
+    <!-- Descripción -->
+    <p class="mt-8 text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
+        Con un solo mensaje a 
+        <span class="text-red-500 font-medium">Admin JR</span>,
+        la IA categoriza, suma y actualiza tu
+        <span class="text- font-medium">panel financiero</span>
+        al instante.
+    </p>
+    <!-- IMAGEN -->
+<div class="mt-12 flex justify-center">
+    <div class="relative w-full max-w-sm rounded-2xl backdrop-blur-xl shadow-2xl">
+       <img src="{{ asset('images/mockup2.png') }}"
+             alt="Mockup Admin JR"
+             class="w-full h-auto object-contain">
+    </div>
+</div>
+
+</section>
+<section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
+
+    <!-- Glow -->
+    <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <div class="w-[70%] h-[70%] bg-red-500/20 blur-3xl rounded-full"></div>
+    </div>
+
+    <!-- Título -->
+    <h2 class="text-4xl md:text-6xl font-medium leading-tight max-w-5xl">
+       Controla tus
+                <span class="text-red-500 font-bold">finanzas</span>
+                o las de
+                <span class="text-red-500 font-bold">tu negocio</span>
+                con un mensaje de
+                <span class="text-red-500 font-bold">WhatsApp</span>
+    </h2>
+
+    <!-- Subtítulo -->
+    <p class="mt-8 text-lg md:text-xl text-white/70 max-w-2xl">
+        Reporta tus
+                <span class="text-red-500 font-medium">ventas y gastos</span>
+                por <span class="text-red-500 font-medium">WhatsApp</span>
+                y recibe
+                <span class="text-white font-medium">resúmenes automáticos</span>
+                de tu dinero al instante.
+    </p>
+    
+</section>
 <!-- VIDEO -->
-    <section class="relative mt-24 flex justify-center">
-        <div class="absolute inset-0 flex justify-center">
-            <div class="w-[80%] h-[80%] bg-red-600/20 blur-3xl rounded-full"></div>
+<section class="relative mt-24 flex flex-col items-center">
+
+    <div class="relative w-full max-w-5xl rounded-2xl overflow-hidden bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl">
+        <div class="flex items-center gap-2 px-4 py-3 bg-black/40">
+            <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+            <span class="w-3 h-3 bg-green-500 rounded-full"></span>
         </div>
 
-        <div class="relative w-full max-w-5xl rounded-2xl overflow-hidden bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl">
-            <div class="flex items-center gap-2 px-4 py-3 bg-black/40">
-                <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-                <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
-                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-            </div>
-
-            <div class="aspect-video">
-                <iframe class="w-full h-full"
-                        src="https://www.youtube.com/embed/mjW6kuUwr6c"
-                        allowfullscreen>
-                </iframe>
-            </div>
+        <div class="aspect-video">
+            <iframe class="w-full h-full"
+                    src="https://www.youtube.com/embed/qeDBw6sXNTw"
+                    allowfullscreen>
+            </iframe>
         </div>
-    </section>
+    </div>
+
+    <!-- TEXTO DEBAJO DEL VIDEO -->
+    <p class="mt-6 text-white/70 text-center max-w-3xl text-lg">
+        Mira cómo puedes registrar tus gastos en segundos usando solo WhatsApp
+        y llevar el control de tus finanzas sin planillas ni complicaciones.
+    </p>
+
+</section>
 
 <!-- MAIN -->
 <main class="max-w-7xl mx-auto px-6 pt-24 pb-24 relative">
 
 <!-- HERO -->
-<section class="max-w-7xl mx-auto px-6 pt-24 pb-32 relative overflow-hidden">
+<section class="relative mt-32 flex flex-col items-center text-center">
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <h2 class="text-4xl md:text-5xl font-medium mb-4">
+        Compruébalo por <span class="text-red-600">ti mismo ahora.</span>
+    </h2>
+
+    <p class="text-white/70 mb-10">
+        Escribe un gasto abajo (Ej: "Pizza 200") y mira la magia:
+    </p>
+
+    <!-- CHAT -->
+    <div id="chatBox"
+         class="w-full max-w-xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 space-y-3 text-left">
+
+        <div class="bg-black/40 p-3 rounded-xl text-sm">
+             💬 Hola, soy AdminJr, tu asistente financiero por WhatsApp.
+        </div>
+
+    </div>
+
+    <!-- INPUT -->
+    <div class="mt-4 w-full max-w-xl flex gap-2">
+        <input id="userInput"
+               type="text"
+               placeholder="Escribe tu gasto aquí..."
+               class="flex-1 bg-white/5 border border-white/10 rounded-full px-5 py-3 outline-none text-white">
+
+        <button onclick="sendMessage()"
+                class="bg-green-500 hover:bg-green-600 text-black px-6 rounded-full">
+            ➤
+        </button>
+    </div>
+
+</section>
+
+<script src="/js/chat-demo.js"></script>
+<!---<section class="max-w-7xl mx-auto px-6 pt-24 pb-32 relative overflow-hidden">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">--->
 
         <!-- TEXTO -->
          
-        <div class="space-y-8 text-center lg:text-left">
+        <!---<div class="space-y-8 text-center lg:text-left">-->
            <!-- glow decorativo -->
-        <div class="absolute inset-0 -z-10 flex justify-center items-center">
+        <!---<div class="absolute inset-0 -z-10 flex justify-center items-center">
             <div class="w-[60%] h-[60%] bg-red-600/20 blur-3xl rounded-full"></div>
         </div>
 
@@ -170,24 +336,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 de tu dinero al instante.
             </p>
 
-        </div>
+        </div>-->
 
         <!-- MOCKUP -->
-<div class="flex justify-center relative font-montserrat">
+<!--<div class="flex justify-center relative font-montserrat">-->
 
     <!-- GLOW -->
-    <div class="absolute -z-10 w-[460px] h-[460px] bg-red-600/15 blur-[160px] rounded-full"></div>
+    <!---<div class="absolute -z-10 w-[460px] h-[460px] bg-red-600/15 blur-[160px] rounded-full"></div>-->
 
     <!-- FRAME -->
-    <div class="relative bg-white/5 backdrop-blur-xl
-                border border-white/10 rounded-3xl p-8 shadow-2xl">
+    <!--<div class="relative bg-white/5 backdrop-blur-xl
+                border border-white/10 rounded-3xl p-8 shadow-2xl">--->
 
         <!-- PHONE -->
-        <div class="w-[310px] rounded-[2.6rem]
-                    bg-[#111827] border border-white/10 overflow-hidden">
+        <!---<div class="w-[310px] rounded-[2.6rem]
+                    bg-[#111827] border border-white/10 overflow-hidden">-->
 
             <!-- TOP BAR -->
-            <div class="px-5 py-4 flex items-center gap-3
+            <!----<div class="px-5 py-4 flex items-center gap-3
                         bg-gradient-to-r from-[#075E54] to-[#0b6e63]">
 
                 <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center">
@@ -202,22 +368,22 @@ document.addEventListener("DOMContentLoaded", function () {
                         Asistente financiero 📊
                     </p>
                 </div>
-            </div>
+            </div>---->
 
             <!-- CHAT -->
-            <div class="bg-[#F4F5F7] px-5 py-6 space-y-5 text-[13px] text-left">
+            <!---<div class="bg-[#F4F5F7] px-5 py-6 space-y-5 text-[13px] text-left">-->
 
                 <!-- USER -->
-                <div class="flex justify-end">
+                <!---<div class="flex justify-end">
                     <div class="bg-white px-4 py-3 rounded-2xl
                                 max-w-[80%] shadow text-black leading-relaxed">
                         💸 Venta del día $2,500<br>
                         💳 pago con tarjeta
                     </div>
-                </div>
+                </div>-->
 
                 <!-- ADMIN JR -->
-                <div class="flex justify-start">
+                <!---<div class="flex justify-start">
                     <div class="bg-[#e8f5ef] px-4 py-3 rounded-2xl
                                 max-w-[80%] shadow text-black space-y-2">
 
@@ -231,10 +397,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             <p>📈 Utilidad del día: <b>$1,700</b></p>
                         </div>
                     </div>
-                </div>
+                </div>--->
 
                 <!-- RESUMEN -->
-                <div class="flex justify-start">
+                <!---<div class="flex justify-start">
                     <div class="bg-white px-4 py-3 rounded-2xl
                                 max-w-[80%] shadow text-black text-xs leading-relaxed">
 
@@ -248,12 +414,12 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
     </div>
 
-</div>
+</div>----->
 </section>
 
     
 
-   <!-- INFO -->
+<!-- INFO -->
 <section class="mt-32 grid md:grid-cols-2 gap-16 items-center">
 
     <!-- TEXTO -->
@@ -264,178 +430,114 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="w-[60%] h-[60%] bg-red-600/20 blur-3xl rounded-full"></div>
         </div>
 
-        <h3 class="text-3xl font-extrabold text-white leading-tight">
-            Tu asistente administrativo
-            <span class="text-red-600">vive en tu WhatsApp</span>
-        </h3>
+        <!-- Título -->
+        <h2 class="text-4xl md:text-6xl xl:text-7xl font-semibold leading-[1.05] max-w-5xl">
+            Organiza tu dinero sin abrir planillas<br>
+            Solo envía un <span class="text-red-500">WhatsApp</span>.
+        </h2>
 
-        <p class="text-white/70 text-lg leading-relaxed">
-            <span class="text-white font-medium">
-                La mejor herramienta de automatización
-            </span>
-            para controlar tu negocio en segundos.
-            <br><br>
-            No necesitas abrir plataformas complicadas para saber cuánto dinero tienes.
-            Solo envía un texto y
-            <span class="text-white font-medium">Admin JR</span>
-            se encarga del resto: centraliza
-            <span class="text-white font-medium">ingresos</span>,
-            <span class="text-white font-medium">egresos</span> y
-            <span class="text-white font-medium">recordatorios</span>
-            de forma
-            <span class="text-red-500 font-medium">simple</span>,
-            <span class="text-red-500 font-medium">rápida</span> y
-            <span class="text-red-500 font-medium">sin errores</span>.
-            <br><br>
-            Reporta y consulta tu
-            <span class="text-white font-medium">utilidad</span>
-            sin salir de tu chat favorito.
+        <!-- Subrayado decorativo -->
+        <div class="mt-4 w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+
+        <!-- Descripción -->
+        <p class="mt-8 text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
+            Con un solo mensaje a 
+            <span class="text-red-500 font-medium">Admin JR</span>,
+            la IA categoriza, suma y actualiza tu
+            <span class="font-medium">panel financiero</span>
+            al instante.
         </p>
-
     </div>
 
-    <!-- MOCKUP GRÁFICA / RESUMEN -->
-<div class="flex justify-center relative font-montserrat">
-
-    <!-- glow -->
-    <div class="absolute -z-10 w-[420px] h-[420px] bg-red-600/20 blur-[150px] rounded-full"></div>
-
-    <!-- card -->
-    <div class="relative w-full max-w-md
-                bg-white/10 backdrop-blur-xl
-                border border-white/10 rounded-3xl
-                p-6 shadow-2xl space-y-6">
-
-        <!-- header -->
-        <div>
-            <p class="text-sm text-white/60">
-                Resumen del día
-            </p>
-            <h4 class="text-2xl font-extrabold text-white">
-                $1,950 <span class="text-red-500">MXN</span>
-            </h4>
-            <p class="text-xs text-white/60">
-                Utilidad neta
-            </p>
-        </div>
-
-        <!-- gráfica -->
-        <div class="space-y-3">
-            <div>
-                <div class="flex justify-between text-xs text-white/70 mb-1">
-                    <span>Ingresos</span>
-                    <span>$3,200</span>
-                </div>
-                <div class="w-full h-2 rounded-full bg-white/10">
-                    <div class="h-2 rounded-full bg-green-500 w-[85%]"></div>
-                </div>
-            </div>
-
-            <div>
-                <div class="flex justify-between text-xs text-white/70 mb-1">
-                    <span>Egresos</span>
-                    <span>$1,250</span>
-                </div>
-                <div class="w-full h-2 rounded-full bg-white/10">
-                    <div class="h-2 rounded-full bg-red-500 w-[40%]"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- footer -->
-        <div class="bg-black/30 rounded-xl p-4 text-xs text-white/70 leading-relaxed">
-            Balance actualizado automáticamente a partir de tus mensajes.
+    <!-- IMAGEN -->
+    <div class="flex justify-center md:justify-end">
+        <div class="relative w-full max-w-sm rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+            <img src="{{ asset('images/mockup3.png') }}"
+                 alt="Mockup Admin JR"
+                 class="w-full h-auto object-contain">
         </div>
     </div>
-</div>
+
 </section>
 
-  <!-- FEATURES -->
-<section class="mt-32">
+<section class="mt-32 overflow-hidden">
     <h3 class="text-3xl font-extrabold text-center mb-16 text-white">
         Todo el poder de Admin JR, <span class="text-red-600">a un mensaje de distancia</span>
     </h3>
 
-    <div class="grid md:grid-cols-3 gap-12">
+    <div class="relative w-full flex justify-center items-center">
+        <div id="carousel" class="carousel-3d">
 
-        <!-- CARD 1 -->
-        <div class="relative bg-white/10 p-8 rounded-2xl border border-white/10 space-y-6 overflow-hidden">
-
-            <!-- glow -->
-            <div class="absolute inset-0 -z-10 flex justify-center items-center">
-                <div class="w-[70%] h-[70%] bg-red-600/20 blur-3xl rounded-full"></div>
+            <!-- CARD 1 -->
+            <div class="card-3d">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        class="w-12 h-12 text-red-600">
+    <path d="M12 2C6.48 2 2 6.02 2 11.5S6.48 21 12 21s10-4.02 10-9.5S17.52 2 12 2zm1 15.93V19h-2v-1.07c-1.72-.2-3-1.39-3-3.01h2c0 .83.67 1.5 1.5 1.5S13 15.75 13 15s-.67-1.5-1.5-1.5c-1.93 0-3.5-1.57-3.5-3.5 0-1.62 1.28-2.81 3-3.01V5h2v1.07c1.72.2 3 1.39 3 3.01h-2c0-.83-.67-1.5-1.5-1.5S11 8.25 11 9s.67 1.5 1.5 1.5c1.93 0 3.5 1.57 3.5 3.5 0 1.62-1.28 2.81-3 3.01z"/>
+    </svg>
+</div>
+                <h4 class="text-xl font-semibold text-white">Registro en <span class="text-red-500">3 segundos</span></h4>
+                <p class="text-white/70">Registra ventas y gastos con un simple mensaje de WhatsApp.
+                        Sin Excel, sin computadora, sin complicaciones.</p>
             </div>
 
-            <!-- ICONO -->
-            <span class="material-symbols-outlined text-red-600 text-5xl">
-                paid
-            </span>
-
-            <h4 class="text-xl font-semibold text-white">
-                Registro en <span class="text-red-500">3 segundos</span>
-                vía 
-                <span class="text-red-500">WhatsApp</span>
-            </h4>
-
-            <p class="text-white/70 leading-relaxed">
-                Tu nuevo registro contable es un mensaje de texto. Olvida abrir la computadora o pelear con hojas de Excel. 
-                Reporta una venta o un gasto mientras sucede, directamente en tu chat. Admin JR procesa la información al instante 
-                para que tu flujo de efectivo esté siempre al día.
-            </p>
-        </div>
-
-        <!-- CARD 2 -->
-        <div class="relative bg-white/10 p-8 rounded-2xl border border-white/10 space-y-6 overflow-hidden">
-
-            <!-- glow -->
-            <div class="absolute inset-0 -z-10 flex justify-center items-center">
-                <div class="w-[70%] h-[70%] bg-red-600/20 blur-3xl rounded-full"></div>
+            <!-- CARD 2 -->
+            <div class="card-3d">
+                <div class="flex justify-center">
+               <svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 24 24"
+     fill="currentColor"
+     class="w-12 h-12 text-red-600">
+  <path d="M12 22c1.1 0 2-.9 2-2h-4c0 
+           1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4
+           c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68
+           C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+</svg>
+</div>
+                <h4 class="text-xl font-semibold text-white">Recordatorios <span class="text-red-500">inteligentes</span></h4>
+                <p class="text-white/70">Tu asistente te avisa qué falta por reportar...</p>
             </div>
 
-            <!-- ICONO -->
-            <span class="material-symbols-outlined text-red-600 text-5xl">
-                notifications_active
-            </span>
-
-            <h4 class="text-xl font-semibold text-white">
-                Recordatorios <span class="text-red-500">inteligentes</span>
-            </h4>
-
-            <p class="text-white/70 leading-relaxed">
-                
-                Tu asistente te avisa qué falta por reportar o cobrar. Recibe recordatorios automáticos por WhatsApp sobre pagos 
-                de clientes o facturas por vencer. Evita fugas de dinero y mantén tus cuentas claras sin tener que revisar agendas
-                o correos traspapelados.
-            </p>
-        </div>
-
-        <!-- CARD 3 -->
-        <div class="relative bg-white/10 p-8 rounded-2xl border border-white/10 space-y-6 overflow-hidden">
-
-            <!-- glow -->
-            <div class="absolute inset-0 -z-10 flex justify-center items-center">
-                <div class="w-[70%] h-[70%] bg-red-600/20 blur-3xl rounded-full"></div>
+            <!-- CARD 3 -->
+            <div class="card-3d">
+                <div class="flex justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-12 h-12 text-red-600">
+                    <path d="M4 9h3v11H4V9zm6-5h3v16h-3V4zm6 8h3v8h-3v-8z"/>
+                </svg>
+            </div>
+                <h4 class="text-xl font-semibold text-white">Resumen <span class="text-red-500">24/7</span></h4>
+                <p class="text-white/70">Resúmenes y gráficos dinámicos...</p>
             </div>
 
-            <!-- ICONO -->
-            <span class="material-symbols-outlined text-red-600 text-5xl">
-                bar_chart
-            </span>
-
-            <h4 class="text-xl font-semibold text-white">
-                El resumen de tu   <span class="text-red-500">administración 24/7</span>
-            </h4>
-
-            <p class="text-white/70 leading-relaxed">
-                No más dudas sobre cuánto estás ganando. Recibe resúmenes de utilidad y gráficos dinámicos
-                que te dicen exactamente cómo va tu negocio hoy. Obtén respuestas inmediatas por WhatsApp o 
-                profundiza en tu dashboard: información clara para tomar decisiones rápidas.
-            </p>
         </div>
-
     </div>
-</section>
 
+    <!-- BOTONES -->
+    <div class="flex justify-center gap-4 mt-8">
+    <button onclick="prevCard()"
+        class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15 19l-7-7 7-7" />
+        </svg>
+    </button>
+
+    <button onclick="nextCard()"
+        class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M9 5l7 7-7 7" />
+        </svg>
+    </button>
+</div>
+</section>
 
     <!---preguntas frecuentes--->
     <section class="mt-32 max-w-3xl mx-auto">
@@ -564,8 +666,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
     </div>
 
+<!-- PLAN + CTA -->
+<div class="mt-12 flex flex-col items-center gap-8">
+
+    <!-- CARD PLAN -->
+    <div class="relative w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center shadow-2xl">
+
+        <!-- glow -->
+        <div class="absolute inset-0 -z-10 flex justify-center items-center">
+            <div class="w-[70%] h-[70%] bg-red-600/20 blur-3xl rounded-full"></div>
+        </div>
+
+        <h3 class="text-2xl font-bold mb-2">
+            Plan basico
+        </h3>
+
+        <p class="text-red-500 text-4xl font-extrabold mb-1">
+            $459 / mes
+        </p>
+        
+         <p class="text-white/70 mb-6">
+            Facturas mensuales
+        </p>
+
+        <p class="text-white/70 mb-6">
+            Todo lo que necesitas para controlar tu dinero por WhatsApp.
+        </p>
+
+        <ul class="space-y-3 text-left text-white/80 mb-6">
+            <li>✅ Hasta 3 números WhatsApp</li>
+            <li>✅ 5 cuentas conectadas</li>
+            <li>✅ Reportes básicos</li>
+            <li>✅ Soporte por email</li>
+        </ul>
+
+        <a href="{{ route('register') }}"
+           class="inline-block bg-red-600 hover:bg-red-700 transition
+                  text-white font-semibold px-6 py-3 rounded-xl">
+            Empieza ahora
+        </a>
+    </div>
+
     <!-- CTA -->
-    <div class="mt-12 text-center">
+    <!--- class="text-center">
         <p class="text-white text-lg mb-2">
             Empieza a tener control de tu dinero sin complicarte.
         </p>
@@ -576,8 +719,10 @@ document.addEventListener("DOMContentLoaded", function () {
            class="inline-block bg-red-600 hover:bg-red-700 transition
                   text-white font-semibold px-8 py-3 rounded-xl">
             Crea una cuenta
-        </a>
+        </a>--->
     </div>
+
+</div>
 </section>
 
 <script>
@@ -673,3 +818,90 @@ function toggleFaq(button) {
 
 </body>
 </html>
+<script>
+const cards = document.querySelectorAll(".card-3d");
+let current = 0;
+
+function updateCarousel() {
+    cards.forEach((card, index) => {
+        const offset = index - current;
+
+        if (offset === 0) {
+            card.style.transform = "translateX(0) translateZ(200px) scale(1)";
+            card.style.opacity = "1";
+            card.style.zIndex = "3";
+        } 
+        else if (offset === -1 || offset === cards.length - 1) {
+            card.style.transform = "translateX(-220px) translateZ(0) scale(0.8)";
+            card.style.opacity = "0.5";
+            card.style.zIndex = "2";
+        } 
+        else if (offset === 1 || offset === -(cards.length - 1)) {
+            card.style.transform = "translateX(220px) translateZ(0) scale(0.8)";
+            card.style.opacity = "0.5";
+            card.style.zIndex = "2";
+        } 
+        else {
+            card.style.transform = "translateX(0) translateZ(-200px) scale(0.6)";
+            card.style.opacity = "0";
+            card.style.zIndex = "1";
+        }
+    });
+}
+
+function nextCard() {
+    current = (current + 1) % cards.length;
+    updateCarousel();
+}
+
+function prevCard() {
+    current = (current - 1 + cards.length) % cards.length;
+    updateCarousel();
+}
+
+updateCarousel();
+</script>
+<style>
+    .carousel-3d {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 350px;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+}
+
+.card-3d {
+    position: absolute;
+    width: 280px;
+    height: 320px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.8s ease, opacity 0.8s ease;
+}
+.carousel-3d {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    height: 350px;
+    transform-style: preserve-3d;
+    perspective: 1200px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-3d {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-style: preserve-3d;
+    transform-origin: center center;
+    translate: -50% -50%;
+}
+</style>
