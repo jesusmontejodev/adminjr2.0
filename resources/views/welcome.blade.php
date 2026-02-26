@@ -201,15 +201,67 @@ function sendMessage() {
         <span class="text- font-medium">panel financiero</span>
         al instante.
     </p>
-    <!-- IMAGEN -->
+<!-- IMAGEN -->
 <div class="mt-12 flex justify-center">
-    <div class="relative w-full max-w-sm rounded-2xl backdrop-blur-xl shadow-2xl">
-       <img src="{{ asset('images/mockup2.png') }}"
-             alt="Mockup Admin JR"
-             class="w-full h-auto object-contain">
-    </div>
-</div>
+  <div class="relative w-full max-w-sm group">
 
+    <!-- Glow -->
+    <div class="absolute inset-0 rounded-2xl 
+                bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
+                blur-2xl opacity-40"></div>
+
+    <!-- Imagen -->
+    <img src="{{ asset('images/mockup2.png') }}"
+         alt="Mockup Admin JR"
+         class="relative w-full h-auto object-contain rounded-2xl">
+
+    <!-- Tooltip 1 -->
+    <div class="absolute top-20 -left-20
+                opacity-0 translate-x-4
+                group-hover:opacity-100 group-hover:translate-x-0
+                transition duration-500 ease-out
+                bg-white/10 backdrop-blur-xl
+                border border-white/20
+                text-white text-sm px-4 py-2 rounded-xl
+                shadow-[0_0_20px_rgba(255,0,0,0.4)]">
+      <span class="block">🤖 Categorizado automáticamente</span>
+      <span class="absolute top-1/2 -right-2 w-3 h-3 
+                   bg-white/10 border-r border-t border-white/20
+                   rotate-45"></span>
+    </div>
+
+    <!-- Tooltip 2 -->
+    <div class="absolute top-40 -right-20
+                opacity-0 -translate-x-4
+                group-hover:opacity-100 group-hover:translate-x-0
+                transition duration-500 delay-150 ease-out
+                bg-white/10 backdrop-blur-xl
+                border border-white/20
+                text-white text-sm px-4 py-2 rounded-xl
+                shadow-[0_0_20px_rgba(236,72,153,0.4)]">
+      ⚡ Procesado en segundos
+      <span class="absolute top-1/2 -left-2 w-3 h-3 
+                   bg-white/10 border-l border-b border-white/20
+                   rotate-45"></span>
+    </div>
+
+    <!-- Tooltip 3 -->
+    <div class="absolute bottom-32 -right-12
+                opacity-0 -translate-y-4
+                group-hover:opacity-100 group-hover:translate-y-0
+                transition duration-500 delay-300 ease-out
+                bg-white/10 backdrop-blur-xl
+                border border-white/20
+                text-white text-sm px-4 py-2 rounded-xl
+                shadow-[0_0_20px_rgba(147,51,234,0.4)]">
+      📊 Actualizado en tu presupuesto
+      <span class="absolute top-full left-6 w-3 h-3 
+                   bg-white/10 border-l border-t border-white/20
+                   rotate-45"></span>
+    </div>
+
+  </div>
+</div>
 </section>
 <section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
 
@@ -237,7 +289,19 @@ function sendMessage() {
                 <span class="text-white font-medium">resúmenes automáticos</span>
                 de tu dinero al instante.
     </p>
-    
+    <div class="mt-12 flex justify-center">
+   <div class="relative w-full max-w-md rounded-2xl p-[2px] 
+            bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
+            shadow-[0_0_30px_rgba(236,72,153,0.6)]">
+
+    <div class="rounded-2xl backdrop-blur-xl bg-black/30">
+        <img src="{{ asset('images/mockupgif.gif') }}"
+             alt="Mockup Admin JR"
+             class="w-full h-auto object-contain rounded-2xl">
+    </div>
+
+</div>
+</div>
 </section>
 <!-- VIDEO -->
 <section class="relative mt-24 flex flex-col items-center">
