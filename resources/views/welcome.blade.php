@@ -33,8 +33,55 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!--CHAT BOT-->
 <script>
+function detectCategory(text) {
+    const lower = text.toLowerCase();
+
+    if (lower.includes("comida") || lower.includes("taco") || lower.includes("pizza") || lower.includes("hamburguesa")) {
+        return "Alimentación";
+    }
+    if (lower.includes("uber") || lower.includes("taxi") || lower.includes("bus") || lower.includes("camión")) {
+        return "Transporte";
+    }
+    if (lower.includes("renta") || lower.includes("casa") || lower.includes("luz") || lower.includes("agua")) {
+        return "Hogar";
+    }
+    if (lower.includes("netflix") || lower.includes("spotify") || lower.includes("internet")) {
+        return "Servicios";
+    }
+    if (lower.includes("doctor") || lower.includes("farmacia") || lower.includes("medicina")) {
+        return "Salud";
+    }
+    if (lower.includes("ropa") || lower.includes("zapatos")) {
+        return "Ropa";
+    }
+
+    return "Otros";
+}
+
+function detectPaymentMethod(text) {
+    const lower = text.toLowerCase();
+
+    if (lower.includes("tarjeta") || lower.includes("credito") || lower.includes("crédito") || lower.includes("debito") || lower.includes("débito")) {
+        return "Tarjeta";
+    }
+    if (lower.includes("transferencia") || lower.includes("spei")) {
+        return "Transferencia";
+    }
+    if (lower.includes("efectivo") || lower.includes("cash")) {
+        return "Efectivo";
+    }
+
+    return "Efectivo";
+}
+
+function cleanDescription(text) {
+    return text
+        .replace(/\d+/g, "") // quitar números
+        .replace(/tarjeta|credito|crédito|debito|débito|efectivo|transferencia|spei|cash/gi, "")
+        .trim();
+}
+
 function sendMessage() {
     const input = document.getElementById("userInput");
     const chatBox = document.getElementById("chatBox");
@@ -42,7 +89,7 @@ function sendMessage() {
     const text = input.value.trim();
     if (!text) return;
 
-    // Mensaje del usuario
+    // Mensaje usuario
     const userMsg = document.createElement("div");
     userMsg.className = "bg-green-400 text-black p-2 rounded-full w-fit ml-auto text-sm";
     userMsg.innerText = text;
@@ -50,17 +97,17 @@ function sendMessage() {
 
     input.value = "";
 
-    // Simular respuesta con delay
     setTimeout(() => {
         const botMsg = document.createElement("div");
         botMsg.className = "bg-black/40 p-3 rounded-xl text-sm space-y-1";
 
-        // Extraer número (monto)
         const amountMatch = text.match(/\d+/);
         const amount = amountMatch ? amountMatch[0] : "0";
 
-        // Extraer concepto
-        const description = text.replace(/\d+/g, "").trim() || "Gasto";
+        const category = detectCategory(text);
+        const paymentMethod = detectPaymentMethod(text);
+
+        const description = cleanDescription(text) || "Gasto";
 
         const today = new Date().toLocaleDateString("es-MX");
 
@@ -68,13 +115,12 @@ function sendMessage() {
             ✅ <b>¡Listo! Gasto registrado</b><br>
             💰 Valor: $${amount} MXN<br>
             📅 Fecha: ${today}<br>
-            🏷 Categoría: Alimentación<br>
+            🏷 Categoría: ${category}<br>
             📝 Descripción: ${description}<br>
-            💳 Método de pago: Efectivo
+            💳 Método de pago: ${paymentMethod}
         `;
 
         chatBox.appendChild(botMsg);
-
         chatBox.scrollTop = chatBox.scrollHeight;
 
     }, 800);
@@ -102,17 +148,17 @@ function sendMessage() {
                     alt="Avaspace"
                     class="h-7 sm:h-8">
         </div>
-
         <!-- MENU DESKTOP -->
-        <div class="hidden md:flex items-center gap-8 text-sm text-white/80
-                absolute left-1/2 -translate-x-1/2">
-        <a href="#contacto" class="hover:text-white transition">Contacto</a>
-        <a href="#funciones" class="hover:text-white transition">Funciones</a>
-        <a href="#precios" class="hover:text-white transition">Precios</a>
-        <a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
-        <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>
-    </div>
+<div class="hidden md:flex items-center text-sm text-white/80
+        absolute left-1/2 -translate-x-1/2
+        gap-10">
 
+    <a href="#contacto" class="hover:text-white transition">Contacto</a>
+    <a href="#funciones" class="hover:text-white transition">Funciones</a>
+    <a href="#precios" class="hover:text-white transition">Precios</a>
+    <a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
+    <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>
+</div>
 </div>
 
             <!-- BOTÓN HAMBURGUESA -->
@@ -146,13 +192,13 @@ function sendMessage() {
             <hr class="border-white/10">
 
             <a href="{{ route('login') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
-                      text-white font-medium py-2 rounded-xl">
+                    text-white font-medium py-2 rounded-xl">
                 Iniciar sesión
             </a>
 
             <a href="{{ route('register') }}"
-               class="block text-center bg-red-600 hover:bg-red-700 transition
-                      text-white font-medium py-2 rounded-xl">
+                class="block text-center bg-red-600 hover:bg-red-700 transition
+                        text-white font-medium py-2 rounded-xl">
                 Crear cuenta
             </a>
         </div>
@@ -185,10 +231,10 @@ function sendMessage() {
     </div>
 
     <!-- Título -->
-    <h2 class="text-4xl md:text-6xl xl:text-7xl font-semibold leading-[1.05] max-w-5xl">
-        Organiza tu dinero sin abrir planillas<br>
-        Solo envía un <span class="text-red-500">WhatsApp</span>.
-    </h2>
+   <h1 class="text-4xl md:text-6xl xl:text-7xl font-normal leading-[1.05] max-w-5xl">
+    Organiza tu dinero sin abrir planillas<br>
+    Solo envía un <span class="text-red-500">WhatsApp</span>.
+</h1>
 
     <!-- Subrayado decorativo -->
     <div class="mt-4 w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
@@ -203,7 +249,7 @@ function sendMessage() {
     </p>
 <!-- IMAGEN -->
 <div class="mt-12 flex justify-center">
-  <div class="relative w-full max-w-sm group">
+<div class="relative w-full max-w-sm group">
 
     <!-- Glow -->
     <div class="absolute inset-0 rounded-2xl 
@@ -211,9 +257,9 @@ function sendMessage() {
                 blur-2xl opacity-40"></div>
 
     <!-- Imagen -->
-    <img src="{{ asset('images/mockup2.png') }}"
-         alt="Mockup Admin JR"
-         class="relative w-full h-auto object-contain rounded-2xl">
+    <img src="{{ asset('images/mockup1.png') }}"
+            alt="Mockup Admin JR"
+            class="relative w-full h-auto object-contain rounded-2xl">
 
     <!-- Tooltip 1 -->
     <div class="absolute top-20 -left-20
@@ -224,10 +270,10 @@ function sendMessage() {
                 border border-white/20
                 text-white text-sm px-4 py-2 rounded-xl
                 shadow-[0_0_20px_rgba(255,0,0,0.4)]">
-      <span class="block">🤖 Categorizado automáticamente</span>
-      <span class="absolute top-1/2 -right-2 w-3 h-3 
-                   bg-white/10 border-r border-t border-white/20
-                   rotate-45"></span>
+        <span class="block"> Categorizado automáticamente</span>
+        <span class="absolute top-1/2 -right-2 w-3 h-3 
+                    bg-white/10 border-r border-t border-white/20
+                    rotate-45"></span>
     </div>
 
     <!-- Tooltip 2 -->
@@ -239,11 +285,11 @@ function sendMessage() {
                 border border-white/20
                 text-white text-sm px-4 py-2 rounded-xl
                 shadow-[0_0_20px_rgba(236,72,153,0.4)]">
-      ⚡ Procesado en segundos
-      <span class="absolute top-1/2 -left-2 w-3 h-3 
-                   bg-white/10 border-l border-b border-white/20
-                   rotate-45"></span>
-    </div>
+        Procesado en segundos
+        <span class="absolute top-1/2 -left-2 w-3 h-3 
+                    bg-white/10 border-l border-b border-white/20
+                    rotate-45"></span>
+        </div>
 
     <!-- Tooltip 3 -->
     <div class="absolute bottom-32 -right-12
@@ -254,13 +300,13 @@ function sendMessage() {
                 border border-white/20
                 text-white text-sm px-4 py-2 rounded-xl
                 shadow-[0_0_20px_rgba(147,51,234,0.4)]">
-      📊 Actualizado en tu presupuesto
-      <span class="absolute top-full left-6 w-3 h-3 
-                   bg-white/10 border-l border-t border-white/20
-                   rotate-45"></span>
-    </div>
+                Registro de tus finanzas
+        <span class="absolute top-full left-6 w-3 h-3 
+                    bg-white/10 border-l border-t border-white/20
+                    rotate-45"></span>
+        </div>
 
-  </div>
+</div>
 </div>
 </section>
 <section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
@@ -271,14 +317,14 @@ function sendMessage() {
     </div>
 
     <!-- Título -->
-    <h2 class="text-4xl md:text-6xl font-medium leading-tight max-w-5xl">
+    <h1 class="text-4xl md:text-6xl font-normal leading-tight max-w-5xl">
        Controla tus
-                <span class="text-red-500 font-bold">finanzas</span>
+                <span class="text-red-500 font-normal">finanzas</span>
                 o las de
-                <span class="text-red-500 font-bold">tu negocio</span>
+                <span class="text-red-500 font-normal">tu negocio</span>
                 con un mensaje de
-                <span class="text-red-500 font-bold">WhatsApp</span>
-    </h2>
+                <span class="text-red-500 font-normal">WhatsApp</span>
+    </h1>
 
     <!-- Subtítulo -->
     <p class="mt-8 text-lg md:text-xl text-white/70 max-w-2xl">
@@ -333,156 +379,52 @@ function sendMessage() {
 <main class="max-w-7xl mx-auto px-6 pt-24 pb-24 relative">
 
 <!-- HERO -->
-<section class="relative mt-32 flex flex-col items-center text-center">
+    <section class="relative mt-32 flex flex-col items-center text-center">
+        <!-- Glow secundario -->
+        <div class="absolute top-1/4 -z-10 w-[420px] h-[420px] bg-red-700/20 blur-[160px] rounded-full"></div>
 
-    <h2 class="text-4xl md:text-5xl font-medium mb-4">
-        Compruébalo por <span class="text-red-600">ti mismo ahora.</span>
-    </h2>
+        <h2 class="text-4xl md:text-5xl font-medium mb-4">
+            Compruébalo por <span class="text-red-600">ti mismo ahora.</span>
+        </h2>
 
-    <p class="text-white/70 mb-10">
-        Escribe un gasto abajo (Ej: "Pizza 200") y mira la magia:
-    </p>
+        <p class="text-white/70 mb-12">
+            Escribe un gasto (Ej: "comida 300") y mira la magia:
+        </p>
 
-    <!-- CHAT -->
-    <div id="chatBox"
-         class="w-full max-w-xl bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-4 space-y-3 text-left">
-
-        <div class="bg-black/40 p-3 rounded-xl text-sm">
-             💬 Hola, soy AdminJr, tu asistente financiero por WhatsApp.
-        </div>
-
-    </div>
-
-    <!-- INPUT -->
-    <div class="mt-4 w-full max-w-xl flex gap-2">
-        <input id="userInput"
-               type="text"
-               placeholder="Escribe tu gasto aquí..."
-               class="flex-1 bg-white/5 border border-white/10 rounded-full px-5 py-3 outline-none text-white">
-
-        <button onclick="sendMessage()"
-                class="bg-green-500 hover:bg-green-600 text-black px-6 rounded-full">
-            ➤
-        </button>
-    </div>
-
-</section>
-
-<script src="/js/chat-demo.js"></script>
-<!---<section class="max-w-7xl mx-auto px-6 pt-24 pb-32 relative overflow-hidden">
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">--->
-
-        <!-- TEXTO -->
-         
-        <!---<div class="space-y-8 text-center lg:text-left">-->
-           <!-- glow decorativo -->
-        <!---<div class="absolute inset-0 -z-10 flex justify-center items-center">
-            <div class="w-[60%] h-[60%] bg-red-600/20 blur-3xl rounded-full"></div>
-        </div>
-
-            <h2 class="text-3xl md:text-4xl font-medium text-white leading-tight">
-                
-                Controla tus
-                <span class="text-red-500 font-bold">finanzas</span>
-                o las de
-                <span class="text-red-500 font-bold">tu negocio</span>
-                con un mensaje de
-                <span class="text-red-500 font-bold">WhatsApp</span>
-            </h2>
-
-            <p class="text-lg md:text-xl text-white/70 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                Reporta tus
-                <span class="text-red-500 font-medium">ventas y gastos</span>
-                por <span class="text-red-500 font-medium">WhatsApp</span>
-                y recibe
-                <span class="text-white font-medium">resúmenes automáticos</span>
-                de tu dinero al instante.
-            </p>
-
-        </div>-->
-
-        <!-- MOCKUP -->
-<!--<div class="flex justify-center relative font-montserrat">-->
-
-    <!-- GLOW -->
-    <!---<div class="absolute -z-10 w-[460px] h-[460px] bg-red-600/15 blur-[160px] rounded-full"></div>-->
-
-    <!-- FRAME -->
-    <!--<div class="relative bg-white/5 backdrop-blur-xl
-                border border-white/10 rounded-3xl p-8 shadow-2xl">--->
-
-        <!-- PHONE -->
-        <!---<div class="w-[310px] rounded-[2.6rem]
-                    bg-[#111827] border border-white/10 overflow-hidden">-->
-
-            <!-- TOP BAR -->
-            <!----<div class="px-5 py-4 flex items-center gap-3
-                        bg-gradient-to-r from-[#075E54] to-[#0b6e63]">
-
-                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center">
-                    <img src="{{ asset('avaspace.svg') }}" alt="Admin JR" class="w-5 h-5">
-                </div>
-
-                <div class="flex-1">
-                    <p class="text-sm font-semibold text-white tracking-wide">
-                        Admin JR 🤖
-                    </p>
-                    <p class="text-[11px] text-white/70">
-                        Asistente financiero 📊
-                    </p>
-                </div>
-            </div>---->
+        <!-- PANEL -->
+        <div class="w-full max-w-xl border border-white/10 rounded-xl">
 
             <!-- CHAT -->
-            <!---<div class="bg-[#F4F5F7] px-5 py-6 space-y-5 text-[13px] text-left">-->
+            <div id="chatBox"
+                class="bg-white/5 backdrop-blur-xl rounded-xl p-4 space-y-3 text-left">
 
-                <!-- USER -->
-                <!---<div class="flex justify-end">
-                    <div class="bg-white px-4 py-3 rounded-2xl
-                                max-w-[80%] shadow text-black leading-relaxed">
-                        💸 Venta del día $2,500<br>
-                        💳 pago con tarjeta
-                    </div>
-                </div>-->
-
-                <!-- ADMIN JR -->
-                <!---<div class="flex justify-start">
-                    <div class="bg-[#e8f5ef] px-4 py-3 rounded-2xl
-                                max-w-[80%] shadow text-black space-y-2">
-
-                        <p class="font-semibold">
-                            ✅ Movimiento registrado
-                        </p>
-
-                        <div class="text-xs space-y-1">
-                            <p>📥 Ingreso: <b>$2,500</b></p>
-                            <p>💳 Método: Tarjeta</p>
-                            <p>📈 Utilidad del día: <b>$1,700</b></p>
-                        </div>
-                    </div>
-                </div>--->
-
-                <!-- RESUMEN -->
-                <!---<div class="flex justify-start">
-                    <div class="bg-white px-4 py-3 rounded-2xl
-                                max-w-[80%] shadow text-black text-xs leading-relaxed">
-
-                        <b>📊 Resumen rápido</b><br>
-                        Hoy llevas un balance positivo ✅<br>
-                        ¿Deseas ver el reporte semanal? 📅
-                    </div>
+                <div class="bg-black/40 p-3 rounded-lg text-sm border border-white/10">
+                    💬 Hola, soy AdminJr, tu asistente financiero por WhatsApp.
                 </div>
 
             </div>
         </div>
-    </div>
 
-</div>----->
-</section>
+        <!-- INPUT -->
+        <div class="mt-6 w-full max-w-xl flex gap-2">
 
-    
+            <input id="userInput"
+                type="text"
+                placeholder="Escribe tu gasto aquí..."
+                class="flex-1 bg-transparent border border-white/15
+                        rounded-full px-5 py-3 outline-none text-white
+                        focus:border-white/30 transition">
 
+            <button onclick="sendMessage()"
+                    class="border border-white/15 hover:border-white/30 transition
+                        text-white px-6 rounded-full">
+                ➤
+            </button>
+        </div>
+
+    </section>
+
+<script src="/js/chat-demo.js"></script>
 <!-- INFO -->
 <section class="mt-32 grid md:grid-cols-2 gap-16 items-center">
 
@@ -491,14 +433,14 @@ function sendMessage() {
 
         <!-- glow decorativo -->
         <div class="absolute inset-0 -z-10 flex justify-center items-center">
-            <div class="w-[60%] h-[60%] bg-red-600/20 blur-3xl rounded-full"></div>
+            <div class="w-[60%] h-[60%] bg-red-700/20 blur-3xl rounded-full"></div>
         </div>
 
         <!-- Título -->
-        <h2 class="text-4xl md:text-6xl xl:text-7xl font-semibold leading-[1.05] max-w-5xl">
+        <h1 class="text-4xl md:text-6xl xl:text-7xl font-normal leading-[1.05] max-w-5xl">
             Organiza tu dinero sin abrir planillas<br>
             Solo envía un <span class="text-red-500">WhatsApp</span>.
-        </h2>
+        </h1>
 
         <!-- Subrayado decorativo -->
         <div class="mt-4 w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
@@ -513,19 +455,34 @@ function sendMessage() {
         </p>
     </div>
 
-    <!-- IMAGEN -->
-    <div class="flex justify-center md:justify-end">
-        <div class="relative w-full max-w-sm rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl">
+    
+
+  <div class="mt-12 flex justify-center">
+    <div class="relative w-full max-w-sm">
+
+        <!-- Glow de fondo -->
+        <div class="absolute inset-0 rounded-2xl 
+                bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
+                blur-2xl opacity-60">
+        </div>
+
+        <!-- Contenedor imagen -->
+        <div class="relative rounded-2xl overflow-hidden
+                    border border-white/10
+                    bg-white/5 backdrop-blur-xl shadow-2xl">
             <img src="{{ asset('images/mockup3.png') }}"
                  alt="Mockup Admin JR"
-                 class="w-full h-auto object-contain">
+                 class="w-full h-auto object-contain rounded-2xl">
         </div>
+
     </div>
+</div>
+</div>
 
 </section>
 
 <section class="mt-32 overflow-hidden">
-    <h3 class="text-3xl font-extrabold text-center mb-16 text-white">
+    <h3 class="text-3xl font-normal text-center mb-16 text-white">
         Todo el poder de Admin JR, <span class="text-red-600">a un mensaje de distancia</span>
     </h3>
 
@@ -734,60 +691,49 @@ function sendMessage() {
 <div class="mt-12 flex flex-col items-center gap-8">
 
     <!-- CARD PLAN -->
-    <div class="relative w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 text-center shadow-2xl">
+    <div class="relative w-full max-w-md rounded-2xl p-[1px]
+                bg-gradient gray-500/20">
 
-        <!-- glow -->
-        <div class="absolute inset-0 -z-10 flex justify-center items-center">
-            <div class="w-[70%] h-[70%] bg-red-600/20 blur-3xl rounded-full"></div>
+        <div class="relative bg-black/60 backdrop-blur-xl rounded-2xl p-8 text-center">
+
+            <!-- glow interno -->
+            <div class="absolute inset-0 -z-10 flex justify-center items-center">
+                <div class="w-[70%] h-[70%] bg-red-600/20 blur-3xl rounded-full"></div>
+            </div>
+
+            <h3 class="text-2xl font-semibold mb-2">
+                Plan básico
+            </h3>
+
+            <span class="inline-block mb-3 px-4 py-1 text-xs font-semibold
+                         rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
+                $459 / mes
+</span>
+            
+            <p class="text-white/60 mb-6">
+                Facturas mensuales
+            </p>
+
+            <p class="text-white/70 mb-6">
+                Todo lo que necesitas para controlar tu dinero por WhatsApp.
+            </p>
+
+            <ul class="space-y-3 text-left text-white/80 mb-8">
+                <li class="flex items-center gap-2">✅ Hasta 3 números WhatsApp</li>
+                <li class="flex items-center gap-2">✅ 5 cuentas conectadas</li>
+                <li class="flex items-center gap-2">✅ Reportes básicos</li>
+                <li class="flex items-center gap-2">✅ Soporte por email</li>
+            </ul>
+
+            <a href="{{ route('register') }}"
+               class="inline-block w-full bg-red-600 hover:bg-red-700 transition
+                      text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-red-600/30">
+                Empieza ahora
+            </a>
+
         </div>
-
-        <h3 class="text-2xl font-bold mb-2">
-            Plan basico
-        </h3>
-
-        <p class="text-red-500 text-4xl font-extrabold mb-1">
-            $459 / mes
-        </p>
-        
-         <p class="text-white/70 mb-6">
-            Facturas mensuales
-        </p>
-
-        <p class="text-white/70 mb-6">
-            Todo lo que necesitas para controlar tu dinero por WhatsApp.
-        </p>
-
-        <ul class="space-y-3 text-left text-white/80 mb-6">
-            <li>✅ Hasta 3 números WhatsApp</li>
-            <li>✅ 5 cuentas conectadas</li>
-            <li>✅ Reportes básicos</li>
-            <li>✅ Soporte por email</li>
-        </ul>
-
-        <a href="{{ route('register') }}"
-           class="inline-block bg-red-600 hover:bg-red-700 transition
-                  text-white font-semibold px-6 py-3 rounded-xl">
-            Empieza ahora
-        </a>
     </div>
-
-    <!-- CTA -->
-    <!--- class="text-center">
-        <p class="text-white text-lg mb-2">
-            Empieza a tener control de tu dinero sin complicarte.
-        </p>
-        <p class="text-white/70 mb-6">
-            Agenda una demo gratuita y conoce cómo funciona Admin JR.
-        </p>
-        <a href="{{ route('register') }}"
-           class="inline-block bg-red-600 hover:bg-red-700 transition
-                  text-white font-semibold px-8 py-3 rounded-xl">
-            Crea una cuenta
-        </a>--->
-    </div>
-
 </div>
-</section>
 
 <script>
 function toggleFaq(button) {
@@ -926,27 +872,6 @@ function prevCard() {
 updateCarousel();
 </script>
 <style>
-    .carousel-3d {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    height: 350px;
-    transform-style: preserve-3d;
-    perspective: 1200px;
-}
-
-.card-3d {
-    position: absolute;
-    width: 280px;
-    height: 320px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 1.5rem;
-    padding: 1.5rem;
-    text-align: center;
-    transition: transform 0.8s ease, opacity 0.8s ease;
-}
 .carousel-3d {
     position: relative;
     width: 100%;
@@ -954,18 +879,53 @@ updateCarousel();
     height: 350px;
     transform-style: preserve-3d;
     perspective: 1200px;
-
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* CARD */
 .card-3d {
     position: absolute;
     left: 50%;
     top: 50%;
+    width: 280px;
+    height: 320px;
+    padding: 1.5rem;
+    text-align: center;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.15);
+
     transform-style: preserve-3d;
     transform-origin: center center;
     translate: -50% -50%;
+
+    transition: transform 0.8s ease, opacity 0.8s ease;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.05),
+        0 0 25px rgba(239,68,68,0.15);
+}
+
+/* BORDE GLOW */
+.card-3d::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 1.6rem;
+    background: linear-gradient(120deg, #ef4444, #ec4899, #8b5cf6);
+    opacity: 0.18;
+    filter: blur(14px);
+    z-index: -1;
+}
+
+/* CARD ACTIVA (más brillo) */
+.card-3d.active {
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 0 40px rgba(239,68,68,0.35);
 }
 </style>
