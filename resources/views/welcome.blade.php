@@ -309,7 +309,7 @@ function sendMessage() {
 </div>
 </div>
 </section>
-<section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
+<section class="relative pt-32 pb-16 flex flex-col items-center text-center">
 
     <!-- Glow -->
     <div class="absolute inset-0 -z-10 flex justify-center items-center">
@@ -336,15 +336,22 @@ function sendMessage() {
                 de tu dinero al instante.
     </p>
     <div class="mt-12 flex justify-center">
-   <div class="relative w-full max-w-md rounded-2xl p-[2px] 
-            bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
-            shadow-[0_0_30px_rgba(236,72,153,0.6)]">
 
-    <div class="rounded-2xl backdrop-blur-xl bg-black/30">
+   <!-- Imagen con glow elegante -->
+    <div class="mt-16 relative w-full max-w-md">
+
+        <!-- Glow detrás de la imagen -->
+        <div class="absolute inset-0 rounded-2xl 
+                    bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
+                    blur-2xl opacity-70">
+        </div>
+
+        <!-- Imagen -->
         <img src="{{ asset('images/mockupgif.gif') }}"
              alt="Mockup Admin JR"
-             class="w-full h-auto object-contain rounded-2xl">
+             class="relative w-full h-auto object-contain rounded-2xl">
     </div>
+
 
 </div>
 </div>
@@ -560,229 +567,333 @@ function sendMessage() {
 </div>
 </section>
 
-    <!---preguntas frecuentes--->
-    <section class="mt-32 max-w-3xl mx-auto">
-    <h2 class="text-4xl font-extrabold text-center mb-12 text-white">
-        Preguntas <span class="text-red-600">frecuentes</span>
-    </h2>
+<!-- PREGUNTAS FRECUENTES -->
+<section class="mt-32 px-6">
 
-    <div class="space-y-4">
+    <div class="max-w-4xl mx-auto">
 
-        <!-- ITEM -->
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Qué es Admin JR?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                Admin JR es un asistente administrativo digital que funciona desde WhatsApp
-                y te ayuda a llevar el control de tus ingresos y gastos de forma simple y ordenada.
+        <h2 class="text-4xl font-normal text-center mb-16 text-white">
+            Preguntas <span class="text-red-600">frecuentes</span>
+        </h2>
+
+        <div class="space-y-5">
+
+            <!-- ITEM 01 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">01</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Qué es Admin JR?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    Admin JR es un asistente administrativo digital que funciona desde WhatsApp
+                    y te ayuda a llevar el control de tus ingresos y gastos de forma simple y ordenada.
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Necesito descargar una app?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                No. Admin JR funciona directamente en WhatsApp, sin descargas ni plataformas complicadas.
-                <br><em> Mientras menos apps, más control.</em>
+            <!-- ITEM 02 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">02</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Necesito descargar una app?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    No. Admin JR funciona directamente en WhatsApp,
+                    sin descargas ni plataformas complicadas.
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Para quién es Admin JR?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                Para emprendedores, pequeños negocios y freelancers que:
-                <ul class="list-disc pl-5 mt-2 space-y-1">
-                    <li>Llevan su administración solos</li>
-                    <li>No tienen tiempo para Excel</li>
-                    <li>Quieren claridad real de su dinero</li>
-                </ul>
+            <!-- ITEM 03 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">03</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Para quién es Admin JR?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    Para emprendedores, pequeños negocios y freelancers que:
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li>Llevan su administración solos</li>
+                        <li>No tienen tiempo para Excel</li>
+                        <li>Quieren claridad real de su dinero</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Qué problemas me ayuda a resolver?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                <ul class="list-disc pl-5 space-y-1">
-                    <li>No saber cuánto ganas realmente</li>
-                    <li>Desorden financiero</li>
-                    <li>Gastos que “se pierden”</li>
-                    <li>Falta de control del dinero</li>
-                </ul>
-                <p class="mt-2">Admin JR te ayuda a ordenar sin complicarte.</p>
+            <!-- ITEM 04 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">04</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Qué problemas me ayuda a resolver?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>No saber cuánto ganas realmente</li>
+                        <li>Desorden financiero</li>
+                        <li>Gastos que se pierden</li>
+                        <li>Falta de control del dinero</li>
+                    </ul>
+                    <p class="mt-2">Admin JR te ayuda a ordenar sin complicarte.</p>
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Necesito saber de contabilidad?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                No. Admin JR está diseñado para personas sin conocimientos contables.
-                Solo registras movimientos de dinero de forma sencilla.
+            <!-- ITEM 05 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">05</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Necesito saber de contabilidad?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    No. Admin JR está diseñado para personas sin conocimientos contables.
+                    Solo registras movimientos de dinero de forma sencilla.
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Admin JR reemplaza a un contador?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                No. Admin JR no sustituye a un contador, pero sí te permite tener tu información
-                organizada y lista cuando la necesites.
+            <!-- ITEM 06 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">06</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Admin JR reemplaza a un contador?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    No. Admin JR no sustituye a un contador, pero sí te permite
+                    tener tu información organizada y lista cuando la necesites.
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Mi información está segura?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                Sí. Tu información es privada y confidencial. Solo tú tienes acceso a tus datos.
+            <!-- ITEM 07 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">07</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Mi información está segura?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    Sí. Tu información es privada y confidencial.
+                    Solo tú tienes acceso a tus datos.
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Cuánto cuesta Admin JR?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                El costo es de <strong>$459 MXN al mes</strong>, mucho menos que contratar
-                a un asistente administrativo tradicional.
-                <br><em> Sin contratos largos ni compromisos forzosos.</em>
+            <!-- ITEM 08 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">08</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Cuánto cuesta Admin JR?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    El costo es de <strong>$459 MXN al mes</strong>.
+                    Sin contratos largos ni compromisos forzosos.
+                </div>
             </div>
-        </div>
 
-        <div class="border border-white/10 rounded-xl overflow-hidden">
-            <button onclick="toggleFaq(this)"
-                class="w-full flex justify-between items-center p-6 text-left text-white font-semibold bg-white/10">
-                ¿Puedo ver cómo funciona antes de pagar?
-                <span class="text-red-600 text-xl">+</span>
-            </button>
-            <div class="hidden px-6 pb-6 text-white/70">
-                Sí. Puedes crear una cuenta demo y conocer Admin JR antes de tomar cualquier decisión.
+            <!-- ITEM 09 -->
+            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+                <button onclick="toggleFaq(this)"
+                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                    <div class="flex items-center gap-4">
+                        <span class="text-red-600 font-semibold text-sm">09</span>
+                        <span class="text-white text-lg font-medium">
+                            ¿Puedo ver cómo funciona antes de pagar?
+                        </span>
+                    </div>
+                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                </button>
+                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+                    Sí. Puedes crear una cuenta demo y conocer Admin JR antes
+                    de tomar cualquier decisión.
+                </div>
             </div>
+
         </div>
 
     </div>
 
-<!-- PLAN + CTA -->
-<div class="mt-12 flex flex-col items-center gap-8">
+</section>
 
-    <!-- CARD PLAN -->
-    <div class="relative w-full max-w-md rounded-2xl p-[1px]
-                bg-gradient gray-500/20">
-
-        <div class="relative bg-black/60 backdrop-blur-xl rounded-2xl p-8 text-center">
-
-            <!-- glow interno -->
-            <div class="absolute inset-0 -z-10 flex justify-center items-center">
-                <div class="w-[70%] h-[70%] bg-red-600/20 blur-3xl rounded-full"></div>
-            </div>
-
-            <h3 class="text-2xl font-semibold mb-2">
-                Plan básico
-            </h3>
-
-            <span class="inline-block mb-3 px-4 py-1 text-xs font-semibold
-                         rounded-full bg-red-500/10 text-red-400 border border-red-500/20">
-                $459 / mes
-</span>
-            
-            <p class="text-white/60 mb-6">
-                Facturas mensuales
-            </p>
-
-            <p class="text-white/70 mb-6">
-                Todo lo que necesitas para controlar tu dinero por WhatsApp.
-            </p>
-
-            <ul class="space-y-3 text-left text-white/80 mb-8">
-                <li class="flex items-center gap-2">✅ Hasta 3 números WhatsApp</li>
-                <li class="flex items-center gap-2">✅ 5 cuentas conectadas</li>
-                <li class="flex items-center gap-2">✅ Reportes básicos</li>
-                <li class="flex items-center gap-2">✅ Soporte por email</li>
-            </ul>
-
-            <a href="{{ route('register') }}"
-               class="inline-block w-full bg-red-600 hover:bg-red-700 transition
-                      text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-red-600/30">
-                Empieza ahora
-            </a>
-
-        </div>
-    </div>
-</div>
-
+<!-- SCRIPT -->
 <script>
 function toggleFaq(button) {
-    const content = button.nextElementSibling;
-    const icon = button.querySelector('span');
+    const item = button.closest('.faq-item');
+    const content = item.querySelector('.faq-content');
+    const icon = item.querySelector('.faq-icon');
 
     content.classList.toggle('hidden');
-    icon.textContent = content.classList.contains('hidden') ? '+' : '−';
+    icon.classList.toggle('rotate-45');
+
+    item.classList.toggle('border-red-500');
 }
 </script>
 
-    <!-- CTA -->
-<section class="mt-32 flex justify-center">
-    <div class="relative w-full max-w-4xl bg-white/10 p-10 rounded-2xl border border-white/10 text-center overflow-hidden">
+<!-- PLAN ÚNICO -->
+<section id="precios" class="mt-32 px-6">
 
-        <!-- glow -->
-        <div class="absolute inset-0 -z-10 flex justify-center items-center">
-            <div class="w-[60%] h-[60%] bg-red-600/20 blur-3xl rounded-full"></div>
+    <div class="max-w-4xl mx-auto">
+
+        <div class="relative rounded-3xl 
+                    border border-red-500/30
+                    bg-gradient-to-b from-red-600/10 to-white/5
+                    backdrop-blur-md
+                    p-12">
+
+            <!-- Badge superior -->
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 
+                        bg-red-600 text-white text-xs 
+                        px-5 py-1.5 rounded-full font-semibold tracking-wide shadow-md">
+                PLAN DISPONIBLE
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+
+                <!-- LADO IZQUIERDO -->
+                <div>
+                    <h3 class="text-3xl font-normal text-white mb-4">
+                        Plan Básico
+                    </h3>
+
+                    <p class="text-white/60 mb-8 leading-relaxed">
+                        Todo lo que necesitas para administrar tu negocio desde WhatsApp
+                        con reportes claros y automatizados.
+                    </p>
+
+                    <ul class="space-y-4 text-white/80">
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                            Hasta 3 números WhatsApp
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                            5 cuentas conectadas
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                            Reportes inteligentes
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                            Soporte por email
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- LADO DERECHO -->
+                <div class="text-center md:text-right">
+
+                    <div class="mb-6">
+                        <span class="text-6xl font-normal text-white">
+                            $459
+                        </span>
+                        <span class="text-white/60 text-lg">
+                            / mes
+                        </span>
+                    </div>
+
+                    <a href="{{ route('register') }}"
+                        class="inline-block px-10 py-4 rounded-xl
+                                bg-red-600 hover:bg-red-700
+                                text-white font-semibold
+                                transition duration-300
+                                hover:shadow-lg hover:shadow-red-600/20">
+                        Empieza ahora
+                    </a>
+                </div>
+
+            </div>
+
         </div>
 
-        <h3 class="text-3xl font-extrabold text-white mb-4">
-            Activa tu
-            <span class="text-red-600">asistente financiero</span>
-        </h3>
-
-        <p class="text-white/70 mb-8 max-w-2xl mx-auto leading-relaxed">
-            <!---Deja atrás el
-            <span class="text-white font-medium">Excel</span>
-            y las
-            <span class="text-white font-medium">notas de papel</span>.
-            <br>--->
-            Configura tu cuenta en segundos y comienza a recibir
-            <span class="text-red-600 font-medium">reportes automáticos</span>
-            que te permiten
-            <span class="text-white font-medium">controlar tu administración</span>
-            desde hoy mismo.
-        </p>
-
-        <a href="{{ route('register') }}"
-           class="inline-block px-12 py-4 rounded-full bg-red-600 hover:bg-red-700 transition font-semibold text-white shadow-lg shadow-red-600/30">
-            Crear cuenta
-        </a>
     </div>
+
 </section>
 
+</script>
+<!-- CTA FINAL -->
+<section class="mt-32 px-6">
 
+    <div class="max-w-4xl mx-auto">
+
+        <div class="relative rounded-3xl 
+                    border border-red-500/30
+                    bg-gradient-to-b from-red-600/10 to-white/5
+                    backdrop-blur-md
+                    p-12">
+
+            <div class="text-center max-w-2xl mx-auto">
+
+                <h3 class="text-3xl md:text-4xl font-normal text-white mb-6">
+                    Activa tu 
+                    <span class="text-red-500">asistente financiero</span>
+                </h3>
+
+                <p class="text-white/60 mb-10 leading-relaxed text-lg">
+                    Configura tu cuenta en segundos y comienza a recibir
+                    reportes automáticos que te ayudan a mantener el control
+                    de tu negocio desde hoy.
+                </p>
+
+                <a href="{{ route('register') }}"
+                   class="inline-block px-12 py-4 rounded-xl
+                          bg-red-600 hover:bg-red-700
+                          text-white font-semibold
+                          transition duration-300
+                          hover:shadow-lg hover:shadow-red-600/20">
+
+                    Crear cuenta
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 </main>
 
-<!-- FOOTER (SIN CAMBIOS) -->
+<!-- FOOTER-->
 <footer class="bg-white text-black border-t border-gray-200">
     <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
 
@@ -927,5 +1038,8 @@ updateCarousel();
     box-shadow:
         0 0 0 1px rgba(255,255,255,0.08),
         0 0 40px rgba(239,68,68,0.35);
+}
+html {
+    scroll-behavior: smooth;
 }
 </style>
