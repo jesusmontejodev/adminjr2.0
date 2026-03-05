@@ -16,14 +16,8 @@
 </head>
 
 <body class="font-sans antialiased text-gray-200">
-    <div class="relative min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0
-                bg-gradient-to-br from-[#0b0b0e] via-[#0f0f14] to-[#14141a] overflow-hidden">
-
-
-        <!-- CONTENEDOR BASE (estructura Breeze intacta) -->
-        <div class="w-full sm:max-w-md mt-2 px-6 py-4">
-            {{ $slot }}
-        </div>
-    </div>
+    <div class="min-h-screen flex items-center justify-center bg-black">
+    {{ $slot }}
+</div>
 </body>
 </html>

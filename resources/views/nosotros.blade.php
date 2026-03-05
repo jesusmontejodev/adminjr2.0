@@ -81,6 +81,94 @@
     </nav>
 </header>
 
+<section class="pt-40 pb-32 text-center px-6">
+
+<div class="max-w-4xl mx-auto">
+
+<p class="text-sm tracking-[0.35em] text-white/60 mb-6">
+SOBRE ADMIN JR
+</p>
+
+<h1 class="text-5xl md:text-6xl font-semibold leading-tight">
+Tecnología para una 
+<span class="text-red-600">mejor administración financiera</span>
+</h1>
+
+<p class="text-white/70 text-lg mt-6 max-w-2xl mx-auto">
+Admin JR es una plataforma diseñada para ayudar a empresarios,
+emprendedores y equipos a registrar, organizar y analizar sus
+gastos de manera simple, rápida e inteligente.
+</p>
+
+</div>
+</section>
+
+<section class="py-28 px-6 text-center">
+
+<div class="max-w-4xl mx-auto">
+
+<h2 class="text-4xl font-semibold mb-6">
+Nuestra misión
+</h2>
+
+<p class="text-white/70 text-lg">
+Simplificar la administración financiera para que empresas
+y emprendedores puedan enfocarse en lo que realmente importa:
+hacer crecer su negocio.
+</p>
+
+</div>
+</section>
+
+<section class="py-28 px-6">
+
+<div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+
+<div class="bg-white/5 border border-white/10 rounded-3xl p-8">
+<h3 class="text-xl font-semibold mb-3">Registro de gastos</h3>
+<p class="text-white/70">
+Permite registrar gastos fácilmente desde múltiples
+canales como WhatsApp o plataformas digitales.
+</p>
+</div>
+
+<div class="bg-white/5 border border-white/10 rounded-3xl p-8">
+<h3 class="text-xl font-semibold mb-3">Organización automática</h3>
+<p class="text-white/70">
+Clasificación inteligente que ayuda a entender
+en qué se está gastando el dinero.
+</p>
+</div>
+
+<div class="bg-white/5 border border-white/10 rounded-3xl p-8">
+<h3 class="text-xl font-semibold mb-3">Información clara</h3>
+<p class="text-white/70">
+Visualiza reportes simples que facilitan
+la toma de decisiones financieras.
+</p>
+</div>
+
+</div>
+</section>
+
+<section class="py-28 px-6 text-center">
+
+<div class="max-w-4xl mx-auto">
+
+<h2 class="text-4xl font-semibold mb-6">
+Nuestra visión
+</h2>
+
+<p class="text-white/70 text-lg">
+Convertirnos en una herramienta esencial para la gestión
+financiera de empresas y emprendedores en Latinoamérica,
+simplificando procesos y ofreciendo mayor claridad
+en la administración del dinero.
+</p>
+
+</div>
+</section>
+
 <!-- SECCIÓN EQUIPO -->
 <section class="relative py-32">
 
