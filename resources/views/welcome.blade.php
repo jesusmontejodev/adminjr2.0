@@ -91,7 +91,7 @@ function sendMessage() {
 
     // Mensaje usuario
     const userMsg = document.createElement("div");
-    userMsg.className = "bg-green-400 text-black p-2 rounded-full w-fit ml-auto text-sm";
+    userMsg.className = "bg-red-700 text-white p-2 rounded-full w-fit ml-auto text-sm";
     userMsg.innerText = text;
     chatBox.appendChild(userMsg);
 
@@ -99,7 +99,7 @@ function sendMessage() {
 
     setTimeout(() => {
         const botMsg = document.createElement("div");
-        botMsg.className = "bg-black/40 p-3 rounded-xl text-sm space-y-1";
+        botMsg.className = "bg-black/40 p-3 rounded-xl text-white space-y-1";
 
         const amountMatch = text.match(/\d+/);
         const amount = amountMatch ? amountMatch[0] : "0";
@@ -153,7 +153,7 @@ function sendMessage() {
         absolute left-1/2 -translate-x-1/2
         gap-10">
 
-    <a href="#contacto" class="hover:text-white transition">Contacto</a>
+    <a href="{{ route('nosotros') }}" class="hover:text-white transition">Contacto</a>
     <a href="#funciones" class="hover:text-white transition">Funciones</a>
     <a href="#precios" class="hover:text-white transition">Precios</a>
     <a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
@@ -185,7 +185,7 @@ function sendMessage() {
             space-y-3
             text-white
         ">
-            <a href="#contacto" class="block hover:text-red-500">Contacto</a>
+            <a href="{{ route('nosotros') }}" class="block hover:text-red-500">Contacto</a>
             <a href="#funciones" class="block hover:text-red-500">Funciones</a>
             <a href="#precios" class="block hover:text-red-500">Precios</a>
 
@@ -207,13 +207,13 @@ function sendMessage() {
 </header>
 <section class="relative pt-44 pb-36 flex flex-col items-center text-center overflow-hidden">
 
-    <!-- Glow principal -->
-    <div class="absolute inset-0 -z-20 flex justify-center items-center">
-        <div class="w-[65%] h-[65%] bg-red-700/20 blur-[140px] rounded-full"></div>
+    <!-- Glow armónico centrado -->
+<div class="absolute inset-0 -z-20 flex justify-center items-center pointer-events-none">
+    <div class="w-[900px] h-[900px] rounded-full 
+                bg-gradient-to-br from-red-600/40 via-red-500/25 to-transparent 
+                blur-[160px]">
     </div>
-
-    <!-- Glow secundario -->
-    <div class="absolute top-1/4 -z-10 w-[420px] h-[420px] bg-red-600/20 blur-[160px] rounded-full"></div>
+</div>
 
     <!-- Badge -->
     <div class="mb-8 px-6 py-2.5 rounded-full
@@ -226,27 +226,38 @@ function sendMessage() {
         </div>
 
         <span class="tracking-wide">
-            Tu asistente financiero inteligente
+            Tu asistente administrativo inteligente
         </span>
     </div>
 
     <!-- Título -->
-   <h1 class="text-4xl md:text-6xl xl:text-7xl font-normal leading-[1.05] max-w-5xl">
-    Organiza tu dinero sin abrir planillas<br>
-    Solo envía un <span class="text-red-500">WhatsApp</span>.
+   <h1 class="text-4xl md:text-6xl xl:text-7xl 
+           font-light tracking-tight 
+           leading-[1.08] 
+           max-w-4xl mx-auto">
+    Si sabes enviar un 
+    <span class="text-red-500">WhatsApp</span>,<br>
+    puedes dominar tus finanzas<br>
+    como un <span class="text-red-500 relative">
+        experto.
 </h1>
-
     <!-- Subrayado decorativo -->
     <div class="mt-4 w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
 
     <!-- Descripción -->
-    <p class="mt-8 text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
-        Con un solo mensaje a 
-        <span class="text-red-500 font-medium">Admin JR</span>,
-        la IA categoriza, suma y actualiza tu
-        <span class="text- font-medium">panel financiero</span>
-        al instante.
-    </p>
+<p class="mt-8 text-lg md:text-xl text-white/70 
+            max-w-2xl mx-auto 
+            leading-relaxed">
+    Olvídate de planillas y procesos complicados.
+    <span class="text-red-500 font-medium">Admin JR</span> 
+    organiza, categoriza y actualiza 
+    tu panel financiero al instante.
+    <span class="text-white font-medium">Simple</span>
+    , 
+    <span class="text-white font-medium"> rápido</span>
+    y 
+    <span class="text-white font-medium"> sin esfuerzo.</span> 
+</p>
 <!-- IMAGEN -->
 <div class="mt-12 flex justify-center">
 <div class="relative w-full max-w-sm group">
@@ -308,6 +319,20 @@ function sendMessage() {
 
 </div>
 </div>
+<!-- Botón CTA -->
+<div class="mt-10">
+    <a href="{{ route('register') }}"
+       class="inline-flex items-center gap-3 px-8 py-4
+              bg-red-600 hover:bg-red-500
+              text-white font-medium text-lg
+              rounded-full
+              transition duration-300
+              shadow-lg shadow-red-600/30
+              hover:shadow-red-500/50
+              hover:scale-105">
+        Comenzar ahora
+    </a>
+</div>
 </section>
 <section class="relative pt-32 pb-16 flex flex-col items-center text-center">
 
@@ -316,24 +341,29 @@ function sendMessage() {
         <div class="w-[70%] h-[70%] bg-red-500/20 blur-3xl rounded-full"></div>
     </div>
 
-    <!-- Título -->
-    <h1 class="text-4xl md:text-6xl font-normal leading-tight max-w-5xl">
-       Controla tus
-                <span class="text-red-500 font-normal">finanzas</span>
-                o las de
-                <span class="text-red-500 font-normal">tu negocio</span>
-                con un mensaje de
-                <span class="text-red-500 font-normal">WhatsApp</span>
+     <!-- Titular -->
+    <h1 class="text-4xl md:text-6xl xl:text-7xl 
+               font-light tracking-tight 
+               leading-[1.08] 
+               max-w-4xl mx-auto">
+        Para el emprendedor<br>
+        <span class="text-red-500">sobrecargado</span><br>
+        que odia la contabilidad manual
     </h1>
 
+    <!-- Línea decorativa -->
+    <div class="mt-6 w-20 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+
     <!-- Subtítulo -->
-    <p class="mt-8 text-lg md:text-xl text-white/70 max-w-2xl">
-        Reporta tus
-                <span class="text-red-500 font-medium">ventas y gastos</span>
-                por <span class="text-red-500 font-medium">WhatsApp</span>
-                y recibe
-                <span class="text-white font-medium">resúmenes automáticos</span>
-                de tu dinero al instante.
+    <p class="mt-8 text-lg md:text-xl text-white/70 
+              max-w-2xl mx-auto leading-relaxed">
+        Descubre la fortuna que se esconde en tu flujo de caja.
+        Reporta ventas y gastos por 
+        <span class="text-red-500 font-medium">WhatsApp</span>
+        y deja que 
+        <span class="text-red-500 font-medium">Admin JR</span>
+        genere tus resúmenes financieros
+        mientras tú te enfocas en crecer.
     </p>
     <div class="mt-12 flex justify-center">
 
@@ -380,6 +410,20 @@ function sendMessage() {
         y llevar el control de tus finanzas sin planillas ni complicaciones.
     </p>
 
+    <div class="mt-10">
+    <a href="{{ route('register') }}"
+       class="inline-flex items-center gap-3 px-8 py-4
+              bg-red-600 hover:bg-red-500
+              text-white font-medium text-lg
+              rounded-full
+              transition duration-300
+              shadow-lg shadow-red-600/30
+              hover:shadow-red-500/50
+              hover:scale-105">
+        Crear cuenta
+    </a>
+</div>
+
 </section>
 
 <!-- MAIN -->
@@ -390,14 +434,25 @@ function sendMessage() {
         <!-- Glow secundario -->
         <div class="absolute top-1/4 -z-10 w-[420px] h-[420px] bg-red-700/20 blur-[160px] rounded-full"></div>
 
-        <h2 class="text-4xl md:text-5xl font-medium mb-4">
-            Compruébalo por <span class="text-red-600">ti mismo ahora.</span>
-        </h2>
+        <div class="max-w-3xl mx-auto text-center">
 
-        <p class="text-white/70 mb-12">
-            Escribe un gasto (Ej: "comida 300") y mira la magia:
-        </p>
+    <!-- TITULO -->
+    <h2 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight mb-6">
+        Si sabes enviar un 
+        <span class="text-red-500">mensaje</span>,
+        ya sabes dominar tus 
+        <span class="text-red-500">finanzas.</span>
+    </h2>
 
+    <!-- SUBTITULO -->
+    <p class="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
+        Compruébalo por ti mismo ahora. 
+        Escribe cualquier gasto abajo y deja que la 
+       IA 
+        haga el trabajo por ti.
+    </p>
+<br>
+</div>
         <!-- PANEL -->
         <div class="w-full max-w-xl border border-white/10 rounded-xl">
 
@@ -406,7 +461,7 @@ function sendMessage() {
                 class="bg-white/5 backdrop-blur-xl rounded-xl p-4 space-y-3 text-left">
 
                 <div class="bg-black/40 p-3 rounded-lg text-sm border border-white/10">
-                    💬 Hola, soy AdminJr, tu asistente financiero por WhatsApp.
+                    💬 Hola, soy AdminJr, tu asistente administrativo por WhatsApp.
                 </div>
 
             </div>
@@ -432,141 +487,230 @@ function sendMessage() {
     </section>
 
 <script src="/js/chat-demo.js"></script>
-<!-- INFO -->
-<section class="mt-32 grid md:grid-cols-2 gap-16 items-center">
+<!-- SECCIÓN 4 -->
+<section class="mt-32 grid md:grid-cols-2 gap-16 items-center px-6 max-w-6xl mx-auto">
 
     <!-- TEXTO -->
-    <div class="relative space-y-6">
+    <div class="relative space-y-8">
 
-        <!-- glow decorativo -->
+        <!-- Glow decorativo -->
         <div class="absolute inset-0 -z-10 flex justify-center items-center">
             <div class="w-[60%] h-[60%] bg-red-700/20 blur-3xl rounded-full"></div>
         </div>
 
         <!-- Título -->
-        <h1 class="text-4xl md:text-6xl xl:text-7xl font-normal leading-[1.05] max-w-5xl">
-            Organiza tu dinero sin abrir planillas<br>
-            Solo envía un <span class="text-red-500">WhatsApp</span>.
-        </h1>
+        <h2 class="text-4xl md:text-6xl xl:text-7xl font-light leading-[1.05] tracking-tight text-white">
+            Despídete de la 
+            <span class="text-red-500">ansiedad financiera</span>
+            para siempre.
+        </h2>
 
-        <!-- Subrayado decorativo -->
-        <div class="mt-4 w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+        <!-- Línea decorativa -->
+        <div class="w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
 
-        <!-- Descripción -->
-        <p class="mt-8 text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed">
-            Con un solo mensaje a 
-            <span class="text-red-500 font-medium">Admin JR</span>,
-            la IA categoriza, suma y actualiza tu
-            <span class="font-medium">panel financiero</span>
-            al instante.
+        <!-- Subtítulo -->
+        <p class="text-lg md:text-xl text-white/70 max-w-xl leading-relaxed">
+            La claridad es poder. Al ver tu dinero organizado en 
+            <span class="text-white font-medium">tiempo real</span>,
+            recuperas el control y la tranquilidad que necesitas
+            para hacer crecer tu 
+            <span class="text-red-500 font-medium">negocio</span> 
+            o tu ahorro personal.
         </p>
-    </div>
-
-    
-
-  <div class="mt-12 flex justify-center">
-    <div class="relative w-full max-w-sm">
-
-        <!-- Glow de fondo -->
-        <div class="absolute inset-0 rounded-2xl 
-                bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
-                blur-2xl opacity-60">
-        </div>
-
-        <!-- Contenedor imagen -->
-        <div class="relative rounded-2xl overflow-hidden
-                    border border-white/10
-                    bg-white/5 backdrop-blur-xl shadow-2xl">
-            <img src="{{ asset('images/mockup3.png') }}"
-                 alt="Mockup Admin JR"
-                 class="w-full h-auto object-contain rounded-2xl">
-        </div>
 
     </div>
-</div>
-</div>
+
+
+    <!-- IMAGEN -->
+    <div class="flex justify-center">
+        <div class="relative w-full max-w-sm">
+
+            <!-- Glow de fondo -->
+            <div class="absolute inset-0 rounded-2xl 
+                        bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
+                        blur-2xl opacity-60">
+            </div>
+
+            <!-- Contenedor imagen -->
+            <div class="relative rounded-2xl overflow-hidden
+                        border border-white/10
+                        bg-white/5 backdrop-blur-xl shadow-2xl">
+
+                <img src="{{ asset('images/mockup3.png') }}"
+                     alt="Mockup Admin JR"
+                     class="w-full h-auto object-contain rounded-2xl">
+
+            </div>
+
+        </div>
+    </div>
 
 </section>
+<section id="funciones" class="mt-40 relative overflow-hidden px-6">
 
-<section class="mt-32 overflow-hidden">
-    <h3 class="text-3xl font-normal text-center mb-16 text-white">
-        Todo el poder de Admin JR, <span class="text-red-600">a un mensaje de distancia</span>
-    </h3>
+    <div class="relative z-10 max-w-6xl mx-auto">
 
-    <div class="relative w-full flex justify-center items-center">
-        <div id="carousel" class="carousel-3d">
+        <!-- TITULO -->
+        <div class="text-center mb-20">
+            <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">
+                Control total de tu negocio,
+                <span class="text-red-600 font-normal">desde WhatsApp</span>
+            </h3>
 
-            <!-- CARD 1 -->
-            <div class="card-3d">
-                <div class="flex justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        class="w-12 h-12 text-red-600">
-    <path d="M12 2C6.48 2 2 6.02 2 11.5S6.48 21 12 21s10-4.02 10-9.5S17.52 2 12 2zm1 15.93V19h-2v-1.07c-1.72-.2-3-1.39-3-3.01h2c0 .83.67 1.5 1.5 1.5S13 15.75 13 15s-.67-1.5-1.5-1.5c-1.93 0-3.5-1.57-3.5-3.5 0-1.62 1.28-2.81 3-3.01V5h2v1.07c1.72.2 3 1.39 3 3.01h-2c0-.83-.67-1.5-1.5-1.5S11 8.25 11 9s.67 1.5 1.5 1.5c1.93 0 3.5 1.57 3.5 3.5 0 1.62-1.28 2.81-3 3.01z"/>
-    </svg>
-</div>
-                <h4 class="text-xl font-semibold text-white">Registro en <span class="text-red-500">3 segundos</span></h4>
-                <p class="text-white/70">Registra ventas y gastos con un simple mensaje de WhatsApp.
-                        Sin Excel, sin computadora, sin complicaciones.</p>
-            </div>
-
-            <!-- CARD 2 -->
-            <div class="card-3d">
-                <div class="flex justify-center">
-               <svg xmlns="http://www.w3.org/2000/svg"
-     viewBox="0 0 24 24"
-     fill="currentColor"
-     class="w-12 h-12 text-red-600">
-  <path d="M12 22c1.1 0 2-.9 2-2h-4c0 
-           1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4
-           c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68
-           C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-</svg>
-</div>
-                <h4 class="text-xl font-semibold text-white">Recordatorios <span class="text-red-500">inteligentes</span></h4>
-                <p class="text-white/70">Tu asistente te avisa qué falta por reportar...</p>
-            </div>
-
-            <!-- CARD 3 -->
-            <div class="card-3d">
-                <div class="flex justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    class="w-12 h-12 text-red-600">
-                    <path d="M4 9h3v11H4V9zm6-5h3v16h-3V4zm6 8h3v8h-3v-8z"/>
-                </svg>
-            </div>
-                <h4 class="text-xl font-semibold text-white">Resumen <span class="text-red-500">24/7</span></h4>
-                <p class="text-white/70">Resúmenes y gráficos dinámicos...</p>
-            </div>
-
+            <p class="text-white/60 max-w-2xl mx-auto text-lg leading-relaxed">
+                Admin JR convierte cada mensaje en información organizada,
+                reportes automáticos y decisiones más inteligentes.
+            </p>
         </div>
+
+        <!-- CAROUSEL -->
+        <div class="relative w-full flex justify-center items-center">
+            <div id="carousel" class="carousel-3d">
+
+                <!-- CARD 1 -->
+                <div class="card-3d 
+            rounded-2xl 
+            border border-white/15 
+            bg-[#1a1a1a] 
+            p-10 
+            text-center 
+            transition duration-300 
+            hover:border-red-500/40">
+
+                    <div class="flex justify-center mb-8">
+                        <div class="w-14 h-14 flex items-center justify-center 
+                                    rounded-xl 
+                                    bg-red-600/10 
+                                    border border-red-500/20
+                                    transition duration-300
+                                    group-hover:bg-red-600/20">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                class="w-7 h-7 text-red-600">
+                                <path d="M12 2C6.48 2 2 6.02 2 11.5S6.48 21 12 21s10-4.02 10-9.5S17.52 2 12 2zm1 15.93V19h-2v-1.07c-1.72-.2-3-1.39-3-3.01h2c0 .83.67 1.5 1.5 1.5S13 15.75 13 15s-.67-1.5-1.5-1.5c-1.93 0-3.5-1.57-3.5-3.5 0-1.62 1.28-2.81 3-3.01V5h2v1.07c1.72.2 3 1.39 3 3.01h-2c0-.83-.67-1.5-1.5-1.5S11 8.25 11 9s.67 1.5 1.5 1.5c1.93 0 3.5 1.57 3.5 3.5 0 1.62-1.28 2.81-3 3.01z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">
+                        Registro en <span class="text-red-500">3 segundos</span>
+                    </h4>
+
+                    <p class="text-white/60 leading-relaxed">
+                        Escribe tu venta o gasto y Admin JR lo convierte
+                        en datos organizados automáticamente.
+                    </p>
+                </div>
+
+
+                <!-- CARD 2 -->
+                <div class="card-3d group 
+                            rounded-2xl 
+                            border border-white/10 
+                            bg-[#0f0f0f] 
+                            p-10 
+                            text-center 
+                            transition duration-300 
+                            hover:border-red-500/40 
+                            hover:-translate-y-2">
+
+                    <div class="flex justify-center mb-8">
+                        <div class="w-14 h-14 flex items-center justify-center 
+                                    rounded-xl 
+                                    bg-red-600/10 
+                                    border border-red-500/20
+                                    transition duration-300
+                                    group-hover:bg-red-600/20">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                class="w-7 h-7 text-red-600">
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 
+                                         1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4
+                                         c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68
+                                         C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">
+                        Recordatorios <span class="text-red-500">inteligentes</span>
+                    </h4>
+
+                    <p class="text-white/60 leading-relaxed">
+                        Si olvidas registrar algo, tu asistente te avisa.
+                        Siempre atento, siempre disponible.
+                    </p>
+                </div>
+
+
+                <!-- CARD 3 -->
+                <div class="card-3d group 
+                            rounded-2xl 
+                            border border-white/10 
+                            bg-[#0f0f0f] 
+                            p-10 
+                            text-center 
+                            transition duration-300 
+                            hover:border-red-500/40 
+                            hover:-translate-y-2">
+
+                    <div class="flex justify-center mb-8">
+                        <div class="w-14 h-14 flex items-center justify-center 
+                                    rounded-xl 
+                                    bg-red-600/10 
+                                    border border-red-500/20
+                                    transition duration-300
+                                    group-hover:bg-red-600/20">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                class="w-7 h-7 text-red-600">
+                                <path d="M4 9h3v11H4V9zm6-5h3v16h-3V4zm6 8h3v8h-3v-8z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">
+                        Resumen <span class="text-red-500">24/7</span>
+                    </h4>
+
+                    <p class="text-white/60 leading-relaxed">
+                        Pregunta cómo va tu negocio y recibe reportes claros,
+                        gráficos dinámicos y control total.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+</section>
 
     <!-- BOTONES -->
-    <div class="flex justify-center gap-4 mt-8">
-    <button onclick="prevCard()"
-        class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
-             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15 19l-7-7 7-7" />
-        </svg>
-    </button>
+    <!---<div class="flex justify-center gap-4 mt-10">
+        <button onclick="prevCard()"
+            class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
 
-    <button onclick="nextCard()"
-        class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
-             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M9 5l7 7-7 7" />
-        </svg>
-    </button>
-</div>
-</section>
-
+        <button onclick="nextCard()"
+            class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
+                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 5l7 7-7 7" />
+            </svg>
+        </button>
+    </div>--->
 <!-- PREGUNTAS FRECUENTES -->
 <section class="mt-32 px-6">
 
@@ -755,20 +899,6 @@ function sendMessage() {
 
 </section>
 
-<!-- SCRIPT -->
-<script>
-function toggleFaq(button) {
-    const item = button.closest('.faq-item');
-    const content = item.querySelector('.faq-content');
-    const icon = item.querySelector('.faq-icon');
-
-    content.classList.toggle('hidden');
-    icon.classList.toggle('rotate-45');
-
-    item.classList.toggle('border-red-500');
-}
-</script>
-
 <!-- PLAN ÚNICO -->
 <section id="precios" class="mt-32 px-6">
 
@@ -776,22 +906,29 @@ function toggleFaq(button) {
 
         <div class="relative rounded-3xl 
                     border border-red-500/30
-                    bg-gradient-to-b from-red-600/10 to-white/5
-                    backdrop-blur-md
-                    p-12">
+                    bg-gradient-to-br from-[#0f0f0f] via-[#141414] to-[#1a0b0b]
+                    backdrop-blur-xl
+                    p-12 overflow-hidden">
+
+            <!-- Glow decorativo -->
+            <div class="absolute -top-20 -left-20 w-72 h-72 bg-red-600/20 blur-3xl rounded-full"></div>
+            <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-red-500/10 blur-3xl rounded-full"></div>
 
             <!-- Badge superior -->
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 
-                        bg-red-600 text-white text-xs 
-                        px-5 py-1.5 rounded-full font-semibold tracking-wide shadow-md">
-                PLAN DISPONIBLE
+            <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+                <span class="bg-red-600/90 text-white text-xs 
+                             px-5 py-1.5 rounded-full 
+                             font-semibold tracking-wide 
+                             shadow-lg">
+                    PLAN DISPONIBLE
+                </span>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 items-center">
 
                 <!-- LADO IZQUIERDO -->
                 <div>
-                    <h3 class="text-3xl font-normal text-white mb-4">
+                    <h3 class="text-3xl font-medium text-white mb-4">
                         Plan Básico
                     </h3>
 
@@ -805,14 +942,17 @@ function toggleFaq(button) {
                             <span class="w-2 h-2 bg-red-500 rounded-full"></span>
                             Hasta 3 números WhatsApp
                         </li>
+
                         <li class="flex items-center gap-3">
                             <span class="w-2 h-2 bg-red-500 rounded-full"></span>
                             5 cuentas conectadas
                         </li>
+
                         <li class="flex items-center gap-3">
                             <span class="w-2 h-2 bg-red-500 rounded-full"></span>
                             Reportes inteligentes
                         </li>
+
                         <li class="flex items-center gap-3">
                             <span class="w-2 h-2 bg-red-500 rounded-full"></span>
                             Soporte por email
@@ -824,7 +964,7 @@ function toggleFaq(button) {
                 <div class="text-center md:text-right">
 
                     <div class="mb-6">
-                        <span class="text-6xl font-normal text-white">
+                        <span class="text-6xl font-light text-white">
                             $459
                         </span>
                         <span class="text-white/60 text-lg">
@@ -834,12 +974,13 @@ function toggleFaq(button) {
 
                     <a href="{{ route('register') }}"
                         class="inline-block px-10 py-4 rounded-xl
-                                bg-red-600 hover:bg-red-700
-                                text-white font-semibold
-                                transition duration-300
-                                hover:shadow-lg hover:shadow-red-600/20">
-                        Empieza ahora
+                               bg-red-600 hover:bg-red-700
+                               text-white font-semibold
+                               transition duration-300
+                               hover:shadow-lg hover:shadow-red-600/20">
+                        Comenzar ahora
                     </a>
+
                 </div>
 
             </div>
@@ -849,50 +990,75 @@ function toggleFaq(button) {
     </div>
 
 </section>
-
-</script>
 <!-- CTA FINAL -->
-<section class="mt-32 px-6">
+<section class="mt-32 grid md:grid-cols-2 gap-16 items-center px-6 max-w-6xl mx-auto">
 
-    <div class="max-w-4xl mx-auto">
+    <!-- IMAGEN -->
+    <div class="flex justify-center">
+        <div class="relative w-full max-w-sm">
 
-        <div class="relative rounded-3xl 
-                    border border-red-500/30
-                    bg-gradient-to-b from-red-600/10 to-white/5
-                    backdrop-blur-md
-                    p-12">
+            <!-- Glow -->
+            <div class="absolute inset-0 rounded-2xl 
+                        bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
+                        blur-2xl opacity-60">
+            </div>
 
-            <div class="text-center max-w-2xl mx-auto">
+            <!-- Imagen -->
+            <div class="relative rounded-2xl overflow-hidden
+                        border border-white/10
+                        bg-white/5 backdrop-blur-xl shadow-2xl">
 
-                <h3 class="text-3xl md:text-4xl font-normal text-white mb-6">
-                    Activa tu 
-                    <span class="text-red-500">asistente financiero</span>
-                </h3>
+                <img src="{{ asset('images/mockup10.png') }}"
+                     alt="Admin JR app"
+                     class="w-full h-auto object-contain">
 
-                <p class="text-white/60 mb-10 leading-relaxed text-lg">
-                    Configura tu cuenta en segundos y comienza a recibir
-                    reportes automáticos que te ayudan a mantener el control
-                    de tu negocio desde hoy.
-                </p>
-
-                <a href="{{ route('register') }}"
-                   class="inline-block px-12 py-4 rounded-xl
-                          bg-red-600 hover:bg-red-700
-                          text-white font-semibold
-                          transition duration-300
-                          hover:shadow-lg hover:shadow-red-600/20">
-
-                    Crear cuenta
-                </a>
             </div>
 
         </div>
+    </div>
+
+
+    <!-- TEXTO -->
+    <div class="relative space-y-8">
+
+        <!-- Glow decorativo -->
+        <div class="absolute inset-0 -z-10 flex justify-center items-center">
+            <div class="w-[60%] h-[60%] bg-red-700/20 blur-3xl rounded-full"></div>
+        </div>
+
+        <!-- Título estilo hero -->
+        <h3 class="text-4xl md:text-6xl font-light leading-[1.05] tracking-tight text-white">
+            Activa tu 
+            <span class="text-red-500">asistente financiero</span>
+        </h3>
+
+        <!-- Línea decorativa -->
+        <div class="w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+
+        <!-- Descripción -->
+        <p class="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">
+            Conecta tu número de WhatsApp y permite que 
+            <span class="text-red-500 font-medium">Admin JR</span>
+            registre automáticamente los gastos de tu negocio,
+            generando reportes y manteniendo tu control financiero
+            siempre actualizado.
+        </p>
+
+        <!-- Botón -->
+        <a href="{{ route('register') }}"
+           class="inline-block mt-6 px-10 py-4 rounded-xl
+                  bg-red-600 hover:bg-red-700
+                  text-white font-semibold
+                  transition duration-300
+                  hover:shadow-lg hover:shadow-red-600/20">
+
+            Crear cuenta
+        </a>
 
     </div>
 
 </section>
 </main>
-
 <!-- FOOTER-->
 <footer class="bg-white text-black border-t border-gray-200">
     <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
@@ -939,26 +1105,58 @@ function toggleFaq(button) {
 
 </body>
 </html>
+<!--script para las preguntas frecuentes-->
+<script>
+function toggleFaq(button) {
+    const item = button.closest('.faq-item');
+    const content = item.querySelector('.faq-content');
+    const icon = item.querySelector('.faq-icon');
+
+    const isOpen = !content.classList.contains('hidden');
+
+    // Cerrar todos primero
+    document.querySelectorAll('.faq-content').forEach(el => {
+        el.classList.add('hidden');
+    });
+
+    document.querySelectorAll('.faq-icon').forEach(el => {
+        el.textContent = '+';
+        el.classList.remove('rotate-45');
+    });
+
+    // Si estaba cerrado, lo abrimos
+    if (!isOpen) {
+        content.classList.remove('hidden');
+        icon.textContent = '−';
+    }
+}
+</script>
+<!--para que el carrusel se mueva automa--->
 <script>
 const cards = document.querySelectorAll(".card-3d");
 let current = 0;
+let autoSlide;
+let isPaused = false;
 
 function updateCarousel() {
     cards.forEach((card, index) => {
+        card.classList.remove("active");
+
         const offset = index - current;
 
         if (offset === 0) {
             card.style.transform = "translateX(0) translateZ(200px) scale(1)";
             card.style.opacity = "1";
             card.style.zIndex = "3";
+            card.classList.add("active");
         } 
         else if (offset === -1 || offset === cards.length - 1) {
-            card.style.transform = "translateX(-220px) translateZ(0) scale(0.8)";
+            card.style.transform = "translateX(-260px) translateZ(0) scale(0.8)";
             card.style.opacity = "0.5";
             card.style.zIndex = "2";
         } 
         else if (offset === 1 || offset === -(cards.length - 1)) {
-            card.style.transform = "translateX(220px) translateZ(0) scale(0.8)";
+            card.style.transform = "translateX(260px) translateZ(0) scale(0.8)";
             card.style.opacity = "0.5";
             card.style.zIndex = "2";
         } 
@@ -980,66 +1178,140 @@ function prevCard() {
     updateCarousel();
 }
 
+/* 🔥 Auto movimiento lento */
+function startAutoSlide() {
+    autoSlide = setInterval(() => {
+        if (!isPaused) {
+            nextCard();
+        }
+    }, 4500); // 4.5 segundos (tiempo para leer)
+}
+
+/* 🛑 Pausar si hacen click en cualquier card */
+cards.forEach((card) => {
+    card.addEventListener("click", () => {
+        isPaused = true;
+        clearInterval(autoSlide);
+    });
+});
+
 updateCarousel();
+startAutoSlide();
 </script>
 <style>
 .carousel-3d {
     position: relative;
     width: 100%;
-    max-width: 900px;
-    height: 350px;
+    max-width: 950px;
+    height: 380px;
     transform-style: preserve-3d;
-    perspective: 1200px;
+    perspective: 1400px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* CARD */
+/* CARD BASE */
 .card-3d {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 280px;
-    height: 320px;
-    padding: 1.5rem;
+    width: 300px;
+    height: 340px;
+    padding: 2rem;
     text-align: center;
 
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(12px);
+    background: linear-gradient(145deg, #1c1c1c, #111111);
+    border-radius: 1.8rem;
 
-    border-radius: 1.5rem;
-    border: 1px solid rgba(255,255,255,0.15);
+    /* 🔴 BORDE ROJO FIJO */
+    border: 1.5px solid rgba(239, 68, 68, 0.7);
 
     transform-style: preserve-3d;
     transform-origin: center center;
     translate: -50% -50%;
 
-    transition: transform 0.8s ease, opacity 0.8s ease;
+    transition: transform 0.8s cubic-bezier(.25,.8,.25,1),
+                opacity 0.8s ease;
+
+    /* 🔥 Glow rojo permanente */
     box-shadow:
-        0 0 0 1px rgba(255,255,255,0.05),
-        0 0 25px rgba(239,68,68,0.15);
+        0 20px 40px rgba(0,0,0,0.6),
+        0 0 40px rgba(239,68,68,0.25);
 }
 
-/* BORDE GLOW */
-.card-3d::before {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: 1.6rem;
-    background: linear-gradient(120deg, #ef4444, #ec4899, #8b5cf6);
-    opacity: 0.18;
-    filter: blur(14px);
-    z-index: -1;
-}
-
-/* CARD ACTIVA (más brillo) */
+/* CARD ACTIVA (solo más profundidad, NO cambia borde por hover) */
 .card-3d.active {
     box-shadow:
-        0 0 0 1px rgba(255,255,255,0.08),
-        0 0 40px rgba(239,68,68,0.35);
+        0 25px 60px rgba(0,0,0,0.8),
+        0 0 70px rgba(239,68,68,0.35);
 }
+
 html {
     scroll-behavior: smooth;
+}
+
+/*DISEÑO DEL CHAT BOT */
+/* burbuja usuario estilo WhatsApp */
+.user-bubble{
+    background:#dc2626;
+    color:white;
+    padding:10px 14px;
+    border-radius:18px 18px 4px 18px;
+    max-width:70%;
+    margin-left:auto;
+    font-size:14px;
+}
+
+/* burbuja bot */
+.bot-bubble{
+    background:#1f1f1f;
+    border:1px solid rgba(255,255,255,0.08);
+    color:white;
+    padding:12px 14px;
+    border-radius:18px 18px 18px 4px;
+    max-width:75%;
+    font-size:14px;
+}
+
+/* tarjeta interna del gasto */
+.expense-card{
+    background:#111;
+    border-radius:12px;
+    padding:10px;
+    margin-top:6px;
+    border:1px solid rgba(255,255,255,0.06);
+    font-size:13px;
+}
+
+/* puntos escribiendo */
+.typing{
+    display:flex;
+    gap:4px;
+    padding:10px 14px;
+    background:#1f1f1f;
+    border-radius:18px 18px 18px 4px;
+    width:fit-content;
+}
+
+.typing span{
+    width:6px;
+    height:6px;
+    background:#9ca3af;
+    border-radius:50%;
+    animation:blink 1.4s infinite;
+}
+
+.typing span:nth-child(2){
+    animation-delay:.2s;
+}
+
+.typing span:nth-child(3){
+    animation-delay:.4s;
+}
+
+@keyframes blink{
+    0%,80%,100%{opacity:.2;}
+    40%{opacity:1;}
 }
 </style>

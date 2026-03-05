@@ -10,30 +10,75 @@
 
 <body class="bg-gradient-to-br from-black via-[#0f1115] to-[#1a1d23] text-white overflow-x-hidden">
 
-<!-- HEADER -->
-<header class="max-w-7xl mx-auto px-6 py-6">
-    <div class="flex justify-between items-center rounded-full px-8 py-4 
-                bg-white/10 backdrop-blur-md border border-white/10 shadow-lg">
+<header id="mainHeader" class="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-3 transition-all duration-300">
+    <nav id="navBar" class="
+        flex items-center justify-between
+        w-full max-w-5xl
+        rounded-full
+        px-6 py-4
+        bg-white/5
+        backdrop-blur-sm
+        border border-white/10
+        shadow-lg
+        transition-all duration-300
+        relative">
 
-        <div class="flex items-center gap-3">
-            <img src="{{ asset('avaspace.svg') }}" class="h-10">
-            <span class="font-bold text-lg tracking-wide">Avaspace</span>
+        <!-- LOGO -->
+        <div class="flex items-center gap-2">
+            <img src="{{ asset('avaspace.svg') }}"
+                    alt="Avaspace"
+                    class="h-7 sm:h-8">
+        </div>
+        <!-- MENU DESKTOP -->
+<div class="hidden md:flex items-center text-sm text-white/80
+        absolute left-1/2 -translate-x-1/2
+        gap-10">
+    <a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
+    <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>
+</div>
+</div>
+
+            <!-- BOTÓN HAMBURGUESA -->
+            <button id="menuBtn" class="md:hidden text-white ml-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
         </div>
 
-        <div class="flex gap-4">
-            <a href="{{ route('login') }}"
-               class="px-6 py-2 rounded-full border border-white/40 text-sm
-                      hover:bg-white hover:text-black transition">
+        <!-- MENU MÓVIL -->
+        <div id="mobileMenu" class="
+            absolute top-full right-4 mt-4
+            hidden
+            w-52
+            bg-black/90
+            backdrop-blur-xl
+            border border-white/10
+            rounded-2xl
+            shadow-2xl
+            p-4
+            space-y-3
+            text-white
+        ">
+           
+
+            <hr class="border-white/10">
+
+            <a href="{{ route('login') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
+                    text-white font-medium py-2 rounded-xl">
                 Iniciar sesión
             </a>
 
             <a href="{{ route('register') }}"
-               class="px-6 py-2 rounded-full bg-red-600 border border-red-700
-                      hover:bg-white hover:text-black transition">
+                class="block text-center bg-red-600 hover:bg-red-700 transition
+                        text-white font-medium py-2 rounded-xl">
                 Crear cuenta
             </a>
         </div>
-    </div>
+
+    </nav>
 </header>
 
 <!-- SECCIÓN EQUIPO -->
@@ -232,47 +277,46 @@
     </div>
 </section>
 
-<!-- FOOTER -->
+<!-- FOOTER-->
 <footer class="bg-white text-black border-t border-gray-200">
-    <div class="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-5 gap-8">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
 
-        <div class="md:col-span-2">
-            <div class="flex items-center gap-3 mb-3">
-                <img src="{{ asset('avaspace.svg') }}" class="h-10">
+        <div class="md:col-span-2 space-y-3">
+            <div class="flex items-center gap-3">
+                <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-10">
                 <h2 class="text-xl font-semibold">Controla tus gastos</h2>
             </div>
-            <p class="text-sm text-gray-600">
-                Avaspace, la herramienta para vendedores.
+            <p class="text-sm text-gray-600 max-w-sm">
+                Convierte tus números en decisiones inteligentes para hacer crecer tu negocio.
             </p>
         </div>
 
-        <div>
-            <h3 class="font-semibold mb-2">Avisos</h3>
-            <ul class="text-sm text-gray-600 space-y-1">
-                <li>Aviso de privacidad</li>
-                <li>Términos y condiciones</li>
+        <div class="space-y-2 text-sm">
+            <h3 class="font-semibold">Avisos</h3>
+            <ul class="space-y-1 text-gray-600">
+                <li><a href="{{ route('aviso-de-privacidad') }}">Aviso de privacidad</a></li>
+                <li><a href="{{ route('terminos') }}">Términos y condiciones</a></li>
             </ul>
         </div>
 
-        <div>
-            <h3 class="font-semibold mb-2">Equipo</h3>
-            <ul class="text-sm text-gray-600 space-y-1">
+        <div class="space-y-2 text-sm">
+            <h3 class="font-semibold">Equipo</h3>
+            <ul class="space-y-1 text-gray-600">
                 <li><a href="{{ route('nosotros') }}">Nosotros</a></li>
-                <li>Blog</li>
             </ul>
         </div>
 
-        <div>
-            <h3 class="font-semibold mb-2">Social</h3>
-            <ul class="text-sm text-gray-600 space-y-1">
-                <li>Instagram</li>
-                <li>YouTube</li>
-                <li>LinkedIn</li>
+        <div class="space-y-2 text-sm">
+            <h3 class="font-semibold">Social</h3>
+            <ul class="space-y-1 text-gray-600">
+                <li><a href="https://www.facebook.com/avaspace.io">Facebook</a></li>
+                <li><a href="https://www.instagram.com/avaspace.io/">Instagram</a></li>
+                <li><a href="https://www.youtube.com/@avaspace">YouTube</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="border-t py-4 text-center text-xs text-gray-500">
+    <div class="border-t border-gray-200 py-4 text-center text-xs text-gray-500">
         © {{ date('Y') }} Avaspace. Todos los derechos reservados.
     </div>
 </footer>
