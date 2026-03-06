@@ -127,102 +127,99 @@ function sendMessage() {
 }
 </script>
 
-<body class="min-h-screen bg-gradient-to-br from-black via-[#0f1115] to-[#1a1d23] text-white overflow-x-hidden">
+<body class="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 text-gray-800 overflow-x-hidden">
 <!-- HEADER -->
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-3 transition-all duration-300">
-    <nav id="navBar" class="
-        flex items-center justify-between
-        w-full max-w-5xl
-        rounded-full
-        px-6 py-4
-        bg-white/5
-        backdrop-blur-sm
-        border border-white/10
-        shadow-lg
-        transition-all duration-300
-        relative">
+<nav id="navBar" class="
+    flex items-center justify-between
+    w-full max-w-5xl
+    rounded-full
+    px-6 py-4
+    bg-white/40
+    backdrop-blur-xl
+    border border-gray-200/60
+    shadow-lg
+    transition-all duration-300
+    relative">
 
-        <!-- LOGO -->
-        <div class="flex items-center gap-2">
-            <img src="{{ asset('avaspace.svg') }}"
-                    alt="Avaspace"
-                    class="h-7 sm:h-8">
-        </div>
-        <!-- MENU DESKTOP -->
-<div class="hidden md:flex items-center text-sm text-white/80
+    <!-- LOGO -->
+    <div class="flex items-center gap-2">
+        <img src="{{ asset('avaspace.svg') }}"
+            alt="Avaspace"
+            class="h-7 sm:h-8">
+    </div>
+
+    <!-- MENU DESKTOP -->
+    <div class="hidden md:flex items-center text-sm text-gray-700
         absolute left-1/2 -translate-x-1/2
         gap-10">
 
-    <a href="{{ route('nosotros') }}" class="hover:text-white transition">Contacto</a>
-    <a href="#funciones" class="hover:text-white transition">Funciones</a>
-    <a href="#precios" class="hover:text-white transition">Precios</a>
-    <a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
-    <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>
-</div>
-</div>
+        <a href="{{ route('nosotros') }}" class="hover:text-red-600 transition">Contacto</a>
+        <a href="#funciones" class="hover:text-red-600 transition">Funciones</a>
+        <a href="#precios" class="hover:text-red-600 transition">Precios</a>
+        <a href="{{ route('login') }}" class="hover:text-red-600 transition">Iniciar sesión</a>
+        <a href="{{ route('register') }}" class="hover:text-red-600 transition">Crear cuenta</a>
+    </div>
 
-            <!-- BOTÓN HAMBURGUESA -->
-            <button id="menuBtn" class="md:hidden text-white ml-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-            </button>
-        </div>
+    <!-- BOTÓN HAMBURGUESA -->
+    <button id="menuBtn" class="md:hidden text-gray-700 ml-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
 
-        <!-- MENU MÓVIL -->
-        <div id="mobileMenu" class="
-            absolute top-full right-4 mt-4
-            hidden
-            w-52
-            bg-black/90
-            backdrop-blur-xl
-            border border-white/10
-            rounded-2xl
-            shadow-2xl
-            p-4
-            space-y-3
-            text-white
-        ">
-            <a href="{{ route('nosotros') }}" class="block hover:text-red-500">Contacto</a>
-            <a href="#funciones" class="block hover:text-red-500">Funciones</a>
-            <a href="#precios" class="block hover:text-red-500">Precios</a>
+    <!-- MENU MÓVIL -->
+    <div id="mobileMenu" class="
+        absolute top-full right-4 mt-4
+        hidden
+        w-52
+        bg-white/80
+        backdrop-blur-xl
+        border border-gray-200
+        rounded-2xl
+        shadow-2xl
+        p-4
+        space-y-3
+        text-gray-700
+    ">
+        <a href="{{ route('nosotros') }}" class="block hover:text-red-600">Contacto</a>
+        <a href="#funciones" class="block hover:text-red-600">Funciones</a>
+        <a href="#precios" class="block hover:text-red-600">Precios</a>
 
-            <hr class="border-white/10">
+        <hr class="border-gray-200">
 
-            <a href="{{ route('login') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
-                    text-white font-medium py-2 rounded-xl">
-                Iniciar sesión
-            </a>
+        <a href="{{ route('login') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
+            text-white font-medium py-2 rounded-xl">
+            Iniciar sesión
+        </a>
 
-            <a href="{{ route('register') }}"
-                class="block text-center bg-red-600 hover:bg-red-700 transition
-                        text-white font-medium py-2 rounded-xl">
-                Crear cuenta
-            </a>
-        </div>
+        <a href="{{ route('register') }}"
+            class="block text-center bg-red-600 hover:bg-red-700 transition
+            text-white font-medium py-2 rounded-xl">
+            Crear cuenta
+        </a>
+    </div>
 
-    </nav>
+</nav>
+</header>
+
 </header>
 <section class="relative pt-44 pb-36 flex flex-col items-center text-center overflow-hidden">
 
-    <!-- Glow armónico centrado -->
-<div class="absolute inset-0 -z-20 flex justify-center items-center pointer-events-none">
-    <div class="w-[900px] h-[900px] rounded-full 
-                bg-gradient-to-br from-red-600/40 via-red-500/25 to-transparent 
-                blur-[160px]">
-    </div>
-</div>
-
-    <!-- Badge -->
+    <!-- Badge minimalista -->
     <div class="mb-8 px-6 py-2.5 rounded-full
-                bg-white/5 border border-white/10
-                backdrop-blur-xl text-sm text-white/80
-                flex items-center gap-3 shadow-lg shadow-red-600/10">
+                bg-white/90 border border-gray-200
+                text-sm text-gray-600
+                flex items-center gap-3
+                shadow-sm
+                hover:border-red-200 hover:shadow-md hover:shadow-red-100/50
+                transition-all duration-300
+                group">
 
         <div class="w-6 h-6 flex items-center justify-center">
-            <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-7">
+            <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-6">
         </div>
 
         <span class="tracking-wide">
@@ -230,133 +227,165 @@ function sendMessage() {
         </span>
     </div>
 
-    <!-- Título -->
-   <h1 class="text-4xl md:text-6xl xl:text-7xl 
-           font-light tracking-tight 
-           leading-[1.08] 
-           max-w-4xl mx-auto">
-    Si sabes enviar un 
-    <span class="text-red-500">WhatsApp</span>,<br>
-    puedes dominar tus finanzas<br>
-    como un <span class="text-red-500 relative">
-        experto.
-</h1>
-    <!-- Subrayado decorativo -->
-    <div class="mt-4 w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+    <!-- Título limpio -->
+    <h1 class="text-4xl md:text-6xl xl:text-7xl
+               font-light tracking-tight
+               leading-[1.08]
+               max-w-4xl mx-auto text-gray-900">
+        
+        Si sabes enviar un
+        <span class="text-red-600 font-normal">WhatsApp</span>,<br>
+        
+        puedes dominar tus finanzas<br>
+        
+        como un
+        <span class="text-red-600 font-normal">experto</span>.
+    </h1>
 
-    <!-- Descripción -->
-<p class="mt-8 text-lg md:text-xl text-white/70 
-            max-w-2xl mx-auto 
-            leading-relaxed">
-    Olvídate de planillas y procesos complicados.
-    <span class="text-red-500 font-medium">Admin JR</span> 
-    organiza, categoriza y actualiza 
-    tu panel financiero al instante.
-    <span class="text-white font-medium">Simple</span>
-    , 
-    <span class="text-white font-medium"> rápido</span>
-    y 
-    <span class="text-white font-medium"> sin esfuerzo.</span> 
-</p>
-<!-- IMAGEN -->
-<div class="mt-12 flex justify-center">
-<div class="relative w-full max-w-sm group">
+    <!-- Subrayado sutil -->
+    <div class="mt-4 w-24 h-[2px] bg-gradient-to-r from-transparent via-red-400 to-transparent"></div>
 
-    <!-- Glow -->
-    <div class="absolute inset-0 rounded-2xl 
-                bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
-                blur-2xl opacity-40"></div>
+    <!-- Descripción elegante -->
+    <p class="mt-8 text-lg md:text-xl text-gray-600
+                max-w-2xl mx-auto
+                leading-relaxed">
+        
+        Olvídate de planillas y procesos complicados.
+        
+        <span class="text-red-600 font-medium">Admin JR</span>
+        organiza, categoriza y actualiza
+        tu panel financiero al instante.
+        
+        <span class="text-gray-900 font-medium">Simple</span>,
+        <span class="text-gray-900 font-medium">rápido</span>
+        y
+        <span class="text-gray-900 font-medium">sin esfuerzo</span>.
+    </p>
 
-    <!-- Imagen -->
-    <img src="{{ asset('images/mockup1.png') }}"
-            alt="Mockup Admin JR"
-            class="relative w-full h-auto object-contain rounded-2xl">
+    <!-- IMAGEN con diseño limpio -->
+    <div class="mt-14 flex justify-center w-full max-w-5xl px-4">
+        <div class="relative w-full max-w-sm group mx-auto">
 
-    <!-- Tooltip 1 -->
-    <div class="absolute top-20 -left-20
-                opacity-0 translate-x-4
-                group-hover:opacity-100 group-hover:translate-x-0
-                transition duration-500 ease-out
-                bg-white/10 backdrop-blur-xl
-                border border-white/20
-                text-white text-sm px-4 py-2 rounded-xl
-                shadow-[0_0_20px_rgba(255,0,0,0.4)]">
-        <span class="block"> Categorizado automáticamente</span>
-        <span class="absolute top-1/2 -right-2 w-3 h-3 
-                    bg-white/10 border-r border-t border-white/20
-                    rotate-45"></span>
-    </div>
+            <!-- Sombra suave para la imagen -->
+            <div class="absolute inset-0 rounded-3xl
+                        bg-gradient-to-b from-red-100/30 to-transparent
+                        blur-2xl
+                        opacity-40
+                        group-hover:opacity-60
+                        transition-opacity duration-500">
+            </div>
 
-    <!-- Tooltip 2 -->
-    <div class="absolute top-40 -right-20
-                opacity-0 -translate-x-4
-                group-hover:opacity-100 group-hover:translate-x-0
-                transition duration-500 delay-150 ease-out
-                bg-white/10 backdrop-blur-xl
-                border border-white/20
-                text-white text-sm px-4 py-2 rounded-xl
-                shadow-[0_0_20px_rgba(236,72,153,0.4)]">
-        Procesado en segundos
-        <span class="absolute top-1/2 -left-2 w-3 h-3 
-                    bg-white/10 border-l border-b border-white/20
-                    rotate-45"></span>
-        </div>
+            <!-- Contenedor de la imagen -->
+            <div class="relative rounded-3xl
+                        bg-white
+                        shadow-xl shadow-gray-200/70
+                        group-hover:shadow-2xl group-hover:shadow-red-100/50
+                        transition-all duration-300
+                        ring-1 ring-gray-100">
+                
+                <!-- Imagen -->
+                <img src="{{ asset('images/mockup1.png') }}"
+                    alt="Mockup Admin JR"
+                    class="relative w-full h-auto object-contain rounded-3xl
+                           transform group-hover:scale-[1.01] transition-transform duration-300">
+            </div>
 
-    <!-- Tooltip 3 -->
-    <div class="absolute bottom-32 -right-12
-                opacity-0 -translate-y-4
-                group-hover:opacity-100 group-hover:translate-y-0
-                transition duration-500 delay-300 ease-out
-                bg-white/10 backdrop-blur-xl
-                border border-white/20
-                text-white text-sm px-4 py-2 rounded-xl
-                shadow-[0_0_20px_rgba(147,51,234,0.4)]">
+            <!-- Tooltip 1 - más limpio -->
+            <div class="absolute top-20 -left-20
+                        opacity-0 translate-x-2
+                        group-hover:opacity-100 group-hover:translate-x-0
+                        transition-all duration-300 ease-out
+                        bg-white border border-gray-100
+                        text-gray-600 text-sm px-4 py-2 rounded-lg
+                        shadow-lg shadow-gray-200/50
+                        before:absolute before:top-1/2 before:-right-2 before:w-2 before:h-2
+                        before:bg-white before:border-r before:border-t before:border-gray-100
+                        before:rotate-45 before:-translate-y-1/2">
+                Categorizado automáticamente
+            </div>
+
+            <!-- Tooltip 2 - más limpio -->
+            <div class="absolute top-40 -right-20
+                        opacity-0 -translate-x-2
+                        group-hover:opacity-100 group-hover:translate-x-0
+                        transition-all duration-300 delay-100 ease-out
+                        bg-white border border-gray-100
+                        text-gray-600 text-sm px-4 py-2 rounded-lg
+                        shadow-lg shadow-gray-200/50
+                        before:absolute before:top-1/2 before:-left-2 before:w-2 before:h-2
+                        before:bg-white before:border-l before:border-b before:border-gray-100
+                        before:rotate-45 before:-translate-y-1/2">
+                Procesado en segundos
+            </div>
+
+            <!-- Tooltip 3 - más limpio -->
+            <div class="absolute bottom-32 -right-12
+                        opacity-0 -translate-y-2
+                        group-hover:opacity-100 group-hover:translate-y-0
+                        transition-all duration-300 delay-200 ease-out
+                        bg-white border border-gray-100
+                        text-gray-600 text-sm px-4 py-2 rounded-lg
+                        shadow-lg shadow-gray-200/50
+                        before:absolute before:top-full before:left-6 before:w-2 before:h-2
+                        before:bg-white before:border-l before:border-t before:border-gray-100
+                        before:rotate-45 before:-translate-y-[5px]">
                 Registro de tus finanzas
-        <span class="absolute top-full left-6 w-3 h-3 
-                    bg-white/10 border-l border-t border-white/20
-                    rotate-45"></span>
+            </div>
         </div>
-
-</div>
-</div>
-<!-- Botón CTA -->
-<div class="mt-10">
-    <a href="{{ route('register') }}"
-       class="inline-flex items-center gap-3 px-8 py-4
-              bg-red-600 hover:bg-red-500
-              text-white font-medium text-lg
-              rounded-full
-              transition duration-300
-              shadow-lg shadow-red-600/30
-              hover:shadow-red-500/50
-              hover:scale-105">
-        Comenzar ahora
-    </a>
-</div>
-</section>
-<section class="relative pt-32 pb-16 flex flex-col items-center text-center">
-
-    <!-- Glow -->
-    <div class="absolute inset-0 -z-10 flex justify-center items-center">
-        <div class="w-[70%] h-[70%] bg-red-500/20 blur-3xl rounded-full"></div>
     </div>
+
+    <!-- CTA elegante -->
+    <div class="mt-14">
+        <a href="{{ route('register') }}"
+           class="inline-flex items-center gap-3 px-8 py-4
+                  bg-red-600 hover:bg-red-700
+                  text-white font-medium text-lg
+                  rounded-full
+                  transition-all duration-300
+                  shadow-md shadow-red-200
+                  hover:shadow-lg hover:shadow-red-300
+                  hover:scale-105
+                  group">
+            
+            Comenzar ahora
+            
+            <!-- Icono sutil -->
+            <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Elementos decorativos muy sutiles -->
+    <div class="absolute top-1/2 left-0 w-96 h-96 bg-red-50 rounded-full blur-3xl -z-10 opacity-30"></div>
+    <div class="absolute bottom-1/2 right-0 w-96 h-96 bg-red-50 rounded-full blur-3xl -z-10 opacity-30"></div>
+</section>
+<!---segunda sección-->
+<section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
 
      <!-- Titular -->
     <h1 class="text-4xl md:text-6xl xl:text-7xl 
                font-light tracking-tight 
                leading-[1.08] 
-               max-w-4xl mx-auto">
-        Para el emprendedor<br>
-        <span class="text-red-500">sobrecargado</span><br>
-        que odia la contabilidad manual
+               max-w-4xl mx-auto text-black">
+
+        Para el emprendedor que quiere hacer <br>
+
+        <span class="text-red-500">crecer</span><br>
+
+        su negocio,
+        no su papeleo.
+
     </h1>
 
     <!-- Línea decorativa -->
     <div class="mt-6 w-20 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
 
     <!-- Subtítulo -->
-    <p class="mt-8 text-lg md:text-xl text-white/70 
+    <p class="mt-8 text-lg md:text-xl text-black 
               max-w-2xl mx-auto leading-relaxed">
+
         Descubre la fortuna que se esconde en tu flujo de caja.
         Reporta ventas y gastos por 
         <span class="text-red-500 font-medium">WhatsApp</span>
@@ -364,28 +393,31 @@ function sendMessage() {
         <span class="text-red-500 font-medium">Admin JR</span>
         genere tus resúmenes financieros
         mientras tú te enfocas en crecer.
+
     </p>
-    <div class="mt-12 flex justify-center">
 
-   <!-- Imagen con glow elegante -->
-    <div class="mt-16 relative w-full max-w-md">
+    <!----<div class="mt-12 flex justify-center">--->
 
-        <!-- Glow detrás de la imagen -->
-        <div class="absolute inset-0 rounded-2xl 
-                    bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
-                    blur-2xl opacity-70">
-        </div>
+        <!-- Imagen con glow elegante -->
+        <!---<div class="mt-16 relative w-full max-w-md">-->
 
-        <!-- Imagen -->
-        <img src="{{ asset('images/mockupgif.gif') }}"
-             alt="Mockup Admin JR"
-             class="relative w-full h-auto object-contain rounded-2xl">
-    </div>
+            <!-- Glow detrás de la imagen -->
+            <!---<div class="absolute inset-0 rounded-3xl 
+                        bg-gradient-to-r from-red-500/40 via-pink-500/30 to-purple-500/30
+                        blur-3xl opacity-60">
+            </div>--->
 
+            <!-- Imagen -->
+            <!----<img src="{{ asset('images/mockupgif.gif') }}"
+                 alt="Mockup Admin JR"
+                 class="relative w-full h-auto object-contain rounded-2xl">---->
 
-</div>
-</div>
+        <!---</div>--->
+
+    <!---</div>--->
+
 </section>
+
 <!-- VIDEO -->
 <section class="relative mt-24 flex flex-col items-center">
 
@@ -405,7 +437,7 @@ function sendMessage() {
     </div>
 
     <!-- TEXTO DEBAJO DEL VIDEO -->
-    <p class="mt-6 text-white/70 text-center max-w-3xl text-lg">
+    <p class="mt-6 text-black text-center max-w-3xl text-lg">
         Mira cómo puedes registrar tus gastos en segundos usando solo WhatsApp
         y llevar el control de tus finanzas sin planillas ni complicaciones.
     </p>
@@ -430,78 +462,78 @@ function sendMessage() {
 <main class="max-w-7xl mx-auto px-6 pt-24 pb-24 relative">
 
 <!-- HERO -->
-    <section class="relative mt-32 flex flex-col items-center text-center">
-        <!-- Glow secundario -->
-        <div class="absolute top-1/4 -z-10 w-[420px] h-[420px] bg-red-700/20 blur-[160px] rounded-full"></div>
+<section class="relative mt-32 flex flex-col items-center text-center">
 
-        <div class="max-w-3xl mx-auto text-center">
+    <!-- Glow suave -->
+    <div class="absolute top-1/4 -z-10 w-[420px] h-[420px] bg-red-500/20 blur-[160px] rounded-full"></div>
 
-    <!-- TITULO -->
-    <h2 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight mb-6">
-        Si sabes enviar un 
-        <span class="text-red-500">mensaje</span>,
-        ya sabes dominar tus 
-        <span class="text-red-500">finanzas.</span>
-    </h2>
+    <div class="max-w-3xl mx-auto text-center">
 
-    <!-- SUBTITULO -->
-    <p class="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto">
-        Compruébalo por ti mismo ahora. 
-        Escribe cualquier gasto abajo y deja que la 
-       IA 
-        haga el trabajo por ti.
-    </p>
-<br>
+        <!-- TITULO -->
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight mb-6 text-gray-900">
+            Si sabes enviar un 
+            <span class="text-red-600">mensaje</span>,
+            ya sabes dominar tus 
+            <span class="text-red-600">finanzas.</span>
+        </h2>
+
+        <!-- SUBTITULO -->
+        <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
+            Compruébalo por ti mismo ahora. 
+            Escribe cualquier gasto abajo y deja que la 
+            IA 
+            haga el trabajo por ti.
+        </p>
+
+        <br>
+
+    </div>
+
+    <!-- PANEL -->
+<div class="w-full max-w-xl border border-black/10 rounded-xl bg-black/30 backdrop-blur-xl shadow-sm">
+
+    <!-- CHAT -->
+    <div id="chatBox"
+        class="rounded-xl p-4 space-y-3 text-left">
+
+        <div class="bg-black/70 p-3 rounded-lg text-sm border border-black/10 text-white shadow-sm">
+            💬 Hola, soy AdminJr, tu asistente administrativo por WhatsApp.
+        </div>
+
+    </div>
 </div>
-        <!-- PANEL -->
-        <div class="w-full max-w-xl border border-white/10 rounded-xl">
 
-            <!-- CHAT -->
-            <div id="chatBox"
-                class="bg-white/5 backdrop-blur-xl rounded-xl p-4 space-y-3 text-left">
+<!-- INPUT -->
+<div class="mt-6 w-full max-w-xl flex gap-2">
 
-                <div class="bg-black/40 p-3 rounded-lg text-sm border border-white/10">
-                    💬 Hola, soy AdminJr, tu asistente administrativo por WhatsApp.
-                </div>
+    <input id="userInput"
+        type="text"
+        placeholder="Escribe tu gasto aquí..."
+        class="flex-1 bg-white border border-black/20
+               rounded-full px-5 py-3 outline-none text-black
+               focus:border-black transition">
 
-            </div>
-        </div>
+    <button onclick="sendMessage()"
+        class="border border-black/20 hover:border-black transition
+               text-black px-6 rounded-full bg-white hover:bg-black hover:text-white">
+        ➤
+    </button>
 
-        <!-- INPUT -->
-        <div class="mt-6 w-full max-w-xl flex gap-2">
+</div>
 
-            <input id="userInput"
-                type="text"
-                placeholder="Escribe tu gasto aquí..."
-                class="flex-1 bg-transparent border border-white/15
-                        rounded-full px-5 py-3 outline-none text-white
-                        focus:border-white/30 transition">
-
-            <button onclick="sendMessage()"
-                    class="border border-white/15 hover:border-white/30 transition
-                        text-white px-6 rounded-full">
-                ➤
-            </button>
-        </div>
-
-    </section>
+</section>
 
 <script src="/js/chat-demo.js"></script>
 <!-- SECCIÓN 4 -->
 <section class="mt-32 grid md:grid-cols-2 gap-16 items-center px-6 max-w-6xl mx-auto">
 
     <!-- TEXTO -->
-    <div class="relative space-y-8">
-
-        <!-- Glow decorativo -->
-        <div class="absolute inset-0 -z-10 flex justify-center items-center">
-            <div class="w-[60%] h-[60%] bg-red-700/20 blur-3xl rounded-full"></div>
-        </div>
+    <div class="space-y-8">
 
         <!-- Título -->
-        <h2 class="text-4xl md:text-6xl xl:text-7xl font-light leading-[1.05] tracking-tight text-white">
+        <h2 class="text-4xl md:text-6xl xl:text-7xl font-light leading-[1.05] tracking-tight text-gray-900">
             Despídete de la 
-            <span class="text-red-500">ansiedad financiera</span>
+            <span class="text-red-600">ansiedad financiera</span>
             para siempre.
         </h2>
 
@@ -509,36 +541,29 @@ function sendMessage() {
         <div class="w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
 
         <!-- Subtítulo -->
-        <p class="text-lg md:text-xl text-white/70 max-w-xl leading-relaxed">
+        <p class="text-lg md:text-xl text-gray-600 max-w-xl leading-relaxed">
             La claridad es poder. Al ver tu dinero organizado en 
-            <span class="text-white font-medium">tiempo real</span>,
+            <span class="text-gray-900 font-medium">tiempo real</span>,
             recuperas el control y la tranquilidad que necesitas
             para hacer crecer tu 
-            <span class="text-red-500 font-medium">negocio</span> 
+            <span class="text-red-600 font-medium">negocio</span> 
             o tu ahorro personal.
         </p>
 
     </div>
 
-
     <!-- IMAGEN -->
     <div class="flex justify-center">
         <div class="relative w-full max-w-sm">
 
-            <!-- Glow de fondo -->
-            <div class="absolute inset-0 rounded-2xl 
-                        bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
-                        blur-2xl opacity-60">
-            </div>
-
             <!-- Contenedor imagen -->
-            <div class="relative rounded-2xl overflow-hidden
-                        border border-white/10
-                        bg-white/5 backdrop-blur-xl shadow-2xl">
+            <div class="rounded-2xl overflow-hidden
+                        border border-gray-200
+                        bg-white shadow-lg">
 
                 <img src="{{ asset('images/mockup3.png') }}"
                      alt="Mockup Admin JR"
-                     class="w-full h-auto object-contain rounded-2xl">
+                     class="w-full h-auto object-contain">
 
             </div>
 
@@ -552,12 +577,12 @@ function sendMessage() {
 
         <!-- TITULO -->
         <div class="text-center mb-20">
-            <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">
+            <h3 class="text-3xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
                 Control total de tu negocio,
                 <span class="text-red-600 font-normal">desde WhatsApp</span>
             </h3>
 
-            <p class="text-white/60 max-w-2xl mx-auto text-lg leading-relaxed">
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
                 Admin JR convierte cada mensaje en información organizada,
                 reportes automáticos y decisiones más inteligentes.
             </p>
@@ -569,21 +594,19 @@ function sendMessage() {
 
                 <!-- CARD 1 -->
                 <div class="card-3d 
-            rounded-2xl 
-            border border-white/15 
-            bg-[#1a1a1a] 
-            p-10 
-            text-center 
-            transition duration-300 
-            hover:border-red-500/40">
+                    rounded-2xl 
+                    border border-gray-200
+                    bg-white
+                    p-10 
+                    text-center 
+                    transition duration-300 
+                    hover:border-red-500/40">
 
                     <div class="flex justify-center mb-8">
                         <div class="w-14 h-14 flex items-center justify-center 
                                     rounded-xl 
                                     bg-red-600/10 
-                                    border border-red-500/20
-                                    transition duration-300
-                                    group-hover:bg-red-600/20">
+                                    border border-red-200">
 
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -594,11 +617,11 @@ function sendMessage() {
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">
-                        Registro en <span class="text-red-500">3 segundos</span>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4 tracking-wide">
+                        Registro en <span class="text-red-600">3 segundos</span>
                     </h4>
 
-                    <p class="text-white/60 leading-relaxed">
+                    <p class="text-gray-600 leading-relaxed">
                         Escribe tu venta o gasto y Admin JR lo convierte
                         en datos organizados automáticamente.
                     </p>
@@ -608,8 +631,8 @@ function sendMessage() {
                 <!-- CARD 2 -->
                 <div class="card-3d group 
                             rounded-2xl 
-                            border border-white/10 
-                            bg-[#0f0f0f] 
+                            border border-gray-200
+                            bg-white
                             p-10 
                             text-center 
                             transition duration-300 
@@ -620,9 +643,7 @@ function sendMessage() {
                         <div class="w-14 h-14 flex items-center justify-center 
                                     rounded-xl 
                                     bg-red-600/10 
-                                    border border-red-500/20
-                                    transition duration-300
-                                    group-hover:bg-red-600/20">
+                                    border border-red-200">
 
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -636,11 +657,11 @@ function sendMessage() {
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">
-                        Recordatorios <span class="text-red-500">inteligentes</span>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4 tracking-wide">
+                        Recordatorios <span class="text-red-600">inteligentes</span>
                     </h4>
 
-                    <p class="text-white/60 leading-relaxed">
+                    <p class="text-gray-600 leading-relaxed">
                         Si olvidas registrar algo, tu asistente te avisa.
                         Siempre atento, siempre disponible.
                     </p>
@@ -650,8 +671,8 @@ function sendMessage() {
                 <!-- CARD 3 -->
                 <div class="card-3d group 
                             rounded-2xl 
-                            border border-white/10 
-                            bg-[#0f0f0f] 
+                            border border-gray-200
+                            bg-white
                             p-10 
                             text-center 
                             transition duration-300 
@@ -662,9 +683,7 @@ function sendMessage() {
                         <div class="w-14 h-14 flex items-center justify-center 
                                     rounded-xl 
                                     bg-red-600/10 
-                                    border border-red-500/20
-                                    transition duration-300
-                                    group-hover:bg-red-600/20">
+                                    border border-red-200">
 
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -675,11 +694,11 @@ function sendMessage() {
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-semibold text-white mb-4 tracking-wide">
-                        Resumen <span class="text-red-500">24/7</span>
+                    <h4 class="text-xl font-semibold text-gray-900 mb-4 tracking-wide">
+                        Resumen <span class="text-red-600">24/7</span>
                     </h4>
 
-                    <p class="text-white/60 leading-relaxed">
+                    <p class="text-gray-600 leading-relaxed">
                         Pregunta cómo va tu negocio y recibe reportes claros,
                         gráficos dinámicos y control total.
                     </p>
@@ -691,26 +710,6 @@ function sendMessage() {
     </div>
 </section>
 
-    <!-- BOTONES -->
-    <!---<div class="flex justify-center gap-4 mt-10">
-        <button onclick="prevCard()"
-            class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-
-        <button onclick="nextCard()"
-            class="w-12 h-12 flex items-center justify-center bg-red-600 hover:bg-red-700 transition rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white"
-                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M9 5l7 7-7 7" />
-            </svg>
-        </button>
-    </div>--->
 <!-- PREGUNTAS FRECUENTES -->
 <section class="mt-32 px-6">
 
@@ -870,7 +869,7 @@ function sendMessage() {
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
                 </button>
                 <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
-                    El costo es de <strong>$459 MXN al mes</strong>.
+                    El costo es de <strong>$129 MXN al mes</strong>.
                     Sin contratos largos ni compromisos forzosos.
                 </div>
             </div>
@@ -965,7 +964,7 @@ function sendMessage() {
 
                     <div class="mb-6">
                         <span class="text-6xl font-light text-white">
-                            $459
+                            $129
                         </span>
                         <span class="text-white/60 text-lg">
                             / mes
@@ -1199,6 +1198,11 @@ updateCarousel();
 startAutoSlide();
 </script>
 <style>
+
+/* =========================
+   CAROUSEL 3D
+========================= */
+
 .carousel-3d {
     position: relative;
     width: 100%;
@@ -1211,7 +1215,10 @@ startAutoSlide();
     align-items: center;
 }
 
-/* CARD BASE */
+/* =========================
+   CARD BASE
+========================= */
+
 .card-3d {
     position: absolute;
     left: 50%;
@@ -1221,37 +1228,49 @@ startAutoSlide();
     padding: 2rem;
     text-align: center;
 
-    background: linear-gradient(145deg, #1c1c1c, #111111);
+    /* fondo claro elegante */
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+
     border-radius: 1.8rem;
 
-    /* 🔴 BORDE ROJO FIJO */
-    border: 1.5px solid rgba(239, 68, 68, 0.7);
+    /* borde minimalista */
+    border: 1px solid rgba(0,0,0,0.08);
 
     transform-style: preserve-3d;
     transform-origin: center center;
     translate: -50% -50%;
 
-    transition: transform 0.8s cubic-bezier(.25,.8,.25,1),
-                opacity 0.8s ease;
+    transition: 
+        transform 0.8s cubic-bezier(.25,.8,.25,1),
+        opacity 0.8s ease;
 
-    /* 🔥 Glow rojo permanente */
+    /* sombra elegante */
     box-shadow:
-        0 20px 40px rgba(0,0,0,0.6),
-        0 0 40px rgba(239,68,68,0.25);
+        0 20px 40px rgba(0,0,0,0.08);
 }
 
-/* CARD ACTIVA (solo más profundidad, NO cambia borde por hover) */
+/* =========================
+   CARD ACTIVA
+========================= */
+
 .card-3d.active {
     box-shadow:
-        0 25px 60px rgba(0,0,0,0.8),
-        0 0 70px rgba(239,68,68,0.35);
+        0 30px 60px rgba(0,0,0,0.15);
 }
+
+/* =========================
+   SCROLL SUAVE
+========================= */
 
 html {
     scroll-behavior: smooth;
 }
 
-/*DISEÑO DEL CHAT BOT */
+/* =========================
+   DISEÑO CHAT BOT
+========================= */
+
 /* burbuja usuario estilo WhatsApp */
 .user-bubble{
     background:#dc2626;
@@ -1265,9 +1284,9 @@ html {
 
 /* burbuja bot */
 .bot-bubble{
-    background:#1f1f1f;
-    border:1px solid rgba(255,255,255,0.08);
-    color:white;
+    background:#f5f5f5;
+    border:1px solid rgba(0,0,0,0.06);
+    color:#1f2937;
     padding:12px 14px;
     border-radius:18px 18px 18px 4px;
     max-width:75%;
@@ -1276,20 +1295,23 @@ html {
 
 /* tarjeta interna del gasto */
 .expense-card{
-    background:#111;
+    background:#ffffff;
     border-radius:12px;
     padding:10px;
     margin-top:6px;
-    border:1px solid rgba(255,255,255,0.06);
+    border:1px solid rgba(0,0,0,0.06);
     font-size:13px;
 }
 
-/* puntos escribiendo */
+/* =========================
+   TYPING ANIMATION
+========================= */
+
 .typing{
     display:flex;
     gap:4px;
     padding:10px 14px;
-    background:#1f1f1f;
+    background:#f3f4f6;
     border-radius:18px 18px 18px 4px;
     width:fit-content;
 }
@@ -1314,4 +1336,5 @@ html {
     0%,80%,100%{opacity:.2;}
     40%{opacity:1;}
 }
+
 </style>

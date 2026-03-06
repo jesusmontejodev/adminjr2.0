@@ -7,36 +7,89 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navBar = document.getElementById('navBar');
+
+    // Toggle menú móvil
+    menuBtn.addEventListener('click', function () {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Efecto scroll (transparencia)
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 50) {
+            navBar.classList.add('bg-black/60','backdrop-blur-md','shadow-2xl');
+            navBar.classList.remove('bg-white/5','backdrop-blur-sm');
+        } else {
+            navBar.classList.remove('bg-black/60','backdrop-blur-md','shadow-2xl');
+            navBar.classList.add('bg-white/5','backdrop-blur-sm');
+        }
+    });
+});
+</script>
 
 <body class="bg-gradient-to-br from-black via-[#0f1115] to-[#1a1d23] text-white overflow-x-hidden">
 
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-3 transition-all duration-300">
-    <nav id="navBar" class="
-        flex items-center justify-between
-        w-full max-w-5xl
-        rounded-full
-        px-6 py-4
-        bg-white/5
-        backdrop-blur-sm
-        border border-white/10
-        shadow-lg
-        transition-all duration-300
-        relative">
+  <nav id="navBar" class="
+      flex items-center justify-between
+      w-full max-w-5xl
+      rounded-full
+      px-6 py-4
+      bg-white/5
+      backdrop-blur-sm
+      border border-white/10
+      shadow-lg
+      transition-all duration-300
+      relative">
 
-        <!-- LOGO -->
-        <div class="flex items-center gap-2">
-            <img src="{{ asset('avaspace.svg') }}"
-                    alt="Avaspace"
-                    class="h-7 sm:h-8">
-        </div>
-        <!-- MENU DESKTOP -->
-<div class="hidden md:flex items-center text-sm text-white/80
-        absolute left-1/2 -translate-x-1/2
-        gap-10">
-    <a href="{{ route('login') }}" class="hover:text-white transition">Iniciar sesión</a>
-    <a href="{{ route('register') }}" class="hover:text-white transition">Crear cuenta</a>
-</div>
-</div>
+    <!-- LOGO -->
+    <div class="flex items-center gap-2">
+      <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-7 sm:h-8">
+      AVASPACE
+    </div>
+
+
+    <!-- BOTÓN HAMBURGUESA SIEMPRE -->
+    <button id="menuBtn" class="text-white ml-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
+           viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- MENU FLOTANTE -->
+    <div id="mobileMenu" class="
+        absolute top-full right-4 mt-4
+        hidden
+        w-52
+        bg-black/90
+        backdrop-blur-xl
+        border border-white/10
+        rounded-2xl
+        shadow-2xl
+        p-4
+        space-y-3
+        text-white
+        ">
+      <hr class="border-white/10">
+
+      <a href="{{ route('login') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
+              text-white font-medium py-2 rounded-xl">
+        Iniciar sesión
+      </a>
+
+      <a href="{{ route('register') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
+              text-white font-medium py-2 rounded-xl">
+        Crear cuenta
+      </a>
+    </div>
+
+  </nav>
 
             <!-- BOTÓN HAMBURGUESA -->
             <button id="menuBtn" class="md:hidden text-white ml-2">
