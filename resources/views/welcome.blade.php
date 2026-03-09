@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
       rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -34,10 +35,27 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <script>
+// Enfocar el botón al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+    const sendButton = document.getElementById('sendButton');
+    if (sendButton) {
+        sendButton.focus();
+    }
+    
+    // Permitir enviar con Enter
+    const userInput = document.getElementById('userInput');
+    userInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            sendMessage();
+        }
+    });
+});
+
 function detectCategory(text) {
     const lower = text.toLowerCase();
 
-    if (lower.includes("comida") || lower.includes("taco") || lower.includes("pizza") || lower.includes("hamburguesa")) {
+    if (lower.includes("comida") || lower.includes("taco") || lower.includes("pizza") || lower.includes("hamburguesa") || lower.includes("restaurant")) {
         return "Alimentación";
     }
     if (lower.includes("uber") || lower.includes("taxi") || lower.includes("bus") || lower.includes("camión")) {
@@ -52,7 +70,7 @@ function detectCategory(text) {
     if (lower.includes("doctor") || lower.includes("farmacia") || lower.includes("medicina")) {
         return "Salud";
     }
-    if (lower.includes("ropa") || lower.includes("zapatos")) {
+    if (lower.includes("ropa") || lower.includes("zapatos") || lower.includes("vestido") || lower.includes("camisa")) {
         return "Ropa";
     }
 
@@ -62,7 +80,7 @@ function detectCategory(text) {
 function detectPaymentMethod(text) {
     const lower = text.toLowerCase();
 
-    if (lower.includes("tarjeta") || lower.includes("credito") || lower.includes("crédito") || lower.includes("debito") || lower.includes("débito")) {
+    if (lower.includes("tarjeta") || lower.includes("credito") || lower.includes("crédito") || lower.includes("debito") || lower.includes("débito") || lower.includes("tc")) {
         return "Tarjeta";
     }
     if (lower.includes("transferencia") || lower.includes("spei")) {
@@ -76,10 +94,40 @@ function detectPaymentMethod(text) {
 }
 
 function cleanDescription(text) {
-    return text
-        .replace(/\d+/g, "") // quitar números
-        .replace(/tarjeta|credito|crédito|debito|débito|efectivo|transferencia|spei|cash/gi, "")
-        .trim();
+    const lower = text.toLowerCase();
+    
+    // Detectar frases completas primero
+    if (lower.includes("comida china")) return "comida china";
+    if (lower.includes("pizza")) return "pizza";
+    if (lower.includes("hamburguesa")) return "hamburguesa";
+    if (lower.includes("taco")) return "tacos";
+    
+    // Detectar categorías
+    if (lower.includes("ropa")) return "ropa";
+    if (lower.includes("zapatos")) return "zapatos";
+    if (lower.includes("uber")) return "uber";
+    if (lower.includes("taxi")) return "taxi";
+    if (lower.includes("netflix")) return "netflix";
+    if (lower.includes("spotify")) return "spotify";
+    if (lower.includes("internet")) return "internet";
+    if (lower.includes("luz")) return "luz";
+    if (lower.includes("agua")) return "agua";
+    if (lower.includes("gasolina")) return "gasolina";
+    if (lower.includes("farmacia")) return "farmacia";
+    if (lower.includes("doctor")) return "doctor";
+    
+    // Si no encuentra nada, hace la limpieza normal y agarra la última palabra relevante
+    let palabras = text.split(' ');
+    for (let i = palabras.length - 1; i >= 0; i--) {
+        let palabra = palabras[i].toLowerCase();
+        // Ignorar números y palabras comunes
+        if (!palabra.match(/\d+/) && 
+            !['hola', 'gaste', 'pague', 'con', 'por', 'de', 'en', 'el', 'la', 'los', 'las', 'un', 'una', 'y', 'mi', 'mis', 'tarjeta', 'efectivo'].includes(palabra)) {
+            return palabras[i];
+        }
+    }
+    
+    return "Gasto";
 }
 
 function sendMessage() {
@@ -91,15 +139,26 @@ function sendMessage() {
 
     // Mensaje usuario
     const userMsg = document.createElement("div");
-    userMsg.className = "bg-red-700 text-white p-2 rounded-full w-fit ml-auto text-sm";
+    userMsg.className = "message-user";
     userMsg.innerText = text;
     chatBox.appendChild(userMsg);
 
-    input.value = "";
+    // Mantener el input con el mensaje precargado (opcional)
+    // input.value = "Hola, gaste 300 pesos en ropa y lo pague con tarjeta";
+
+    // Mostrar indicador de "escribiendo..."
+    const typingIndicator = document.createElement("div");
+    typingIndicator.className = "typing";
+    typingIndicator.innerHTML = "<span></span><span></span><span></span>";
+    chatBox.appendChild(typingIndicator);
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     setTimeout(() => {
+        // Quitar indicador de escritura
+        chatBox.removeChild(typingIndicator);
+
         const botMsg = document.createElement("div");
-        botMsg.className = "bg-black/40 p-3 rounded-xl text-white space-y-1";
+        botMsg.className = "message-bot";
 
         const amountMatch = text.match(/\d+/);
         const amount = amountMatch ? amountMatch[0] : "0";
@@ -112,20 +171,23 @@ function sendMessage() {
         const today = new Date().toLocaleDateString("es-MX");
 
         botMsg.innerHTML = `
-            ✅ <b>¡Listo! Gasto registrado</b><br>
-            💰 Valor: $${amount} MXN<br>
-            📅 Fecha: ${today}<br>
-            🏷 Categoría: ${category}<br>
-            📝 Descripción: ${description}<br>
-            💳 Método de pago: ${paymentMethod}
+            <strong style="color: #ffffff;">✅ ¡Listo! Gasto registrado</strong>
+            <div class="expense-card">
+                <div>💰 <strong>Monto:</strong> $${amount} MXN</div>
+                <div>📅 <strong>Fecha:</strong> ${today}</div>
+                <div>🏷 <strong>Categoría:</strong> ${category}</div>
+                <div>📝 <strong>Descripción:</strong> ${description}</div>
+                <div>💳 <strong>Método:</strong> ${paymentMethod}</div>
+            </div>
         `;
 
         chatBox.appendChild(botMsg);
         chatBox.scrollTop = chatBox.scrollHeight;
 
-    }, 800);
+    }, 1500);
 }
 </script>
+
 
 <body class="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 text-gray-800 overflow-x-hidden">
 <!-- HEADER -->
@@ -203,8 +265,6 @@ function sendMessage() {
     </div>
 
 </nav>
-</header>
-
 </header>
 <section class="relative pt-44 pb-36 flex flex-col items-center text-center overflow-hidden">
 
@@ -472,46 +532,43 @@ function sendMessage() {
         <!-- SUBTITULO -->
         <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
             Compruébalo por ti mismo ahora. 
-            Escribe cualquier gasto abajo y deja que la 
-            IA 
-            haga el trabajo por ti.
+            Solo presiona "Enviar" y mira cómo la IA procesa tu mensaje.
         </p>
 
         <br>
 
     </div>
 
-    <!-- PANEL -->
-<div class="w-full max-w-xl border border-black/10 rounded-xl bg-black/30 backdrop-blur-xl shadow-sm">
-
-    <!-- CHAT -->
-    <div id="chatBox"
-        class="rounded-xl p-4 space-y-3 text-left">
-
-        <div class="bg-black/70 p-3 rounded-lg text-sm border border-black/10 text-white shadow-sm">
-            💬 Hola, soy AdminJr, tu asistente administrativo por WhatsApp.
+    <!-- PANEL - CHAT MEJORADO -->
+    <div class="w-full max-w-xl chat-demo-container rounded-xl overflow-hidden">
+        <!-- CHAT -->
+        <div id="chatBox" class="p-4 space-y-3 text-left h-80 overflow-y-auto flex flex-col bg-white/30 backdrop-blur-sm">
+            <div class="message-bot">
+                💬 Hola, soy AdminJr. Prueba con este mensaje 👇
+            </div>
         </div>
-
     </div>
-</div>
 
-<!-- INPUT -->
-<div class="mt-6 w-full max-w-xl flex gap-2">
+    <!-- INPUT CON MENSAJE NATURAL PRECARGADO -->
+    <div class="mt-6 w-full max-w-xl flex gap-2">
+        <input id="userInput"
+            type="text"
+            value="Hola, gaste 300 pesos en ropa y lo pague con tarjeta"
+            class="flex-1 bg-white border border-gray-300
+                   rounded-full px-5 py-3 outline-none text-gray-800
+                   focus:border-red-500 focus:ring-1 focus:ring-red-200 transition">
 
-    <input id="userInput"
-        type="text"
-        placeholder="Escribe tu gasto aquí..."
-        class="flex-1 bg-white border border-black/20
-               rounded-full px-5 py-3 outline-none text-black
-               focus:border-black transition">
+        <button onclick="sendMessage()" id="sendButton"
+            class="px-6 py-3 bg-red-600 hover:bg-red-700
+                   text-white rounded-full font-medium
+                   transition duration-300 shadow-md hover:shadow-lg
+                   cursor-pointer">
+            Enviar
+        </button>
+    </div>
 
-    <button onclick="sendMessage()"
-        class="border border-black/20 hover:border-black transition
-               text-black px-6 rounded-full bg-white hover:bg-black hover:text-white">
-        ➤
-    </button>
-
-</div>
+    <!-- Pequeño texto de ayuda -->
+    <p class="text-xs text-gray-400 mt-3">Haz clic en "Enviar" y verás cómo extrae: 300, ropa, tarjeta</p>
 
 </section>
 
@@ -1316,72 +1373,208 @@ html {
 }
 
 /* =========================
-   DISEÑO CHAT BOT
+   DISEÑO CHAT BOT - VERSIÓN DARK ELEGANT
+   Paleta: Negro mate, Rojo vibrante, Blanco suave
 ========================= */
 
-/* burbuja usuario estilo WhatsApp */
-.user-bubble{
-    background:#dc2626;
-    color:white;
-    padding:10px 14px;
-    border-radius:18px 18px 4px 18px;
-    max-width:70%;
-    margin-left:auto;
-    font-size:14px;
+/* Contenedor principal del chat */
+.chat-demo-container {
+    background: linear-gradient(145deg, #1e1e1e 0%, #252525 100%);
+    border: 1px solid #333333;
+    box-shadow: 0 20px 35px -10px rgba(0,0,0,0.4);
+    border-radius: 24px;
+    padding: 4px;
 }
 
-/* burbuja bot */
-.bot-bubble{
-    background:#f5f5f5;
-    border:1px solid rgba(0,0,0,0.06);
-    color:#1f2937;
-    padding:12px 14px;
-    border-radius:18px 18px 18px 4px;
-    max-width:75%;
-    font-size:14px;
+/* Burbuja del BOT (AdminJr) */
+.message-bot {
+    background: linear-gradient(135deg, #2a2a2a 0%, #222222 100%);
+    border: 1px solid #3a3a3a;
+    color: #f0f0f0;
+    border-radius: 20px 20px 20px 5px;
+    padding: 14px 18px;
+    max-width: 85%;
+    align-self: flex-start;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    position: relative;
 }
 
-/* tarjeta interna del gasto */
-.expense-card{
-    background:#ffffff;
-    border-radius:12px;
-    padding:10px;
-    margin-top:6px;
-    border:1px solid rgba(0,0,0,0.06);
-    font-size:13px;
+/* Burbuja del USUARIO */
+.message-user {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: #ffffff;
+    border-radius: 20px 20px 5px 20px;
+    padding: 14px 18px;
+    max-width: 85%;
+    align-self: flex-end;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    position: relative;
 }
 
-/* =========================
-   TYPING ANIMATION
-========================= */
-
-.typing{
-    display:flex;
-    gap:4px;
-    padding:10px 14px;
-    background:#f3f4f6;
-    border-radius:18px 18px 18px 4px;
-    width:fit-content;
+/* Tarjeta de gasto (la que muestra los detalles) */
+/* Tarjeta de gasto - VERSIÓN OSCURA PERO LEGIBLE */
+.expense-card {
+    background: #2d2d2d;  /* Fondo gris oscuro */
+    border: 1px solid #404040;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: #f0f0f0;  /* Texto blanco suave */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    position: relative;
 }
 
-.typing span{
-    width:6px;
-    height:6px;
-    background:#9ca3af;
-    border-radius:50%;
-    animation:blink 1.4s infinite;
+.expense-card strong {
+    color: #ffffff;  /* Negritas en blanco puro */
+    font-weight: 700;
 }
 
-.typing span:nth-child(2){
-    animation-delay:.2s;
+.expense-card div {
+    padding: 5px 0;
+    border-bottom: 1px dashed #505050;
+    color: #e5e5e5;  /* Texto claro */
 }
 
-.typing span:nth-child(3){
-    animation-delay:.4s;
+.expense-card div:last-child {
+    border-bottom: none;
 }
 
-@keyframes blink{
-    0%,80%,100%{opacity:.2;}
-    40%{opacity:1;}
+.expense-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 4px;
+    background: #dc2626;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Ajuste para que el pseudo-elemento no rompa el layout */
+.expense-card {
+    position: relative;
+    margin-left: 8px;
+}
+
+/* Indicador de "escribiendo..." */
+.typing {
+    display: flex;
+    gap: 6px;
+    padding: 14px 20px;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 20px 20px 20px 5px;
+    width: fit-content;
+    align-self: flex-start;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.typing span {
+    width: 10px;
+    height: 10px;
+    background-color: #dc2626;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.typing span:nth-child(1) { animation-delay: 0s; background-color: #dc2626; }
+.typing span:nth-child(2) { animation-delay: 0.2s; background-color: #ef4444; }
+.typing span:nth-child(3) { animation-delay: 0.4s; background-color: #f87171; }
+
+@keyframes pulse {
+    0%, 60%, 100% { transform: scale(1); opacity: 0.5; }
+    30% { transform: scale(1.4); opacity: 1; }
+}
+
+/* Contenedor de mensajes */
+#chatBox {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 20px;
+    min-height: 320px;
+}
+
+/* Scrollbar personalizada */
+#chatBox::-webkit-scrollbar {
+    width: 6px;
+}
+
+#chatBox::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 10px;
+}
+
+#chatBox::-webkit-scrollbar-thumb {
+    background: #dc2626;
+    border-radius: 10px;
+}
+
+#chatBox::-webkit-scrollbar-thumb:hover {
+    background: #ef4444;
+}
+
+/* INPUT - Caja de texto */
+#userInput {
+    background: #2a2a2a;
+    color: #ffffff;
+    border: 2px solid #333333;
+    border-radius: 30px;
+    padding: 14px 22px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#userInput:focus {
+    border-color: #dc2626;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+    background: #222222;
+}
+
+#userInput::placeholder {
+    color: #6b7280;
+    font-style: italic;
+}
+
+/* Botón de enviar */
+button[onclick="sendMessage()"] {
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 28px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+button[onclick="sendMessage()"]:hover {
+    background: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+}
+
+button[onclick="sendMessage()"]:active {
+    transform: translateY(0);
+}
+
+/* Mensaje de bienvenida especial */
+.message-bot:first-child {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    border-left: 4px solid #dc2626;
+}
+
+/* Efecto de brillo en mensajes al pasar el mouse */
+.message-bot:hover, .message-user:hover {
+    filter: brightness(1.1);
+    transition: all 0.2s ease;
 }
 </style>
