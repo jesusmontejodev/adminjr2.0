@@ -208,30 +208,31 @@ function sendMessage() {
 </header>
 <section class="relative pt-44 pb-36 flex flex-col items-center text-center overflow-hidden">
 
-    <!-- Badge minimalista -->
-    <div class="mb-8 px-6 py-2.5 rounded-full
-                bg-white/90 border border-gray-200
-                text-sm text-gray-600
-                flex items-center gap-3
-                shadow-sm
-                hover:border-red-200 hover:shadow-md hover:shadow-red-100/50
-                transition-all duration-300
-                group">
+   <!-- Badge minimalista -->
+<div class="mb-8 px-6 py-2.5 rounded-full
+            bg-black/85 border border-gray-800
+            text-sm text-white
+            flex items-center gap-3
+            shadow-sm
+            hover:border-red-500 hover:shadow-md hover:shadow-red-500/20
+            transition-all duration-300
+            group">
 
-        <div class="w-6 h-6 flex items-center justify-center">
-            <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-6">
-        </div>
-
-        <span class="tracking-wide">
-            Tu asistente administrativo inteligente
-        </span>
+    <div class="w-6 h-6 flex items-center justify-center">
+        <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-6">
     </div>
+
+    <span class="tracking-wide">
+        Tu asistente administrativo inteligente
+    </span>
+
+</div>
 
     <!-- Título limpio -->
     <h1 class="text-4xl md:text-6xl xl:text-7xl
-               font-light tracking-tight
-               leading-[1.08]
-               max-w-4xl mx-auto text-gray-900">
+                font-light tracking-tight
+                leading-[1.08]
+                max-w-4xl mx-auto text-gray-900">
         
         Si sabes enviar un
         <span class="text-red-600 font-normal">WhatsApp</span>,<br>
@@ -262,75 +263,66 @@ function sendMessage() {
         <span class="text-gray-900 font-medium">sin esfuerzo</span>.
     </p>
 
-    <!-- IMAGEN con diseño limpio -->
-    <div class="mt-14 flex justify-center w-full max-w-5xl px-4">
-        <div class="relative w-full max-w-sm group mx-auto">
+  <!-- IMAGEN con diseño limpio -->
+<div class="mt-14 flex justify-center w-full max-w-5xl px-4">
+    <div class="relative w-full max-w-sm group mx-auto">
 
-            <!-- Sombra suave para la imagen -->
-            <div class="absolute inset-0 rounded-3xl
-                        bg-gradient-to-b from-red-100/30 to-transparent
-                        blur-2xl
-                        opacity-40
-                        group-hover:opacity-60
-                        transition-opacity duration-500">
-            </div>
+        <!-- Glow oscuro -->
+        <div class="absolute inset-0 rounded-3xl
+                    bg-black/40
+                    blur-3xl
+                    opacity-30
+                    group-hover:opacity-50
+                    transition-opacity duration-500">
+        </div>
 
-            <!-- Contenedor de la imagen -->
-            <div class="relative rounded-3xl
-                        bg-white
-                        shadow-xl shadow-gray-200/70
-                        group-hover:shadow-2xl group-hover:shadow-red-100/50
-                        transition-all duration-300
-                        ring-1 ring-gray-100">
-                
-                <!-- Imagen -->
-                <img src="{{ asset('images/mockup1.png') }}"
-                    alt="Mockup Admin JR"
-                    class="relative w-full h-auto object-contain rounded-3xl
-                           transform group-hover:scale-[1.01] transition-transform duration-300">
-            </div>
+            
+            <!-- Imagen -->
+            <img src="{{ asset('images/mockup1.png') }}"
+                alt="Mockup Admin JR"
+                class="relative w-full h-auto object-contain rounded-3xl
+                       transform group-hover:scale-[1.01] transition-transform duration-300">
 
-            <!-- Tooltip 1 - más limpio -->
-            <div class="absolute top-20 -left-20
-                        opacity-0 translate-x-2
-                        group-hover:opacity-100 group-hover:translate-x-0
-                        transition-all duration-300 ease-out
-                        bg-white border border-gray-100
-                        text-gray-600 text-sm px-4 py-2 rounded-lg
-                        shadow-lg shadow-gray-200/50
-                        before:absolute before:top-1/2 before:-right-2 before:w-2 before:h-2
-                        before:bg-white before:border-r before:border-t before:border-gray-100
-                        before:rotate-45 before:-translate-y-1/2">
-                Categorizado automáticamente
-            </div>
+            <!-- Tooltip 1 -->
+<div class="absolute top-20 -left-20
+            bg-red-600/85 border border-red-500/60
+            text-white text-sm px-4 py-2 rounded-lg
+            shadow-lg shadow-red-900/20
+            backdrop-blur-sm
+            tooltip-auto tooltip-delay-1
+            before:absolute before:top-1/2 before:-right-2 before:w-2 before:h-2
+            before:bg-red-600/85 before:border-r before:border-t before:border-red-500/60
+            before:rotate-45 before:-translate-y-1/2">
+    Categorizado automáticamente
+</div>
 
-            <!-- Tooltip 2 - más limpio -->
-            <div class="absolute top-40 -right-20
-                        opacity-0 -translate-x-2
-                        group-hover:opacity-100 group-hover:translate-x-0
-                        transition-all duration-300 delay-100 ease-out
-                        bg-white border border-gray-100
-                        text-gray-600 text-sm px-4 py-2 rounded-lg
-                        shadow-lg shadow-gray-200/50
-                        before:absolute before:top-1/2 before:-left-2 before:w-2 before:h-2
-                        before:bg-white before:border-l before:border-b before:border-gray-100
-                        before:rotate-45 before:-translate-y-1/2">
-                Procesado en segundos
-            </div>
 
-            <!-- Tooltip 3 - más limpio -->
-            <div class="absolute bottom-32 -right-12
-                        opacity-0 -translate-y-2
-                        group-hover:opacity-100 group-hover:translate-y-0
-                        transition-all duration-300 delay-200 ease-out
-                        bg-white border border-gray-100
-                        text-gray-600 text-sm px-4 py-2 rounded-lg
-                        shadow-lg shadow-gray-200/50
-                        before:absolute before:top-full before:left-6 before:w-2 before:h-2
-                        before:bg-white before:border-l before:border-t before:border-gray-100
-                        before:rotate-45 before:-translate-y-[5px]">
-                Registro de tus finanzas
-            </div>
+<!-- Tooltip 2 -->
+<div class="absolute top-40 -right-20
+            bg-red-600/85 border border-red-500/60
+            text-white text-sm px-4 py-2 rounded-lg
+            shadow-lg shadow-red-900/20
+            backdrop-blur-sm
+            tooltip-auto tooltip-delay-2
+            before:absolute before:top-1/2 before:-left-2 before:w-2 before:h-2
+            before:bg-red-600/85 before:border-l before:border-b before:border-red-500/60
+            before:rotate-45 before:-translate-y-1/2">
+    Procesado en segundos
+</div>
+
+
+<!-- Tooltip 3 -->
+<div class="absolute bottom-32 -right-12
+            bg-red-600/85 border border-red-500/60
+            text-white text-sm px-4 py-2 rounded-lg
+            shadow-lg shadow-red-900/20
+            backdrop-blur-sm
+            tooltip-auto tooltip-delay-3
+            before:absolute before:top-full before:left-6 before:w-2 before:h-2
+            before:bg-red-600/85 before:border-l before:border-t before:border-red-500/60
+            before:rotate-45 before:-translate-y-[5px]">
+    Registro de tus finanzas
+</div>
         </div>
     </div>
 
@@ -715,61 +707,76 @@ function sendMessage() {
 
     <div class="max-w-4xl mx-auto">
 
-        <h2 class="text-4xl font-normal text-center mb-16 text-white">
+        <!-- TITULO -->
+        <h2 class="text-4xl font-normal text-center mb-16 text-gray-900">
             Preguntas <span class="text-red-600">frecuentes</span>
         </h2>
 
         <div class="space-y-5">
 
             <!-- ITEM 01 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">01</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Qué es Admin JR?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
                     Admin JR es un asistente administrativo digital que funciona desde WhatsApp
                     y te ayuda a llevar el control de tus ingresos y gastos de forma simple y ordenada.
                 </div>
             </div>
 
+
             <!-- ITEM 02 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">02</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Necesito descargar una app?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
-                    No. Admin JR funciona directamente en WhatsApp,
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                    No, Admin JR funciona directamente en WhatsApp,
                     sin descargas ni plataformas complicadas.
                 </div>
             </div>
 
+
             <!-- ITEM 03 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">03</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Para quién es Admin JR?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
                     Para emprendedores, pequeños negocios y freelancers que:
                     <ul class="list-disc pl-5 mt-2 space-y-1">
                         <li>Llevan su administración solos</li>
@@ -779,115 +786,148 @@ function sendMessage() {
                 </div>
             </div>
 
+
             <!-- ITEM 04 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">04</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Qué problemas me ayuda a resolver?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
                     <ul class="list-disc pl-5 space-y-1">
                         <li>No saber cuánto ganas realmente</li>
                         <li>Desorden financiero</li>
                         <li>Gastos que se pierden</li>
                         <li>Falta de control del dinero</li>
                     </ul>
-                    <p class="mt-2">Admin JR te ayuda a ordenar sin complicarte.</p>
+
+                    <p class="mt-2">
+                        Admin JR te ayuda a ordenar sin complicarte.
+                    </p>
                 </div>
             </div>
 
+
             <!-- ITEM 05 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">05</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Necesito saber de contabilidad?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
-                    No. Admin JR está diseñado para personas sin conocimientos contables.
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                    No, Admin JR está diseñado para personas sin conocimientos contables.
                     Solo registras movimientos de dinero de forma sencilla.
                 </div>
             </div>
 
+
             <!-- ITEM 06 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">06</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Admin JR reemplaza a un contador?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
-                    No. Admin JR no sustituye a un contador, pero sí te permite
-                    tener tu información organizada y lista cuando la necesites.
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                    No, Admin JR no sustituye a un contador,
+                    pero sí te permite tener tu información organizada y lista cuando la necesites.
                 </div>
             </div>
 
+
             <!-- ITEM 07 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">07</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Mi información está segura?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
-                    Sí. Tu información es privada y confidencial.
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                    Sí, tu información es privada y confidencial.
                     Solo tú tienes acceso a tus datos.
                 </div>
             </div>
 
+
             <!-- ITEM 08 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">08</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Cuánto cuesta Admin JR?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
                     El costo es de <strong>$129 MXN al mes</strong>.
                     Sin contratos largos ni compromisos forzosos.
                 </div>
             </div>
 
+
             <!-- ITEM 09 -->
-            <div class="faq-item rounded-2xl border border-white/10 bg-[#111111] transition duration-300 hover:border-red-500/40">
+            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
                 <button onclick="toggleFaq(this)"
                         class="w-full flex justify-between items-center px-6 py-6 text-left">
+
                     <div class="flex items-center gap-4">
                         <span class="text-red-600 font-semibold text-sm">09</span>
-                        <span class="text-white text-lg font-medium">
+                        <span class="text-gray-900 text-lg font-medium">
                             ¿Puedo ver cómo funciona antes de pagar?
                         </span>
                     </div>
+
                     <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+
                 </button>
-                <div class="faq-content hidden px-6 pb-6 text-white/60 leading-relaxed">
-                    Sí. Puedes crear una cuenta demo y conocer Admin JR antes
+
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                    Sí, puedes crear una cuenta demo y conocer Admin JR antes
                     de tomar cualquier decisión.
                 </div>
             </div>
@@ -903,22 +943,22 @@ function sendMessage() {
 
     <div class="max-w-4xl mx-auto">
 
-        <div class="relative rounded-3xl 
-                    border border-red-500/30
-                    bg-gradient-to-br from-[#0f0f0f] via-[#141414] to-[#1a0b0b]
-                    backdrop-blur-xl
-                    p-12 overflow-hidden">
+       <div class="relative rounded-3xl 
+            border border-gray-900/30
+            bg-white
+            shadow-xl
+            p-12 overflow-hidden">
 
             <!-- Glow decorativo -->
-            <div class="absolute -top-20 -left-20 w-72 h-72 bg-red-600/20 blur-3xl rounded-full"></div>
-            <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-red-500/10 blur-3xl rounded-full"></div>
+            <div class="absolute -top-20 -left-20 w-72 h-72 bg-red-500/20 blur-3xl rounded-full"></div>
+            <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-red-400/10 blur-3xl rounded-full"></div>
 
             <!-- Badge superior -->
             <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10">
-                <span class="bg-red-600/90 text-white text-xs 
+                <span class="bg-red-600 text-white text-xs 
                              px-5 py-1.5 rounded-full 
                              font-semibold tracking-wide 
-                             shadow-lg">
+                             shadow-md">
                     PLAN DISPONIBLE
                 </span>
             </div>
@@ -927,16 +967,17 @@ function sendMessage() {
 
                 <!-- LADO IZQUIERDO -->
                 <div>
-                    <h3 class="text-3xl font-medium text-white mb-4">
+                    <h3 class="text-3xl font-medium text-gray-900 mb-4">
                         Plan Básico
                     </h3>
 
-                    <p class="text-white/60 mb-8 leading-relaxed">
+                    <p class="text-gray-600 mb-8 leading-relaxed">
                         Todo lo que necesitas para administrar tu negocio desde WhatsApp
                         con reportes claros y automatizados.
                     </p>
 
-                    <ul class="space-y-4 text-white/80">
+                    <ul class="space-y-4 text-gray-700">
+
                         <li class="flex items-center gap-3">
                             <span class="w-2 h-2 bg-red-500 rounded-full"></span>
                             Hasta 3 números WhatsApp
@@ -956,6 +997,7 @@ function sendMessage() {
                             <span class="w-2 h-2 bg-red-500 rounded-full"></span>
                             Soporte por email
                         </li>
+
                     </ul>
                 </div>
 
@@ -963,10 +1005,10 @@ function sendMessage() {
                 <div class="text-center md:text-right">
 
                     <div class="mb-6">
-                        <span class="text-6xl font-light text-white">
+                        <span class="text-6xl font-light text-gray-900">
                             $129
                         </span>
-                        <span class="text-white/60 text-lg">
+                        <span class="text-gray-500 text-lg">
                             / mes
                         </span>
                     </div>
@@ -976,7 +1018,7 @@ function sendMessage() {
                                bg-red-600 hover:bg-red-700
                                text-white font-semibold
                                transition duration-300
-                               hover:shadow-lg hover:shadow-red-600/20">
+                               hover:shadow-lg hover:shadow-red-500/30">
                         Comenzar ahora
                     </a>
 
@@ -999,13 +1041,13 @@ function sendMessage() {
             <!-- Glow -->
             <div class="absolute inset-0 rounded-2xl 
                         bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
-                        blur-2xl opacity-60">
+                        blur-2xl opacity-30">
             </div>
 
             <!-- Imagen -->
             <div class="relative rounded-2xl overflow-hidden
-                        border border-white/10
-                        bg-white/5 backdrop-blur-xl shadow-2xl">
+                        border border-gray-200
+                        bg-white shadow-xl">
 
                 <img src="{{ asset('images/mockup10.png') }}"
                      alt="Admin JR app"
@@ -1020,24 +1062,19 @@ function sendMessage() {
     <!-- TEXTO -->
     <div class="relative space-y-8">
 
-        <!-- Glow decorativo -->
-        <div class="absolute inset-0 -z-10 flex justify-center items-center">
-            <div class="w-[60%] h-[60%] bg-red-700/20 blur-3xl rounded-full"></div>
-        </div>
-
-        <!-- Título estilo hero -->
-        <h3 class="text-4xl md:text-6xl font-light leading-[1.05] tracking-tight text-white">
+        <!-- Título -->
+        <h3 class="text-4xl md:text-6xl font-light leading-[1.05] tracking-tight text-gray-900">
             Activa tu 
-            <span class="text-red-500">asistente financiero</span>
+            <span class="text-red-600">asistente financiero</span>
         </h3>
 
         <!-- Línea decorativa -->
         <div class="w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
 
         <!-- Descripción -->
-        <p class="text-lg md:text-xl text-white/70 leading-relaxed max-w-xl">
+        <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
             Conecta tu número de WhatsApp y permite que 
-            <span class="text-red-500 font-medium">Admin JR</span>
+            <span class="text-red-600 font-medium">Admin JR</span>
             registre automáticamente los gastos de tu negocio,
             generando reportes y manteniendo tu control financiero
             siempre actualizado.
@@ -1049,7 +1086,7 @@ function sendMessage() {
                   bg-red-600 hover:bg-red-700
                   text-white font-semibold
                   transition duration-300
-                  hover:shadow-lg hover:shadow-red-600/20">
+                  hover:shadow-lg hover:shadow-red-500/30">
 
             Crear cuenta
         </a>
@@ -1059,45 +1096,45 @@ function sendMessage() {
 </section>
 </main>
 <!-- FOOTER-->
-<footer class="bg-white text-black border-t border-gray-200">
+<footer class="bg-zinc-950 text-gray-200 border-t border-zinc-800">
     <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-5 gap-8 items-start">
 
         <div class="md:col-span-2 space-y-3">
             <div class="flex items-center gap-3">
                 <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-10">
-                <h2 class="text-xl font-semibold">Controla tus gastos</h2>
+                <h2 class="text-xl font-semibold text-white">Controla tus gastos</h2>
             </div>
-            <p class="text-sm text-gray-600 max-w-sm">
+            <p class="text-sm text-gray-400 max-w-sm">
                 Convierte tus números en decisiones inteligentes para hacer crecer tu negocio.
             </p>
         </div>
 
         <div class="space-y-2 text-sm">
-            <h3 class="font-semibold">Avisos</h3>
-            <ul class="space-y-1 text-gray-600">
-                <li><a href="{{ route('aviso-de-privacidad') }}">Aviso de privacidad</a></li>
-                <li><a href="{{ route('terminos') }}">Términos y condiciones</a></li>
+            <h3 class="font-semibold text-white">Avisos</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="{{ route('aviso-de-privacidad') }}" class="hover:text-red-400 transition">Aviso de privacidad</a></li>
+                <li><a href="{{ route('terminos') }}" class="hover:text-red-400 transition">Términos y condiciones</a></li>
             </ul>
         </div>
 
         <div class="space-y-2 text-sm">
-            <h3 class="font-semibold">Equipo</h3>
-            <ul class="space-y-1 text-gray-600">
-                <li><a href="{{ route('nosotros') }}">Nosotros</a></li>
+            <h3 class="font-semibold text-white">Equipo</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="{{ route('nosotros') }}" class="hover:text-red-400 transition">Nosotros</a></li>
             </ul>
         </div>
 
         <div class="space-y-2 text-sm">
-            <h3 class="font-semibold">Social</h3>
-            <ul class="space-y-1 text-gray-600">
-                <li><a href="https://www.facebook.com/avaspace.io">Facebook</a></li>
-                <li><a href="https://www.instagram.com/avaspace.io/">Instagram</a></li>
-                <li><a href="https://www.youtube.com/@avaspace">YouTube</a></li>
+            <h3 class="font-semibold text-white">Social</h3>
+            <ul class="space-y-1 text-gray-400">
+                <li><a href="https://www.facebook.com/avaspace.io" class="hover:text-red-400 transition">Facebook</a></li>
+                <li><a href="https://www.instagram.com/avaspace.io/" class="hover:text-red-400 transition">Instagram</a></li>
+                <li><a href="https://www.youtube.com/@avaspace" class="hover:text-red-400 transition">YouTube</a></li>
             </ul>
         </div>
     </div>
 
-    <div class="border-t border-gray-200 py-4 text-center text-xs text-gray-500">
+    <div class="border-t border-zinc-800 py-4 text-center text-xs text-gray-500">
         © {{ date('Y') }} Avaspace. Todos los derechos reservados.
     </div>
 </footer>
@@ -1186,7 +1223,7 @@ function startAutoSlide() {
     }, 4500); // 4.5 segundos (tiempo para leer)
 }
 
-/* 🛑 Pausar si hacen click en cualquier card */
+
 cards.forEach((card) => {
     card.addEventListener("click", () => {
         isPaused = true;
@@ -1199,6 +1236,19 @@ startAutoSlide();
 </script>
 <style>
 
+/*telefono */
+@keyframes tooltipShow {
+    0% { opacity: 0; transform: translateY(10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    70% { opacity: 1; transform: translateY(0); }
+    85% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 0; transform: translateY(10px); }
+}
+
+.tooltip-auto {
+    opacity: 0;
+    animation: tooltipShow 8s infinite;
+}
 /* =========================
    CAROUSEL 3D
 ========================= */
@@ -1228,14 +1278,13 @@ startAutoSlide();
     padding: 2rem;
     text-align: center;
 
-    /* fondo claro elegante */
     background: rgba(255,255,255,0.9);
     backdrop-filter: blur(10px);
 
     border-radius: 1.8rem;
 
-    /* borde minimalista */
-    border: 1px solid rgba(0,0,0,0.08);
+    /* NUEVO BORDE */
+    border: 1px solid #000;
 
     transform-style: preserve-3d;
     transform-origin: center center;
@@ -1245,7 +1294,6 @@ startAutoSlide();
         transform 0.8s cubic-bezier(.25,.8,.25,1),
         opacity 0.8s ease;
 
-    /* sombra elegante */
     box-shadow:
         0 20px 40px rgba(0,0,0,0.08);
 }
@@ -1336,5 +1384,4 @@ html {
     0%,80%,100%{opacity:.2;}
     40%{opacity:1;}
 }
-
 </style>
