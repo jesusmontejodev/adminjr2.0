@@ -10,6 +10,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<!-- SCRIPT PARA FUNCIONALIDAD MÓVIL -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const menuBtn = document.getElementById('menuBtn');
@@ -17,18 +18,34 @@ document.addEventListener("DOMContentLoaded", function () {
     const navBar = document.getElementById('navBar');
 
     // Toggle menú móvil
-    menuBtn.addEventListener('click', function () {
+    menuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
         mobileMenu.classList.toggle('hidden');
     });
 
-    // Efecto scroll (transparencia)
+    // Cerrar menú al hacer click fuera
+    document.addEventListener('click', function(event) {
+        if (!mobileMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+
+    // Cerrar menú al hacer click en enlaces
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+    // Efecto scroll sutil
     window.addEventListener('scroll', function () {
         if (window.scrollY > 50) {
-            navBar.classList.add('bg-black/60','backdrop-blur-md','shadow-2xl');
-            navBar.classList.remove('bg-white/5','backdrop-blur-sm');
+            navBar.classList.add('bg-white/95', 'shadow-[0_8px_30px_rgb(0,0,0,0.1)]');
+            navBar.classList.remove('bg-white/95', 'shadow-[0_8px_30px_rgb(0,0,0,0.05)]');
         } else {
-            navBar.classList.remove('bg-black/60','backdrop-blur-md','shadow-2xl');
-            navBar.classList.add('bg-white/5','backdrop-blur-sm');
+            navBar.classList.remove('bg-white/95', 'shadow-[0_8px_30px_rgb(0,0,0,0.1)]');
+            navBar.classList.add('bg-white/95', 'shadow-[0_8px_30px_rgb(0,0,0,0.05)]');
         }
     });
 });
@@ -190,91 +207,118 @@ function sendMessage() {
 
 
 <body class="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 text-gray-800 overflow-x-hidden">
-<!-- HEADER -->
+<!-- HEADER PREMIUM V2 - Botones elegantes y coherentes -->
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-3 transition-all duration-300">
 <nav id="navBar" class="
     flex items-center justify-between
     w-full max-w-5xl
     rounded-full
-    px-6 py-4
-    bg-white/40
-    backdrop-blur-xl
-    border border-gray-200/60
-    shadow-lg
+    px-6 py-3
+    bg-white/95
+    backdrop-blur-md
+    border border-gray-200/80
+    shadow-[0_8px_30px_rgb(0,0,0,0.05)]
     transition-all duration-300
     relative">
 
-    <!-- LOGO -->
-    <div class="flex items-center gap-2">
-        <img src="{{ asset('avaspace.svg') }}"
-            alt="Avaspace"
-            class="h-7 sm:h-8">
-    </div>
+    <!-- LOGO Avaspace -->
+    <a href="/" class="flex items-center gap-2.5 group">
+        <div class="relative">
+            <img src="{{ asset('avaspace.svg') }}"
+                alt="Avaspace"
+                class="h-9 sm:h-10 relative z-11">
+        </div>
+    </a>
 
     <!-- MENU DESKTOP -->
-    <div class="hidden md:flex items-center text-sm text-gray-700
-        absolute left-1/2 -translate-x-1/2
-        gap-10">
+    <div class="hidden md:flex items-center absolute left-1/2 -translate-x-1/2 gap-8">
+        <a href="{{ route('nosotros') }}" class="text-sm font-medium text-gray-600 hover:text-red-600 transition-colors px-1">Contacto</a>
+        <a href="#funciones" class="text-sm font-medium text-gray-600 hover:text-red-600 transition-colors px-1">Funciones</a>
+        <a href="#precios" class="text-sm font-medium text-gray-600 hover:text-red-600 transition-colors px-1">Precios</a>
+</div>
 
-        <a href="{{ route('nosotros') }}" class="hover:text-red-600 transition">Contacto</a>
-        <a href="#funciones" class="hover:text-red-600 transition">Funciones</a>
-        <a href="#precios" class="hover:text-red-600 transition">Precios</a>
-        <a href="{{ route('login') }}" class="hover:text-red-600 transition">Iniciar sesión</a>
-        <a href="{{ route('register') }}" class="hover:text-red-600 transition">Crear cuenta</a>
+    <!-- BOTONES DESKTOP - MÁS BONITOS -->
+    <div class="hidden md:flex items-center gap-2">
+<!-- Botón Iniciar sesión - Outline negro con hover lleno -->
+<a href="{{ route('login') }}"
+   class="px-5 py-2 bg-transparent border border-gray-800 hover:bg-gray-900 text-gray-800 hover:text-white text-sm font-medium rounded-full
+          transition-all duration-200">
+    Iniciar sesión
+</a>
+        <!-- Botón Crear cuenta con gradiente y sombra -->
+        <a href="{{ route('register') }}"
+           class="px-5 py-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-sm font-semibold rounded-full
+                  shadow-md shadow-red-200 hover:shadow-lg hover:shadow-red-300
+                  transition-all duration-200 hover:scale-105
+                  flex items-center gap-1.5">
+            <span>Crear cuenta</span>
+        </a>
     </div>
 
-    <!-- BOTÓN HAMBURGUESA -->
-    <button id="menuBtn" class="md:hidden text-gray-700 ml-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16" />
+    <!-- BOTÓN HAMBURGUESA MÓVIL -->
+    <button id="menuBtn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-red-300 text-gray-600 hover:text-red-600 hover:bg-red-50 transition-all shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
     </button>
 
-    <!-- MENU MÓVIL -->
+    <!-- MENU MÓVIL - Con botones idénticos a desktop -->
     <div id="mobileMenu" class="
         absolute top-full right-4 mt-4
         hidden
-        w-52
-        bg-white/80
-        backdrop-blur-xl
+        w-72
+        bg-white/95
+        backdrop-blur-md
         border border-gray-200
         rounded-2xl
         shadow-2xl
-        p-4
+        p-5
         space-y-3
         text-gray-700
     ">
-        <a href="{{ route('nosotros') }}" class="block hover:text-red-600">Contacto</a>
-        <a href="#funciones" class="block hover:text-red-600">Funciones</a>
-        <a href="#precios" class="block hover:text-red-600">Precios</a>
-
-        <hr class="border-gray-200">
-
-        <a href="{{ route('login') }}" class="block text-center bg-red-600 hover:bg-red-700 transition
-            text-white font-medium py-2 rounded-xl">
-            Iniciar sesión
-        </a>
-
-        <a href="{{ route('register') }}"
-            class="block text-center bg-red-600 hover:bg-red-700 transition
-            text-white font-medium py-2 rounded-xl">
-            Crear cuenta
-        </a>
+        <!-- Header del menú móvil -->
+        <div class="flex items-center gap-3 pb-4 border-b border-gray-100">
+            <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-10 w-auto">
+            <div>
+                <div class="text-base font-semibold text-gray-900">Avaspace</div>
+                <div class="text-xs text-gray-500">Admin JR</div>
+            </div>
+        </div>
+        
+        <!-- Opciones del menú -->
+        <a href="{{ route('nosotros') }}" class="block px-4 py-3 text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all font-medium">Contacto</a>
+        <a href="#funciones" class="block px-4 py-3 text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all font-medium">Funciones</a>
+        <a href="#precios" class="block px-4 py-3 text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all font-medium">Precios</a>
+        
+        <!-- BOTONES MÓVIL - EXACTAMENTE IGUALES A DESKTOP -->
+        <div class="pt-4 mt-2 border-t border-gray-100 space-y-3">
+            <!-- Botón Iniciar sesión con borde (idéntico a desktop) -->
+            <a href="{{ route('login') }}" 
+               class="flex items-center justify-center w-full px-5 py-3 bg-white border border-gray-300 hover:border-red-300 text-gray-700 hover:text-red-600 text-sm font-medium rounded-xl shadow-sm hover:shadow transition-all">
+                Iniciar sesión
+            </a>
+            
+            <!-- Botón Crear cuenta con gradiente (idéntico a desktop) -->
+            <a href="{{ route('register') }}" 
+               class="flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-sm font-semibold rounded-xl shadow-md shadow-red-200 hover:shadow-lg transition-all gap-2">
+                <span>Crear cuenta gratis</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+            </a>
+        </div>
     </div>
 
 </nav>
 </header>
+<!-- HERO SECTION - Versión Ejecutiva Premium -->
 <section class="relative pt-44 pb-36 flex flex-col items-center text-center overflow-hidden">
 
-   <!-- Badge minimalista -->
-<div class="mb-8 px-6 py-2.5 rounded-full
-            bg-black/85 border border-gray-800
-            text-sm text-white
-            flex items-center gap-3
-            shadow-sm
-            hover:border-red-500 hover:shadow-md hover:shadow-red-500/20
+    <!-- Badge minimalista mejorado (estilo consistente) -->
+<div class="mb-8 inline-flex items-center gap-3 px-6 py-3 
+            bg-white border-2 border-gray-900 rounded-full 
+            shadow-[3px_3px_0_0_#000000]
+            hover:border-red-600 hover:shadow-[4px_4px_0_0_#dc2626]
             transition-all duration-300
             group">
 
@@ -282,10 +326,11 @@ function sendMessage() {
         <img src="{{ asset('avaspace.svg') }}" alt="Avaspace" class="h-6">
     </div>
 
-    <span class="tracking-wide">
+    <span class="text-sm font-bold text-gray-900 tracking-wide">
         Tu asistente administrativo inteligente
     </span>
-
+    
+    <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse"></span>
 </div>
 
     <!-- Título limpio -->
@@ -323,7 +368,7 @@ function sendMessage() {
         <span class="text-gray-900 font-medium">sin esfuerzo</span>.
     </p>
 
-  <!-- IMAGEN con diseño limpio -->
+     <!-- IMAGEN con diseño limpio -->
 <div class="mt-14 flex justify-center w-full max-w-5xl px-4">
     <div class="relative w-full max-w-sm group mx-auto">
 
@@ -343,202 +388,324 @@ function sendMessage() {
                 class="relative w-full h-auto object-contain rounded-3xl
                        transform group-hover:scale-[1.01] transition-transform duration-300">
 
-            <!-- Tooltip 1 -->
-<div class="absolute top-20 -left-20
-            bg-red-600/85 border border-red-500/60
-            text-white text-sm px-4 py-2 rounded-lg
-            shadow-lg shadow-red-900/20
-            backdrop-blur-sm
-            tooltip-auto tooltip-delay-1
-            before:absolute before:top-1/2 before:-right-2 before:w-2 before:h-2
-            before:bg-red-600/85 before:border-r before:border-t before:border-red-500/60
-            before:rotate-45 before:-translate-y-1/2">
-    Categorizado automáticamente
-</div>
+            <!-- Tooltips (INTACTOS - sin cambios) -->
+            <div class="absolute top-20 -left-20
+                        bg-red-600/90 border border-red-500/60
+                        text-white text-sm px-4 py-2 rounded-lg
+                        shadow-[4px_4px_0_0_#000000]
+                        backdrop-blur-sm
+                        tooltip-auto tooltip-delay-1
+                        before:absolute before:top-1/2 before:-right-2 before:w-2 before:h-2
+                        before:bg-red-600/90 before:border-r before:border-t before:border-red-500/60
+                        before:rotate-45 before:-translate-y-1/2">
+                Categorizado automáticamente
+            </div>
 
+            <div class="absolute top-40 -right-20
+                        bg-red-600/90 border border-red-500/60
+                        text-white text-sm px-4 py-2 rounded-lg
+                        shadow-[4px_4px_0_0_#000000]
+                        backdrop-blur-sm
+                        tooltip-auto tooltip-delay-2
+                        before:absolute before:top-1/2 before:-left-2 before:w-2 before:h-2
+                        before:bg-red-600/90 before:border-l before:border-b before:border-red-500/60
+                        before:rotate-45 before:-translate-y-1/2">
+                Procesado en segundos
+            </div>
 
-<!-- Tooltip 2 -->
-<div class="absolute top-40 -right-20
-            bg-red-600/85 border border-red-500/60
-            text-white text-sm px-4 py-2 rounded-lg
-            shadow-lg shadow-red-900/20
-            backdrop-blur-sm
-            tooltip-auto tooltip-delay-2
-            before:absolute before:top-1/2 before:-left-2 before:w-2 before:h-2
-            before:bg-red-600/85 before:border-l before:border-b before:border-red-500/60
-            before:rotate-45 before:-translate-y-1/2">
-    Procesado en segundos
-</div>
-
-
-<!-- Tooltip 3 -->
-<div class="absolute bottom-32 -right-12
-            bg-red-600/85 border border-red-500/60
-            text-white text-sm px-4 py-2 rounded-lg
-            shadow-lg shadow-red-900/20
-            backdrop-blur-sm
-            tooltip-auto tooltip-delay-3
-            before:absolute before:top-full before:left-6 before:w-2 before:h-2
-            before:bg-red-600/85 before:border-l before:border-t before:border-red-500/60
-            before:rotate-45 before:-translate-y-[5px]">
-    Registro de tus finanzas
-</div>
+            <div class="absolute bottom-32 -right-12
+                        bg-red-600/90 border border-red-500/60
+                        text-white text-sm px-4 py-2 rounded-lg
+                        shadow-[4px_4px_0_0_#000000]
+                        backdrop-blur-sm
+                        tooltip-auto tooltip-delay-3
+                        before:absolute before:top-full before:left-6 before:w-2 before:h-2
+                        before:bg-red-600/90 before:border-l before:border-t before:border-red-500/60
+                        before:rotate-45 before:-translate-y-[5px]">
+                Registro de tus finanzas
+            </div>
         </div>
     </div>
 
-    <!-- CTA elegante -->
+    <!-- CTA con efecto de brillo -->
     <div class="mt-14">
         <a href="{{ route('register') }}"
-           class="inline-flex items-center gap-3 px-8 py-4
-                  bg-red-600 hover:bg-red-700
+           class="relative inline-flex items-center gap-3 px-8 py-4
+                  bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
                   text-white font-medium text-lg
                   rounded-full
-                  transition-all duration-300
-                  shadow-md shadow-red-200
-                  hover:shadow-lg hover:shadow-red-300
+                  transition-all duration-500
+                  shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#000000]
                   hover:scale-105
+                  overflow-hidden
                   group">
             
-            Comenzar ahora
+            <!-- Efecto de brillo -->
+            <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
             
-            <!-- Icono sutil -->
-            <svg class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" 
+            <!-- Texto e icono -->
+            <span class="relative z-10">Comenzar ahora</span>
+            <svg class="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
                  fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
         </a>
     </div>
 
-    <!-- Elementos decorativos muy sutiles -->
-    <div class="absolute top-1/2 left-0 w-96 h-96 bg-red-50 rounded-full blur-3xl -z-10 opacity-30"></div>
-    <div class="absolute bottom-1/2 right-0 w-96 h-96 bg-red-50 rounded-full blur-3xl -z-10 opacity-30"></div>
+    <!-- Elementos decorativos sutiles -->
+    <div class="absolute top-1/2 left-0 w-96 h-96 bg-gradient-to-r from-red-500/10 to-transparent rounded-full blur-3xl -z-10"></div>
+    <div class="absolute bottom-1/2 right-0 w-96 h-96 bg-gradient-to-l from-red-500/10 to-transparent rounded-full blur-3xl -z-10"></div>
+    
+    <!-- Líneas decorativas abstractas -->
+    <div class="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30"></div>
+    <div class="absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-transparent via-red-500/20 to-transparent opacity-30"></div>
 </section>
-<!---segunda sección-->
-<section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
+<!-- SECCIÓN VIDEO - Versión Ejecutiva Premium -->
+<section class="relative mt-24 flex flex-col items-center overflow-hidden px-6">
 
-     <!-- Titular -->
-    <h1 class="text-4xl md:text-6xl xl:text-7xl 
-               font-light tracking-tight 
-               leading-[1.08] 
-               max-w-4xl mx-auto text-black">
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
+    </div>
 
-        Para el emprendedor que quiere hacer <br>
+    <!-- Badge superior (opcional) -->
+    <div class="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-gray-900 rounded-full mb-8 shadow-[3px_3px_0_0_#000000] z-10">
+        <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+        <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">VIDEO DEMOSTRATIVO</span>
+    </div>
 
-        <span class="text-red-500">crecer</span><br>
+    <!-- Contenedor de video con diseño mejorado -->
+    <div class="relative w-full max-w-5xl group">
+        
+        <!-- Glows decorativos -->
+        <div class="absolute -inset-4 rounded-3xl bg-gradient-to-r from-red-600/20 via-amber-500/10 to-transparent blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-700"></div>
+        <div class="absolute -inset-2 rounded-3xl bg-black/10 blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
+        
+        <!-- Marco decorativo -->
+        <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-600 to-amber-500 opacity-0 group-hover:opacity-30 blur transition-all duration-500"></div>
 
-        su negocio,
-        no su papeleo.
+        <!-- Contenedor del video con bordes y sombras estilo premium -->
+        <div class="relative rounded-2xl overflow-hidden
+                    border-2 border-gray-900
+                    bg-white
+                    shadow-[8px_8px_0_0_#000000]
+                    group-hover:shadow-[12px_12px_0_0_#dc2626]
+                    transition-all duration-500
+                    transform group-hover:scale-[1.01]">
 
-    </h1>
+            <!-- Barra superior estilo ventana (INTACTA) -->
+            <div class="flex items-center gap-2 px-4 py-3 bg-gray-100 border-b-2 border-gray-900">
+                <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+                <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                <span class="text-xs font-medium text-gray-600 ml-2">Admin JR - Demo</span>
+            </div>
 
-    <!-- Línea decorativa -->
-    <div class="mt-6 w-20 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
-
-    <!-- Subtítulo -->
-    <p class="mt-8 text-lg md:text-xl text-black 
-              max-w-2xl mx-auto leading-relaxed">
-
-        Descubre la fortuna que se esconde en tu flujo de caja.
-        Reporta ventas y gastos por 
-        <span class="text-red-500 font-medium">WhatsApp</span>
-        y deja que 
-        <span class="text-red-500 font-medium">Admin JR</span>
-        genere tus resúmenes financieros
-        mientras tú te enfocas en crecer.
-
-    </p>
-
-    <!----<div class="mt-12 flex justify-center">--->
-
-        <!-- Imagen con glow elegante -->
-        <!---<div class="mt-16 relative w-full max-w-md">-->
-
-            <!-- Glow detrás de la imagen -->
-            <!---<div class="absolute inset-0 rounded-3xl 
-                        bg-gradient-to-r from-red-500/40 via-pink-500/30 to-purple-500/30
-                        blur-3xl opacity-60">
-            </div>--->
-
-            <!-- Imagen -->
-            <!----<img src="{{ asset('images/mockupgif.gif') }}"
-                 alt="Mockup Admin JR"
-                 class="relative w-full h-auto object-contain rounded-2xl">---->
-
-        <!---</div>--->
-
-    <!---</div>--->
-
-</section>
-
-<!-- VIDEO -->
-<section class="relative mt-24 flex flex-col items-center">
-
-    <div class="relative w-full max-w-5xl rounded-2xl overflow-hidden bg-white/10 backdrop-blur-xl border border-white/10 shadow-2xl">
-        <div class="flex items-center gap-2 px-4 py-3 bg-black/40">
-            <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
-            <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-        </div>
-
-        <div class="aspect-video">
-            <iframe class="w-full h-full"
-                    src="https://www.youtube.com/embed/qeDBw6sXNTw"
-                    allowfullscreen>
-            </iframe>
+            <!-- Video (INTACTO) -->
+            <div class="aspect-video bg-black">
+                <iframe class="w-full h-full"
+                        src="https://www.youtube.com/embed/qeDBw6sXNTw"
+                        allowfullscreen>
+                </iframe>
+            </div>
         </div>
     </div>
 
-    <!-- TEXTO DEBAJO DEL VIDEO -->
-    <p class="mt-6 text-black text-center max-w-3xl text-lg">
-        Mira cómo puedes registrar tus gastos en segundos usando solo WhatsApp
-        y llevar el control de tus finanzas sin planillas ni complicaciones.
-    </p>
-
-    <div class="mt-10">
+    <!-- TEXTO DEBAJO DEL VIDEO (mejorado) -->
+    <div class="mt-10 max-w-3xl text-center relative z-10">
+        
+        
+        <!-- Texto con estilo mejorado (mismo contenido) -->
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed border-l-2 border-red-200 pl-6 italic">
+            "Mira cómo puedes registrar tus gastos en segundos usando solo WhatsApp
+            y llevar el control de tus finanzas sin planillas ni complicaciones."
+        </p>
+        <br>
+        
+       <!-- Línea decorativa superior -->
+        <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mb-6 shadow-[1px_1px_0_0_#000000]"></div>
+<!-- Botón con efecto de brillo y estilo premium (CORREGIDO) -->
+<div class="mt-10 relative z-10">
     <a href="{{ route('register') }}"
-       class="inline-flex items-center gap-3 px-8 py-4
-              bg-red-600 hover:bg-red-500
+       class="relative inline-flex items-center gap-3 px-8 py-4
+              bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
               text-white font-medium text-lg
               rounded-full
-              transition duration-300
-              shadow-lg shadow-red-600/30
-              hover:shadow-red-500/50
-              hover:scale-105">
-        Crear cuenta
+              transition-all duration-500
+              shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#000000]
+              hover:scale-105
+              overflow-hidden
+              group">
+        
+        <!-- Efecto de brillo - CORREGIDO -->
+        <span class="absolute inset-0 bg-white/30 w-[200%] h-full -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 skew-x-12"></span>
+        
+        <!-- Texto del botón -->
+        <span class="relative z-10">Crear cuenta</span>
+        
+        <!-- Icono flecha -->
+        <svg class="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
     </a>
 </div>
+</section>
 
+<!-- TERCERA SECCIÓN - Versión Ejecutiva Premium -->
+<section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
+
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6">
+
+        <!-- Badge superior estilo premium -->
+        <div class="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-gray-900 rounded-full mb-8 shadow-[3px_3px_0_0_#000000]">
+            <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+            <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">PARA EMPRENDEDORES</span>
+        </div>
+
+        <!-- Titular (textos intactos) -->
+        <h1 class="text-4xl md:text-6xl xl:text-7xl 
+                   font-light tracking-tight 
+                   leading-[1.08] 
+                   max-w-4xl mx-auto text-gray-900
+                   relative">
+
+            Para el emprendedor que quiere hacer <br>
+
+            <span class="text-red-600 font-bold relative">
+                crecer
+            </span><br>
+
+            su negocio,
+            no su papeleo.
+
+        </h1>
+
+        <!-- Línea decorativa con gradiente y sombra -->
+        <div class="mt-6 w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto shadow-[1px_1px_0_0_#000000]"></div>
+
+        <!-- Subtítulo (textos intactos) -->
+        <p class="mt-8 text-lg md:text-xl text-gray-700 
+                  max-w-3xl mx-auto leading-relaxed
+                  border-l-2 border-red-200 pl-6 italic">
+
+            "Descubre la fortuna que se esconde en tu flujo de caja.
+            Reporta ventas y gastos por 
+            <span class="font-bold text-red-600">WhatsApp</span>
+            y deja que 
+            <span class="font-bold text-red-600">Admin JR</span>
+            genere tus resúmenes financieros
+            mientras tú te enfocas en crecer."
+
+        </p>
+   <!-- SECCIÓN IMAGEN - Versión Ejecutiva Premium -->
+<div class="mt-12 flex justify-center relative z-10">
+
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-red-500/5 to-amber-500/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <!-- Contenedor de imagen con diseño mejorado -->
+    <div class="relative w-full max-w-md group">
+
+        <!-- Glow principal más elegante (reemplaza al anterior) -->
+        <div class="absolute inset-0 rounded-3xl 
+                    bg-gradient-to-r from-red-600/30 via-red-500/20 to-transparent
+                    blur-3xl
+                    opacity-50
+                    group-hover:opacity-70
+                    transition-opacity duration-700">
+        </div>
+        
+        <!-- Segundo glow para profundidad -->
+        <div class="absolute inset-0 rounded-3xl 
+                    bg-black/10
+                    blur-2xl
+                    opacity-40
+                    group-hover:opacity-50
+                    transition-opacity duration-700">
+        </div>
+
+        <!-- Marco decorativo estilo premium -->
+        <div class="absolute -inset-2 rounded-3xl bg-gradient-to-r from-red-600 to-amber-500 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500"></div>
+
+        <!-- Contenedor de imagen con bordes y sombras estilo premium -->
+        <div class="relative rounded-2xl overflow-hidden
+                    border-2 border-gray-900
+                    bg-white
+                    shadow-[8px_8px_0_0_#000000]
+                    group-hover:shadow-[12px_12px_0_0_#dc2626]
+                    transition-all duration-500
+                    transform group-hover:scale-[1.02]">
+
+            <!-- Imagen (INTACTA) -->
+            <img src="{{ asset('images/mockupgif.gif') }}"
+                 alt="Mockup Admin JR"
+                 class="relative w-full h-auto object-contain z-10">
+
+        </div>
+
+    <!-- Elementos decorativos sutiles -->
+    <div class="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30"></div>
+    <div class="absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-transparent via-red-500/20 to-transparent opacity-30"></div>
 </section>
 
 <!-- MAIN -->
 <main class="max-w-7xl mx-auto px-6 pt-24 pb-24 relative">
 
-<!-- HERO -->
-<section class="relative mt-32 flex flex-col items-center text-center">
+<!-- HERO SECTION (CHAT) - Versión Ejecutiva Premium -->
+<section class="relative mt-32 flex flex-col items-center text-center overflow-hidden px-6">
 
-    <!-- Glow suave -->
-    <div class="absolute top-1/4 -z-10 w-[420px] h-[420px] bg-red-500/20 blur-[160px] rounded-full"></div>
+    <!-- Elementos decorativos de fondo mejorados -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -z-10 w-[600px] h-[600px] bg-gradient-to-r from-red-600/10 via-red-500/5 to-transparent blur-[160px] rounded-full"></div>
+    <div class="absolute bottom-1/4 right-1/4 -z-10 w-[400px] h-[400px] bg-amber-500/10 blur-[120px] rounded-full"></div>
+    
+    <!-- Líneas decorativas abstractas -->
+    <div class="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30"></div>
+    <div class="absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-transparent via-red-500/20 to-transparent opacity-30"></div>
 
-    <div class="max-w-3xl mx-auto text-center">
+    <div class="relative z-10 max-w-4xl mx-auto">
 
-        <!-- TITULO -->
+        <!-- Badge superior -->
+        <div class="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-gray-900 rounded-full mb-8 shadow-[3px_3px_0_0_#000000]">
+            <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+            <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">PRUÉBALO AHORA</span>
+        </div>
+
+        <!-- TITULO con diseño mejorado -->
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight mb-6 text-gray-900">
             Si sabes enviar un 
-            <span class="text-red-600">mensaje</span>,
+            <span class="text-red-600 font-bold relative">
+                mensaje
+               
+            </span>,
             ya sabes dominar tus 
-            <span class="text-red-600">finanzas.</span>
+            <span class="text-red-600 font-bold relative">
+                finanzas
+
+            </span>.
         </h2>
 
-        <!-- SUBTITULO -->
-        <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            Compruébalo por ti mismo ahora. 
-            Solo presiona "Enviar" y mira cómo la IA procesa tu mensaje.
+        <!-- Línea decorativa con gradiente -->
+        <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mb-6 shadow-[1px_1px_0_0_#000000]"></div>
+
+        <!-- SUBTITULO con diseño mejorado -->
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto border-l-2 border-red-200 pl-6 italic">
+            "Compruébalo por ti mismo ahora. 
+            Solo presiona 'Enviar' y mira cómo la IA procesa tu mensaje."
         </p>
 
         <br>
 
     </div>
-
     <!-- PANEL - CHAT MEJORADO -->
     <div class="w-full max-w-xl chat-demo-container rounded-xl overflow-hidden">
         <!-- CHAT -->
@@ -566,186 +733,277 @@ function sendMessage() {
             Enviar
         </button>
     </div>
-
-    <!-- Pequeño texto de ayuda -->
-    <p class="text-xs text-gray-400 mt-3">Haz clic en "Enviar" y verás cómo extrae: 300, ropa, tarjeta</p>
-
 </section>
 
 <script src="/js/chat-demo.js"></script>
-<!-- SECCIÓN 4 -->
-<section class="mt-32 grid md:grid-cols-2 gap-16 items-center px-6 max-w-6xl mx-auto">
+<!-- SECCIÓN 4 - Versión Ejecutiva Premium -->
+<section class="mt-32 grid md:grid-cols-2 gap-16 items-center px-6 max-w-6xl mx-auto relative overflow-hidden">
 
-    <!-- TEXTO -->
-    <div class="space-y-8">
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
+    </div>
 
-        <!-- Título -->
+    <!-- TEXTO con diseño mejorado -->
+    <div class="space-y-8 relative z-10">
+
+        <!-- Badge superior (opcional) -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-2 border-gray-900 rounded-full shadow-[2px_2px_0_0_#000000]">
+            <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+            <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">TRANQUILIDAD FINANCIERA</span>
+        </div>
+
+        <!-- Título con diseño mejorado -->
         <h2 class="text-4xl md:text-6xl xl:text-7xl font-light leading-[1.05] tracking-tight text-gray-900">
             Despídete de la 
-            <span class="text-red-600">ansiedad financiera</span>
+            <span class="text-red-600 font-bold relative">
+                ansiedad financiera
+            </span>
             para siempre.
         </h2>
 
-        <!-- Línea decorativa -->
-        <div class="w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+        <!-- Línea decorativa con gradiente y sombra -->
+        <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full shadow-[1px_1px_0_0_#000000]"></div>
 
-        <!-- Subtítulo -->
-        <p class="text-lg md:text-xl text-gray-600 max-w-xl leading-relaxed">
-            La claridad es poder. Al ver tu dinero organizado en 
-            <span class="text-gray-900 font-medium">tiempo real</span>,
+        <!-- Subtítulo con diseño mejorado -->
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-xl border-l-2 border-red-200 pl-6 italic">
+            "La claridad es poder. Al ver tu dinero organizado en 
+            <span class="font-bold text-gray-900">tiempo real</span>,
             recuperas el control y la tranquilidad que necesitas
             para hacer crecer tu 
-            <span class="text-red-600 font-medium">negocio</span> 
-            o tu ahorro personal.
+            <span class="font-bold text-red-600">negocio</span> 
+            o tu ahorro personal."
         </p>
-
+        
+        <!-- Lista de beneficios (opcional) -->
+        <ul class="space-y-2 pt-4">
+            <li class="flex items-center gap-2 text-gray-600">
+                <span class="w-1.5 h-1.5 bg-red-600 rounded-full"></span>
+                <span class="text-sm">Control total de tus finanzas</span>
+            </li>
+            <li class="flex items-center gap-2 text-gray-600">
+                <span class="w-1.5 h-1.5 bg-red-600 rounded-full"></span>
+                <span class="text-sm">Toma decisiones informadas</span>
+            </li>
+        </ul>
     </div>
 
-    <!-- IMAGEN -->
-    <div class="flex justify-center">
-        <div class="relative w-full max-w-sm">
+    <!-- IMAGEN con diseño mejorado -->
+    <div class="flex justify-center relative z-10">
+        <div class="relative w-full max-w-sm group">
 
-            <!-- Contenedor imagen -->
-            <div class="rounded-2xl overflow-hidden
-                        border border-gray-200
-                        bg-white shadow-lg">
+            <!-- Glows decorativos -->
+            <div class="absolute inset-0 rounded-2xl 
+                        bg-gradient-to-r from-red-600/20 via-red-500/10 to-transparent
+                        blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-700">
+            </div>
+            
+            <div class="absolute inset-0 rounded-2xl 
+                        bg-black/10
+                        blur-2xl opacity-30 group-hover:opacity-40 transition-opacity duration-700">
+            </div>
+
+            <!-- Marco decorativo -->
+            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-600 to-amber-500 opacity-0 group-hover:opacity-30 blur transition-all duration-500"></div>
+
+            <!-- Contenedor imagen con bordes y sombras estilo premium -->
+            <div class="relative rounded-2xl overflow-hidden
+                        border-2 border-gray-900
+                        bg-white
+                        shadow-[8px_8px_0_0_#000000]
+                        group-hover:shadow-[12px_12px_0_0_#dc2626]
+                        transition-all duration-500
+                        transform group-hover:scale-[1.02]">
 
                 <img src="{{ asset('images/mockup3.png') }}"
                      alt="Mockup Admin JR"
-                     class="w-full h-auto object-contain">
+                     class="w-full h-auto object-contain relative z-10">
 
             </div>
-
-        </div>
-    </div>
-
+            
+    
+    <!-- Líneas decorativas laterales -->
+    <div class="absolute left-10 top-1/2 -translate-y-1/2 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30 hidden lg:block"></div>
+    <div class="absolute right-10 top-1/2 -translate-y-1/2 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30 hidden lg:block"></div>
 </section>
+<!-- SECCIÓN FUNCIONES - Diseño Premium estilo Plan Único (CORREGIDO) -->
 <section id="funciones" class="mt-40 relative overflow-hidden px-6">
+    
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-red-500/3 to-amber-500/3 rounded-full blur-3xl"></div>
+    </div>
 
     <div class="relative z-10 max-w-6xl mx-auto">
 
-        <!-- TITULO -->
-        <div class="text-center mb-20">
-            <h3 class="text-3xl md:text-5xl font-light text-gray-900 mb-6 tracking-tight">
+        <!-- TITULO con badge superior -->
+        <div class="text-center mb-16">
+            <!-- Badge superior estilo Plan Único -->
+            <div class="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-gray-900 rounded-full mb-6 shadow-[3px_3px_0_0_#000000]">
+                <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+                <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">FUNCIONES</span>
+            </div>
+    
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight mb-6 text-gray-900">
                 Control total de tu negocio,
-                <span class="text-red-600 font-normal">desde WhatsApp</span>
-            </h3>
+                <span class="text-red-600 font-bold">desde WhatsApp</span>
+            </h1>
+            
+            <!-- Subrayado con gradiente -->
+            <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mb-6 shadow-[1px_1px_0_0_#000000]"></div>
 
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-                Admin JR convierte cada mensaje en información organizada,
-                reportes automáticos y decisiones más inteligentes.
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed border-l-2 border-red-200 pl-6 italic">
+                "Admin JR convierte cada mensaje en información organizada,
+                reportes automáticos y decisiones más inteligentes."
             </p>
         </div>
 
-        <!-- CAROUSEL -->
-        <div class="relative w-full flex justify-center items-center">
+        <!-- CAROUSEL 3D - Cards con diseño estilo Plan Único -->
+        <div class="relative w-full flex justify-center items-center py-8">
+            
             <div id="carousel" class="carousel-3d">
 
-                <!-- CARD 1 -->
+                <!-- CARD 1 - Registro en 3 segundos -->
                 <div class="card-3d 
-                    rounded-2xl 
-                    border border-gray-200
+                    rounded-3xl 
+                    border-2 border-gray-900
                     bg-white
                     p-10 
                     text-center 
-                    transition duration-300 
-                    hover:border-red-500/40">
+                    transition-all duration-500 
+                    hover:border-red-600
+                    hover:shadow-[8px_8px_0_0_#dc2626]
+                    shadow-[4px_4px_0_0_#000000]
+                    relative
+                    overflow-hidden
+                    group">
 
-                    <div class="flex justify-center mb-8">
-                        <div class="w-14 h-14 flex items-center justify-center 
-                                    rounded-xl 
-                                    bg-red-600/10 
-                                    border border-red-200">
-
+                    <!-- Elemento decorativo superior -->
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-500/10 to-amber-500/10 rounded-bl-full"></div>
+                    
+                    <!-- Icono con estilo premium -->
+                    <div class="flex justify-center mb-8 relative z-10">
+                        <div class="w-16 h-16 flex items-center justify-center 
+                                    rounded-2xl 
+                                    bg-gradient-to-br from-red-600 to-red-500
+                                    border-2 border-gray-900
+                                    shadow-[3px_3px_0_0_#000000]
+                                    group-hover:shadow-[5px_5px_0_0_#000000]
+                                    transition-all duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
-                                class="w-7 h-7 text-red-600">
+                                class="w-8 h-8 text-white">
                                 <path d="M12 2C6.48 2 2 6.02 2 11.5S6.48 21 12 21s10-4.02 10-9.5S17.52 2 12 2zm1 15.93V19h-2v-1.07c-1.72-.2-3-1.39-3-3.01h2c0 .83.67 1.5 1.5 1.5S13 15.75 13 15s-.67-1.5-1.5-1.5c-1.93 0-3.5-1.57-3.5-3.5 0-1.62 1.28-2.81 3-3.01V5h2v1.07c1.72.2 3 1.39 3 3.01h-2c0-.83-.67-1.5-1.5-1.5S11 8.25 11 9s.67 1.5 1.5 1.5c1.93 0 3.5 1.57 3.5 3.5 0 1.62-1.28 2.81-3 3.01z"/>
                             </svg>
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-semibold text-gray-900 mb-4 tracking-wide">
-                        Registro en <span class="text-red-600">3 segundos</span>
-                    </h4>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 tracking-wide">
+                        Registro en <span class="text-red-600 bg-red-50 px-2 py-0.5 rounded-lg border border-red-200 shadow-[1px_1px_0_0_#000000]">3 segundos</span>
+                    </h3>
 
                     <p class="text-gray-600 leading-relaxed">
                         Escribe tu venta o gasto y Admin JR lo convierte
                         en datos organizados automáticamente.
                     </p>
+                    
+                    <!-- Feature tag con estilo premium -->
+                    <div class="mt-6 inline-flex items-center gap-1 px-4 py-1.5 bg-gray-900 rounded-full border border-gray-700 shadow-[2px_2px_0_0_#dc2626]">
+                        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                        <span class="text-xs text-white font-medium">Automático</span>
+                    </div>
                 </div>
 
-
-                <!-- CARD 2 -->
-                <div class="card-3d group 
-                            rounded-2xl 
-                            border border-gray-200
+                <!-- CARD 2 - Recordatorios inteligentes -->
+                <div class="card-3d 
+                            rounded-3xl 
+                            border-2 border-gray-900
                             bg-white
                             p-10 
                             text-center 
-                            transition duration-300 
-                            hover:border-red-500/40 
-                            hover:-translate-y-2">
+                            transition-all duration-500 
+                            hover:border-red-600
+                            hover:shadow-[8px_8px_0_0_#dc2626]
+                            shadow-[4px_4px_0_0_#000000]
+                            relative
+                            overflow-hidden
+                            group">
 
-                    <div class="flex justify-center mb-8">
-                        <div class="w-14 h-14 flex items-center justify-center 
-                                    rounded-xl 
-                                    bg-red-600/10 
-                                    border border-red-200">
-
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-500/10 to-amber-500/10 rounded-bl-full"></div>
+                    
+                    <div class="flex justify-center mb-8 relative z-10">
+                        <div class="w-16 h-16 flex items-center justify-center 
+                                    rounded-2xl 
+                                    bg-gradient-to-br from-red-600 to-red-500
+                                    border-2 border-gray-900
+                                    shadow-[3px_3px_0_0_#000000]
+                                    group-hover:shadow-[5px_5px_0_0_#000000]
+                                    transition-all duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
-                                class="w-7 h-7 text-red-600">
-                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 
-                                         1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4
-                                         c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68
-                                         C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                                class="w-8 h-8 text-white">
+                                <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5S10.5 3.17 10.5 4v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                             </svg>
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-semibold text-gray-900 mb-4 tracking-wide">
-                        Recordatorios <span class="text-red-600">inteligentes</span>
-                    </h4>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 tracking-wide">
+                        Recordatorios <span class="text-red-600 bg-red-50 px-2 py-0.5 rounded-lg border border-red-200 shadow-[1px_1px_0_0_#000000]">inteligentes</span>
+                    </h3>
 
                     <p class="text-gray-600 leading-relaxed">
                         Si olvidas registrar algo, tu asistente te avisa.
                         Siempre atento, siempre disponible.
                     </p>
+                    
+                    <div class="mt-6 inline-flex items-center gap-1 px-4 py-1.5 bg-gray-900 rounded-full border border-gray-700 shadow-[2px_2px_0_0_#dc2626]">
+                        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+                        <span class="text-xs text-white font-medium">Proactivo</span>
+                    </div>
                 </div>
 
-
-                <!-- CARD 3 -->
-                <div class="card-3d group 
-                            rounded-2xl 
-                            border border-gray-200
+                <!-- CARD 3 - Resumen 24/7 -->
+                <div class="card-3d 
+                            rounded-3xl 
+                            border-2 border-gray-900
                             bg-white
                             p-10 
                             text-center 
-                            transition duration-300 
-                            hover:border-red-500/40 
-                            hover:-translate-y-2">
+                            transition-all duration-500 
+                            hover:border-red-600
+                            hover:shadow-[8px_8px_0_0_#dc2626]
+                            shadow-[4px_4px_0_0_#000000]
+                            relative
+                            overflow-hidden
+                            group">
 
-                    <div class="flex justify-center mb-8">
-                        <div class="w-14 h-14 flex items-center justify-center 
-                                    rounded-xl 
-                                    bg-red-600/10 
-                                    border border-red-200">
-
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-500/10 to-amber-500/10 rounded-bl-full"></div>
+                    
+                    <div class="flex justify-center mb-8 relative z-10">
+                        <div class="w-16 h-16 flex items-center justify-center 
+                                    rounded-2xl 
+                                    bg-gradient-to-br from-red-600 to-red-500
+                                    border-2 border-gray-900
+                                    shadow-[3px_3px_0_0_#000000]
+                                    group-hover:shadow-[5px_5px_0_0_#000000]
+                                    transition-all duration-300">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
-                                class="w-7 h-7 text-red-600">
+                                class="w-8 h-8 text-white">
                                 <path d="M4 9h3v11H4V9zm6-5h3v16h-3V4zm6 8h3v8h-3v-8z"/>
                             </svg>
                         </div>
                     </div>
 
-                    <h4 class="text-xl font-semibold text-gray-900 mb-4 tracking-wide">
-                        Resumen <span class="text-red-600">24/7</span>
-                    </h4>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 tracking-wide">
+                        Resumen <span class="text-red-600 bg-red-50 px-2 py-0.5 rounded-lg border border-red-200 shadow-[1px_1px_0_0_#000000]">24/7</span>
+                    </h3>
 
                     <p class="text-gray-600 leading-relaxed">
                         Pregunta cómo va tu negocio y recibe reportes claros,
@@ -755,85 +1013,108 @@ function sendMessage() {
 
             </div>
         </div>
-
+        
+        <!-- Indicadores de posición con estilo premium -->
+        <div class="flex justify-center gap-3 mt-8">
+            <span class="w-8 h-2 bg-gray-900 rounded-full shadow-[1px_1px_0_0_#dc2626]"></span>
+            <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
+            <span class="w-2 h-2 bg-gray-300 rounded-full"></span>
+        </div>
     </div>
 </section>
+<<!-- PREGUNTAS FRECUENTES - Versión Ejecutiva Premium -->
+<section class="mt-32 px-6 relative overflow-hidden">
 
-<!-- PREGUNTAS FRECUENTES -->
-<section class="mt-32 px-6">
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-red-500/3 to-amber-500/3 rounded-full blur-3xl"></div>
+    </div>
 
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-4xl mx-auto relative z-10">
 
-        <!-- TITULO -->
-        <h2 class="text-4xl font-normal text-center mb-16 text-gray-900">
-            Preguntas <span class="text-red-600">frecuentes</span>
-        </h2>
+        <!-- TITULO CENTRADO con badge superior -->
+        <div class="text-center mb-12">
+            <!-- Badge superior -->
+            <div class="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-gray-900 rounded-full mb-6 shadow-[3px_3px_0_0_#000000]">
+                <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+                <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">SOPORTE</span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight mb-6 text-gray-900">
+                Preguntas <span class="text-red-600 font-bold relative">frecuentes
+            </span>
+            </h2>
+            
+            <!-- Línea decorativa con gradiente -->
+            <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto shadow-[1px_1px_0_0_#000000]"></div>
+        </div>
 
-        <div class="space-y-5">
+
+        <div class="space-y-4">
 
             <!-- ITEM 01 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">01</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">01</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Qué es Admin JR?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     Admin JR es un asistente administrativo digital que funciona desde WhatsApp
                     y te ayuda a llevar el control de tus ingresos y gastos de forma simple y ordenada.
                 </div>
             </div>
 
-
             <!-- ITEM 02 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">02</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">02</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Necesito descargar una app?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     No, Admin JR funciona directamente en WhatsApp,
                     sin descargas ni plataformas complicadas.
                 </div>
             </div>
 
-
             <!-- ITEM 03 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">03</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">03</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Para quién es Admin JR?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     Para emprendedores, pequeños negocios y freelancers que:
                     <ul class="list-disc pl-5 mt-2 space-y-1">
                         <li>Llevan su administración solos</li>
@@ -843,147 +1124,140 @@ function sendMessage() {
                 </div>
             </div>
 
-
             <!-- ITEM 04 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">04</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">04</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Qué problemas me ayuda a resolver?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     <ul class="list-disc pl-5 space-y-1">
                         <li>No saber cuánto ganas realmente</li>
                         <li>Desorden financiero</li>
                         <li>Gastos que se pierden</li>
                         <li>Falta de control del dinero</li>
                     </ul>
-
                     <p class="mt-2">
                         Admin JR te ayuda a ordenar sin complicarte.
                     </p>
                 </div>
             </div>
 
-
             <!-- ITEM 05 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">05</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">05</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Necesito saber de contabilidad?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     No, Admin JR está diseñado para personas sin conocimientos contables.
                     Solo registras movimientos de dinero de forma sencilla.
                 </div>
             </div>
 
-
             <!-- ITEM 06 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">06</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">06</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Admin JR reemplaza a un contador?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     No, Admin JR no sustituye a un contador,
                     pero sí te permite tener tu información organizada y lista cuando la necesites.
                 </div>
             </div>
 
-
             <!-- ITEM 07 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">07</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">07</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Mi información está segura?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     Sí, tu información es privada y confidencial.
                     Solo tú tienes acceso a tus datos.
                 </div>
             </div>
 
-
             <!-- ITEM 08 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">08</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">08</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Cuánto cuesta Admin JR?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
-                    El costo es de <strong>$129 MXN al mes</strong>.
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
+                    El costo es de <strong class="text-red-600">$129 MXN al mes</strong>.
                     Sin contratos largos ni compromisos forzosos.
                 </div>
             </div>
 
-
             <!-- ITEM 09 -->
-            <div class="faq-item rounded-2xl border border-gray-200 bg-white transition duration-300 hover:border-red-500/40 hover:shadow-md">
+            <div class="faq-item rounded-2xl border border-gray-300 bg-white hover:border-red-500/50 hover:shadow-lg transition-all duration-300">
                 <button onclick="toggleFaq(this)"
-                        class="w-full flex justify-between items-center px-6 py-6 text-left">
+                        class="w-full flex justify-between items-center px-6 py-6 text-left group">
 
                     <div class="flex items-center gap-4">
-                        <span class="text-red-600 font-semibold text-sm">09</span>
-                        <span class="text-gray-900 text-lg font-medium">
+                        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-black text-white text-sm font-semibold group-hover:bg-red-600 transition-colors duration-300">09</span>
+                        <span class="text-gray-900 text-lg font-medium group-hover:text-red-600 transition-colors duration-300">
                             ¿Puedo ver cómo funciona antes de pagar?
                         </span>
                     </div>
 
-                    <span class="faq-icon text-red-600 text-xl transition-transform duration-300">+</span>
+                    <span class="faq-icon text-3xl text-black group-hover:text-red-600 transition-all duration-300">+</span>
 
                 </button>
 
-                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed">
+                <div class="faq-content hidden px-6 pb-6 text-gray-600 leading-relaxed border-t border-gray-100 mt-2 pt-4">
                     Sí, puedes crear una cuenta demo y conocer Admin JR antes
                     de tomar cualquier decisión.
                 </div>
@@ -995,92 +1269,160 @@ function sendMessage() {
 
 </section>
 
-<!-- PLAN ÚNICO -->
+<!-- PLAN ÚNICO - Diseño Premium con carácter -->
 <section id="precios" class="mt-32 px-6">
 
     <div class="max-w-4xl mx-auto">
 
-       <div class="relative rounded-3xl 
-            border border-gray-900/30
+        <div class="relative rounded-2xl 
+            border-2 border-gray-900
             bg-white
-            shadow-xl
-            p-12 overflow-hidden">
+            shadow-[0_25px_60px_-20px_rgba(0,0,0,0.3)]
+            p-8 md:p-10 overflow-hidden">
 
-            <!-- Glow decorativo -->
-            <div class="absolute -top-20 -left-20 w-72 h-72 bg-red-500/20 blur-3xl rounded-full"></div>
-            <div class="absolute -bottom-20 -right-20 w-72 h-72 bg-red-400/10 blur-3xl rounded-full"></div>
+            <!-- Elementos decorativos más atractivos -->
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-red-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl"></div>
+            
+            <!-- Líneas diagonales decorativas muy sutiles -->
+            <div class="absolute inset-0 opacity-5" style="background-image: repeating-linear-gradient(45deg, #000 0px, #000 2px, transparent 2px, transparent 10px);"></div>
+            
+            <!-- Línea divisoria vertical con gradiente rojo -->
+            <div class="absolute left-1/2 top-10 bottom-10 w-0.5 bg-gradient-to-b from-transparent via-red-400 to-transparent hidden md:block"></div>
 
-            <!-- Badge superior -->
+            <!-- Badge superior con diseño más atractivo -->
             <div class="absolute top-4 left-1/2 -translate-x-1/2 z-10">
-                <span class="bg-red-600 text-white text-xs 
-                             px-5 py-1.5 rounded-full 
-                             font-semibold tracking-wide 
-                             shadow-md">
-                    PLAN DISPONIBLE
+                <span class="bg-gray-900 text-white text-xs px-6 py-2 rounded-full font-semibold tracking-wider shadow-xl inline-flex items-center gap-2 border border-gray-700">
+                    <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                    PLAN EXCLUSIVO
                 </span>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="grid md:grid-cols-2 gap-8 items-center relative z-10 mt-8">
 
-                <!-- LADO IZQUIERDO -->
-                <div>
-                    <h3 class="text-3xl font-medium text-gray-900 mb-4">
-                        Plan Básico
-                    </h3>
+                <!-- LADO IZQUIERDO - Características con más estilo -->
+                <div class="space-y-5">
+                    <div class="relative">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Suscripción</span>
+                        <h3 class="text-3xl font-light text-gray-900 mt-1">
+                            Plan <span class="font-bold text-red-600 bg-red-50 px-2 py-0.5 rounded-lg inline-block">Básico</span>
+                        </h3>
+                        <div class="w-16 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mt-3"></div>
+                    </div>
 
-                    <p class="text-gray-600 mb-8 leading-relaxed">
-                        Todo lo que necesitas para administrar tu negocio desde WhatsApp
-                        con reportes claros y automatizados.
+                    <p class="text-gray-600 text-sm leading-relaxed border-l-2 border-red-200 pl-4 italic">
+                        "Todo lo que necesitas para administrar tu negocio desde WhatsApp
+                        con reportes claros y automatizados."
                     </p>
 
-                    <ul class="space-y-4 text-gray-700">
-
-                        <li class="flex items-center gap-3">
-                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                            Hasta 3 números WhatsApp
+                    <!-- Lista con iconos más estilizados -->
+                    <ul class="space-y-4 pt-3">
+                        <li class="flex items-center gap-3 text-gray-700 group">
+                            <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-red-500/30 group-hover:scale-110 transition-transform">
+                                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-base"><span class="font-bold text-gray-900">Hasta 3</span> números WhatsApp</span>
                         </li>
 
-                        <li class="flex items-center gap-3">
-                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                            5 cuentas conectadas
+                        <li class="flex items-center gap-3 text-gray-700 group">
+                            <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-red-500/30 group-hover:scale-110 transition-transform">
+                                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-base"><span class="font-bold text-gray-900">5 cuentas</span> conectadas</span>
                         </li>
 
-                        <li class="flex items-center gap-3">
-                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                            Reportes inteligentes
+                        <li class="flex items-center gap-3 text-gray-700 group">
+                            <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-red-500/30 group-hover:scale-110 transition-transform">
+                                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-base"><span class="font-bold text-gray-900">Reportes</span> inteligentes</span>
                         </li>
 
-                        <li class="flex items-center gap-3">
-                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                            Soporte por email
+                        <li class="flex items-center gap-3 text-gray-700 group">
+                            <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-red-500/30 group-hover:scale-110 transition-transform">
+                                <svg class="w-3.5 h-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <span class="text-base"><span class="font-bold text-gray-900">Soporte</span> prioritario</span>
                         </li>
-
                     </ul>
                 </div>
 
-                <!-- LADO DERECHO -->
-                <div class="text-center md:text-right">
-
-                    <div class="mb-6">
-                        <span class="text-6xl font-light text-gray-900">
-                            $129
-                        </span>
-                        <span class="text-gray-500 text-lg">
-                            / mes
-                        </span>
+                <!-- LADO DERECHO - Precio y CTA con más impacto -->
+                <div class="text-center md:text-left space-y-6">
+                    <!-- Precio destacado -->
+                    <div class="relative">
+                        <!-- Fondo decorativo -->
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-500/5 to-amber-500/5 rounded-2xl -m-1"></div>
+                        
+                        <div class="relative bg-white p-7 rounded-xl border-2 border-gray-900 shadow-[4px_4px_0_0_#dc2626]">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider bg-gray-100 px-3 py-1 rounded-full inline-block mb-3">Oferta especial</span>
+                            
+                            <div class="flex items-end justify-center md:justify-start gap-2">
+                                <span class="text-6xl font-black text-gray-900">$129</span>
+                                <span class="text-gray-500 text-lg mb-2">/mes</span>
+                            </div>
+                            
+                            <div class="mt-4 space-y-2">
+                                <p class="text-xs text-gray-600 flex items-center justify-center md:justify-start gap-2">
+                                    <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Sin permanencia · Cancela cuando quieras</span>
+                                </p>
+                                <p class="text-xs text-gray-500 flex items-center justify-center md:justify-start gap-2">
+                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"/>
+                                        <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"/>
+                                    </svg>
+                                    <span>Pago seguro · Facturación mensual</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
+                    <!-- Botón CTA con más personalidad -->
                     <a href="{{ route('register') }}"
-                        class="inline-block px-10 py-4 rounded-xl
-                               bg-red-600 hover:bg-red-700
-                               text-white font-semibold
-                               transition duration-300
-                               hover:shadow-lg hover:shadow-red-500/30">
-                        Comenzar ahora
+                        class="group relative inline-flex items-center justify-center w-full md:w-auto px-10 py-4 
+                               bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
+                               text-white font-bold text-base
+                               rounded-xl
+                               transition-all duration-300
+                               shadow-[0_10px_20px_-8px_rgba(220,38,38,0.6)]
+                               hover:shadow-[0_15px_25px_-8px_rgba(220,38,38,0.8)]
+                               hover:scale-105
+                               gap-3
+                               border border-red-400
+                               overflow-hidden">
+                        <!-- Efecto de brillo -->
+                        <span class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></span>
+                        
+                        <span class="relative z-10">Comenzar ahora</span>
+                        <svg class="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
                     </a>
-
                 </div>
 
+            </div>
+            
+            <!-- Badge de garantía -->
+            <div class="mt-8 flex justify-center">
+                <div class="inline-flex items-center gap-3 px-5 py-2 bg-gray-50 rounded-full border border-gray-200">
+                    <span class="flex gap-1">
+                        <span class="w-1 h-1 bg-red-600 rounded-full"></span>
+                        <span class="w-1 h-1 bg-red-600 rounded-full"></span>
+                        <span class="w-1 h-1 bg-red-600 rounded-full"></span>
+                    </span>
+                    <span class="text-xs text-gray-600">+500 empresarios confían en nosotros</span>
+                </div>
             </div>
 
         </div>
@@ -1088,66 +1430,102 @@ function sendMessage() {
     </div>
 
 </section>
-<!-- CTA FINAL -->
+<!-- CTA FINAL - Versión Ejecutiva Premium -->
 <section class="mt-32 grid md:grid-cols-2 gap-16 items-center px-6 max-w-6xl mx-auto">
 
-    <!-- IMAGEN -->
+    <!-- IMAGEN con diseño mejorado -->
     <div class="flex justify-center">
-        <div class="relative w-full max-w-sm">
+        <div class="relative w-full max-w-sm group">
 
-            <!-- Glow -->
+            <!-- Glow más elegante -->
             <div class="absolute inset-0 rounded-2xl 
-                        bg-gradient-to-r from-red-500 via-pink-500 to-purple-500
-                        blur-2xl opacity-30">
+                        bg-gradient-to-r from-red-600/20 via-red-500/10 to-transparent
+                        blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-700">
+            </div>
+            
+            <!-- Segundo glow para profundidad -->
+            <div class="absolute inset-0 rounded-2xl 
+                        bg-black/10
+                        blur-2xl opacity-30 group-hover:opacity-40 transition-opacity duration-700">
             </div>
 
-            <!-- Imagen -->
+            <!-- Marco decorativo estilo Plan Único -->
+            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-600 to-amber-500 opacity-0 group-hover:opacity-30 blur transition-all duration-500"></div>
+
+            <!-- Imagen con bordes y sombras estilo premium -->
             <div class="relative rounded-2xl overflow-hidden
-                        border border-gray-200
-                        bg-white shadow-xl">
+                        border-2 border-gray-900
+                        bg-white
+                        shadow-[8px_8px_0_0_#000000]
+                        group-hover:shadow-[12px_12px_0_0_#dc2626]
+                        transition-all duration-500
+                        transform group-hover:scale-[1.02]">
 
                 <img src="{{ asset('images/mockup10.png') }}"
                      alt="Admin JR app"
-                     class="w-full h-auto object-contain">
+                     class="w-full h-auto object-contain relative z-10">
 
             </div>
-
         </div>
     </div>
 
-
-    <!-- TEXTO -->
+    <!-- TEXTO con diseño mejorado -->
     <div class="relative space-y-8">
 
-        <!-- Título -->
+        <!-- Badge superior (opcional) -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-2 border-gray-900 rounded-full shadow-[2px_2px_0_0_#000000]">
+            <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
+            <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">ÚLTIMA OPORTUNIDAD</span>
+        </div>
+
+        <!-- Título con más carácter -->
         <h3 class="text-4xl md:text-6xl font-light leading-[1.05] tracking-tight text-gray-900">
             Activa tu 
-            <span class="text-red-600">asistente financiero</span>
+           <span class="text-red-600 font-bold">asistente financiero</span>
         </h3>
 
-        <!-- Línea decorativa -->
-        <div class="w-24 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+        <!-- Línea decorativa con gradiente y sombra -->
+        <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full shadow-[1px_1px_0_0_#000000]"></div>
 
-        <!-- Descripción -->
-        <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
-            Conecta tu número de WhatsApp y permite que 
-            <span class="text-red-600 font-medium">Admin JR</span>
+        <!-- Descripción con más estilo -->
+        <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-xl border-l-2 border-red-200 pl-6 italic">
+            "Conecta tu número de WhatsApp y permite que 
+            <span class="font-bold text-red-600">Admin JR</span>
             registre automáticamente los gastos de tu negocio,
             generando reportes y manteniendo tu control financiero
-            siempre actualizado.
+            siempre actualizado."
         </p>
 
-        <!-- Botón -->
+        <!-- Botón con efecto de brillo y estilo premium -->
         <a href="{{ route('register') }}"
-           class="inline-block mt-6 px-10 py-4 rounded-xl
-                  bg-red-600 hover:bg-red-700
-                  text-white font-semibold
-                  transition duration-300
-                  hover:shadow-lg hover:shadow-red-500/30">
-
-            Crear cuenta
+           class="relative inline-flex items-center justify-center gap-3 px-10 py-4 
+                  bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
+                  text-white font-bold text-lg
+                  rounded-xl
+                  transition-all duration-500
+                  shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#000000]
+                  hover:scale-105
+                  overflow-hidden group
+                  border border-red-400">
+            
+            <!-- Efecto de brillo -->
+            <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+            
+            <!-- Texto del botón -->
+            <span class="relative z-10">Crear cuenta gratis</span>
+            
+            <!-- Icono flecha -->
+            <svg class="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
         </a>
-
+        
+        <!-- Texto de confianza -->
+        <p class="text-xs text-gray-400 flex items-center gap-1">
+            <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+            Sin compromiso · Pago seguro · Facturación mensual
+        </p>
     </div>
 
 </section>
@@ -1292,8 +1670,9 @@ updateCarousel();
 startAutoSlide();
 </script>
 <style>
-
-/*telefono */
+/* =========================
+   TOOLTIPS
+========================= */
 @keyframes tooltipShow {
     0% { opacity: 0; transform: translateY(10px); }
     10% { opacity: 1; transform: translateY(0); }
@@ -1306,78 +1685,210 @@ startAutoSlide();
     opacity: 0;
     animation: tooltipShow 8s infinite;
 }
-/* =========================
-   CAROUSEL 3D
-========================= */
 
-.carousel-3d {
+/* =========================
+   CAROUSEL 3D - SOLO PARA #funciones
+   (No afecta a otras secciones)
+========================= */
+#funciones .carousel-3d {
     position: relative;
     width: 100%;
-    max-width: 950px;
-    height: 380px;
+    max-width: 1000px;
+    height: 420px;
     transform-style: preserve-3d;
-    perspective: 1400px;
+    perspective: 1600px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
 }
 
 /* =========================
-   CARD BASE
+   CARD BASE - SOLO PARA #funciones
 ========================= */
-
-.card-3d {
+#funciones .card-3d {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 300px;
-    height: 340px;
-    padding: 2rem;
+    width: 320px;
+    height: 380px;
+    padding: 2.5rem 2rem;
     text-align: center;
-
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(10px);
-
-    border-radius: 1.8rem;
-
-    /* NUEVO BORDE */
-    border: 1px solid #000;
-
+    background: #ffffff;
+    border-radius: 2rem;
+    border: 2px solid #000000;
     transform-style: preserve-3d;
     transform-origin: center center;
     translate: -50% -50%;
-
-    transition: 
-        transform 0.8s cubic-bezier(.25,.8,.25,1),
-        opacity 0.8s ease;
-
-    box-shadow:
-        0 20px 40px rgba(0,0,0,0.08);
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.6s ease, box-shadow 0.3s ease;
+    box-shadow: 4px 4px 0 0 #000000;
 }
 
 /* =========================
-   CARD ACTIVA
+   CARD ACTIVA - SOLO PARA #funciones
 ========================= */
-
-.card-3d.active {
-    box-shadow:
-        0 30px 60px rgba(0,0,0,0.15);
+#funciones .card-3d.active {
+    box-shadow: 8px 8px 0 0 #dc2626;
+    border-color: #dc2626;
 }
 
 /* =========================
-   SCROLL SUAVE
+   HOVER EFFECT - SOLO PARA #funciones
 ========================= */
+#funciones .card-3d:hover {
+    border-color: #dc2626;
+    box-shadow: 8px 8px 0 0 #dc2626;
+}
 
+/* =========================
+   TEXTOS DENTRO DE CARDS - SOLO PARA #funciones
+   (CORREGIDO - Recuadros rojos simétricos)
+========================= */
+#funciones .card-3d h3 {
+    color: #111827;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#funciones .card-3d h3 span {
+    color: #dc2626;
+    background-color: #fef2f2;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #fecaca;
+    box-shadow: 1px 1px 0 0 #000000;
+    display: inline-block;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+#funciones .card-3d p {
+    color: #4b5563;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* =========================
+   ICONOS DENTRO DE CARDS - SOLO PARA #funciones
+========================= */
+#funciones .card-3d .flex.justify-center.mb-8 div {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    border: 2px solid #000000;
+    box-shadow: 3px 3px 0 0 #000000;
+    margin: 0 auto 2rem auto;
+    transition: all 0.3s ease;
+}
+
+#funciones .card-3d:hover .flex.justify-center.mb-8 div {
+    box-shadow: 5px 5px 0 0 #000000;
+}
+
+#funciones .card-3d .flex.justify-center.mb-8 svg {
+    width: 32px;
+    height: 32px;
+    color: #ffffff;
+}
+
+/* =========================
+   FEATURE TAGS DENTRO DE CARDS - SOLO PARA #funciones
+========================= */
+#funciones .card-3d .mt-6.inline-flex {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    background: #111827;
+    border-radius: 9999px;
+    border: 1px solid #374151;
+    box-shadow: 2px 2px 0 0 #dc2626;
+}
+
+#funciones .card-3d .mt-6.inline-flex span.w-1\\.5 {
+    width: 0.375rem;
+    height: 0.375rem;
+    background: #dc2626;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+#funciones .card-3d .mt-6.inline-flex span.text-xs {
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* =========================
+   ELEMENTO DECORATIVO ESQUINA
+========================= */
+#funciones .card-3d .absolute.top-0.right-0 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6rem;
+    height: 6rem;
+    background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(245,158,11,0.1));
+    border-bottom-left-radius: 1rem;
+    pointer-events: none;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* =========================
+   RESPONSIVE - SOLO PARA #funciones
+========================= */
+@media (max-width: 768px) {
+    #funciones .carousel-3d {
+        height: 380px;
+    }
+    
+    #funciones .card-3d {
+        width: 280px;
+        height: 340px;
+        padding: 2rem 1.5rem;
+    }
+    
+    #funciones .card-3d h3 {
+        font-size: 1.3rem;
+        gap: 0.3rem;
+    }
+    
+    #funciones .card-3d h3 span {
+        font-size: 1.3rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+/* =========================
+   SCROLL SUAVE (GLOBAL)
+========================= */
 html {
     scroll-behavior: smooth;
 }
 
 /* =========================
-   DISEÑO CHAT BOT - VERSIÓN DARK ELEGANT
-   Paleta: Negro mate, Rojo vibrante, Blanco suave
+   DISEÑO CHAT BOT (GLOBAL)
 ========================= */
-
-/* Contenedor principal del chat */
 .chat-demo-container {
     background: linear-gradient(145deg, #1e1e1e 0%, #252525 100%);
     border: 1px solid #333333;
@@ -1386,7 +1897,6 @@ html {
     padding: 4px;
 }
 
-/* Burbuja del BOT (AdminJr) */
 .message-bot {
     background: linear-gradient(135deg, #2a2a2a 0%, #222222 100%);
     border: 1px solid #3a3a3a;
@@ -1400,7 +1910,6 @@ html {
     position: relative;
 }
 
-/* Burbuja del USUARIO */
 .message-user {
     background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
     color: #ffffff;
@@ -1414,29 +1923,28 @@ html {
     position: relative;
 }
 
-/* Tarjeta de gasto (la que muestra los detalles) */
-/* Tarjeta de gasto - VERSIÓN OSCURA PERO LEGIBLE */
 .expense-card {
-    background: #2d2d2d;  /* Fondo gris oscuro */
+    background: #2d2d2d;
     border: 1px solid #404040;
     border-radius: 14px;
     padding: 14px 16px;
     margin-top: 12px;
     font-size: 0.95rem;
-    color: #f0f0f0;  /* Texto blanco suave */
+    color: #f0f0f0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     position: relative;
+    margin-left: 8px;
 }
 
 .expense-card strong {
-    color: #ffffff;  /* Negritas en blanco puro */
+    color: #ffffff;
     font-weight: 700;
 }
 
 .expense-card div {
     padding: 5px 0;
     border-bottom: 1px dashed #505050;
-    color: #e5e5e5;  /* Texto claro */
+    color: #e5e5e5;
 }
 
 .expense-card div:last-child {
@@ -1454,13 +1962,6 @@ html {
     border-radius: 0 4px 4px 0;
 }
 
-/* Ajuste para que el pseudo-elemento no rompa el layout */
-.expense-card {
-    position: relative;
-    margin-left: 8px;
-}
-
-/* Indicador de "escribiendo..." */
 .typing {
     display: flex;
     gap: 6px;
@@ -1490,7 +1991,6 @@ html {
     30% { transform: scale(1.4); opacity: 1; }
 }
 
-/* Contenedor de mensajes */
 #chatBox {
     display: flex;
     flex-direction: column;
@@ -1501,7 +2001,6 @@ html {
     min-height: 320px;
 }
 
-/* Scrollbar personalizada */
 #chatBox::-webkit-scrollbar {
     width: 6px;
 }
@@ -1520,7 +2019,6 @@ html {
     background: #ef4444;
 }
 
-/* INPUT - Caja de texto */
 #userInput {
     background: #2a2a2a;
     color: #ffffff;
@@ -1543,7 +2041,6 @@ html {
     font-style: italic;
 }
 
-/* Botón de enviar */
 button[onclick="sendMessage()"] {
     background: #dc2626;
     color: white;
@@ -1566,13 +2063,11 @@ button[onclick="sendMessage()"]:active {
     transform: translateY(0);
 }
 
-/* Mensaje de bienvenida especial */
 .message-bot:first-child {
     background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
     border-left: 4px solid #dc2626;
 }
 
-/* Efecto de brillo en mensajes al pasar el mouse */
 .message-bot:hover, .message-user:hover {
     filter: brightness(1.1);
     transition: all 0.2s ease;
