@@ -22,8 +22,8 @@
 
         <!-- CONTENEDOR BASE (estructura Breeze intacta) -->
         <div class="w-full sm:max-w-md mt-2 px-6 py-4">
-            {{ $slot }}
-        </div>
+    {{ $slot }}
+</div>
     </div>
 </body>
 </html>
