@@ -207,7 +207,7 @@ function sendMessage() {
 
 
 <body class="min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 text-gray-800 overflow-x-hidden">
-<!-- HEADER PREMIUM V2 - Botones elegantes y coherentes -->
+<!-- HEADER -->
 <header id="mainHeader" class="fixed top-0 left-0 w-full z-50 flex justify-center pt-4 px-3 transition-all duration-300">
 <nav id="navBar" class="
     flex items-center justify-between
@@ -237,15 +237,15 @@ function sendMessage() {
         <a href="#precios" class="text-sm font-medium text-gray-600 hover:text-red-600 transition-colors px-1">Precios</a>
 </div>
 
-    <!-- BOTONES DESKTOP - MÁS BONITOS -->
+    <!-- BOTONES DESKTOP --->
     <div class="hidden md:flex items-center gap-2">
-<!-- Botón Iniciar sesión - Outline negro con hover lleno -->
+<!-- Botón Iniciar sesión -->
 <a href="{{ route('login') }}"
    class="px-5 py-2 bg-transparent border border-gray-800 hover:bg-gray-900 text-gray-800 hover:text-white text-sm font-medium rounded-full
           transition-all duration-200">
     Iniciar sesión
 </a>
-        <!-- Botón Crear cuenta con gradiente y sombra -->
+        <!-- Botón Crear cuenta-->
         <a href="{{ route('register') }}"
            class="px-5 py-2 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-sm font-semibold rounded-full
                   shadow-md shadow-red-200 hover:shadow-lg hover:shadow-red-300
@@ -262,7 +262,7 @@ function sendMessage() {
         </svg>
     </button>
 
-    <!-- MENU MÓVIL - Con botones idénticos a desktop -->
+    <!-- MENU MÓVIL-->
     <div id="mobileMenu" class="
         absolute top-full right-4 mt-4
         hidden
@@ -290,15 +290,15 @@ function sendMessage() {
         <a href="#funciones" class="block px-4 py-3 text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all font-medium">Funciones</a>
         <a href="#precios" class="block px-4 py-3 text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all font-medium">Precios</a>
         
-        <!-- BOTONES MÓVIL - EXACTAMENTE IGUALES A DESKTOP -->
+        <!-- BOTONES MÓVIL-->
         <div class="pt-4 mt-2 border-t border-gray-100 space-y-3">
-            <!-- Botón Iniciar sesión con borde (idéntico a desktop) -->
+            <!-- Botón Iniciar sesión-->
             <a href="{{ route('login') }}" 
                class="flex items-center justify-center w-full px-5 py-3 bg-white border border-gray-300 hover:border-red-300 text-gray-700 hover:text-red-600 text-sm font-medium rounded-xl shadow-sm hover:shadow transition-all">
                 Iniciar sesión
             </a>
             
-            <!-- Botón Crear cuenta con gradiente (idéntico a desktop) -->
+            <!-- Botón Crear cuenta-->
             <a href="{{ route('register') }}" 
                class="flex items-center justify-center w-full px-5 py-3 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white text-sm font-semibold rounded-xl shadow-md shadow-red-200 hover:shadow-lg transition-all gap-2">
                 <span>Crear cuenta gratis</span>
@@ -311,10 +311,10 @@ function sendMessage() {
 
 </nav>
 </header>
-<!-- HERO SECTION - Versión Ejecutiva Premium -->
+<!-- HERO SECTION -->
 <section class="relative pt-44 pb-36 flex flex-col items-center text-center overflow-hidden">
 
-    <!-- Badge minimalista mejorado (estilo consistente) -->
+    <!-- Badge minimalista -->
 <div class="mb-8 inline-flex items-center gap-3 px-6 py-3 
             bg-white border-2 border-gray-900 rounded-full 
             shadow-[3px_3px_0_0_#000000]
@@ -368,7 +368,7 @@ function sendMessage() {
         <span class="text-gray-900 font-medium">sin esfuerzo</span>.
     </p>
 
-     <!-- IMAGEN con diseño limpio -->
+     <!-- IMAGEN -->
 <div class="mt-14 flex justify-center w-full max-w-5xl px-4">
     <div class="relative w-full max-w-sm group mx-auto">
 
@@ -388,7 +388,7 @@ function sendMessage() {
                 class="relative w-full h-auto object-contain rounded-3xl
                        transform group-hover:scale-[1.01] transition-transform duration-300">
 
-            <!-- Tooltips (INTACTOS - sin cambios) -->
+            <!-- Tooltips -->
             <div class="absolute top-20 -left-20
                         bg-red-600/90 border border-red-500/60
                         text-white text-sm px-4 py-2 rounded-lg
@@ -460,7 +460,7 @@ function sendMessage() {
     <div class="absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30"></div>
     <div class="absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-transparent via-red-500/20 to-transparent opacity-30"></div>
 </section>
-<!-- SECCIÓN VIDEO - Versión Ejecutiva Premium -->
+<!-- SECCIÓN VIDEO --->
 <section class="relative mt-24 flex flex-col items-center overflow-hidden px-6">
 
     <!-- Elementos decorativos de fondo -->
@@ -485,7 +485,7 @@ function sendMessage() {
         <!-- Marco decorativo -->
         <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-600 to-amber-500 opacity-0 group-hover:opacity-30 blur transition-all duration-500"></div>
 
-        <!-- Contenedor del video con bordes y sombras estilo premium -->
+        <!-- Contenedor del video -->
         <div class="relative rounded-2xl overflow-hidden
                     border-2 border-gray-900
                     bg-white
@@ -494,7 +494,7 @@ function sendMessage() {
                     transition-all duration-500
                     transform group-hover:scale-[1.01]">
 
-            <!-- Barra superior estilo ventana (INTACTA) -->
+            <!-- Barra superior estilo ventana-->
             <div class="flex items-center gap-2 px-4 py-3 bg-gray-100 border-b-2 border-gray-900">
                 <span class="w-3 h-3 bg-red-500 rounded-full"></span>
                 <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
@@ -502,7 +502,7 @@ function sendMessage() {
                 <span class="text-xs font-medium text-gray-600 ml-2">Admin JR - Demo</span>
             </div>
 
-            <!-- Video (INTACTO) -->
+            <!-- Video -->
             <div class="aspect-video bg-black">
                 <iframe class="w-full h-full"
                         src="https://www.youtube.com/embed/qeDBw6sXNTw"
@@ -512,11 +512,11 @@ function sendMessage() {
         </div>
     </div>
 
-    <!-- TEXTO DEBAJO DEL VIDEO (mejorado) -->
+    <!-- TEXTO DEBAJO DEL VIDEO-->
     <div class="mt-10 max-w-3xl text-center relative z-10">
         
         
-        <!-- Texto con estilo mejorado (mismo contenido) -->
+        <!-- Texto con estilo mejorado-->
         <p class="text-lg md:text-xl text-gray-700 leading-relaxed border-l-2 border-red-200 pl-6 italic">
             "Mira cómo puedes registrar tus gastos en segundos usando solo WhatsApp
             y llevar el control de tus finanzas sin planillas ni complicaciones."
@@ -525,7 +525,7 @@ function sendMessage() {
         
        <!-- Línea decorativa superior -->
         <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mb-6 shadow-[1px_1px_0_0_#000000]"></div>
-<!-- Botón con efecto de brillo y estilo premium (CORREGIDO) -->
+<!-- Botón -->
 <div class="mt-10 relative z-10">
     <a href="{{ route('register') }}"
        class="relative inline-flex items-center gap-3 px-8 py-4
@@ -538,7 +538,7 @@ function sendMessage() {
               overflow-hidden
               group">
         
-        <!-- Efecto de brillo - CORREGIDO -->
+        <!-- Efecto de brillo --->
         <span class="absolute inset-0 bg-white/30 w-[200%] h-full -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 skew-x-12"></span>
         
         <!-- Texto del botón -->
@@ -553,7 +553,7 @@ function sendMessage() {
 </div>
 </section>
 
-<!-- TERCERA SECCIÓN - Versión Ejecutiva Premium -->
+<!-- TERCERA SECCIÓN-->
 <section class="relative pt-32 pb-16 flex flex-col items-center text-center overflow-hidden">
 
     <!-- Elementos decorativos de fondo -->
@@ -564,13 +564,13 @@ function sendMessage() {
 
     <div class="relative z-10 max-w-5xl mx-auto px-6">
 
-        <!-- Badge superior estilo premium -->
+        <!-- Badge superior -->
         <div class="inline-flex items-center gap-2 px-5 py-2 bg-white border-2 border-gray-900 rounded-full mb-8 shadow-[3px_3px_0_0_#000000]">
             <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
             <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">PARA EMPRENDEDORES</span>
         </div>
 
-        <!-- Titular (textos intactos) -->
+        <!-- Titular-->
         <h1 class="text-4xl md:text-6xl xl:text-7xl 
                    font-light tracking-tight 
                    leading-[1.08] 
@@ -591,7 +591,7 @@ function sendMessage() {
         <!-- Línea decorativa con gradiente y sombra -->
         <div class="mt-6 w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto shadow-[1px_1px_0_0_#000000]"></div>
 
-        <!-- Subtítulo (textos intactos) -->
+        <!-- Subtítulo -->
         <p class="mt-8 text-lg md:text-xl text-gray-700 
                   max-w-3xl mx-auto leading-relaxed
                   border-l-2 border-red-200 pl-6 italic">
@@ -605,7 +605,7 @@ function sendMessage() {
             mientras tú te enfocas en crecer."
 
         </p>
-   <!-- SECCIÓN IMAGEN - Versión Ejecutiva Premium -->
+   <!-- SECCIÓN IMAGEN -->
 <div class="mt-12 flex justify-center relative z-10">
 
     <!-- Elementos decorativos de fondo -->
@@ -613,10 +613,10 @@ function sendMessage() {
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-red-500/5 to-amber-500/5 rounded-full blur-3xl"></div>
     </div>
 
-    <!-- Contenedor de imagen con diseño mejorado -->
+    <!-- Contenedor de imagen -->
     <div class="relative w-full max-w-md group">
 
-        <!-- Glow principal más elegante (reemplaza al anterior) -->
+        <!-- Glow principal más elegante -->
         <div class="absolute inset-0 rounded-3xl 
                     bg-gradient-to-r from-red-600/30 via-red-500/20 to-transparent
                     blur-3xl
@@ -634,10 +634,10 @@ function sendMessage() {
                     transition-opacity duration-700">
         </div>
 
-        <!-- Marco decorativo estilo premium -->
+        <!-- Marco decorativo -->
         <div class="absolute -inset-2 rounded-3xl bg-gradient-to-r from-red-600 to-amber-500 opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500"></div>
 
-        <!-- Contenedor de imagen con bordes y sombras estilo premium -->
+        <!-- Contenedor de imagen -->
         <div class="relative rounded-2xl overflow-hidden
                     border-2 border-gray-900
                     bg-white
@@ -646,7 +646,7 @@ function sendMessage() {
                     transition-all duration-500
                     transform group-hover:scale-[1.02]">
 
-            <!-- Imagen (INTACTA) -->
+            <!-- Imagen -->
             <img src="{{ asset('images/mockupgif.gif') }}"
                  alt="Mockup Admin JR"
                  class="relative w-full h-auto object-contain z-10">
@@ -661,10 +661,10 @@ function sendMessage() {
 <!-- MAIN -->
 <main class="max-w-7xl mx-auto px-6 pt-24 pb-24 relative">
 
-<!-- HERO SECTION (CHAT) - Versión Ejecutiva Premium -->
+<!-- HERO SECTION  -->
 <section class="relative mt-32 flex flex-col items-center text-center overflow-hidden px-6">
 
-    <!-- Elementos decorativos de fondo mejorados -->
+    <!-- Elementos decorativos  -->
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -z-10 w-[600px] h-[600px] bg-gradient-to-r from-red-600/10 via-red-500/5 to-transparent blur-[160px] rounded-full"></div>
     <div class="absolute bottom-1/4 right-1/4 -z-10 w-[400px] h-[400px] bg-amber-500/10 blur-[120px] rounded-full"></div>
     
@@ -680,7 +680,7 @@ function sendMessage() {
             <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">PRUÉBALO AHORA</span>
         </div>
 
-        <!-- TITULO con diseño mejorado -->
+        <!-- TITULO -->
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight mb-6 text-gray-900">
             Si sabes enviar un 
             <span class="text-red-600 font-bold relative">
@@ -697,7 +697,7 @@ function sendMessage() {
         <!-- Línea decorativa con gradiente -->
         <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mb-6 shadow-[1px_1px_0_0_#000000]"></div>
 
-        <!-- SUBTITULO con diseño mejorado -->
+        <!-- SUBTITULO  -->
         <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto border-l-2 border-red-200 pl-6 italic">
             "Compruébalo por ti mismo ahora. 
             Solo presiona 'Enviar' y mira cómo la IA procesa tu mensaje."
@@ -706,7 +706,7 @@ function sendMessage() {
         <br>
 
     </div>
-    <!-- PANEL - CHAT MEJORADO -->
+    <!-- PANEL CHAT -->
     <div class="w-full max-w-xl chat-demo-container rounded-xl overflow-hidden">
         <!-- CHAT -->
         <div id="chatBox" class="p-4 space-y-3 text-left h-80 overflow-y-auto flex flex-col bg-white/30 backdrop-blur-sm">
@@ -736,7 +736,7 @@ function sendMessage() {
 </section>
 
 <script src="/js/chat-demo.js"></script>
-<!-- SECCIÓN 4 - Versión Ejecutiva Premium -->
+<!-- SECCIÓN 4-->
 <section class="mt-32 grid md:grid-cols-2 gap-16 items-center px-6 max-w-6xl mx-auto relative overflow-hidden">
 
     <!-- Elementos decorativos de fondo -->
@@ -745,16 +745,16 @@ function sendMessage() {
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl"></div>
     </div>
 
-    <!-- TEXTO con diseño mejorado -->
+    <!-- TEXTO -->
     <div class="space-y-8 relative z-10">
 
-        <!-- Badge superior (opcional) -->
+        <!-- Badge superior -->
         <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border-2 border-gray-900 rounded-full shadow-[2px_2px_0_0_#000000]">
             <span class="w-2 h-2 bg-red-600 rounded-full animate-pulse"></span>
             <span class="text-xs font-bold text-gray-900 uppercase tracking-wider">TRANQUILIDAD FINANCIERA</span>
         </div>
 
-        <!-- Título con diseño mejorado -->
+        <!-- Título  -->
         <h2 class="text-4xl md:text-6xl xl:text-7xl font-light leading-[1.05] tracking-tight text-gray-900">
             Despídete de la 
             <span class="text-red-600 font-bold relative">
@@ -766,7 +766,7 @@ function sendMessage() {
         <!-- Línea decorativa con gradiente y sombra -->
         <div class="w-24 h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full shadow-[1px_1px_0_0_#000000]"></div>
 
-        <!-- Subtítulo con diseño mejorado -->
+        <!-- Subtítulo c-->
         <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-xl border-l-2 border-red-200 pl-6 italic">
             "La claridad es poder. Al ver tu dinero organizado en 
             <span class="font-bold text-gray-900">tiempo real</span>,
@@ -776,7 +776,7 @@ function sendMessage() {
             o tu ahorro personal."
         </p>
         
-        <!-- Lista de beneficios (opcional) -->
+        <!-- Lista de beneficios  -->
         <ul class="space-y-2 pt-4">
             <li class="flex items-center gap-2 text-gray-600">
                 <span class="w-1.5 h-1.5 bg-red-600 rounded-full"></span>
@@ -789,7 +789,7 @@ function sendMessage() {
         </ul>
     </div>
 
-    <!-- IMAGEN con diseño mejorado -->
+    <!-- IMAGEN -->
     <div class="flex justify-center relative z-10">
         <div class="relative w-full max-w-sm group">
 
@@ -807,7 +807,7 @@ function sendMessage() {
             <!-- Marco decorativo -->
             <div class="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-600 to-amber-500 opacity-0 group-hover:opacity-30 blur transition-all duration-500"></div>
 
-            <!-- Contenedor imagen con bordes y sombras estilo premium -->
+            <!-- Contenedor imagen con bordes y sombras  -->
             <div class="relative rounded-2xl overflow-hidden
                         border-2 border-gray-900
                         bg-white
@@ -827,7 +827,7 @@ function sendMessage() {
     <div class="absolute left-10 top-1/2 -translate-y-1/2 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30 hidden lg:block"></div>
     <div class="absolute right-10 top-1/2 -translate-y-1/2 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30 hidden lg:block"></div>
 </section>
-<!-- SECCIÓN FUNCIONES - Diseño Premium estilo Plan Único (CORREGIDO) -->
+<!-- SECCIÓN FUNCIONES -->
 <section id="funciones" class="mt-40 relative overflow-hidden px-6">
     
     <!-- Elementos decorativos de fondo -->
@@ -861,7 +861,7 @@ function sendMessage() {
             </p>
         </div>
 
-        <!-- CAROUSEL 3D - Cards con diseño estilo Plan Único -->
+        <!-- CAROUSEL 3D  -->
         <div class="relative w-full flex justify-center items-center py-8">
             
             <div id="carousel" class="carousel-3d">
@@ -884,7 +884,7 @@ function sendMessage() {
                     <!-- Elemento decorativo superior -->
                     <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-red-500/10 to-amber-500/10 rounded-bl-full"></div>
                     
-                    <!-- Icono con estilo premium -->
+                    <!-- Icono  -->
                     <div class="flex justify-center mb-8 relative z-10">
                         <div class="w-16 h-16 flex items-center justify-center 
                                     rounded-2xl 
@@ -911,7 +911,7 @@ function sendMessage() {
                         en datos organizados automáticamente.
                     </p>
                     
-                    <!-- Feature tag con estilo premium -->
+                    <!-- Feature tag  -->
                     <div class="mt-6 inline-flex items-center gap-1 px-4 py-1.5 bg-gray-900 rounded-full border border-gray-700 shadow-[2px_2px_0_0_#dc2626]">
                         <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
                         <span class="text-xs text-white font-medium">Automático</span>
@@ -1022,7 +1022,7 @@ function sendMessage() {
         </div>
     </div>
 </section>
-<<!-- PREGUNTAS FRECUENTES - Versión Ejecutiva Premium -->
+<!-- PREGUNTAS FRECUENTES  -->
 <section class="mt-32 px-6 relative overflow-hidden">
 
     <!-- Elementos decorativos de fondo -->
@@ -1269,7 +1269,7 @@ function sendMessage() {
 
 </section>
 
-<!-- PLAN ÚNICO - Diseño Premium con carácter -->
+<!-- PLAN ÚNICO -->
 <section id="precios" class="mt-32 px-6">
 
     <div class="max-w-4xl mx-auto">
@@ -1300,7 +1300,7 @@ function sendMessage() {
 
             <div class="grid md:grid-cols-2 gap-8 items-center relative z-10 mt-8">
 
-                <!-- LADO IZQUIERDO - Características con más estilo -->
+                <!-- LADO IZQUIERDO - -->
                 <div class="space-y-5">
                     <div class="relative">
                         <span class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em]">Suscripción</span>
