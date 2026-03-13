@@ -107,7 +107,7 @@ Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function
         ]);
 
     Route::post('numeros-whatsapp/{numerosWhatsApp}/marcar-principal',
-        [NumerosWhatsAppController::class, 'marcarPrincipal'])
+        [NumerosWhatsAppController::class, 'setPrincipal'])
         ->name('numeros-whatsapp.marcar-principal');
 });
 

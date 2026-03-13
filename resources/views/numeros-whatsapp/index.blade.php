@@ -180,16 +180,48 @@
                             </div>
 
                     {{-- BOTÓN EDITAR / OPCIONES --}}
-                <a href="{{ route('numeros-whatsapp.edit', $numero->id) }}"
-                class="p-2 text-gray-400 hover:text-white transition cursor-pointer">
-                    <svg class="w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <circle cx="12" cy="5" r="1.8"/>
-                        <circle cx="12" cy="12" r="1.8"/>
-                        <circle cx="12" cy="19" r="1.8"/>
-                    </svg>
-                </a>
+                    <div class="relative">
+                        <button type="button"
+                                class="p-2 text-gray-400 hover:text-white transition cursor-pointer dropdown-toggle"
+                                onclick="toggleDropdown('dropdown-{{ $numero->id }}')">
+                            <svg class="w-5 h-5"
+                                fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <circle cx="12" cy="5" r="1.8"/>
+                                <circle cx="12" cy="12" r="1.8"/>
+                                <circle cx="12" cy="19" r="1.8"/>
+                            </svg>
+                        </button>
+
+                        {{-- Dropdown Menu --}}
+                        <div id="dropdown-{{ $numero->id }}"
+                             class="absolute right-0 mt-2 w-48 bg-neutral-800 border border-neutral-700 rounded-lg shadow-lg z-10 hidden">
+                            <div class="py-1">
+                                <a href="{{ route('numeros-whatsapp.edit', $numero->id) }}"
+                                   class="block px-4 py-2 text-sm text-gray-300 hover:bg-neutral-700 hover:text-white">
+                                    <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                                    </svg>
+                                    Editar
+                                </a>
+
+                                <form action="{{ route('numeros-whatsapp.destroy', $numero->id) }}"
+                                      method="POST"
+                                      class="inline"
+                                      onsubmit="return confirm('¿Estás seguro de que quieres eliminar este número de WhatsApp?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            class="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-neutral-700 hover:text-red-300">
+                                        <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                        </svg>
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
 
 
                         </div>
@@ -278,4 +310,30 @@
         @endif
 
     </div>
+
+    <script>
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const isHidden = dropdown.classList.contains('hidden');
+
+            // Hide all dropdowns first
+            document.querySelectorAll('[id^="dropdown-"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+
+            // Show the clicked dropdown if it was hidden
+            if (isHidden) {
+                dropdown.classList.remove('hidden');
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-toggle') && !event.target.closest('[id^="dropdown-"]')) {
+                document.querySelectorAll('[id^="dropdown-"]').forEach(el => {
+                    el.classList.add('hidden');
+                });
+            }
+        });
+    </script>
 </x-app-layout>

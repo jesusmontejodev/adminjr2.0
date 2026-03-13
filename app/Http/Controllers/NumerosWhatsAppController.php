@@ -82,6 +82,8 @@ class NumerosWhatsAppController extends Controller
         ]);
 
         try {
+            $user = auth()->user();
+
             // Procesar y normalizar el número
             $processedNumber = $this->processPhoneNumber(
                 $validated['numero_local'],
@@ -89,7 +91,7 @@ class NumerosWhatsAppController extends Controller
             );
 
             // Verificar si el número ya existe para este usuario
-            $exists = NumerosWhatsApp::where('user_id', Auth::id())
+            $exists = NumerosWhatsApp::where('user_id', $user->id)
                 ->where('numero_whatsapp', $processedNumber['whatsapp'])
                 ->exists();
 
@@ -101,13 +103,13 @@ class NumerosWhatsAppController extends Controller
 
             // Si se marca como principal, desmarcar otros
             if ($request->boolean('es_principal')) {
-                NumerosWhatsApp::where('user_id', Auth::id())
+                NumerosWhatsApp::where('user_id', $user->id)
                     ->update(['es_principal' => false]);
             }
 
             // Crear el registro
             $numeroWhatsApp = NumerosWhatsApp::create([
-                'user_id' => Auth::id(),
+                'user_id' => $user->id,
                 'numero_whatsapp' => $processedNumber['whatsapp'],
                 'numero_internacional' => $processedNumber['international'],
                 'codigo_pais' => $processedNumber['country_code'],
@@ -263,7 +265,8 @@ class NumerosWhatsAppController extends Controller
      */
     public function index()
     {
-        $numeros = NumerosWhatsApp::where('user_id', Auth::id())
+        $user = auth()->user();
+        $numeros = NumerosWhatsApp::where('user_id', $user->id)
             ->orderBy('es_principal', 'desc')
             ->orderBy('created_at', 'desc')
             ->get();
@@ -274,17 +277,21 @@ class NumerosWhatsAppController extends Controller
     /**
      * Marcar un número como principal
      */
-    public function setPrincipal(NumerosWhatsApp $numero)
+    public function setPrincipal($id)
     {
-        // Verificar que el número pertenezca al usuario
-        $this->authorize('update', $numero);
+        $user = auth()->user();
+        $numerosWhatsApp = NumerosWhatsApp::findOrFail($id);
+
+        if (!$user || $numerosWhatsApp->user_id !== $user->id) {
+            abort(403, 'No tienes permiso para modificar este número.');
+        }
 
         // Desmarcar todos los números como principales
-        NumerosWhatsApp::where('user_id', Auth::id())
+        NumerosWhatsApp::where('user_id', $user->id)
             ->update(['es_principal' => false]);
 
         // Marcar este número como principal
-        $numero->update(['es_principal' => true]);
+        $numerosWhatsApp->update(['es_principal' => true]);
 
         return back()->with('success', 'Número marcado como principal.');
     }
@@ -294,7 +301,27 @@ class NumerosWhatsAppController extends Controller
      */
     public function destroy($id)
     {
-        NumerosWhatsApp::destroy($id);
+        $user = auth()->user();
+        $numerosWhatsApp = NumerosWhatsApp::findOrFail($id);
+
+        if (!$user || $numerosWhatsApp->user_id !== $user->id) {
+            abort(403, 'No tienes permiso para eliminar este número.');
+        }
+
+        $wasPrincipal = $numerosWhatsApp->es_principal;
+
+        $numerosWhatsApp->delete();
+
+        // Si era el número principal, asignar otro como principal
+        if ($wasPrincipal) {
+            $otroNumero = NumerosWhatsApp::where('user_id', $user->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            if ($otroNumero) {
+                $otroNumero->update(['es_principal' => true]);
+            }
+        }
 
         return back()->with('success', 'Número eliminado correctamente.');
     }
