@@ -17,6 +17,8 @@ use App\Http\Controllers\StripeWebhookController;
 
 
 
+use App\Http\Controllers\ChatController;
+
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])
     ->name('cashier.webhook');
 
@@ -87,6 +89,16 @@ Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function
     Route::resource('mensajes', MensajesDeEntrenamientoController::class);
     Route::resource('comisiones', InfocomisionesController::class);
     Route::resource('analistajr', GraficasController::class);
+
+    // ==================== CHAT CON IA ====================
+    Route::prefix('chat')->name('chat.')->group(function () {
+        Route::get('/', [ChatController::class, 'index'])->name('index');
+        Route::get('/crear', [ChatController::class, 'create'])->name('create');
+        Route::post('/', [ChatController::class, 'store'])->name('store');
+        Route::get('/{chat}', [ChatController::class, 'show'])->name('show');
+        Route::post('/{chat}/mensaje', [ChatController::class, 'storeMessage'])->name('store-message');
+        Route::delete('/{chat}', [ChatController::class, 'destroy'])->name('destroy');
+    });
 
     // Ruta especial para comisiones
     Route::get('comisiones/{id}/concretar', [InfocomisionesController::class, 'concretarView'])

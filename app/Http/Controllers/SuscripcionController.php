@@ -16,7 +16,7 @@ class SuscripcionController extends Controller
      */
     public function planes()
     {
-        $precioId = env('STRIPE_PRICE_BASICO');
+        $precioId = config('services.stripe.price_basico');
 
         if (!$precioId || $precioId === 'price_1MotKDEnLYCXf8OxBASICO') {
             Log::error('STRIPE_PRICE_BASICO no configurado en .env');
@@ -67,9 +67,12 @@ class SuscripcionController extends Controller
                 'plan_actual' => $user->getPlanActualNombre(),
                 'plan_id' => $user->getPlanActualId(),
                 'estado' => $user->estado_suscripcion,
+                'stripe_status' => $user->getStripeStatusSuscripcion(),
                 'en_trial' => $user->onTrial(),
                 'trial_ends_at' => $user->trial_ends_at,
                 'en_periodo_gracia' => $user->enPeriodoDeGracia(),
+                'pago_vencido' => $user->tienePagoVencido(),
+                'pago_incompleto' => $user->tienePagoIncompleto(),
                 'limites' => [
                     'whatsapp' => [
                         'limite' => $user->getLimiteWhatsApp(),
@@ -370,9 +373,9 @@ class SuscripcionController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->subscribed('default')) {
+        if (!$user->subscription('default')) {
             return redirect()->route('planes')
-                ->with('error', 'No tienes suscripciones activas.');
+                ->with('error', 'No tienes suscripciones registradas.');
         }
 
         $invoices = $user->invoices();
@@ -400,9 +403,9 @@ class SuscripcionController extends Controller
     {
         $user = Auth::user();
 
-        if (!$user->subscribed('default')) {
+        if (!$user->stripe_id) {
             return redirect()->route('planes')
-                ->with('error', 'No tienes una suscripción activa.');
+                ->with('error', 'No tienes un cliente de Stripe configurado todavía.');
         }
 
         return $user->redirectToBillingPortal(route('dashboard'));
@@ -440,7 +443,7 @@ class SuscripcionController extends Controller
             }
 
             // Crear suscripción en Stripe
-            $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
+            $stripe = new \Stripe\StripeClient(config('services.stripe.secret'));
 
             $subscription = $stripe->subscriptions->create([
                 'customer' => $user->stripe_id,
@@ -503,7 +506,7 @@ class SuscripcionController extends Controller
      */
     private function getPrecioBasico()
     {
-        $precioId = env('STRIPE_PRICE_BASICO');
+        $precioId = config('services.stripe.price_basico');
 
         if (empty($precioId) || $precioId === 'price_1MotKDEnLYCXf8OxBASICO') {
             throw new \Exception('Configuración de Stripe incompleta.');

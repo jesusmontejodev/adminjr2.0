@@ -133,12 +133,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tieneSuscripcionActiva(): bool
     {
         try {
-            // Primero verificar que tenga suscripción
-            if (!$this->subscribed('default')) {
+            $subscription = $this->subscription('default');
+
+            if (!$subscription) {
                 return false;
             }
-
-            $subscription = $this->subscription('default');
 
             // Método 1: Usar active() que es más confiable
             if (method_exists($subscription, 'active')) {
@@ -165,11 +164,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function suscripcionCancelada(): bool
     {
         try {
-            if (!$this->subscribed('default')) {
+            $subscription = $this->subscription('default');
+
+            if (!$subscription) {
                 return false;
             }
-
-            $subscription = $this->subscription('default');
 
             // Método 1: Usar cancelled() si existe
             if (method_exists($subscription, 'cancelled')) {
@@ -191,11 +190,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function enPeriodoDeGracia(): bool
     {
         try {
-            if (!$this->subscribed('default')) {
+            $subscription = $this->subscription('default');
+
+            if (!$subscription) {
                 return false;
             }
-
-            $subscription = $this->subscription('default');
 
             if (method_exists($subscription, 'onGracePeriod')) {
                 return $subscription->onGracePeriod();
@@ -210,6 +209,35 @@ class User extends Authenticatable implements MustVerifyEmail
             \Log::error('Error en enPeriodoDeGracia: ' . $e->getMessage());
             return false;
         }
+    }
+
+    /**
+     * Obtener el estado bruto de Stripe para la suscripción por defecto.
+     */
+    public function getStripeStatusSuscripcion(): ?string
+    {
+        try {
+            return $this->subscription('default')?->stripe_status;
+        } catch (\Exception $e) {
+            \Log::error('Error en getStripeStatusSuscripcion: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Verificar si la suscripción está vencida por falta de pago.
+     */
+    public function tienePagoVencido(): bool
+    {
+        return in_array($this->getStripeStatusSuscripcion(), ['past_due', 'unpaid'], true);
+    }
+
+    /**
+     * Verificar si la suscripción está incompleta y requiere confirmación.
+     */
+    public function tienePagoIncompleto(): bool
+    {
+        return in_array($this->getStripeStatusSuscripcion(), ['incomplete', 'incomplete_expired'], true);
     }
 
     /**
@@ -256,7 +284,7 @@ class User extends Authenticatable implements MustVerifyEmail
             }
 
             // Mapeo de price_id a nombres
-            $precioBasico = env('STRIPE_PRICE_BASICO');
+            $precioBasico = config('services.stripe.price_basico');
 
             if ($planId === $precioBasico) {
                 return 'Básico';
@@ -299,6 +327,15 @@ class User extends Authenticatable implements MustVerifyEmail
             $estado = 'activa';
             $cancelada = false;
             $enGracePeriod = false;
+            $stripeStatus = $subscription->stripe_status;
+
+            if ($this->tienePagoVencido()) {
+                $estado = $stripeStatus;
+            }
+
+            if ($this->tienePagoIncompleto()) {
+                $estado = $stripeStatus;
+            }
 
             // Usar métodos condicionales para evitar errores
             if (method_exists($subscription, 'cancelled') && $subscription->cancelled()) {
@@ -327,10 +364,13 @@ class User extends Authenticatable implements MustVerifyEmail
                 'estado' => $estado,
                 'plan_nombre' => $this->getPlanActualNombre(),
                 'plan_id' => $this->getPlanActualId(),
+                'stripe_status' => $stripeStatus,
                 'activa' => $this->tieneSuscripcionActiva(),
                 'cancelada' => $cancelada,
                 'en_grace_period' => $enGracePeriod,
                 'en_trial' => $this->onTrial(),
+                'pago_vencido' => $this->tienePagoVencido(),
+                'pago_incompleto' => $this->tienePagoIncompleto(),
                 'vencimiento' => $subscription->ends_at?->format('d/m/Y'),
                 'renovacion_automatica' => !$cancelada,
                 'fecha_proximo_pago' => $fechaProximoPago,
@@ -345,10 +385,13 @@ class User extends Authenticatable implements MustVerifyEmail
                 'estado' => 'error',
                 'plan_nombre' => 'Error',
                 'plan_id' => null,
+                'stripe_status' => null,
                 'activa' => false,
                 'cancelada' => false,
                 'en_grace_period' => false,
                 'en_trial' => false,
+                'pago_vencido' => false,
+                'pago_incompleto' => false,
                 'vencimiento' => null,
                 'renovacion_automatica' => false,
                 'fecha_proximo_pago' => null,
@@ -367,7 +410,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         $planId = $this->getPlanActualId();
-        $precioBasico = env('STRIPE_PRICE_BASICO');
+        $precioBasico = config('services.stripe.price_basico');
 
         if ($planId === $precioBasico) {
             return 3;
@@ -386,7 +429,7 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         $planId = $this->getPlanActualId();
-        $precioBasico = env('STRIPE_PRICE_BASICO');
+        $precioBasico = config('services.stripe.price_basico');
 
         if ($planId === $precioBasico) {
             return 5;
@@ -451,6 +494,11 @@ class User extends Authenticatable implements MustVerifyEmail
         );
     }
 
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'user_id');
+    }
+
     public function numerosWhatsApp()
     {
         return $this->hasMany(NumerosWhatsApp::class, 'user_id');
@@ -468,6 +516,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         if ($this->onTrial()) {
             return 'En Período de Prueba';
+        }
+
+        if ($this->tienePagoVencido()) {
+            return 'Pago vencido';
+        }
+
+        if ($this->tienePagoIncompleto()) {
+            return 'Pago incompleto';
         }
 
         if ($this->tieneSuscripcionActiva()) {
