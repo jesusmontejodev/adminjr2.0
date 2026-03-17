@@ -294,7 +294,7 @@ function sendMessage() {
         <div class="pt-4 mt-2 border-t border-gray-100 space-y-3">
             <!-- Botón Iniciar sesión-->
             <a href="{{ route('login') }}" 
-               class="flex items-center justify-center w-full px-5 py-3 bg-white border border-gray-300 hover:border-red-300 text-gray-700 hover:text-red-600 text-sm font-medium rounded-xl shadow-sm hover:shadow transition-all">
+                class="flex items-center justify-center w-full px-5 py-3 bg-white border border-gray-300 hover:border-red-300 text-gray-700 hover:text-red-600 text-sm font-medium rounded-xl shadow-sm hover:shadow transition-all">
                 Iniciar sesión
             </a>
             
@@ -2102,7 +2102,7 @@ button[onclick="sendMessage()"]:active {
     transition: all 0.2s ease;
 }
 /* =========================
-   BREAKPOINTS UNIVERSALES - CUBREN TODOS LOS DISPOSITIVOS
+    BREAKPOINTS UNIVERSALES - CUBREN TODOS LOS DISPOSITIVOS
    ========================= */
 
 /* Móviles muy pequeños (iPhone SE, Android mini 320px-375px) */
