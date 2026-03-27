@@ -1,201 +1,210 @@
 <x-guest-layout>
 
-    <!-- CARD -->
-    <div class="login-card relative z-10 max-w-md mx-auto mt-16
-                border border-red-500/30
-                rounded-3xl
-                px-8 py-10">
-
-        <!-- Logo -->
-        <div class="flex justify-center mb-4">
-            <img src="{{ asset('avaspace.svg') }}" class="h-10" alt="Admin Jr">
-        </div>
-
-        <!-- Title -->
-        <h1 class="text-center text-white text-xl font-bold mb-1">
-            Bienvenida a <span class="text-red-500">Admin Jr</span>
-        </h1>
-
-        <p class="text-center text-gray-400 text-sm mb-8">
-            Inicia sesión para continuar
-        </p>
-
-        <!-- Status -->
-        <x-auth-session-status
-            class="mb-4 text-center"
-            :status="session('status')" />
-
-        <!-- Form -->
-        <form method="POST" action="{{ route('login') }}" class="space-y-5">
-            @csrf
-
-            <!-- Email -->
-            <div>
-                <x-input-label
-                    for="email"
-                    value="Email"
-                    class="login-label" />
-
-                <x-text-input
-                    id="email"
-                    class="login-input block w-full"
-                    type="email"
-                    name="email"
-                    :value="old('email')"
-                    required
-                    autofocus
-                    autocomplete="username" />
-
-                <x-input-error
-                    :messages="$errors->get('email')"
-                    class="mt-2" />
+    <!-- CARD con animación y efecto flotante -->
+    <div class="relative group animate-fade-in-up">
+        
+        <!-- Glow animado detrás de la card -->
+        <div class="absolute -inset-6 bg-gradient-to-r from-red-500/30 via-amber-500/20 to-red-500/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 animate-pulse-slow"></div>
+        
+        <!-- Card principal con animación hover -->
+        <div class="bg-white rounded-2xl border-2 border-gray-900 shadow-[8px_8px_0_0_#000000] p-6 sm:p-8 transition-all duration-500 hover:shadow-[12px_12px_0_0_#dc2626] hover:border-red-600 hover:-translate-y-1 relative z-10">
+            
+            <!-- Logo con animación de rotación sutil -->
+            <div class="text-center mb-6">
+                <div class="flex justify-center mb-4">
+                    <div class="relative group/logo">
+                        <img src="{{ asset('avaspace.svg') }}" class="h-12 sm:h-14 transition-transform duration-500 group-hover/logo:scale-110" alt="Admin Jr">
+                        <div class="absolute -inset-2 bg-red-500/20 rounded-full blur-xl opacity-0 group-hover/logo:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl font-light text-gray-900 mb-1 animate-slide-in">
+                    Admin <span class="text-red-600 font-bold">Jr</span>
+                </h1>
+                
+                <div class="w-12 h-0.5 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mt-3 mb-4 animate-width-grow"></div>
+                
+                <p class="text-gray-500 text-sm animate-fade-in">
+                    Inicia sesión para continuar
+                </p>
             </div>
 
-            <!-- Password -->
-            <div>
-                <x-input-label
-                    for="password"
-                    value="Password"
-                    class="login-label" />
+            <!-- Status -->
+            <x-auth-session-status
+                class="mb-4 text-center text-green-600 text-sm font-medium animate-fade-in"
+                :status="session('status')" />
 
-                <x-text-input
-                    id="password"
-                    class="login-input block w-full"
-                    type="password"
-                    name="password"
-                    required
-                    autocomplete="current-password" />
+            <!-- Form con animación escalonada en inputs -->
+            <form method="POST" action="{{ route('login') }}" class="space-y-5">
+                @csrf
 
-                <x-input-error
-                    :messages="$errors->get('password')"
-                    class="mt-2" />
-            </div>
+                <!-- Email -->
+                <div class="animate-slide-up" style="animation-delay: 0.1s">
+                    <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Correo electrónico
+                    </label>
+                    <input
+                        id="email"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none hover:border-gray-400"
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        autofocus
+                        autocomplete="username"
+                        placeholder="tu@email.com">
+                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-600 text-sm" />
+                </div>
 
-            <!-- Remember -->
-            <div class="flex items-center gap-2 text-sm text-gray-400">
-                <input
-                    id="remember_me"
-                    type="checkbox"
-                    class="rounded bg-[#020617] border-white/20 text-red-600 focus:ring-red-500"
-                    name="remember">
-                Remember me
-            </div>
+                <!-- Password -->
+                <div class="animate-slide-up" style="animation-delay: 0.2s">
+                    <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Contraseña
+                    </label>
+                    <input
+                        id="password"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none hover:border-gray-400"
+                        type="password"
+                        name="password"
+                        required
+                        autocomplete="current-password"
+                        placeholder="••••••••">
+                    <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-600 text-sm" />
+                </div>
 
-            <!-- Actions -->
-            <div class="flex items-center justify-between pt-2">
-                @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}"
-                       class="text-sm text-gray-400 hover:text-red-400 transition">
-                        Forgot password?
+                <!-- Remember y Forgot -->
+                <div class="flex items-center justify-between animate-slide-up" style="animation-delay: 0.3s">
+                    <label class="flex items-center gap-2 cursor-pointer group/check">
+                        <input
+                            type="checkbox"
+                            name="remember"
+                            class="rounded border-2 border-gray-300 text-red-600 focus:ring-red-500 focus:ring-2 w-4 h-4 transition-all duration-200 group-hover/check:border-red-400">
+                        <span class="text-sm text-gray-600 group-hover/check:text-red-600 transition-colors">Recordarme</span>
+                    </label>
+
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}"
+                           class="text-sm text-gray-500 hover:text-red-600 transition-all duration-300 hover:translate-x-1 inline-block">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+                    @endif
+                </div>
+
+                <!-- Botón submit animado -->
+                <button type="submit"
+                        class="relative w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold text-sm rounded-xl transition-all duration-300 shadow-[3px_3px_0_0_#000000] hover:shadow-[5px_5px_0_0_#000000] hover:scale-[1.02] overflow-hidden group animate-slide-up mt-6"
+                        style="animation-delay: 0.4s">
+                    
+                    <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+                    
+                    <span class="relative z-10">Iniciar sesión</span>
+                    <svg class="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+                         fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
+                </button>
+            </form>
+
+            <!-- Link para registrarse -->
+            <div class="mt-6 text-center pt-4 border-t border-gray-200 animate-fade-in" style="animation-delay: 0.5s">
+                <p class="text-sm text-gray-500">
+                    ¿No tienes cuenta?
+                    <a href="{{ route('register') }}" class="text-red-600 font-semibold hover:text-red-700 transition-all duration-300 hover:translate-x-0.5 inline-block">
+                        Crear cuenta gratis
                     </a>
-                @endif
-
-                <x-primary-button class="login-btn">
-                    LOG IN
-                </x-primary-button>
+                </p>
             </div>
-        </form>
+        </div>
     </div>
 
-    <!-- STYLES -->
     <style>
-        /* Layout base */
-        main {
-            min-height: 100vh;
-            position: relative;
-            overflow: hidden;
-            justify-content: flex-start !important;
-            padding-top: 4rem;
+        /* Animaciones personalizadas */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        /* CARD */
-        .login-card {
-            background: linear-gradient(
-                180deg,
-                rgba(255,255,255,0.06),
-                rgba(255,255,255,0.02)
-            );
-            backdrop-filter: blur(18px);
-            transition: all .35s ease;
-            position: relative;
-            overflow: hidden;
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-
-        .login-card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: radial-gradient(
-                circle,
-                rgba(104, 26, 26, 0.44),
-                transparent 30%
-            );
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes widthGrow {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 3rem;
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulseSlow {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+        
+        .animate-slide-in {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-up {
             opacity: 0;
-            transition: opacity .4s ease;
-            z-index: -1;
+            animation: slideUp 0.5s ease-out forwards;
         }
-
-        .login-card:hover::before {
-            opacity: 1;
+        
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
         }
-
-        .login-card:hover {
-            border-color: rgba(239,68,68,.55);
-            box-shadow: 0 0 35px rgba(239,68,68,.15);
+        
+        .animate-width-grow {
+            animation: widthGrow 0.8s ease-out forwards;
         }
-
-        /* LABELS (SIN FONDO) */
-        .login-label {
-            display: block;
-            background: transparent !important;
-            color: #ef4444;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .3px;
-            margin-bottom: 4px;
-        }
-
-        /* INPUTS */
-        .login-input {
-            margin-top: 6px;
-            padding: 12px 16px;
-            border-radius: 14px;
-
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-
-            color: #e5e7eb;
-            transition: .25s ease;
-        }
-
-        .login-input::placeholder {
-            color: rgba(255, 255, 255, 0.45);
-        }
-
-        .login-input:focus {
-            outline: none;
-            border-color: #ef4444;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 2px rgba(239, 68, 68, .35);
-        }
-
-        /* BOTÓN */
-        .login-btn {
-            background: transparent;
-            border: 1.5px solid rgba(239,68,68,.6);
-            color: #ef4444;
-            padding: 10px 22px;
-            border-radius: 14px;
-            font-weight: 600;
-            letter-spacing: .5px;
-            transition: all .3s ease;
-        }
-
-        .login-btn:hover {
-            background: linear-gradient(135deg, #ef4444, #b91c1c);
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(239,68,68,.35);
-            transform: translateY(-2px);
+        
+        .animate-pulse-slow {
+            animation: pulseSlow 3s ease-in-out infinite;
         }
     </style>
 

@@ -1,378 +1,321 @@
 <x-guest-layout>
 
-    <!-- CONTENEDOR ÚNICO -->
-    <div class="login-card relative z-10 max-w-md mx-auto mt-16
-                border border-red-500/30
-                rounded-3xl
-                px-8 py-10">
-
-        <!-- Logo -->
-        <div class="flex items-center justify-center gap-3 mb-4">
-            <img src="{{ asset('avaspace.svg') }}" alt="" class="h-10">
-        </div>
-
-        <!-- Títulos -->
-        <h1 class="text-center text-white text-xl font-bold mb-1">
-            Crear cuenta en <span class="text-red-500">Admin Jr</span>
-        </h1>
-
-        <p class="text-center text-gray-400 text-sm mb-8">
-            Regístrate para comenzar
-        </p>
-
-        <form method="POST" action="{{ route('register') }}" class="space-y-5">
-            @csrf
-
-            <!-- Name -->
-            <div>
-                <x-input-label for="name" value="Nombre" class="login-label" />
-                <x-text-input
-                    id="name"
-                    class="login-input block w-full"
-                    type="text"
-                    name="name"
-                    :value="old('name')"
-                    required
-                    autofocus
-                    autocomplete="name" />
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+    <!-- CARD con animación y efecto flotante - MISMO ESTILO QUE LOGIN -->
+    <div class="relative group animate-fade-in-up">
+        
+        <!-- Glow animado detrás de la card -->
+        <div class="absolute -inset-6 bg-gradient-to-r from-red-500/30 via-amber-500/20 to-red-500/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 animate-pulse-slow"></div>
+        
+        <!-- Card principal con animación hover -->
+        <div class="bg-white rounded-2xl border-2 border-gray-900 shadow-[8px_8px_0_0_#000000] p-6 sm:p-8 transition-all duration-500 hover:shadow-[12px_12px_0_0_#dc2626] hover:border-red-600 hover:-translate-y-1 relative z-10">
+            
+            <!-- Logo con animación -->
+            <div class="text-center mb-6">
+                <div class="flex justify-center mb-4">
+                    <div class="relative group/logo">
+                        <img src="{{ asset('avaspace.svg') }}" class="h-12 sm:h-14 transition-transform duration-500 group-hover/logo:scale-110" alt="Admin Jr">
+                        <div class="absolute -inset-2 bg-red-500/20 rounded-full blur-xl opacity-0 group-hover/logo:opacity-100 transition-opacity duration-500"></div>
+                    </div>
+                </div>
+                
+                <h1 class="text-3xl sm:text-4xl font-light text-gray-900 mb-1 animate-slide-in">
+                    Crear cuenta en <span class="text-red-600 font-bold">Admin Jr</span>
+                </h1>
+                
+                <div class="w-12 h-0.5 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mt-3 mb-4 animate-width-grow"></div>
+                
+                <p class="text-gray-500 text-sm animate-fade-in">
+                    Regístrate para comenzar
+                </p>
             </div>
 
-            <!-- Email -->
-            <div>
-                <x-input-label for="email" value="Correo Electrónico" class="login-label" />
-                <x-text-input
-                    id="email"
-                    class="login-input block w-full"
-                    type="email"
-                    name="email"
-                    :value="old('email')"
-                    required
-                    autocomplete="username" />
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            </div>
+            <form method="POST" action="{{ route('register') }}" class="space-y-5">
+                @csrf
 
-            <!-- Teléfono (Opcional) -->
-            <div>
-                <x-input-label for="phone" value="Teléfono (Opcional)" class="login-label" />
+                <!-- Name -->
+                <div class="animate-slide-up" style="animation-delay: 0.1s">
+                    <label for="name" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Nombre
+                    </label>
+                    <input
+                        id="name"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none hover:border-gray-400"
+                        type="text"
+                        name="name"
+                        value="{{ old('name') }}"
+                        required
+                        autofocus
+                        autocomplete="name"
+                        placeholder="Tu nombre">
+                    <x-input-error :messages="$errors->get('name')" class="mt-2 text-red-600 text-sm" />
+                </div>
 
-                <!-- Grupo de inputs para teléfono -->
-                <div class="flex gap-2 mt-2">
-                    <!-- Código de país -->
-                    <div class="flex-1">
-                        <select
-                            id="country_code"
-                            name="country_code"
-                            class="login-input w-full text-gray-300 appearance-none cursor-pointer"
-                            style="padding-right: 2.5rem;">
-                            <option value="" class="bg-gray-900 text-gray-400">Código</option>
-                            <option value="+1" {{ old('country_code') == '+1' ? 'selected' : '' }} class="bg-gray-900">+1 (USA/Canadá)</option>
-                            <option value="+52" {{ old('country_code') == '+52' ? 'selected' : '' }} class="bg-gray-900">+52 (México)</option>
-                            <option value="+34" {{ old('country_code') == '+34' ? 'selected' : '' }} class="bg-gray-900">+34 (España)</option>
-                            <option value="+51" {{ old('country_code') == '+51' ? 'selected' : '' }} class="bg-gray-900">+51 (Perú)</option>
-                            <option value="+56" {{ old('country_code') == '+56' ? 'selected' : '' }} class="bg-gray-900">+56 (Chile)</option>
-                            <option value="+54" {{ old('country_code') == '+54' ? 'selected' : '' }} class="bg-gray-900">+54 (Argentina)</option>
-                            <option value="+55" {{ old('country_code') == '+55' ? 'selected' : '' }} class="bg-gray-900">+55 (Brasil)</option>
-                            <option value="+57" {{ old('country_code') == '+57' ? 'selected' : '' }} class="bg-gray-900">+57 (Colombia)</option>
-                            <option value="other" {{ old('country_code') == 'other' ? 'selected' : '' }} class="bg-gray-900">Otro</option>
-                        </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-400">
-                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
-                            </svg>
+                <!-- Email -->
+                <div class="animate-slide-up" style="animation-delay: 0.15s">
+                    <label for="email" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Correo electrónico
+                    </label>
+                    <input
+                        id="email"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none hover:border-gray-400"
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        autocomplete="username"
+                        placeholder="tu@email.com">
+                    <x-input-error :messages="$errors->get('email')" class="mt-2 text-red-600 text-sm" />
+                </div>
+
+                <!-- Teléfono (Opcional) -->
+                <div class="animate-slide-up" style="animation-delay: 0.2s">
+                    <label class="block text-gray-700 text-sm font-semibold mb-2">
+                        Teléfono (Opcional)
+                    </label>
+
+                    <div class="flex gap-2">
+                        <!-- Código de país - TAMAÑO REDUCIDO -->
+                        <div class="w-28 relative">
+                            <select
+                                id="country_code"
+                                name="country_code"
+                                class="w-full px-3 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-700 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none appearance-none cursor-pointer hover:border-gray-400 text-sm">
+                                <option value="" class="text-gray-500">Código</option>
+                                < <option value="+1" {{ old('country_code') == '+1' ? 'selected' : '' }}>+1(USA/Canadá)</option>
+                            <option value="+52" {{ old('country_code') == '+52' ? 'selected' : '' }}>+52(México)</option>
+                            <option value="+34" {{ old('country_code') == '+34' ? 'selected' : '' }}>+34(España)</option>
+                            <option value="+51" {{ old('country_code') == '+51' ? 'selected' : '' }}>+51(Perú)</option>
+                            <option value="+56" {{ old('country_code') == '+56' ? 'selected' : '' }}>+56(Chile)</option>
+                            <option value="+54" {{ old('country_code') == '+54' ? 'selected' : '' }}>+54(Argentina)</option>
+                            <option value="+55" {{ old('country_code') == '+55' ? 'selected' : '' }}>+55(Brasil)</option>
+                            <option value="+57" {{ old('country_code') == '+57' ? 'selected' : '' }}>+57(Colombia)</option>
+                            <option value="other" {{ old('country_code') == 'other' ? 'selected' : '' }}>Otro</option>
+                            </select>
+                        </div>
+
+                        <!-- Número de teléfono -->
+                        <div class="flex-1">
+                            <input
+                                id="phone_number"
+                                class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none hover:border-gray-400"
+                                type="tel"
+                                name="phone_number"
+                                value="{{ old('phone_number') }}"
+                                placeholder="9991234567"
+                                autocomplete="tel">
                         </div>
                     </div>
 
-                    <!-- Número de teléfono -->
-                    <div class="flex-2">
-                        <x-text-input
-                            id="phone_number"
-                            class="login-input block w-full"
-                            type="tel"
-                            name="phone_number"
-                            :value="old('phone_number')"
-                            placeholder="Ej: 5512345678"
-                            autocomplete="tel"/>
+                    <!-- Input para código de país personalizado (oculto inicialmente) -->
+                    <div id="custom-country-code" class="mt-2 hidden">
+                        <label for="custom_country_code" class="block text-gray-700 text-sm font-semibold mb-2">
+                            Código de país personalizado
+                        </label>
+                        <input
+                            id="custom_country_code"
+                            class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none"
+                            type="text"
+                            name="custom_country_code"
+                            value="{{ old('custom_country_code') }}"
+                            placeholder="Ej: +44">
                     </div>
+
+                    <p class="text-xs text-gray-500 mt-2">
+                        Solo para notificaciones importantes. Ej: 55-1234-5678 o (55) 1234 5678
+                    </p>
+
+                    <x-input-error :messages="$errors->get('country_code')" class="mt-2 text-red-600 text-sm" />
+                    <x-input-error :messages="$errors->get('phone_number')" class="mt-2 text-red-600 text-sm" />
                 </div>
 
-                <!-- Input para código de país personalizado (oculto inicialmente) -->
-                <div id="custom-country-code" class="mt-2 hidden">
-                    <x-input-label for="custom_country_code" value="Código de país personalizado" class="login-label" />
-                    <x-text-input
-                        id="custom_country_code"
-                        class="login-input block w-full mt-1"
-                        type="text"
-                        name="custom_country_code"
-                        :value="old('custom_country_code')"
-                        placeholder="Ej: +44"
-                        autocomplete="off" />
+                <!-- Password -->
+                <div class="animate-slide-up" style="animation-delay: 0.25s">
+                    <label for="password" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Contraseña
+                    </label>
+                    <input
+                        id="password"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none hover:border-gray-400"
+                        type="password"
+                        name="password"
+                        required
+                        autocomplete="new-password"
+                        placeholder="Crea una contraseña segura">
+                    <x-input-error :messages="$errors->get('password')" class="mt-2 text-red-600 text-sm" />
                 </div>
 
-                <!-- Mensaje informativo -->
-                <p class="text-xs text-gray-500 mt-2">
-                    Solo para notificaciones importantes. Ej: 55-1234-5678 o (55) 1234 5678
-                </p>
+                <!-- Confirm Password -->
+                <div class="animate-slide-up" style="animation-delay: 0.3s">
+                    <label for="password_confirmation" class="block text-gray-700 text-sm font-semibold mb-2">
+                        Confirmar Contraseña
+                    </label>
+                    <input
+                        id="password_confirmation"
+                        class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 bg-gray-50 text-gray-900 focus:border-red-500 focus:ring-2 focus:ring-red-200 focus:bg-white transition-all duration-300 outline-none hover:border-gray-400"
+                        type="password"
+                        name="password_confirmation"
+                        required
+                        autocomplete="new-password"
+                        placeholder="Repite tu contraseña">
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-red-600 text-sm" />
+                </div>
 
-                <!-- Errores -->
-                <x-input-error :messages="$errors->get('country_code')" class="mt-2" />
-                <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
-            </div>
+                <!-- Terms and Privacy -->
+                <div class="mt-2 animate-fade-in" style="animation-delay: 0.35s">
+                    <p class="text-xs text-gray-500 text-center">
+                        Al registrarte, aceptas nuestros
+                        <a href="{{ route('aviso-de-privacidad') }}" class="text-red-600 hover:text-red-700 transition">Aviso de privacidad</a> y
+                        <a href="{{ route('terminos') }}" class="text-red-600 hover:text-red-700 transition">Términos y condiciones</a>.
+                    </p>
+                </div>
 
-            <!-- Password -->
-            <div>
-                <x-input-label for="password" value="Contraseña" class="login-label" />
-                <x-text-input
-                    id="password"
-                    class="login-input block w-full"
-                    type="password"
-                    name="password"
-                    required
-                    autocomplete="new-password" />
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div>
+                <!-- Actions -->
+                <div class="flex items-center justify-between pt-2 animate-slide-up" style="animation-delay: 0.4s">
+                    <a href="{{ route('login') }}" class="text-sm text-gray-500 hover:text-red-600 transition-all duration-300 hover:translate-x-0.5 inline-block">
+                        ¿Ya tienes cuenta?
+                    </a>
 
-            <!-- Confirm Password -->
-            <div>
-                <x-input-label
-                    for="password_confirmation"
-                    value="Confirmar Contraseña"
-                    class="login-label" />
-                <x-text-input
-                    id="password_confirmation"
-                    class="login-input block w-full"
-                    type="password"
-                    name="password_confirmation"
-                    required
-                    autocomplete="new-password" />
-                <x-input-error
-                    :messages="$errors->get('password_confirmation')"
-                    class="mt-2" />
-            </div>
-
-            <!-- Terms and Privacy -->
-            <div class="mt-2">
-                <p class="text-xs text-gray-500 text-center">
-                    Al registrarte, aceptas nuestros
-                    <a href="{{ route('aviso-de-privacidad') }}" class="text-red-400 hover:text-red-300 transition">Aviso de privacidad</a> y
-                    <a href="{{ route('terminos') }}" class="text-red-400 hover:text-red-300 transition">Terminos y condiciones</a>.
-                </p>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex items-center justify-between pt-2">
-                <a
-                    href="{{ route('login') }}"
-                    class="text-sm text-gray-400 hover:text-red-400 transition">
-                    ¿Ya tienes cuenta?
-                </a>
-
-                <x-primary-button class="login-btn">
-                    REGISTRARSE
-                </x-primary-button>
-            </div>
-        </form>
+                    <button type="submit"
+                            class="relative inline-flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold text-sm rounded-xl transition-all duration-300 shadow-[3px_3px_0_0_#000000] hover:shadow-[5px_5px_0_0_#000000] hover:scale-[1.02] overflow-hidden group">
+                        
+                        <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+                        
+                        <span class="relative z-10">REGISTRARSE</span>
+                        <svg class="w-4 h-4 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- ESTILOS (MISMO QUE LOGIN) -->
     <style>
-        main {
-            min-height: 100vh;
-            position: relative;
-            overflow: hidden;
-            justify-content: flex-start !important;
-            padding-top: 4rem;
+        /* Animaciones personalizadas - MISMAS QUE LOGIN */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
-        /* CARD */
-        .login-card {
-            background: linear-gradient(
-                180deg,
-                rgba(255,255,255,0.06),
-                rgba(255,255,255,0.02)
-            );
-            backdrop-filter: blur(18px);
-            transition: all .35s ease;
-            position: relative;
-            overflow: hidden;
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-
-        .login-card::before {
-            content: "";
-            position: absolute;
-            inset: -40%;
-            background: radial-gradient(
-                circle,
-                rgba(104, 26, 26, 0.44),
-                transparent 30%
-            );
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes widthGrow {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                width: 3rem;
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulseSlow {
+            0%, 100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+        
+        .animate-slide-in {
+            animation: slideIn 0.6s ease-out forwards;
+        }
+        
+        .animate-slide-up {
             opacity: 0;
-            transition: opacity .4s ease;
-            z-index: -1;
+            animation: slideUp 0.5s ease-out forwards;
         }
-
-        .login-card:hover::before {
-            opacity: 1;
+        
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
         }
-
-        .login-card:hover {
-            border-color: rgba(239,68,68,.55);
-            box-shadow: 0 0 35px rgba(239,68,68,.15);
+        
+        .animate-width-grow {
+            animation: widthGrow 0.8s ease-out forwards;
         }
-
-        /* LABELS */
-        .login-label {
-            color: #ef4444;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: .3px;
+        
+        .animate-pulse-slow {
+            animation: pulseSlow 3s ease-in-out infinite;
         }
-
-        .login-input {
-            margin-top: 6px;
-            padding: 12px 16px;
-            border-radius: 14px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #e5e7eb;
-            transition: .25s ease;
-            width: 100%;
-        }
-
-        .login-input::placeholder {
-            color: rgba(255, 255, 255, 0.45);
-        }
-
-        .login-input:focus {
-            outline: none;
-            border-color: #ef4444;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 2px rgba(239, 68, 68, .35);
-        }
-
-        /* Estilos específicos para el select */
-        select.login-input {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+        
+        /* Estilo para el select personalizado */
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 0.6rem center;
             background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 1.25em 1.25em;
-            padding-right: 2.5rem;
+            background-size: 1rem;
+            padding-right: 2rem;
+            appearance: none;
         }
-
-        /* BOTÓN OUTLINE */
-        .login-btn {
-            background: transparent;
-            border: 1.5px solid rgba(239,68,68,.6);
-            color: #ef4444;
-            padding: 10px 22px;
-            border-radius: 14px;
-            font-weight: 600;
-            letter-spacing: .5px;
-            transition: all .3s ease;
-        }
-
-        .login-btn:hover {
-            background: linear-gradient(135deg, #ef4444, #b91c1c);
-            color: #fff;
-            box-shadow: 0 6px 20px rgba(239,68,68,.35);
-            transform: translateY(-2px);
+        
+        select option {
+            background-color: white;
+            color: #1f2937;
         }
     </style>
 
-    <!-- JavaScript para manejar el código de país personalizado -->
     <script>
+        // Mostrar campo de código personalizado cuando se selecciona "Otro"
         document.addEventListener('DOMContentLoaded', function() {
             const countryCodeSelect = document.getElementById('country_code');
-            const customCountryCodeDiv = document.getElementById('custom-country-code');
-            const customCountryCodeInput = document.getElementById('custom_country_code');
-            const phoneNumberInput = document.getElementById('phone_number');
-            const form = document.querySelector('form');
-
-            // Mostrar/ocultar campo de código personalizado
-            countryCodeSelect.addEventListener('change', function() {
-                if (this.value === 'other') {
-                    customCountryCodeDiv.classList.remove('hidden');
-                    customCountryCodeInput.required = true;
-                } else {
-                    customCountryCodeDiv.classList.add('hidden');
-                    customCountryCodeInput.required = false;
-                }
-            });
-
-            // Formateo automático del número de teléfono
-            phoneNumberInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-
-                // Limitar a 15 dígitos máximo
-                if (value.length > 15) {
-                    value = value.substring(0, 15);
-                }
-
-                // Formato opcional: puedes comentar esto si prefieres que el usuario ingrese libremente
-                // if (value.length > 6) {
-                //     value = value.replace(/(\d{2})(\d{4})(\d{0,4})/, '$1-$2-$3');
-                // } else if (value.length > 2) {
-                //     value = value.replace(/(\d{2})(\d{0,4})/, '$1-$2');
-                // }
-
-                e.target.value = value;
-            });
-
-            // Manejar envío del formulario para código de país personalizado
-            form.addEventListener('submit', function(e) {
-                if (countryCodeSelect.value === 'other') {
-                    if (!customCountryCodeInput.value) {
-                        e.preventDefault();
-                        alert('Por favor ingresa un código de país válido');
-                        customCountryCodeInput.focus();
-                        return;
+            const customCodeDiv = document.getElementById('custom-country-code');
+            
+            if (countryCodeSelect && customCodeDiv) {
+                function toggleCustomCode() {
+                    if (countryCodeSelect.value === 'other') {
+                        customCodeDiv.classList.remove('hidden');
+                    } else {
+                        customCodeDiv.classList.add('hidden');
                     }
-
-                    // Validar formato del código de país personalizado
-                    const countryCodeRegex = /^\+[0-9]{1,4}$/;
-                    if (!countryCodeRegex.test(customCountryCodeInput.value)) {
-                        e.preventDefault();
-                        alert('El código de país debe tener el formato +XXX (ej: +1, +34, +52)');
-                        customCountryCodeInput.focus();
-                        return;
-                    }
-
-                    // Crear un campo oculto con el código de país personalizado
-                    const hiddenInput = document.createElement('input');
-                    hiddenInput.type = 'hidden';
-                    hiddenInput.name = 'country_code';
-                    hiddenInput.value = customCountryCodeInput.value;
-                    form.appendChild(hiddenInput);
-
-                    // Deshabilitar el select original para que no se envíe
-                    countryCodeSelect.disabled = true;
                 }
-
-                // Validación consistencia teléfono
-                const hasCountryCode = countryCodeSelect.value && countryCodeSelect.value !== 'other';
-                const hasCustomCountryCode = countryCodeSelect.value === 'other' && customCountryCodeInput.value;
-                const hasPhoneNumber = phoneNumberInput.value.trim().length > 0;
-
-                if ((hasCountryCode || hasCustomCountryCode) && !hasPhoneNumber) {
-                    e.preventDefault();
-                    alert('Por favor ingresa un número de teléfono');
-                    phoneNumberInput.focus();
-                    return;
-                }
-
-                if (hasPhoneNumber && !hasCountryCode && !hasCustomCountryCode) {
-                    e.preventDefault();
-                    alert('Por favor selecciona un código de país');
-                    countryCodeSelect.focus();
-                    return;
-                }
-            });
-
-            // Inicializar: mostrar campo personalizado si ya estaba seleccionado
-            if (countryCodeSelect.value === 'other') {
-                customCountryCodeDiv.classList.remove('hidden');
+                
+                countryCodeSelect.addEventListener('change', toggleCustomCode);
+                toggleCustomCode();
             }
         });
     </script>
+
 </x-guest-layout>

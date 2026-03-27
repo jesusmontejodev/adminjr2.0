@@ -543,32 +543,38 @@ function sendMessage() {
         <!-- Línea decorativa superior - responsive -->
         <div class="w-16 sm:w-20 md:w-24 h-0.5 sm:h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mb-5 sm:mb-6 shadow-[1px_1px_0_0_#000000]"></div>
         
-        <!-- Botón - responsive -->
-        <div class="mt-8 sm:mt-9 md:mt-10 relative z-10">
-            <a href="{{ route('register') }}"
-               class="relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4
-                      bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
-                      text-white font-medium text-sm sm:text-base md:text-lg
-                      rounded-full
-                      transition-all duration-500
-                      shadow-[3px_3px_0_0_#000000] sm:shadow-[4px_4px_0_0_#000000] hover:shadow-[4px_4px_0_0_#000000] sm:hover:shadow-[6px_6px_0_0_#000000]
-                      hover:scale-105
-                      overflow-hidden
-                      group">
-                
-                <!-- Efecto de brillo - responsive -->
-                <span class="absolute inset-0 bg-white/30 w-[200%] h-full -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-700 skew-x-12"></span>
-                
-                <!-- Texto del botón -->
-                <span class="relative z-10">Crear cuenta</span>
-                
-                <!-- Icono flecha - responsive -->
-                <svg class="w-4 h-4 sm:w-5 sm:h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
-                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                </svg>
-            </a>
-        </div>
+       <!-- CTA con efecto de brillo - responsive -->
+    <div class="mt-10 sm:mt-12 md:mt-14">
+        <a href="{{ route('register') }}"
+           class="relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4
+                  bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
+                  text-white font-medium text-sm sm:text-base md:text-lg
+                  rounded-full
+                  transition-all duration-500
+                  shadow-[3px_3px_0_0_#000000] sm:shadow-[4px_4px_0_0_#000000] hover:shadow-[4px_4px_0_0_#000000] sm:hover:shadow-[6px_6px_0_0_#000000]
+                  hover:scale-105
+                  overflow-hidden
+                  group">
+            
+            <!-- Efecto de brillo -->
+            <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+            
+            <!-- Texto e icono -->
+            <span class="relative z-11">Crear cuenta</span>
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Elementos decorativos sutiles - responsive -->
+    <div class="absolute top-1/2 left-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-gradient-to-r from-red-500/10 to-transparent rounded-full blur-2xl md:blur-3xl -z-10"></div>
+    <div class="absolute bottom-1/2 right-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-gradient-to-l from-red-500/10 to-transparent rounded-full blur-2xl md:blur-3xl -z-10"></div>
+    
+    <!-- Líneas decorativas abstractas - se ocultan en móvil -->
+    <div class="hidden sm:block absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30"></div>
+    <div class="hidden sm:block absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-transparent via-red-500/20 to-transparent opacity-30"></div>
     </div>
 </section>
 
@@ -676,6 +682,39 @@ function sendMessage() {
                 </div>
             </div>
         </div>
+         <!-- CTA con efecto de brillo - responsive -->
+    <div class="mt-10 sm:mt-12 md:mt-14">
+        <a href="{{ route('register') }}"
+           class="relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4
+                  bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
+                  text-white font-medium text-sm sm:text-base md:text-lg
+                  rounded-full
+                  transition-all duration-500
+                  shadow-[3px_3px_0_0_#000000] sm:shadow-[4px_4px_0_0_#000000] hover:shadow-[4px_4px_0_0_#000000] sm:hover:shadow-[6px_6px_0_0_#000000]
+                  hover:scale-105
+                  overflow-hidden
+                  group">
+            
+            <!-- Efecto de brillo -->
+            <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+            
+            <!-- Texto e icono -->
+            <span class="relative z-11">Registrate</span>
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+            </svg>
+        </a>
+    </div>
+
+    <!-- Elementos decorativos sutiles - responsive -->
+    <div class="absolute top-1/2 left-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-gradient-to-r from-red-500/10 to-transparent rounded-full blur-2xl md:blur-3xl -z-10"></div>
+    <div class="absolute bottom-1/2 right-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-gradient-to-l from-red-500/10 to-transparent rounded-full blur-2xl md:blur-3xl -z-10"></div>
+    
+    <!-- Líneas decorativas abstractas - se ocultan en móvil -->
+    <div class="hidden sm:block absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30"></div>
+    <div class="hidden sm:block absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-transparent via-red-500/20 to-transparent opacity-30"></div>
+    </div>
     </div>
 
     <!-- Elementos decorativos sutiles - se ocultan en móvil -->
@@ -936,12 +975,6 @@ function sendMessage() {
                         Escribe tu venta o gasto y Admin JR lo convierte
                         en datos organizados automáticamente.
                     </p>
-                    
-                    <!-- Feature tag - responsive -->
-                    <div class="mt-4 sm:mt-5 md:mt-6 inline-flex items-center gap-1 px-3 sm:px-4 py-1 sm:py-1.5 bg-gray-900 rounded-full border border-gray-700 shadow-[2px_2px_0_0_#dc2626]">
-                        <span class="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-red-500 rounded-full animate-pulse"></span>
-                        <span class="text-[10px] sm:text-xs text-white font-medium">Automático</span>
-                    </div>
                 </div>
 
                 <!-- CARD 2 - Recordatorios inteligentes -->
@@ -986,11 +1019,6 @@ function sendMessage() {
                         Si olvidas registrar algo, tu asistente te avisa.
                         Siempre atento, siempre disponible.
                     </p>
-                    
-                    <div class="mt-4 sm:mt-5 md:mt-6 inline-flex items-center gap-1 px-3 sm:px-4 py-1 sm:py-1.5 bg-gray-900 rounded-full border border-gray-700 shadow-[2px_2px_0_0_#dc2626]">
-                        <span class="w-1 sm:w-1.5 h-1 sm:h-1.5 bg-red-500 rounded-full animate-pulse"></span>
-                        <span class="text-[10px] sm:text-xs text-white font-medium">Proactivo</span>
-                    </div>
                 </div>
 
                 <!-- CARD 3 - Resumen 24/7 -->
@@ -1045,6 +1073,39 @@ function sendMessage() {
             <span class="w-6 sm:w-7 md:w-8 h-1.5 sm:h-2 bg-gray-900 rounded-full shadow-[1px_1px_0_0_#dc2626]"></span>
             <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-300 rounded-full"></span>
             <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-300 rounded-full"></span>
+        </div>
+            <!-- CTA con efecto de brillo - responsive -->
+        <div class="mt-10 sm:mt-12 md:mt-14 flex justify-center">
+            <a href="{{ route('register') }}"
+            class="relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4
+                    bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
+                    text-white font-medium text-sm sm:text-base md:text-lg
+                    rounded-full
+                    transition-all duration-500
+                    shadow-[3px_3px_0_0_#000000] sm:shadow-[4px_4px_0_0_#000000] hover:shadow-[4px_4px_0_0_#000000] sm:hover:shadow-[6px_6px_0_0_#000000]
+                    hover:scale-105
+                    overflow-hidden
+                    group">
+                
+                <!-- Efecto de brillo -->
+                <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+                
+                <!-- Texto e icono -->
+                <span class="relative z-11">Crear cuenta</span>
+                <svg class="w-4 h-4 sm:w-5 sm:h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" 
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Elementos decorativos sutiles - responsive -->
+        <div class="absolute top-1/2 left-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-gradient-to-r from-red-500/10 to-transparent rounded-full blur-2xl md:blur-3xl -z-10"></div>
+        <div class="absolute bottom-1/2 right-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-gradient-to-l from-red-500/10 to-transparent rounded-full blur-2xl md:blur-3xl -z-10"></div>
+        
+        <!-- Líneas decorativas abstractas - se ocultan en móvil -->
+        <div class="hidden sm:block absolute top-20 left-10 w-px h-40 bg-gradient-to-b from-transparent via-red-500/20 to-transparent opacity-30"></div>
+        <div class="hidden sm:block absolute bottom-20 right-10 w-px h-40 bg-gradient-to-t from-transparent via-red-500/20 to-transparent opacity-30"></div>
         </div>
     </div>
 </section>
@@ -1454,6 +1515,196 @@ function sendMessage() {
     </div>
 
 </section>
+<!-- SECCIÓN TEST DE SALUD FINANCIERA -->
+<section class="relative mt-16 sm:mt-20 md:mt-24 flex flex-col items-center overflow-hidden px-4 sm:px-6">
+    
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-red-500/5 rounded-full blur-2xl md:blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/4 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-amber-500/5 rounded-full blur-2xl md:blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto w-full">
+        
+        <!-- Badge superior centrado -->
+        <div class="flex justify-center">
+            <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 bg-white border-2 border-gray-900 rounded-full mb-6 sm:mb-7 md:mb-8 shadow-[2px_2px_0_0_#000000] sm:shadow-[3px_3px_0_0_#000000]">
+                <svg class="w-1.5 sm:w-2 h-1.5 sm:h-2 text-red-600" fill="currentColor" viewBox="0 0 8 8">
+                    <circle cx="4" cy="4" r="4" />
+                </svg>
+                <span class="text-[10px] sm:text-xs font-bold text-gray-900 uppercase tracking-wider">DIAGNOSTICO GRATUITO</span>
+            </div>
+        </div>
+
+            <!-- Título -->
+        <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight text-center text-gray-900 mb-4">
+            ¿Cómo está tu 
+            <span class="text-red-600 font-bold">salud financiera</span>
+            ?
+        </h2>
+        
+        <!-- Línea decorativa -->
+        <div class="w-16 sm:w-20 md:w-24 h-0.5 sm:h-1 bg-gradient-to-r from-red-600 to-amber-500 rounded-full mx-auto mb-6 shadow-[1px_1px_0_0_#000000]"></div>
+
+        <!-- Subtítulo -->
+        <p class="text-sm sm:text-base md:text-lg text-gray-600 text-center max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
+            Responde estas 4 preguntas y descubre si tus finanzas estan en el camino correcto.
+        </p>
+
+        <!-- FORMULARIO TEST -->
+        <div class="bg-white rounded-2xl border-2 border-gray-900 shadow-[6px_6px_0_0_#000000] sm:shadow-[8px_8px_0_0_#000000] p-6 sm:p-8 md:p-10">
+            
+            <form id="financialTestForm" class="space-y-6 sm:space-y-8">
+                
+                <!-- PREGUNTA 1 - Control de gastos -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-red-600 text-white text-sm font-bold">
+                            <span>1</span>
+                        </div>
+                        <label class="text-base sm:text-lg font-semibold text-gray-900">¿Cómo registras tus gastos e ingresos actualmente?</label>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q1" value="0" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">No los registro, gasto sin control</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q1" value="33" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Los apunto en notas o mentalmente, pero es desordenado</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q1" value="66" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Uso Excel, una app o algun metodo organizado</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PREGUNTA 2 - Conocimiento financiero -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-red-600 text-white text-sm font-bold">
+                            <span>2</span>
+                        </div>
+                        <label class="text-base sm:text-lg font-semibold text-gray-900">¿Sabes exactamente cuánto dinero gastaste en el último mes por categoría?</label>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q2" value="0" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">No tengo idea</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q2" value="33" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Tengo una idea general, pero no con precision</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q2" value="66" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Si, tengo claro cuanto gaste en cada categoria</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PREGUNTA 3 - Tiempo dedicado a finanzas -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-red-600 text-white text-sm font-bold">
+                            <span>3</span>
+                        </div>
+                        <label class="text-base sm:text-lg font-semibold text-gray-900">¿Cuánto tiempo dedicas a organizar tus finanzas cada semana?</label>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q3" value="0" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">No dedico tiempo, me genera estres o lo evito</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q3" value="33" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Dedico entre 1 y 2 horas, pero es un proceso tedioso</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q3" value="66" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Dedico menos de 30 minutos y me siento en control</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- PREGUNTA 4 - Toma de decisiones -->
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-red-600 text-white text-sm font-bold">
+                            <span>4</span>
+                        </div>
+                        <label class="text-base sm:text-lg font-semibold text-gray-900">¿Te has encontrado con que no sabes si puedes darte un gusto o hacer una compra importante por falta de claridad financiera?</label>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q4" value="0" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Me pasa constantemente</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q4" value="33" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">A veces me pasa, me genera inseguridad</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 cursor-pointer transition-all bg-gray-50 hover:bg-red-50">
+                            <input type="radio" name="q4" value="66" class="w-4 h-4 text-red-600 focus:ring-red-500">
+                            <span class="text-sm sm:text-base">Rara vez me pasa, tengo claro mi situacion</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Boton enviar -->
+                <button type="submit" id="testSubmitBtn" class="w-full py-4 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold text-base sm:text-lg rounded-xl transition-all duration-300 shadow-[3px_3px_0_0_#000000] hover:shadow-[5px_5px_0_0_#000000] hover:scale-[1.02]">
+                    Evaluar mi salud financiera
+                </button>
+            </form>
+
+            <!-- RESULTADO (inicialmente oculto) -->
+            <div id="testResult" class="mt-8 hidden">
+                <div class="border-t-2 border-gray-200 pt-6">
+                    <div id="resultMessage" class="p-5 rounded-xl text-center text-white text-base sm:text-lg font-medium"></div>
+                    
+                    <!-- Sugerencia Admin Jr (si aplica) -->
+                    <div id="adminJrSuggestion" class="mt-6 hidden">
+                        <div class="bg-gradient-to-r from-red-50 to-amber-50 border-2 border-red-600 rounded-xl p-5 text-center">
+                            <div class="flex justify-center mb-3">
+                                <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
+                                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold text-red-600 mb-2">Admin Jr puede ayudarte</h4>
+                            <p class="text-gray-700 mb-4">Con Admin Jr podras registrar tus gastos por WhatsApp, categorizar automaticamente sin hacer manualidades, obtener reportes claros sin abrir Excel y tener control financiero real en minutos.</p>
+                            <a href="{{ route('register') }}" class="inline-block px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-all shadow-md hover:shadow-lg">
+                                Probar Admin Jr gratis
+                            </a>
+                        </div>
+                    </div>
+
+                                                <!-- Espacio para 2 Mockups con videos -->
+                        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <!-- Mockup 1 - Video -->
+                            <div class="rounded-xl overflow-hidden bg-gray-100 border-2 border-gray-200">
+                                <video id="mockup1Video" class="w-full h-auto object-cover" autoplay loop muted playsinline>
+                                    <source src="{{ asset('images/mockup11.mp4') }}" type="video/mp4">
+                                    Tu navegador no soporta videos.
+                                </video>
+                            </div>
+                            
+                            <!-- Mockup 2 - Video -->
+                            <div class="rounded-xl overflow-hidden bg-gray-100 border-2 border-gray-200">
+                                <video id="mockup2Video" class="w-full h-auto object-cover" autoplay loop muted playsinline>
+                                    <source src="{{ asset('images/mockup12.mp4') }}" type="video/mp4">
+                                    Tu navegador no soporta videos.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</section>
+
 <!-- CTA FINAL - 100% RESPONSIVE (TODOS LOS DISPOSITIVOS) -->
 <section class="relative mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-center px-4 sm:px-6 max-w-6xl mx-auto">
 
@@ -1521,17 +1772,17 @@ function sendMessage() {
         </p>
 
         <!-- Botón con efecto de brillo - responsive -->
-        <a href="{{ route('register') }}"
-           class="relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 
-                  bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
-                  text-white font-bold text-base sm:text-lg
-                  rounded-xl
-                  transition-all duration-500
-                  shadow-[3px_3px_0_0_#000000] sm:shadow-[4px_4px_0_0_#000000] hover:shadow-[4px_4px_0_0_#000000] sm:hover:shadow-[6px_6px_0_0_#000000]
-                  hover:scale-105
-                  overflow-hidden group
-                  border border-red-400
-                  gap-2 sm:gap-3">
+            <a href="{{ route('register') }}"
+            class="relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 
+                    bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600
+                    text-white font-bold text-base sm:text-lg
+                    rounded-xl
+                    transition-all duration-500
+                    shadow-[3px_3px_0_0_#000000] sm:shadow-[4px_4px_0_0_#000000] hover:shadow-[4px_4px_0_0_#000000] sm:hover:shadow-[6px_6px_0_0_#000000]
+                    hover:scale-105
+                    overflow-hidden group
+                    border border-red-400
+                    gap-2 sm:gap-3">
             
             <!-- Efecto de brillo -->
             <span class="absolute inset-0 bg-white/30 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
@@ -1697,6 +1948,91 @@ cards.forEach((card) => {
 
 updateCarousel();
 startAutoSlide();
+</script>
+<!--funcionalidad del formulario-->
+<script>
+// Logica del test de salud financiera basado en funciones de Admin Jr
+document.getElementById('financialTestForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Obtener respuestas
+    const q1 = document.querySelector('input[name="q1"]:checked');
+    const q2 = document.querySelector('input[name="q2"]:checked');
+    const q3 = document.querySelector('input[name="q3"]:checked');
+    const q4 = document.querySelector('input[name="q4"]:checked');
+    
+    // Validar que todas esten respondidas
+    if (!q1 || !q2 || !q3 || !q4) {
+        alert('Por favor, responde todas las preguntas para obtener tu diagnostico.');
+        return;
+    }
+    
+    // Calcular puntaje total (0 a 264)
+    const score = parseInt(q1.value) + parseInt(q2.value) + parseInt(q3.value) + parseInt(q4.value);
+    
+    // Determinar nivel y mensaje basado en funciones de Admin Jr
+    let level = '';
+    let message = '';
+    let showAdminJr = false;
+    
+    if (score <= 88) {
+        level = 'Bajo';
+        message = 'Tus finanzas estan desorganizadas. Necesitas una herramienta que simplifique el control sin que tengas que volverte experto en contabilidad. Con Admin Jr podras registrar tus gastos por WhatsApp en segundos y olvidarte del desorden.';
+        showAdminJr = true;
+    } else if (score <= 176) {
+        level = 'Regular';
+        message = 'Vas por buen camino, pero aun pierdes tiempo organizando informacion o te falta claridad para tomar decisiones seguras. Admin Jr te ayuda a categorizar gastos automaticamente y obtener reportes claros sin abrir Excel.';
+        showAdminJr = true;
+    } else {
+        level = 'Saludable';
+        message = 'Tienes un buen control financiero. Sigue asi, pero siempre puedes optimizar el tiempo que dedicas a estas tareas. Admin Jr te permite automatizar lo que ya haces bien y dedicar menos de 30 minutos a tus finanzas.';
+        showAdminJr = false;
+    }
+    
+    // Mostrar resultado
+    const resultDiv = document.getElementById('testResult');
+    const resultMessageDiv = document.getElementById('resultMessage');
+    const adminJrSuggestion = document.getElementById('adminJrSuggestion');
+    
+    // Estilo segun nivel
+    let bgColor = '';
+    if (level === 'Bajo') bgColor = 'bg-red-600';
+    else if (level === 'Regular') bgColor = 'bg-amber-500';
+    else bgColor = 'bg-green-600';
+    
+    resultMessageDiv.className = `p-5 rounded-xl text-center text-white text-base sm:text-lg font-medium ${bgColor}`;
+    resultMessageDiv.innerHTML = '<strong>Diagnostico: ' + level + '</strong><br>' + message + '<br><br>Puntuacion: ' + score + '/264';
+    
+    // Mostrar sugerencia de Admin Jr si aplica
+    if (showAdminJr) {
+        adminJrSuggestion.classList.remove('hidden');
+    } else {
+        adminJrSuggestion.classList.add('hidden');
+    }
+    
+    // Mostrar resultado y hacer scroll suave
+    resultDiv.classList.remove('hidden');
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+// Funcion para cargar videos de mockups
+function loadMockups(videoUrl1, videoUrl2) {
+    if (videoUrl1) {
+        const video1 = document.getElementById('mockup1Video');
+        if (video1) {
+            video1.querySelector('source').src = videoUrl1;
+            video1.load();
+        }
+    }
+    if (videoUrl2) {
+        const video2 = document.getElementById('mockup2Video');
+        if (video2) {
+            video2.querySelector('source').src = videoUrl2;
+            video2.load();
+        }
+    }
+}
+
 </script>
 <style>
 /* =========================
