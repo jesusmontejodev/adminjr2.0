@@ -98,14 +98,14 @@ class TransaccionController extends Controller
     /**
      * Mostrar todas las transacciones del usuario
      */
-   public function index(Request $request)
+public function index(Request $request)
 {
     $query = $this->transaccionesDelUsuario();
 
     // Filtros seguros
     $this->aplicarFiltros($query, $request);
 
-    // 🔥 TOTALES SIN PAGINAR (CLONANDO EL QUERY)
+    // 🔥 TOTALES SIN PAGINAR
     $totalIngresos   = (clone $query)->where('tipo', 'ingreso')->sum('monto');
     $totalEgresos    = (clone $query)->where('tipo', 'egreso')->sum('monto');
     $totalCostos     = (clone $query)->where('tipo', 'costo')->sum('monto');
@@ -117,9 +117,8 @@ class TransaccionController extends Controller
 
     $query->orderBy($campoOrden, $direccionOrden);
 
-    // Paginación con límite máximo
-    $porPagina = min($request->input('per_page', 20), 100);
-    $transacciones = $query->paginate($porPagina);
+    // 🔄 OBTENER TODAS LAS TRANSACCIONES SIN PAGINACIÓN
+    $transacciones = $query->get();
 
     // Obtener datos para los filtros
     $cuentas = $this->getUserCuentas();

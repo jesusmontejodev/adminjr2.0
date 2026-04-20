@@ -7,7 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/css/estructura.css',     // ← Añadir esto
-                'resources/css/tema-claro.css',     // ← Añadir esto
+                'resources/css/temas-claro.css',     // ← Añadir esto
                 'resources/css/tema-oscuro.css',    // ← Añadir esto
                 'resources/js/app.js',
                 'resources/js/analistajr/dashboard.js'
