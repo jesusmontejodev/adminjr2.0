@@ -54,6 +54,16 @@
                         'text' => 'Transacciones'
                     ],
                     [
+                        'route' => 'transacciones.hoja-calculo',
+                        'icon' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2m6-2v2M3 9h18M5 9v12a2 2 0 002 2h10a2 2 0 002-2V9M5 9l1-2h12l1 2M7 13h2m4 0h2m4 0h2"/></svg>',
+                        'text' => 'Hoja Cálculo'
+                    ],
+                    [
+                        'route' => 'analistajr.index',
+                        'icon' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>',
+                        'text' => 'Analista Datos'
+                    ],
+                    [
                         'route' => 'transaccionesinternas.index',
                         'icon' => '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round"stroke-linejoin="round"stroke-width="2"d="M4 12a8 8 0 0113.66-5.66L20 8"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12a8 8 0 01-13.66 5.66L4 16"/>
@@ -83,6 +93,8 @@
                            ($item['route'] === 'cuentas.index' && request()->routeIs('cuentas.*')) ||
                            ($item['route'] === 'categorias.index' && request()->routeIs('categorias.*')) ||
                            ($item['route'] === 'transacciones.index' && request()->routeIs('transacciones.*')) ||
+                           ($item['route'] === 'transacciones.hoja-calculo' && request()->routeIs('transacciones.hoja-calculo')) ||
+                           ($item['route'] === 'analistajr.index' && request()->routeIs('analistajr.*')) ||
                            ($item['route'] === 'transaccionesinternas.index' && request()->routeIs('transaccionesinternas.*')) ||
                            ($item['route'] === 'numeros-whatsapp.index' && request()->routeIs('numeros-whatsapp.*')) ||
                            ($item['route'] === 'chat.index' && request()->routeIs('chat.*')),
@@ -91,6 +103,8 @@
                            ($item['route'] === 'cuentas.index' && request()->routeIs('cuentas.*')) ||
                            ($item['route'] === 'categorias.index' && request()->routeIs('categorias.*')) ||
                            ($item['route'] === 'transacciones.index' && request()->routeIs('transacciones.*')) ||
+                           ($item['route'] === 'transacciones.hoja-calculo' && request()->routeIs('transacciones.hoja-calculo')) ||
+                           ($item['route'] === 'analistajr.index' && request()->routeIs('analistajr.*')) ||
                            ($item['route'] === 'transaccionesinternas.index' && request()->routeIs('transaccionesinternas.*')) ||
                            ($item['route'] === 'numeros-whatsapp.index' && request()->routeIs('numeros-whatsapp.*')) ||
                            ($item['route'] === 'chat.index' && request()->routeIs('chat.*'))
@@ -103,6 +117,8 @@
                             ($item['route'] === 'cuentas.index' && request()->routeIs('cuentas.*')) ||
                             ($item['route'] === 'categorias.index' && request()->routeIs('categorias.*')) ||
                             ($item['route'] === 'transacciones.index' && request()->routeIs('transacciones.*')) ||
+                            ($item['route'] === 'transacciones.hoja-calculo' && request()->routeIs('transacciones.hoja-calculo')) ||
+                            ($item['route'] === 'analistajr.index' && request()->routeIs('analistajr.*')) ||
                             ($item['route'] === 'transaccionesinternas.index' && request()->routeIs('transaccionesinternas.*')) ||
                             ($item['route'] === 'numeros-whatsapp.index' && request()->routeIs('numeros-whatsapp.*')) ||
                             ($item['route'] === 'chat.index' && request()->routeIs('chat.*')),
@@ -111,6 +127,8 @@
                             ($item['route'] === 'cuentas.index' && request()->routeIs('cuentas.*')) ||
                             ($item['route'] === 'categorias.index' && request()->routeIs('categorias.*')) ||
                             ($item['route'] === 'transacciones.index' && request()->routeIs('transacciones.*')) ||
+                            ($item['route'] === 'transacciones.hoja-calculo' && request()->routeIs('transacciones.hoja-calculo')) ||
+                            ($item['route'] === 'analistajr.index' && request()->routeIs('analistajr.*')) ||
                             ($item['route'] === 'transaccionesinternas.index' && request()->routeIs('transaccionesinternas.*')) ||
                             ($item['route'] === 'numeros-whatsapp.index' && request()->routeIs('numeros-whatsapp.*')) ||
                             ($item['route'] === 'chat.index' && request()->routeIs('chat.*'))

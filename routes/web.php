@@ -86,9 +86,26 @@ Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function
     Route::resource('transaccionesinternas', TransaccionInternaController::class);
     Route::resource('transacciones', TransaccionController::class)
         ->parameters(['transacciones' => 'transaccion']);
+    Route::get('transacciones-hoja', [TransaccionController::class, 'hojaCalculo'])
+        ->name('transacciones.hoja-calculo');
+    
+    // API routes for hoja de cálculo
+    Route::get('api/transacciones-hoja', [TransaccionController::class, 'hojaCalculoData'])
+        ->name('api.transacciones-hoja');
+    Route::post('api/transacciones-hoja', [TransaccionController::class, 'crearDesdeHoja'])
+        ->name('api.transacciones-hoja.crear');
+    Route::get('api/cuentas-del-usuario', [TransaccionController::class, 'cuentasDelUsuario'])
+        ->name('api.cuentas-del-usuario');
+    
     Route::resource('mensajes', MensajesDeEntrenamientoController::class);
     Route::resource('comisiones', InfocomisionesController::class);
     Route::resource('analistajr', GraficasController::class);
+
+    // API routes for analytics dashboard
+    Route::get('api/analistajr/datos', [GraficasController::class, 'obtenerDatos'])
+        ->name('api.analistajr.datos');
+    Route::get('api/analistajr/exportar', [GraficasController::class, 'exportarDatos'])
+        ->name('api.analistajr.exportar');
 
     // ==================== CHAT CON IA ====================
     Route::prefix('chat')->name('chat.')->group(function () {
