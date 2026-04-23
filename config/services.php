@@ -37,9 +37,16 @@ return [
     'stripe' => [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
+        'price_basico' => env('STRIPE_PRICE_BASICO'),
+        'price_pro' => env('STRIPE_PRICE_PRO'),
+        'price_empresa' => env('STRIPE_PRICE_EMPRESA'),
         'webhook' => [
             'secret' => env('STRIPE_WEBHOOK_SECRET'),
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
+    ],
+
+    'openai' => [
+        'api_key' => env('OPENAI_API_KEY'),
     ],
 ];

@@ -42,6 +42,22 @@ class StripeWebhookController extends CashierController
     }
 
     /**
+     * Handle customer subscription created.
+     */
+    protected function handleCustomerSubscriptionCreated(array $payload)
+    {
+        parent::handleCustomerSubscriptionCreated($payload);
+
+        $subscription = $payload['data']['object'];
+
+        Log::info('Suscripción creada', [
+            'subscription_id' => $subscription['id'],
+            'customer_id' => $subscription['customer'],
+            'status' => $subscription['status'],
+        ]);
+    }
+
+    /**
      * Handle subscription deleted/canceled.
      */
     protected function handleCustomerSubscriptionDeleted(array $payload)
@@ -69,6 +85,8 @@ class StripeWebhookController extends CashierController
             'invoice_id' => $invoice['id'],
             'customer_id' => $invoice['customer'],
             'attempt_count' => $invoice['attempt_count'],
+            'billing_reason' => $invoice['billing_reason'] ?? null,
+            'subscription_id' => $invoice['subscription'] ?? null,
         ]);
     }
 }

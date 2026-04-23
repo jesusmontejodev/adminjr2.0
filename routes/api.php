@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\MensajesDeEntrenamientoApiController;
 use App\Http\Controllers\Api\TransaccionesInternasController;
 use App\Http\Controllers\Api\TransaccionController;
 use App\Http\Controllers\Api\UserDataController;
-use App\Http\Controllers\Api\SuscripcionController; // Agregar esta línea
+use App\Http\Controllers\SuscripcionController;
 use Illuminate\Support\Facades\Route;
 
 // ==================== RUTAS PÚBLICAS ====================
@@ -70,13 +70,6 @@ Route::apiResource('transaccionesinternas', TransaccionesInternasController::cla
         'update'  => 'api.transaccionesinternas.update',
         'destroy' => 'api.transaccionesinternas.destroy',
     ]);
-
-
-// Webhook de Stripe (debe ser pública, sin autenticación)
-Route::post('/stripe/webhook', function () {
-    return \Laravel\Cashier\Http\Controllers\WebhookController::class;
-})->name('stripe.webhook');
-
 // Webhook de prueba para desarrollo
 Route::post('/stripe/webhook-test', function () {
     // Solo en desarrollo
@@ -251,5 +244,46 @@ Route::get('/status', function () {
     ]);
 });
 
+// ============= CHAT API ROUTES (CON AUTENTICACIÓN POR SESIÓN WEB + SANCTUM) =============
+// Endpoint de debugging para verificar autenticación
+Route::middleware(['web', 'auth:sanctum'])->get('/debug/test-auth', function (Request $request) {
+    return response()->json([
+        'authenticated' => $request->user() !== null,
+        'user' => $request->user() ? [
+            'id' => $request->user()->id,
+            'name' => $request->user()->name,
+            'email' => $request->user()->email,
+        ] : null,
+    ]);
+});
+
+// Estas rutas usan el middleware web para permitir autenticación por sesión desde SPA
+Route::middleware(['web', 'auth:sanctum'])->group(function () {
+    Route::prefix('chat')->group(function () {
+        // Obtener todos los chats del usuario
+        Route::get('/', [\App\Http\Controllers\Api\ChatController::class, 'index'])
+            ->name('api.chat.index');
+
+        // Crear nuevo chat
+        Route::post('/', [\App\Http\Controllers\Api\ChatController::class, 'store'])
+            ->name('api.chat.store');
+
+        // Obtener chat específico con mensajes
+        Route::get('/{chat}', [\App\Http\Controllers\Api\ChatController::class, 'show'])
+            ->name('api.chat.show');
+
+        // Enviar mensaje al chat
+        Route::post('/{chat}/mensaje', [\App\Http\Controllers\Api\ChatController::class, 'sendMessage'])
+            ->name('api.chat.send-message');
+
+        // Obtener mensajes recientes (para polling)
+        Route::get('/{chat}/mensajes', [\App\Http\Controllers\Api\ChatController::class, 'getMessages'])
+            ->name('api.chat.get-messages');
+
+        // Eliminar chat
+        Route::delete('/{chat}', [\App\Http\Controllers\Api\ChatController::class, 'destroy'])
+            ->name('api.chat.destroy');
+    });
+});
 
 

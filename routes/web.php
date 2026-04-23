@@ -17,6 +17,8 @@ use App\Http\Controllers\StripeWebhookController;
 
 
 
+use App\Http\Controllers\ChatController;
+
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook'])
     ->name('cashier.webhook');
 
@@ -84,9 +86,36 @@ Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function
     Route::resource('transaccionesinternas', TransaccionInternaController::class);
     Route::resource('transacciones', TransaccionController::class)
         ->parameters(['transacciones' => 'transaccion']);
+    Route::get('transacciones-hoja', [TransaccionController::class, 'hojaCalculo'])
+        ->name('transacciones.hoja-calculo');
+    
+    // API routes for hoja de cálculo
+    Route::get('api/transacciones-hoja', [TransaccionController::class, 'hojaCalculoData'])
+        ->name('api.transacciones-hoja');
+    Route::post('api/transacciones-hoja', [TransaccionController::class, 'crearDesdeHoja'])
+        ->name('api.transacciones-hoja.crear');
+    Route::get('api/cuentas-del-usuario', [TransaccionController::class, 'cuentasDelUsuario'])
+        ->name('api.cuentas-del-usuario');
+    
     Route::resource('mensajes', MensajesDeEntrenamientoController::class);
     Route::resource('comisiones', InfocomisionesController::class);
     Route::resource('analistajr', GraficasController::class);
+
+    // API routes for analytics dashboard
+    Route::get('api/analistajr/datos', [GraficasController::class, 'obtenerDatos'])
+        ->name('api.analistajr.datos');
+    Route::get('api/analistajr/exportar', [GraficasController::class, 'exportarDatos'])
+        ->name('api.analistajr.exportar');
+
+    // ==================== CHAT CON IA ====================
+    Route::prefix('chat')->name('chat.')->group(function () {
+        Route::get('/', [ChatController::class, 'index'])->name('index');
+        Route::get('/crear', [ChatController::class, 'create'])->name('create');
+        Route::post('/', [ChatController::class, 'store'])->name('store');
+        Route::get('/{chat}', [ChatController::class, 'show'])->name('show');
+        Route::post('/{chat}/mensaje', [ChatController::class, 'storeMessage'])->name('store-message');
+        Route::delete('/{chat}', [ChatController::class, 'destroy'])->name('destroy');
+    });
 
     // Ruta especial para comisiones
     Route::get('comisiones/{id}/concretar', [InfocomisionesController::class, 'concretarView'])

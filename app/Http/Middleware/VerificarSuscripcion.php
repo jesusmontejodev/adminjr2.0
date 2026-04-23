@@ -28,16 +28,22 @@ class VerificarSuscripcion
 
         // Verificar si el usuario tiene acceso premium usando el método de tu modelo
         if (!$user->tieneAccesoPremium()) {
+            $message = $user->tienePagoVencido()
+                ? 'Tu pago mensual está vencido. Actualiza tu método de pago para recuperar el acceso.'
+                : ($user->tienePagoIncompleto()
+                    ? 'Tu suscripción requiere completar el pago o autenticación pendiente.'
+                    : 'Se requiere una suscripción activa para acceder a esta función.');
+
             if ($request->expectsJson()) {
                 return response()->json([
                     'error' => 'Suscripción requerida',
-                    'message' => 'Se requiere una suscripción activa para acceder a esta función.',
+                    'message' => $message,
                     'redirect' => route('planes')
                 ], 403);
             }
 
             return redirect()->route('planes')
-                ->with('error', '🔒 Se requiere una suscripción activa para acceder a esta sección.')
+                ->with('error', $message)
                 ->with('show_modal', true);
         }
 

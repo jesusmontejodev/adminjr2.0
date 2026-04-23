@@ -446,6 +446,44 @@ public function index(Request $request)
         // Verificar que la transacción pertenezca al usuario
         $this->verificarTransaccionUsuario($transaccion);
 
+        // Si es una solicitud JSON (desde hoja de cálculo), permitir actualizaciones parciales
+        if ($request->wantsJson() || $request->isJson()) {
+            $validated = $request->validate([
+                'monto' => 'sometimes|numeric|min:0.01|max:999999999.99',
+                'descripcion' => 'sometimes|nullable|string|max:500',
+                'fecha' => 'sometimes|date',
+                'tipo' => 'sometimes|in:ingreso,egreso,inversion,costo',
+            ]);
+
+            try {
+                DB::transaction(function () use ($request, $transaccion, $validated) {
+                    // Si cambió el monto o tipo, actualizar saldo
+                    if ($request->filled('monto') || $request->filled('tipo')) {
+                        $cuentaAnterior = Cuenta::find($transaccion->cuenta_id);
+                        if ($cuentaAnterior) {
+                            $this->revertirSaldo($cuentaAnterior, $transaccion->monto, $transaccion->tipo);
+                        }
+                    }
+
+                    // Actualizar solo los campos proporcionados
+                    $transaccion->update($validated);
+
+                    // Si cambió el monto o tipo, aplicar nuevo saldo
+                    if ($request->filled('monto') || $request->filled('tipo')) {
+                        $cuentaNueva = Cuenta::find($transaccion->cuenta_id);
+                        if ($cuentaNueva) {
+                            $this->actualizarSaldoCuenta($cuentaNueva, $transaccion->monto, $transaccion->tipo);
+                        }
+                    }
+                });
+
+                return response()->json(['success' => true, 'data' => $transaccion]);
+            } catch (\Exception $e) {
+                return response()->json(['success' => false, 'error' => $e->getMessage()], 422);
+            }
+        }
+
+        // Solicitud web normal (formulario)
         $validated = $request->validate([
             'cuenta_id' => 'required|exists:cuentas,id',
             'categoria_id' => 'required|exists:categorias,id',
@@ -536,10 +574,20 @@ public function index(Request $request)
                 $transaccion->delete();
             });
 
+            // Si es solicitud JSON (desde hoja de cálculo)
+            if (request()->wantsJson() || request()->isJson()) {
+                return response()->json(['success' => true, 'message' => 'Transacción eliminada correctamente.']);
+            }
+
             return redirect()->route('transacciones.index')
                 ->with('success', 'Transacción eliminada correctamente.');
 
         } catch (\Exception $e) {
+            // Si es solicitud JSON
+            if (request()->wantsJson() || request()->isJson()) {
+                return response()->json(['success' => false, 'error' => $e->getMessage()], 422);
+            }
+
             return redirect()->route('transacciones.index')
                 ->with('error', 'Error al eliminar la transacción: ' . $e->getMessage());
         }
@@ -682,5 +730,177 @@ public function index(Request $request)
             ->pluck('descripcion');
 
         return response()->json($transacciones);
+    }
+
+    /**
+     * Mostrar hoja de cálculo interactiva
+     */
+    public function hojaCalculo()
+    {
+        return view('transacciones.hoja-calculo');
+    }
+
+    /**
+     * API: Obtener transacciones en JSON para la hoja de cálculo
+     */
+    public function hojaCalculoData(Request $request)
+    {
+        $query = $this->transaccionesDelUsuario();
+
+        // Filtros
+        if ($request->filled('cuenta_id')) {
+            $query->where('cuenta_id', $request->input('cuenta_id'));
+        }
+
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->input('tipo'));
+        }
+
+        if ($request->filled('fecha_desde')) {
+            $query->whereDate('fecha', '>=', $request->input('fecha_desde'));
+        }
+
+        if ($request->filled('fecha_hasta')) {
+            $query->whereDate('fecha', '<=', $request->input('fecha_hasta'));
+        }
+
+        $transacciones = $query->orderBy('fecha', 'asc')->get();
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'data' => $transacciones
+            ]);
+        }
+
+        return redirect()->route('transacciones.index');
+    }
+
+    /**
+     * API: Obtener cuentas del usuario autenticado
+     */
+    public function cuentasDelUsuario()
+    {
+        $cuentas = $this->getUserCuentas();
+
+        if (request()->wantsJson()) {
+            return response()->json($cuentas);
+        }
+
+        return redirect()->route('transacciones.index');
+    }
+
+    /**
+     * API: Crear transacción desde la hoja de cálculo
+     */
+    public function crearDesdeHoja(Request $request)
+    {
+        // Solo aceptar JSON
+        if (!$request->wantsJson()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Solo se aceptan solicitudes JSON'
+            ], 400);
+        }
+
+        try {
+            // Validar datos mínimos requeridos usando Validator
+            $validator = Validator::make($request->all(), [
+                'cuenta_id' => 'required|integer|exists:cuentas,id',
+                'monto' => 'required|numeric|min:0.01|max:999999999.99',
+                'tipo' => 'required|in:ingreso,egreso,inversion,costo',
+                'descripcion' => 'nullable|string|max:500',
+                'fecha' => 'nullable|date',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Datos inválidos',
+                    'errors' => $validator->errors()
+                ], 422);
+            }
+
+            $validated = $validator->validated();
+
+            // Verificar que la cuenta pertenezca al usuario
+            $this->verificarCuentaUsuario($validated['cuenta_id']);
+
+            // Obtener una categoría por defecto para el usuario
+            $categoria = Categoria::where('id_user', Auth::id())->first();
+
+            if (!$categoria) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Debes crear una categoría antes de agregar transacciones'
+                ], 400);
+            }
+
+            // Validar saldo ANTES de la transacción
+            $cuenta = Cuenta::find($validated['cuenta_id']);
+            $tipo = $validated['tipo'];
+            $monto = $validated['monto'];
+
+            // Validar saldo insuficiente ANTES de crear
+            if (in_array($tipo, ['egreso', 'inversion', 'costo'])) {
+                if ($cuenta->saldo_actual < $monto) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'Saldo insuficiente: ' . number_format($cuenta->saldo_actual, 2) . ' (necesitas ' . number_format($monto, 2) . ')',
+                        'saldo_actual' => $cuenta->saldo_actual,
+                        'monto_requerido' => $monto
+                    ], 400);
+                }
+            }
+
+            DB::transaction(function () use ($validated, $categoria) {
+                $cuenta = Cuenta::find($validated['cuenta_id']);
+
+                // Crear transacción
+                $transaccion = Transaccion::create([
+                    'cuenta_id'    => $validated['cuenta_id'],
+                    'categoria_id' => $categoria->id,
+                    'monto'        => $validated['monto'],
+                    'descripcion'  => $validated['descripcion'] ?? null,
+                    'fecha'        => $validated['fecha'] ?? now()->toDateString(),
+                    'tipo'         => $validated['tipo'],
+                ]);
+
+                // Actualizar saldo de la cuenta
+                $this->actualizarSaldoCuenta($cuenta, $validated['monto'], $validated['tipo']);
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Transacción creada correctamente'
+            ], 201);
+        } catch (\Throwable $e) {
+            // Log del error con stack trace
+            \Log::error('Error al crear transacción desde hoja', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+                'user_id' => Auth::id(),
+                'request_data' => $request->all()
+            ]);
+
+            // Determinar si es error de validación o error real
+            $statusCode = 500;
+            $message = 'Error al crear la transacción';
+
+            if (strpos($e->getMessage(), 'Saldo') !== false) {
+                $statusCode = 400;
+                $message = $e->getMessage();
+            } elseif (strpos($e->getMessage(), 'violates') !== false) {
+                $statusCode = 400;
+                $message = 'Datos duplicados o inválidos';
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => $message,
+                'error' => env('APP_DEBUG') ? $e->getMessage() : null
+            ], $statusCode);
+        }
     }
 }

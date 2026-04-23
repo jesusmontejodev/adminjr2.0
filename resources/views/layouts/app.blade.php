@@ -97,7 +97,7 @@
             </div>
 
             <div class="relative z-10">
-                {{ $slot }}
+                @yield('content', $slot ?? '')
             </div>
         </main>
     </div>
