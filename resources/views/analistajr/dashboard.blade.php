@@ -248,7 +248,7 @@
         </div>
     </div>
 
-    <script src="https://unpkg.com/lightweight-charts@4/dist/lightweight-charts.production.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"></script>
     <script>
         // Datos del servidor (renderizados directamente desde Laravel)
         const datosServidor = {!! json_encode([

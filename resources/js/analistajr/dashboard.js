@@ -1,3 +1,5 @@
+import * as LightweightCharts from 'lightweight-charts';
+
 class DashboardFinanciero {
     constructor() {
         this.datos = {};
@@ -430,7 +432,7 @@ class DashboardFinanciero {
 
     inicializarGraficoFlujo() {
         const contenedor = document.getElementById('chart-container');
-        if (!contenedor || !window.LightweightCharts) return;
+        if (!contenedor || !LightweightCharts) return;
 
         // Limpiar gráfico anterior
         if (this.charts.flujo) {

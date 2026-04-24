@@ -1060,3 +1060,650 @@ html.dark main .btn-cancel:hover{
     color: #ef4444; /* rojo intenso */
     font-weight: 700;
 }
+/* =====================================================
+   DARK MODE - DASHBOARD LANDING STYLE (GRIS OSCURO)
+   ===================================================== */
+
+/* =========================
+   HERO SECTION - DARK MODE
+   ========================= */
+html.dark .hero-badge {
+    background: #1f1f1f;
+    border-color: #3a3a3a;
+    color: #f87171;
+    box-shadow: 3px 3px 0 0 #000000;
+}
+
+html.dark .hero-title {
+    color: #f9fafb;
+}
+
+html.dark .gradient-text {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+html.dark .hero-description {
+    color: #a3a3a3;
+}
+
+html.dark .hero-stats {
+    background: #1f1f1f;
+    border-color: #3a3a3a;
+    box-shadow: 4px 4px 0 0 #000000;
+}
+
+html.dark .stat-number {
+    color: #ef4444;
+}
+
+html.dark .stat-label {
+    color: #a3a3a3;
+}
+
+html.dark .stat-divider {
+    background: #3a3a3a;
+}
+
+/* =========================
+   SECTION HEADERS - DARK MODE
+   ========================= */
+html.dark .section-tag {
+    color: #ef4444;
+}
+
+html.dark .section-header h2 {
+    color: #f9fafb;
+}
+
+html.dark .section-header p {
+    color: #a3a3a3;
+}
+
+/* =========================
+   FEATURE CARDS - DARK MODE (GRIS)
+   ========================= */
+html.dark .feature-card {
+    background: #1f1f1f;
+    border-color: #3a3a3a;
+    box-shadow: 4px 4px 0 0 #000000;
+}
+
+html.dark .feature-card:hover {
+    border-color: #ef4444;
+    box-shadow: 6px 6px 0 0 #ef4444;
+}
+
+html.dark .feature-card h3 {
+    color: #f9fafb;
+}
+
+html.dark .feature-card p {
+    color: #a3a3a3;
+}
+
+html.dark .feature-icon svg {
+    stroke: #ef4444;
+}
+
+/* =========================
+   HOW IT WORKS - DARK MODE (GRIS)
+   ========================= */
+html.dark .how-it-works {
+    background: #1f1f1f;
+    border-color: #3a3a3a;
+    box-shadow: 6px 6px 0 0 #000000;
+}
+
+html.dark .how-it-works-header h2 {
+    color: #f9fafb;
+}
+
+html.dark .how-it-works-header p {
+    color: #a3a3a3;
+}
+
+html.dark .step-number {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    border-color: #3a3a3a;
+    box-shadow: 3px 3px 0 0 #000000;
+}
+
+html.dark .step-content h3 {
+    color: #f9fafb;
+}
+
+html.dark .step-content p {
+    color: #a3a3a3;
+}
+
+html.dark .step-example {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+html.dark .step-example svg {
+    stroke: #f87171;
+}
+
+/* =========================
+   SECURITY SECTION - DARK MODE (GRIS)
+   ========================= */
+html.dark .security-section {
+    background: #1f1f1f;
+    border-color: #3a3a3a;
+    box-shadow: 6px 6px 0 0 #000000;
+}
+
+html.dark .security-header h2 {
+    color: #f9fafb;
+}
+
+html.dark .security-header p {
+    color: #a3a3a3;
+}
+
+html.dark .shield-icon svg {
+    stroke: #ef4444;
+}
+
+html.dark .security-item {
+    background: #2a2a2a;
+    border-color: #3a3a3a;
+}
+
+html.dark .security-item:hover {
+    background: #333333;
+    border-color: #ef4444;
+}
+
+html.dark .security-icon {
+    background: #ef4444;
+    border-color: #3a3a3a;
+}
+
+html.dark .security-content h3 {
+    color: #f9fafb;
+}
+
+html.dark .security-content p {
+    color: #a3a3a3;
+}
+
+html.dark .security-badge {
+    background: rgba(239, 68, 68, 0.12);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #f87171;
+}
+
+/* =========================
+   WHATSAPP SECTION - ESTILO CTA DOS COLUMNAS
+   ========================= */
+.whatsapp-section {
+    margin: 5rem 0;
+}
+
+.whatsapp-wrapper {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    border: 2px solid #111827;
+    border-radius: 1.5rem;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 8px 8px 0 0 #000000;
+}
+
+.whatsapp-content {
+    flex: 1;
+    padding: 3rem;
+    position: relative;
+    z-index: 1;
+}
+
+.whatsapp-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    color: #fecaca;
+    margin-bottom: 1rem;
+}
+
+.whatsapp-content h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.whatsapp-content p {
+    color: #fecaca;
+    margin-bottom: 2rem;
+}
+
+.verified-badge-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.verified-badge-large svg {
+    stroke: #ffffff;
+    flex-shrink: 0;
+}
+
+.whatsapp-number-display {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.whatsapp-number-display .country-code {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.whatsapp-number-display .phone-number {
+    color: #ffffff;
+}
+
+.whatsapp-content .whatsapp-description {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    color: #fecaca;
+}
+
+.whatsapp-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: #ffffff;
+    color: #dc2626;
+    padding: 0.875rem 1.5rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    border: 1px solid #111827;
+    box-shadow: 3px 3px 0 0 #000000;
+}
+
+.whatsapp-btn-primary:hover {
+    background: #fef2f2;
+    transform: translateY(-2px);
+    gap: 1rem;
+    box-shadow: 4px 4px 0 0 #000000;
+}
+
+.whatsapp-features {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.feature-mini {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #fecaca;
+}
+
+.feature-mini svg {
+    stroke: #fecaca;
+}
+
+/* LADO GRÁFICO */
+.whatsapp-graphic {
+    flex: 0.4;
+    position: relative;
+    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    border-left: 2px solid #111827;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graphic-dots-wa {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.5;
+}
+
+.whatsapp-float-icons {
+    display: flex;
+    gap: 1.5rem;
+    z-index: 1;
+    animation: floatIcons 3s ease-in-out infinite;
+}
+
+.float-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.float-icon svg {
+    stroke: #ffffff;
+}
+
+.float-icon:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes floatIcons {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* =========================
+   WHATSAPP DARK MODE
+   ========================= */
+html.dark .whatsapp-wrapper {
+    border-color: #3a3a3a;
+    box-shadow: 8px 8px 0 0 #000000;
+}
+
+html.dark .whatsapp-btn-primary {
+    background: #ffffff;
+    color: #dc2626;
+    border-color: #3a3a3a;
+}
+
+html.dark .whatsapp-btn-primary:hover {
+    background: #fef2f2;
+}
+
+html.dark .whatsapp-graphic {
+    border-left-color: #3a3a3a;
+}
+
+html.dark .verified-badge-large {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+@media (max-width: 768px) {
+    .whatsapp-wrapper {
+        flex-direction: column;
+    }
+    
+    .whatsapp-graphic {
+        height: 150px;
+        flex: auto;
+        border-left: none;
+        border-top: 2px solid #111827;
+    }
+    
+    .whatsapp-content {
+        padding: 2rem;
+    }
+    
+    .whatsapp-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .whatsapp-number-display {
+        font-size: 1.25rem;
+    }
+    
+    .whatsapp-features {
+        justify-content: center;
+    }
+    
+    html.dark .whatsapp-graphic {
+        border-top-color: #3a3a3a;
+        border-left: none;
+    }
+}
+/* =========================
+   FAQ SECTION - DARK MODE (GRIS)
+   ========================= */
+html.dark .faq-item {
+    background: #1f1f1f;
+    border-color: #3a3a3a;
+    box-shadow: 3px 3px 0 0 #000000;
+}
+
+html.dark .faq-item:hover {
+    border-color: #ef4444;
+    box-shadow: 4px 4px 0 0 #ef4444;
+}
+
+html.dark .faq-question {
+    color: #f9fafb;
+}
+
+html.dark .faq-question:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+}
+
+html.dark .faq-toggle svg {
+    stroke: #f87171;
+}
+
+html.dark .faq-answer {
+    background: #2a2a2a;
+    border-top-color: #3a3a3a;
+}
+
+html.dark .faq-answer p {
+    color: #a3a3a3;
+}
+
+/* =========================
+   CTA SECTION - DARK MODE (MANTIENE GRADIENTE ROJO)
+   ========================= */
+html.dark .cta-wrapper {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+    border-color: #3a3a3a;
+    box-shadow: 8px 8px 0 0 #000000;
+}
+
+html.dark .cta-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fecaca;
+}
+
+html.dark .cta-content h2 {
+    color: #ffffff;
+}
+
+html.dark .cta-content p {
+    color: #fecaca;
+}
+
+html.dark .cta-primary {
+    background: #ffffff;
+    color: #dc2626;
+    border-color: #3a3a3a;
+    box-shadow: 3px 3px 0 0 #000000;
+}
+
+html.dark .cta-primary:hover {
+    background: #fef2f2;
+}
+
+html.dark .cta-note {
+    color: #fecaca;
+}
+
+html.dark .cta-graphic {
+    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    border-left-color: #3a3a3a;
+}
+
+html.dark .graphic-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+}
+
+/* =========================
+   TABLAS Y CONTENEDORES - DARK MODE (GRIS)
+   ========================= */
+html.dark .tabla-container,
+html.dark .filtros-card,
+html.dark .lista-card,
+html.dark .bg-slate-800,
+html.dark .bg-slate-900,
+html.dark .bg-blue-900 {
+    background: #1f1f1f !important;
+    border: 1px solid #3a3a3a !important;
+}
+
+html.dark .filtros-form input,
+html.dark .filtros-form select {
+    background: #2a2a2a !important;
+    border: 1px solid #3a3a3a !important;
+    color: #e5e7eb !important;
+}
+
+html.dark .filtros-form input:focus,
+html.dark .filtros-form select:focus {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* =========================
+   FORMULARIOS - DARK MODE (GRIS)
+   ========================= */
+html.dark .form-create .card {
+    background: #1f1f1f !important;
+    border: 1px solid #3a3a3a !important;
+}
+
+html.dark .form-create .input,
+html.dark .form-create select.input {
+    background: #2a2a2a !important;
+    border: 1px solid #3a3a3a !important;
+    color: #ffffff !important;
+}
+
+html.dark .form-create .input:focus,
+html.dark .form-create select.input:focus {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* =========================
+   EDITAR NÚMERO WHATSAPP - DARK MODE (GRIS)
+   ========================= */
+html.dark .edit-whatsapp-card {
+    background: #1f1f1f !important;
+    border: 2px solid #3a3a3a !important;
+}
+
+html.dark .edit-input,
+html.dark .edit-select {
+    background: #2a2a2a !important;
+    border: 1px solid #3a3a3a !important;
+    color: #ffffff !important;
+}
+
+html.dark .edit-input:focus,
+html.dark .edit-select:focus {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* =========================
+   CARDS DE APLICACIONES Y NÚMEROS - DARK MODE (GRIS)
+   ========================= */
+html.dark .aplicaciones-icons,
+html.dark .numero-card,
+html.dark .list-card {
+    background: #1f1f1f !important;
+    border: 1px solid #3a3a3a !important;
+}
+
+html.dark .aplicaciones-icons:hover,
+html.dark .numero-card:hover,
+html.dark .list-card:hover {
+    border-color: #ef4444 !important;
+}
+
+/* =========================
+   RESPONSIVE DARK MODE
+   ========================= */
+@media (max-width: 768px) {
+    html.dark .cta-graphic {
+        border-left: none;
+        border-top-color: #3a3a3a;
+    }
+}
+
+/* =========================
+   EXTRAS - BORDES Y SOMBRAS CONSISTENTES
+   ========================= */
+html.dark .hero-decoration {
+    background: linear-gradient(90deg, transparent, #ef4444, #991b1b, transparent);
+}
+
+html.dark .step-connector {
+    background: #3a3a3a;
+}
+
+/* =========================
+   SELECTS Y OPTIONS - DARK MODE
+   ========================= */
+html.dark select {
+    color: #e5e7eb;
+    background-color: #2a2a2a;
+}
+
+html.dark select option {
+    background-color: #1f1f1f;
+    color: #e5e7eb;
+}
+
+/* =========================
+   BOTONES - DARK MODE (GRIS)
+   ========================= */
+html.dark .btn-primary,
+html.dark .btn-secondary,
+html.dark .btn-action {
+    background: #2a2a2a;
+    border-color: #3a3a3a;
+    color: #e5e7eb;
+}
+
+html.dark .btn-primary:hover,
+html.dark .btn-secondary:hover,
+html.dark .btn-action:hover {
+    border-color: #ef4444;
+    color: #f87171;
+}
