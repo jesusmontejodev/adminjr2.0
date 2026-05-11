@@ -58,12 +58,12 @@
                             onclick="toggleBilling('mensual')">
                         <i class="fas fa-calendar-day mr-2"></i>Pago Mensual
                     </button>
-                    <button id="toggle-anual"
+                    <!-- <button id="toggle-anual"
                             class="px-5 py-2.5 rounded-lg font-medium text-sm transition-all text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                             onclick="toggleBilling('anual')">
                         <i class="fas fa-calendar-alt mr-2"></i>Pago Anual
                         <span class="text-green-600 dark:text-green-400 text-xs ml-1 bg-green-200 dark:bg-green-900/30 px-2 py-0.5 rounded">-20%</span>
-                    </button>
+                    </button> -->
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
 
                                 <div class="mb-6">
                                     <div class="text-4xl font-bold text-gray-900 dark:text-white mb-1">
-                                        $459<span class="text-gray-600 dark:text-gray-400 text-lg">/mes</span>
+                                        $129<span class="text-gray-600 dark:text-gray-400 text-lg">/mes</span>
                                     </div>
                                     <p class="text-gray-600 dark:text-gray-400 text-sm">Facturación mensual</p>
                                 </div>

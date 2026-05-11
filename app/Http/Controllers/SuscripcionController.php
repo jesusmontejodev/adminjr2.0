@@ -29,7 +29,7 @@ class SuscripcionController extends Controller
                 'id' => 'basico',
                 'nombre' => 'Plan Básico',
                 'descripcion' => 'Todo lo necesario para empezar',
-                'precio_mensual' => 459,
+                'precio_mensual' => 129,
                 'moneda' => 'MXN',
                 'caracteristicas' => [
                     '✅ Hasta 3 números de WhatsApp',
