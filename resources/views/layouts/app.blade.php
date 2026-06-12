@@ -57,7 +57,7 @@
 
                         @auth
                         <div class="flex items-center space-x-4">
-                            @if(auth()->user()->tieneSuscripcionActiva())
+                            @if(auth()->user()->tieneAccesoPremium())
                                 <div class="px-4 py-2 bg-green-100 dark:bg-gradient-to-r dark:from-green-900/30 dark:to-emerald-900/30 border border-green-300 dark:border-green-700/30 rounded-lg">
                                     <span class="text-green-700 dark:text-green-400 text-sm font-semibold">
                                         <i class="fas fa-crown mr-2"></i>

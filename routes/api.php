@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\TransaccionesInternasController;
 use App\Http\Controllers\Api\TransaccionController;
 use App\Http\Controllers\Api\UserDataController;
 use App\Http\Controllers\SuscripcionController;
+use App\Http\Controllers\WebhookSuscripcionController;
 use Illuminate\Support\Facades\Route;
 
 // ==================== RUTAS PÚBLICAS ====================
@@ -80,6 +81,11 @@ Route::post('/stripe/webhook-test', function () {
     return response()->json(['error' => 'No disponible'], 404);
 })->middleware('api')->name('stripe.webhook-test');
 
+// ==================== WEBHOOKS N8N ====================
+Route::post('/webhooks/suscripcion/primer-pago', [WebhookSuscripcionController::class, 'primerPago']);
+Route::post('/webhooks/suscripcion/renovacion', [WebhookSuscripcionController::class, 'renovacion']);
+Route::post('/webhooks/suscripcion/cancelacion', [WebhookSuscripcionController::class, 'cancelacion']);
+
 // ==================== RUTAS PROTEGIDAS POR AUTH ====================
 Route::middleware(['auth:sanctum'])->group(function () {
 
@@ -88,6 +94,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         // Información de la suscripción actual
         Route::get('/info', [SuscripcionController::class, 'infoSuscripcion'])
             ->name('info');
+
+        // (movido a web.php para evitar problemas de sesión/Sanctum)
 
         // Crear suscripción
         Route::post('/crear', [SuscripcionController::class, 'crear'])
@@ -285,5 +293,3 @@ Route::middleware(['web', 'auth:sanctum'])->group(function () {
             ->name('api.chat.destroy');
     });
 });
-
-

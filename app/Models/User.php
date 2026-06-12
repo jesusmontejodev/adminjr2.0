@@ -27,6 +27,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'pm_type',
         'pm_last_four',
         'trial_ends_at',
+        'estado_suscripcion',
+        'subscription_id',
+        'ultimo_pago_at',
+        'access_until',
         'phone_number',    // NUEVO: Agregar este campo
         'country_code',    // NUEVO: Agregar este campo
     ];
@@ -55,6 +59,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'trial_ends_at' => 'datetime',
+            'access_until' => 'datetime',
+            'ultimo_pago_at' => 'datetime',
             'phone_number' => 'string',    // NUEVO: Cast para phone_number
             'country_code' => 'string',    // NUEVO: Cast para country_code
         ];
@@ -245,9 +251,23 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function tieneAccesoPremium(): bool
     {
-        return $this->tieneSuscripcionActiva() ||
-               $this->onTrial() ||
-               $this->enPeriodoDeGracia();
+        // Nuevo sistema basado en estado + fecha
+        // Usar getRawOriginal para obtener el atributo sin transformaciones
+        $estadoSuscripcion = $this->getRawOriginal('estado_suscripcion');
+        
+        if ($estadoSuscripcion !== 'active') {
+            return false;
+        }
+
+        if (empty($this->access_until)) {
+            return true; // compatibilidad
+        }
+
+        $accessUntil = $this->access_until instanceof Carbon
+            ? $this->access_until
+            : Carbon::parse($this->access_until);
+
+        return now()->lessThanOrEqualTo($accessUntil);
     }
 
     /**
@@ -514,6 +534,32 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getEstadoSuscripcionAttribute(): string
     {
+        // NUEVO SISTEMA: Si el estado está explícitamente configurado a través de webhooks N8N
+        $estadoDirecto = $this->getRawOriginal('estado_suscripcion');
+        
+        // Respetar valores explícitos del nuevo sistema
+        if ($estadoDirecto === 'active') {
+            // Verificar que también tenga acceso válido
+            $accessUntil = $this->getRawOriginal('access_until');
+            if (empty($accessUntil)) {
+                return 'Activa';
+            }
+            
+            $accessDate = $accessUntil instanceof Carbon
+                ? $accessUntil
+                : Carbon::parse($accessUntil);
+            
+            if (now()->lessThanOrEqualTo($accessDate)) {
+                return 'Activa';
+            }
+            return 'Acceso vencido';
+        }
+        
+        if ($estadoDirecto === 'cancelada') {
+            return 'Cancelada';
+        }
+
+        // SISTEMA ANTIGUO: Fallback a Stripe para compatibilidad
         if ($this->onTrial()) {
             return 'En Período de Prueba';
         }

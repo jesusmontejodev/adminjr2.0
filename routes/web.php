@@ -141,3 +141,6 @@ Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function
 });
 
 require __DIR__.'/auth.php';
+// Payment link (usa sesión web normal)
+Route::middleware(['auth'])->get('/suscripcion/payment-link', [SuscripcionController::class, 'paymentLink'])
+    ->name('web.suscripcion.payment-link');

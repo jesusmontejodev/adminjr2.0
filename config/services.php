@@ -40,10 +40,15 @@ return [
         'price_basico' => env('STRIPE_PRICE_BASICO'),
         'price_pro' => env('STRIPE_PRICE_PRO'),
         'price_empresa' => env('STRIPE_PRICE_EMPRESA'),
+        'payment_link' => env('STRIPE_PAYMENT_LINK'),
         'webhook' => [
             'secret' => env('STRIPE_WEBHOOK_SECRET'),
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
+    ],
+
+    'n8n' => [
+        'secret' => env('N8N_SECRET'),
     ],
 
     'openai' => [

@@ -13,7 +13,7 @@
             </div>
 
             @auth
-                @if(auth()->user()->tieneSuscripcionActiva())
+                @if(auth()->user()->tieneAccesoPremium())
                     <div class="flex items-center space-x-3">
                         <div class="px-3 py-1.5 bg-green-100 dark:bg-gradient-to-r dark:from-green-900/30 dark:to-emerald-900/30 border border-green-300 dark:border-green-700/30 rounded-lg">
                             <span class="text-green-700 dark:text-green-400 text-sm font-semibold">
@@ -120,7 +120,7 @@
 
                             <div>
                                 @auth
-                                    @if(auth()->user()->tieneSuscripcionActiva())
+                                    @if(auth()->user()->tieneAccesoPremium())
                                         @if(auth()->user()->getPlanActualId() === config('services.stripe.price_basico'))
                                             <button class="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-700 text-white font-semibold rounded-lg text-sm">
                                                 <i class="fas fa-check mr-2"></i>Plan Actual
@@ -324,29 +324,42 @@
 
     // Función para suscribirse
     function subscribe() {
-        // Inicializar elemento de tarjeta
-        if (!cardElement) {
-            cardElement = elements.create('card', {
-                style: {
-                    base: {
-                        color: '#ffffff',
-                        fontFamily: '"Figtree", sans-serif',
-                        fontSize: '16px',
-                        '::placeholder': {
-                            color: '#6b7280'
-                        }
-                    }
-                },
-                hidePostalCode: true
-            });
+        // Nuevo flujo: obtener payment link y redirigir
+        fetch('/suscripcion/payment-link', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            credentials: 'same-origin'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success && data.url) {
+                window.location.href = data.url;
+            } else {
+                alert('No se pudo iniciar el pago');
+            }
+        })
+        .catch(() => {
+            alert('Error al conectar con el servidor');
+        });
+    }
+
+    // Evitar error si toggleBilling no encuentra elementos
+    function toggleBilling(type) {
+        const mensual = document.getElementById('toggle-mensual');
+        const anual = document.getElementById('toggle-anual');
+
+        if (!mensual) return; // guard
+
+        if (type === 'mensual') {
+            mensual.classList.add('bg-red-200');
+            if (anual) anual.classList.remove('bg-red-200');
+        } else {
+            if (anual) anual.classList.add('bg-red-200');
+            mensual.classList.remove('bg-red-200');
         }
-
-        // Montar elemento de tarjeta
-        cardElement.mount('#card-element');
-
-        // Mostrar modal
-        document.getElementById('paymentModal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
     }
 
     // Cerrar modal

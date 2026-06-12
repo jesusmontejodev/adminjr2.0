@@ -26,13 +26,16 @@ class VerificarSuscripcion
             return redirect()->route('login');
         }
 
-        // Verificar si el usuario tiene acceso premium usando el método de tu modelo
+        // IMPORTANTE: Refrescar el usuario de la BD para obtener cambios recientes (ej: webhooks N8N)
+        $user = $user->fresh();
+        if (!$user) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
+
+        // Usar el método del modelo que tiene toda la lógica centralizada
         if (!$user->tieneAccesoPremium()) {
-            $message = $user->tienePagoVencido()
-                ? 'Tu pago mensual está vencido. Actualiza tu método de pago para recuperar el acceso.'
-                : ($user->tienePagoIncompleto()
-                    ? 'Tu suscripción requiere completar el pago o autenticación pendiente.'
-                    : 'Se requiere una suscripción activa para acceder a esta función.');
+            $message = 'Tu suscripción no está activa o ha vencido.';
 
             if ($request->expectsJson()) {
                 return response()->json([
@@ -47,12 +50,19 @@ class VerificarSuscripcion
                 ->with('show_modal', true);
         }
 
-        // Opcional: Mostrar advertencia si el trial está por terminar
-        if ($user->onTrial() && $user->trial_ends_at && $user->trial_ends_at->diffInDays(now()) <= 3) {
-            session()->flash('trial_ending_soon', [
-                'days' => $user->trial_ends_at->diffInDays(now()),
-                'ends_at' => $user->trial_ends_at->format('d/m/Y'),
-            ]);
+        // Aviso si está por vencer
+        if (!empty($user->access_until)) {
+            $accessUntil = $user->access_until instanceof \Carbon\Carbon
+                ? $user->access_until
+                : \Carbon\Carbon::parse($user->access_until);
+
+            $dias = now()->diffInDays($accessUntil, false);
+            if ($dias <= 3 && $dias >= 0) {
+                session()->flash('suscripcion_por_vencer', [
+                    'days' => $dias,
+                    'ends_at' => $accessUntil->format('d/m/Y'),
+                ]);
+            }
         }
 
         // Opcional: Verificar límites del plan

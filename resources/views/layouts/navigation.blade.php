@@ -166,7 +166,7 @@
                         </svg>
                     </div>
                     <span class="flex-1 text-sm font-medium">Planes Premium</span>
-                    @if(auth()->user()->tieneSuscripcionActiva())
+                    @if(auth()->user()->tieneAccesoPremium())
                         <span class="px-2 py-1 text-xs font-medium rounded-md bg-gradient-to-r from-green-900/40 to-emerald-900/40 text-green-400 border border-green-700/30">
                             Activo
                         </span>
@@ -203,7 +203,7 @@
                             </div>
 
                             <!-- Límites de Uso -->
-                            @if(auth()->user()->tieneSuscripcionActiva())
+                            @if(auth()->user()->tieneAccesoPremium())
                                 <!-- WhatsApp Usage -->
                                 <div class="mb-2">
                                     <div class="flex justify-between text-xs mb-1">
@@ -245,11 +245,40 @@
                                              style="width: {{ min($cuentasUsage, 100) }}%"></div>
                                     </div>
                                 </div>
+
+                                <!-- Información de Vencimiento -->
+                                @if(auth()->user()->access_until)
+                                    @php
+                                        $diasRestantes = now()->diffInDays(auth()->user()->access_until, false);
+                                        $diasColor = $diasRestantes <= 3 ? 'bg-red-900/20 border-red-800/30 text-red-300' : 
+                                                    ($diasRestantes <= 7 ? 'bg-yellow-900/20 border-yellow-800/30 text-yellow-300' : 
+                                                    'bg-green-900/20 border-green-800/30 text-green-300');
+                                    @endphp
+                                    <div class="mt-3 px-3 py-2 rounded-lg border {{ $diasColor }}">
+                                        <div class="text-xs font-semibold mb-1">
+                                            Acceso hasta:
+                                        </div>
+                                        <div class="text-xs font-bold">
+                                            {{ auth()->user()->access_until->format('d/m/Y H:i') }}
+                                        </div>
+                                        <div class="text-xs mt-1 opacity-90">
+                                            @if($diasRestantes < 0)
+                                                <span class="text-red-300">Vencido</span>
+                                            @elseif($diasRestantes == 0)
+                                                <span class="text-red-300">Vence hoy</span>
+                                            @elseif($diasRestantes == 1)
+                                                <span>Vence mañana</span>
+                                            @else
+                                                <span>{{ $diasRestantes }} días restantes</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endif
                             @endif
 
                             <!-- Estado y Acciones -->
                             <div class="mt-4 space-y-2">
-                                @if(auth()->user()->tieneSuscripcionActiva())
+                                @if(auth()->user()->tieneAccesoPremium())
                                     @if(auth()->user()->enPeriodoDeGracia())
                                         <div class="flex items-center text-xs text-yellow-400 bg-yellow-900/20 px-3 py-2 rounded-lg border border-yellow-800/30">
                                             <svg class="w-3 h-3 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -334,7 +363,7 @@
 
                     <!-- Facturas si tiene suscripción -->
                     @auth
-                        @if(auth()->user()->tieneSuscripcionActiva())
+                        @if(auth()->user()->tieneAccesoPremium())
                             <a href="{{ route('suscripcion.facturas') }}"
                                onclick="if(window.innerWidth < 1024) toggleSidebar();"
                                class="flex items-center px-4 py-3 text-sm text-gray-300 hover:bg-red-500/10 hover:text-red-300 transition">
@@ -416,7 +445,7 @@
                         </p>
                         <p class="text-xs text-gray-400 truncate">
                             @auth
-                                @if(auth()->user()->tieneSuscripcionActiva())
+                                @if(auth()->user()->tieneAccesoPremium())
                                     <span class="text-green-400 font-semibold">
                                         Premium
                                     </span>

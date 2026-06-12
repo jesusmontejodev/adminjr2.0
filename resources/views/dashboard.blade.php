@@ -30,6 +30,28 @@
             <span class="stat-label">Precisión IA</span>
         </div>
     </div>
+
+    @auth
+        @php
+            $user = auth()->user();
+            $dias = $user->access_until ? now()->diffInDays($user->access_until, false) : null;
+        @endphp
+
+        @if($user->estado_suscripcion === 'active' && $dias !== null)
+            <div style="margin-top:20px; padding:12px 16px; border-radius:10px; background:#111827; color:#e5e7eb; border:1px solid #374151; display:inline-block;">
+                <strong>Suscripción activa</strong><br>
+                @if($dias >= 0)
+                    Te quedan <strong>{{ $dias }}</strong> día(s)
+                @else
+                    <span style="color:#f87171;">Tu suscripción venció</span>
+                @endif
+            </div>
+        @else
+            <div style="margin-top:20px; padding:12px 16px; border-radius:10px; background:#1f2937; color:#fca5a5; border:1px solid #7f1d1d; display:inline-block;">
+                No tienes una suscripción activa
+            </div>
+        @endif
+    @endauth
 </section>
 
 <!-- Features Grid - Estilo Landing -->

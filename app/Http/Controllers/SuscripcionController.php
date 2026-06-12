@@ -93,6 +93,30 @@ class SuscripcionController extends Controller
         ]);
     }
 
+    /**
+     * Obtener Payment Link con datos del usuario
+     */
+    public function paymentLink()
+    {
+        $user = Auth::user();
+
+        $base = config('services.stripe.payment_link') ?? env('STRIPE_PAYMENT_LINK');
+
+        if (!$base) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Payment link no configurado'
+            ], 500);
+        }
+
+        $url = $base . '?client_reference_id=' . $user->id . '&prefilled_email=' . urlencode($user->email);
+
+        return response()->json([
+            'success' => true,
+            'url' => $url
+        ]);
+    }
+
     // ==================== ENDPOINTS AUTENTICADOS ====================
 
     /**
@@ -250,6 +274,7 @@ class SuscripcionController extends Controller
 
     /**
      * Cancelar suscripción
+     * Ahora funciona con el nuevo sistema N8N
      */
     public function cancelar(Request $request)
     {
@@ -259,7 +284,8 @@ class SuscripcionController extends Controller
 
         $user = Auth::user();
 
-        if (!$user->subscribed('default')) {
+        // Verificar si tiene suscripción activa con el nuevo sistema N8N
+        if ($user->attributes['estado_suscripcion'] !== 'active') {
             return response()->json([
                 'success' => false,
                 'message' => 'No tienes una suscripción activa.'
@@ -267,22 +293,26 @@ class SuscripcionController extends Controller
         }
 
         try {
-            $subscription = $user->subscription('default');
-            $endsAt = $subscription->ends_at;
+            // Obtener la fecha de acceso actual antes de cancelar
+            $accessUntilBefore = $user->access_until;
 
-            $subscription->cancel();
+            // Actualizar el estado de la suscripción
+            $user->estado_suscripcion = 'cancelada';
+            $user->access_until = now(); // El acceso termina inmediatamente
+            $user->save();
 
-            Log::info('Suscripción cancelada', [
+            Log::info('Suscripción cancelada (Sistema N8N)', [
                 'user_id' => $user->id,
                 'reason' => $request->reason,
-                'ends_at' => $endsAt,
+                'access_until_before' => $accessUntilBefore,
+                'access_until_after' => $user->access_until,
             ]);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Suscripción cancelada exitosamente.',
-                'ends_at' => $endsAt?->format('Y-m-d H:i:s'),
-                'access_until' => $endsAt ? $endsAt->format('d/m/Y') : 'fin del período actual',
+                'estado' => 'cancelada',
+                'access_until' => $user->access_until->format('d/m/Y H:i:s'),
             ]);
 
         } catch (\Exception $e) {
@@ -298,29 +328,36 @@ class SuscripcionController extends Controller
     }
 
     /**
-     * Reanudar suscripción cancelada
+     * Reanudar suscripción cancelada (Sistema N8N)
      */
     public function reanudar(Request $request)
     {
         $user = Auth::user();
 
-        if (!$user->subscription('default')->onGracePeriod()) {
+        // Verificar si la suscripción está cancelada
+        if ($user->attributes['estado_suscripcion'] !== 'cancelada') {
             return response()->json([
                 'success' => false,
-                'message' => 'No puedes reanudar esta suscripción.'
+                'message' => 'Esta suscripción no está cancelada.'
             ], 400);
         }
 
         try {
-            $user->subscription('default')->resume();
+            // Reanudar: cambiar a activa y extender acceso 30 días
+            $user->estado_suscripcion = 'active';
+            $user->access_until = now()->addDays(30);
+            $user->save();
 
-            Log::info('Suscripción reanudada', [
-                'user_id' => $user->id
+            Log::info('Suscripción reanudada (Sistema N8N)', [
+                'user_id' => $user->id,
+                'access_until' => $user->access_until
             ]);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Suscripción reanudada exitosamente.'
+                'message' => 'Suscripción reanudada exitosamente.',
+                'estado' => 'active',
+                'access_until' => $user->access_until->format('d/m/Y H:i:s')
             ]);
 
         } catch (\Exception $e) {
