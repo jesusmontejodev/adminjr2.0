@@ -32,15 +32,16 @@ class WebhookSuscripcionController extends Controller
         try {
             $this->validateKey($request);
 
-            // Validar que user_id sea proporcionado
-            if (!$request->has('user_id') || !$request->user_id) {
-                Log::error('Webhook N8N: user_id no proporcionado');
-                return response()->json(['error' => 'user_id es requerido'], 400);
+            // Validar que email sea proporcionado
+            $email = trim((string) $request->input('email'));
+            if ($email === '') {
+                Log::error('Webhook N8N: email no proporcionado');
+                return response()->json(['error' => 'email es requerido'], 400);
             }
 
-            $user = User::find($request->user_id);
+            $user = User::where('email', $email)->first();
             if (!$user) {
-                Log::warning('Webhook N8N: Usuario no encontrado', ['user_id' => $request->user_id]);
+                Log::warning('Webhook N8N: Usuario no encontrado', ['email' => $email]);
                 return response()->json(['error' => 'User not found'], 404);
             }
 
@@ -77,7 +78,7 @@ class WebhookSuscripcionController extends Controller
         } catch (\Exception $e) {
             Log::error('Webhook N8N: Error en primerPago', [
                 'error' => $e->getMessage(),
-                'user_id' => $request->user_id ?? 'N/A',
+                'email' => $request->input('email') ?? 'N/A',
                 'trace' => $e->getTraceAsString()
             ]);
 
@@ -97,15 +98,16 @@ class WebhookSuscripcionController extends Controller
         try {
             $this->validateKey($request);
 
-            // Validar que user_id sea proporcionado
-            if (!$request->has('user_id') || !$request->user_id) {
-                Log::error('Webhook N8N: user_id no proporcionado en renovación');
-                return response()->json(['error' => 'user_id es requerido'], 400);
+            // Validar que email sea proporcionado
+            $email = trim((string) $request->input('email'));
+            if ($email === '') {
+                Log::error('Webhook N8N: email no proporcionado en renovación');
+                return response()->json(['error' => 'email es requerido'], 400);
             }
 
-            $user = User::find($request->user_id);
+            $user = User::where('email', $email)->first();
             if (!$user) {
-                Log::warning('Webhook N8N: Usuario no encontrado en renovación', ['user_id' => $request->user_id]);
+                Log::warning('Webhook N8N: Usuario no encontrado en renovación', ['email' => $email]);
                 return response()->json(['error' => 'User not found'], 404);
             }
 
@@ -143,7 +145,7 @@ class WebhookSuscripcionController extends Controller
         } catch (\Exception $e) {
             Log::error('Webhook N8N: Error en renovación', [
                 'error' => $e->getMessage(),
-                'user_id' => $request->user_id ?? 'N/A',
+                'email' => $request->input('email') ?? 'N/A',
                 'trace' => $e->getTraceAsString()
             ]);
 
@@ -163,15 +165,16 @@ class WebhookSuscripcionController extends Controller
         try {
             $this->validateKey($request);
 
-            // Validar que user_id sea proporcionado
-            if (!$request->has('user_id') || !$request->user_id) {
-                Log::error('Webhook N8N: user_id no proporcionado en cancelación');
-                return response()->json(['error' => 'user_id es requerido'], 400);
+            // Validar que email sea proporcionado
+            $email = trim((string) $request->input('email'));
+            if ($email === '') {
+                Log::error('Webhook N8N: email no proporcionado en cancelación');
+                return response()->json(['error' => 'email es requerido'], 400);
             }
 
-            $user = User::find($request->user_id);
+            $user = User::where('email', $email)->first();
             if (!$user) {
-                Log::warning('Webhook N8N: Usuario no encontrado en cancelación', ['user_id' => $request->user_id]);
+                Log::warning('Webhook N8N: Usuario no encontrado en cancelación', ['email' => $email]);
                 return response()->json(['error' => 'User not found'], 404);
             }
 
@@ -197,7 +200,7 @@ class WebhookSuscripcionController extends Controller
         } catch (\Exception $e) {
             Log::error('Webhook N8N: Error en cancelación', [
                 'error' => $e->getMessage(),
-                'user_id' => $request->user_id ?? 'N/A',
+                'email' => $request->input('email') ?? 'N/A',
                 'trace' => $e->getTraceAsString()
             ]);
 
