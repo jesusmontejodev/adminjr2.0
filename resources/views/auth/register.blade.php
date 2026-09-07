@@ -7,7 +7,7 @@
         <div class="absolute -inset-6 bg-gradient-to-r from-red-500/30 via-amber-500/20 to-red-500/30 rounded-3xl blur-2xl opacity-0 group-hover:opacity-70 transition-opacity duration-700 animate-pulse-slow"></div>
         
         <!-- Card principal con animación hover -->
-        <div class="bg-white rounded-2xl border-2 border-gray-900 shadow-[8px_8px_0_0_#000000] p-6 sm:p-8 transition-all duration-500 hover:shadow-[12px_12px_0_0_#dc2626] hover:border-red-600 hover:-translate-y-1 relative z-10">
+        <div class="bg-white rounded-2xl border-2 border-gray-900 shadow-[8px_8px_0_0_#000000] p-6 sm:p-8 transition-all duration-500 hover:shadow-[12px_12px_0_0_#d7263d] hover:border-red-600 hover:-translate-y-1 relative z-10">
             
             <!-- Logo con animación -->
             <div class="text-center mb-6">

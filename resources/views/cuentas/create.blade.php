@@ -1,148 +1,106 @@
 <x-app-layout>
-    <div class="form-create relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <!-- HEADER -->
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-        <div>
-            <h1 class="flex items-center gap-3 text-xl font-bold">
-                <span class="icon-circle">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Nueva Cuenta') }}
+        </h2>
+    </x-slot>
+
+    <div class="cuentas-view relative z-10 p-6 sm:p-10">
+
+        <!-- HEADER -->
+        <div class="cv-topbar">
+            <div class="cv-title-row">
+                <span class="cv-title-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                 </span>
-                Crear Nueva Cuenta
-            </h1>
-            <p class="mt-2 text-sm">
-                Agrega una nueva cuenta para gestionar tus finanzas
-            </p>
-        </div>
-
-        <a href="{{ route('cuentas.index') }}">
-             <button type="submit" class="btn-primary">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 18l-6-6 6-6"/>
-            </svg>
-            Volver
-            </button>   
-        </a>
-    </div>
-
-    <!-- MENSAJES -->
-    @if (session('success'))
-        <div class="alert-success mb-6">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class="alert-error mb-6">
-            <strong>Corrige los errores:</strong>
-            <ul class="list-disc pl-5 mt-2 text-sm">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <!-- FORMULARIO -->
-    <div class="card">
-        <form action="{{ route('cuentas.store') }}" method="POST" class="p-6">
-            @csrf
-
-            <div class="mb-6">
-                <label for="nombre" class="label">Nombre de la cuenta *</label>
-                <input type="text" name="nombre" id="nombre"
-                    value="{{ old('nombre') }}"
-                    class="input"
-                    placeholder="Ej: Cuenta Corriente, Ahorros..."
-                    required autofocus>
+                <div>
+                    <h1>Nueva Cuenta</h1>
+                    <div class="cv-title-sub">Agrega una cuenta para gestionar tus finanzas</div>
+                </div>
             </div>
 
-                <!-- Saldo -->
-                    <div class="mb-6">
-                        <label for="saldo_inicial" class="label">Saldo inicial *</label>
-                    <div class="relative">
-                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 select-none pointer-events-none">
-                            $
-                        </span>
+            <a href="{{ route('cuentas.index') }}" class="cv-btn-secondary">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6"/>
+                </svg>
+                Volver
+            </a>
+        </div>
+
+        <!-- MENSAJES -->
+        @if (session('error'))
+            <div class="cv-alert cv-alert--error">{{ session('error') }}</div>
+        @endif
+
+        @if ($errors->any())
+            <div class="cv-alert cv-alert--error">
+                <strong>Corrige los errores:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- FORMULARIO -->
+        <div class="cv-form-panel">
+            <form action="{{ route('cuentas.store') }}" method="POST">
+                @csrf
+
+                <div class="cv-field">
+                    <label for="nombre" class="cv-label">Nombre de la cuenta *</label>
+                    <input type="text" name="nombre" id="nombre"
+                        value="{{ old('nombre') }}"
+                        class="cv-input"
+                        placeholder="Ej: Cuenta Corriente, Ahorros..."
+                        required autofocus>
+                    @error('nombre') <p class="cv-input-error">{{ $message }}</p> @enderror
+                </div>
+
+                <div class="cv-field">
+                    <label for="saldo_inicial" class="cv-label">Saldo inicial *</label>
+                    <div class="cv-input-prefix-wrap">
+                        <span class="cv-input-prefix">$</span>
                         <input
                             type="number"
                             name="saldo_inicial"
                             id="saldo_inicial"
                             step="0.01"
                             min="0"
-                            class="input"
-                            style="padding-left:3rem;"
+                            value="{{ old('saldo_inicial') }}"
+                            class="cv-input"
                             required
                         >
                     </div>
+                    @error('saldo_inicial') <p class="cv-input-error">{{ $message }}</p> @enderror
                 </div>
 
-            <div class="mb-8">
-                <label for="descripcion" class="label">Descripción</label>
-                <textarea name="descripcion" id="descripcion" rows="4"
-                    class="input"
-                    placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
-            </div>
-
-            <div class="flex flex-col sm:flex-row sm:justify-between gap-4 pt-6">
-                <p class="text-xs">
-                    Los campos marcados con * son obligatorios
-                </p>
-
-                <div class="flex gap-3">
-                    <a href="{{ route('cuentas.index') }}" class="btn-cancel">Cancelar</a>
-                    <button type="submit" class="btn-primary">Crear Cuenta</button>
+                <div class="cv-field">
+                    <label for="descripcion" class="cv-label">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" rows="4"
+                        class="cv-textarea"
+                        placeholder="Descripción opcional...">{{ old('descripcion') }}</textarea>
+                    @error('descripcion') <p class="cv-input-error">{{ $message }}</p> @enderror
                 </div>
-            </div>
-        </form>
+
+                <div class="cv-form-foot">
+                    <p class="cv-form-hint">Los campos marcados con * son obligatorios</p>
+
+                    <div class="cv-form-actions">
+                        <a href="{{ route('cuentas.index') }}" class="cv-btn-secondary">Cancelar</a>
+                        <button type="submit" class="cv-btn-new">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                            Crear Cuenta
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
-</div>
-    <!-- ESTILOS -->
-    <style>
-        .card{
-            background:rgba(255,255,255,.04);
-            border:1px solid rgba(239,68,68,.35);
-            border-radius:22px;
-            backdrop-filter:blur(14px);
-        }
-
-        .icon-circle{
-            width:38px;
-            height:38px;
-            border-radius:12px;
-            background:rgba(239,68,68,.18);
-            border:1px solid rgba(239,68,68,.45);
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            color:#ef4444;
-        }
-
-        .label{
-            display:block;
-            margin-bottom:6px;
-            font-size:13px;
-            color:#fca5a5;
-            font-weight:500;
-        }
-
-        .input{
-            width:100%;
-            padding:12px 14px;
-            border-radius:14px;
-            background:rgba(255,255,255,.06);
-            border:1px solid rgba(255,255,255,.12);
-            color:#fff;
-        }
-
-        .input:focus{
-            outline:none;
-            border-color:#ef4444;
-            box-shadow:0 0 0 2px rgba(239,68,68,.25);
-        }
-    </style>
-
 </x-app-layout>

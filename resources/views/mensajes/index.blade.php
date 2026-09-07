@@ -1,6 +1,11 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('📩 Listado de Mensajes') }}
+        </h2>
+    </x-slot>
+
     <div class="max-w-6xl mx-auto px-6 py-10">
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">📩 Listado de Mensajes</h1>
 
         {{-- Mensaje de éxito --}}
         @if(session('success'))

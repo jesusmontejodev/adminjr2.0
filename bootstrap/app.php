@@ -5,6 +5,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\VerifyN8nToken;
 use App\Http\Middleware\VerificarSuscripcion;
+use App\Http\Middleware\EnsureMcpAbility;
+use App\Http\Middleware\EnsureIsAdmin;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -24,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'verificar.suscripcion' => VerificarSuscripcion::class,
             'suscripcion' => VerificarSuscripcion::class,
+            'mcp.ability' => EnsureMcpAbility::class,
+            'admin' => EnsureIsAdmin::class,
         ]);
 
         // Middleware para rutas API

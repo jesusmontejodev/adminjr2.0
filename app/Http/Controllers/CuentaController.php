@@ -14,13 +14,15 @@ class CuentaController extends Controller
     public function index()
     {
         $cuentas = Cuenta::where('id_user', Auth::id())
+                        ->withCount('transacciones')
                         ->orderBy('nombre')
                         ->get();
 
         $saldoTotal = $cuentas->sum('saldo_actual');
+        $saldoInicialTotal = $cuentas->sum('saldo_inicial');
         $cuentasActivas = $cuentas->where('saldo_actual', '>', 0)->count();
 
-        return view('cuentas.index', compact('cuentas', 'saldoTotal', 'cuentasActivas'));
+        return view('cuentas.index', compact('cuentas', 'saldoTotal', 'saldoInicialTotal', 'cuentasActivas'));
     }
 
     /**

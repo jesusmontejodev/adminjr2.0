@@ -64,6 +64,11 @@ class NumerosWhatsAppController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->puedeAgregarWhatsApp()) {
+            return redirect()->route('numeros-whatsapp.index')
+                ->with('error', 'Alcanzaste el límite de números de WhatsApp de tu plan (' . Auth::user()->getLimiteWhatsApp() . ').');
+        }
+
         return view('numeros-whatsapp.create', [
             'paises' => array_map(fn($p) => $p['nombre'], $this->paises)
         ]);
@@ -74,6 +79,11 @@ class NumerosWhatsAppController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Auth::user()->puedeAgregarWhatsApp()) {
+            return redirect()->route('numeros-whatsapp.index')
+                ->with('error', 'Alcanzaste el límite de números de WhatsApp de tu plan (' . Auth::user()->getLimiteWhatsApp() . ').');
+        }
+
         $validated = $request->validate([
             'pais' => 'required|string|size:2|in:' . implode(',', array_keys($this->paises)),
             'numero_local' => 'required|string|max:20',
@@ -268,7 +278,10 @@ class NumerosWhatsAppController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('numeros-whatsapp.index', compact('numeros'));
+        $limite = Auth::user()->getLimiteWhatsApp();
+        $puedeAgregar = Auth::user()->puedeAgregarWhatsApp();
+
+        return view('numeros-whatsapp.index', compact('numeros', 'limite', 'puedeAgregar'));
     }
 
     /**
@@ -294,7 +307,11 @@ class NumerosWhatsAppController extends Controller
      */
     public function destroy($id)
     {
-        NumerosWhatsApp::destroy($id);
+        $numero = NumerosWhatsApp::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        $numero->delete();
 
         return back()->with('success', 'Número eliminado correctamente.');
     }

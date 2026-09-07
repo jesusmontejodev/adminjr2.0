@@ -1,4 +1,10 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Nueva Transacción') }}
+        </h2>
+    </x-slot>
+
     <div class="form-create relative">
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
@@ -78,7 +84,7 @@
 
     .card{
         background:rgba(255,255,255,.04);
-        border:1px solid rgba(239,68,68,.35);
+        border:1px solid rgba(237, 70, 92,.35);
         border-radius:22px;
         backdrop-filter:blur(14px);
     }
@@ -87,12 +93,12 @@
         width:38px;
         height:38px;
         border-radius:12px;
-        background:rgba(239,68,68,.18);
-        border:1px solid rgba(239,68,68,.45);
+        background:rgba(237, 70, 92,.18);
+        border:1px solid rgba(237, 70, 92,.45);
         display:flex;
         align-items:center;
         justify-content:center;
-        color:#ef4444;
+        color:#ed465c;
     }
 
     /*  LABELS ROJOS  */
@@ -101,7 +107,7 @@
         display:block;
         margin-bottom:6px;
         font-size:13px;
-        color:#fca5a5 !important;
+        color:#fba6b1 !important;
         font-weight:500;
     }
 
@@ -120,8 +126,8 @@
 
     .input:focus{
         outline:none;
-        border-color:#ef4444;
-        box-shadow:0 0 0 2px rgba(239,68,68,.25);
+        border-color:#ed465c;
+        box-shadow:0 0 0 2px rgba(237, 70, 92,.25);
     }
 
     /* 🔥 SELECT OSCURO REAL */
@@ -136,12 +142,12 @@
     }
 
     select.input option:checked{
-        background-color:#ef4444;
+        background-color:#ed465c;
         color:#ffffff;
     }
 
     select.input option:hover{
-        background-color:#ef4444;
+        background-color:#ed465c;
         color:#ffffff;
     }
 
@@ -151,8 +157,8 @@
         gap:6px;
         padding:10px 18px;
         border-radius:14px;
-        background:rgba(239,68,68,.25);
-        border:1px solid rgba(239,68,68,.45);
+        background:rgba(237, 70, 92,.25);
+        border:1px solid rgba(237, 70, 92,.45);
         color:#fff;
         font-weight:600;
         transition:.25s;
@@ -160,7 +166,7 @@
 
     .btn-primary:hover{
         transform:translateY(-2px);
-        background:rgba(239,68,68,.35);
+        background:rgba(237, 70, 92,.35);
     }
 
     .btn-secondary{
@@ -177,7 +183,7 @@
     .error-text{
         margin-top:6px;
         font-size:12px;
-        color:#fecaca;
+        color:#fdcbd1;
     }
 </style>
 </x-app-layout>

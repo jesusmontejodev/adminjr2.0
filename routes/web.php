@@ -12,6 +12,8 @@ use App\Http\Controllers\MensajesDeEntrenamientoController;
 use App\Http\Controllers\NumerosWhatsAppController;
 use App\Http\Controllers\SuscripcionController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\McpTokenController;
+use App\Http\Controllers\DashboardController;
 
 
 
@@ -26,6 +28,7 @@ Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
 
 Route::get('/nosotros', function () {
     return view('nosotros');
@@ -46,18 +49,40 @@ Route::get('/terminos-y-condiciones', function () {
     return view('terminos');
 })->name('terminos');
 
+// ============= BLOG / DOCUMENTACIÓN =============
+Route::prefix('blog')->name('blog.')->group(function () {
+    Route::get('/', function () {
+        return view('blog.index');
+    })->name('index');
+
+    Route::get('/conectar-tu-ia-con-mcp', function () {
+        return view('blog.conectar-ia-mcp');
+    })->name('conectar-ia-mcp');
+
+    Route::get('/referencia-tecnica-api-mcp', function () {
+        return view('blog.referencia-api-mcp');
+    })->name('referencia-api-mcp');
+});
+
 // ============= RUTAS QUE REQUIEREN AUTENTICACIÓN =============
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Perfil
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile/photo', [ProfileController::class, 'destroyPhoto'])->name('profile.photo.destroy');
+
+    // ==================== INTEGRACIONES IA (tokens MCP) ====================
+    Route::prefix('integraciones-ia')->name('mcp-tokens.')->group(function () {
+        Route::get('/', [McpTokenController::class, 'index'])->name('index');
+        Route::post('/aceptar', [McpTokenController::class, 'aceptarTerminos'])->name('aceptar');
+        Route::post('/', [McpTokenController::class, 'store'])->name('store');
+        Route::delete('/{token}', [McpTokenController::class, 'destroy'])->name('destroy');
+    });
 
     // ==================== RUTAS DE SUSCRIPCIÓN ====================
     Route::prefix('suscripcion')->name('suscripcion.')->group(function () {
@@ -77,6 +102,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 });
 
+// ============= RUTAS DE ADMINISTRACIÓN =============
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('whatsapp-limites', [\App\Http\Controllers\Admin\WhatsappLimiteController::class, 'index'])
+        ->name('whatsapp-limites.index');
+    Route::patch('whatsapp-limites/{usuario}', [\App\Http\Controllers\Admin\WhatsappLimiteController::class, 'update'])
+        ->name('whatsapp-limites.update');
+});
+
 // ============= RUTAS QUE REQUIEREN SUSCRIPCIÓN ACTIVA =============
 Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function () {
 
@@ -88,7 +121,7 @@ Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function
         ->parameters(['transacciones' => 'transaccion']);
     Route::get('transacciones-hoja', [TransaccionController::class, 'hojaCalculo'])
         ->name('transacciones.hoja-calculo');
-    
+
     // API routes for hoja de cálculo
     Route::get('api/transacciones-hoja', [TransaccionController::class, 'hojaCalculoData'])
         ->name('api.transacciones-hoja');
@@ -96,7 +129,21 @@ Route::middleware(['auth', 'verified', 'verificar.suscripcion'])->group(function
         ->name('api.transacciones-hoja.crear');
     Route::get('api/cuentas-del-usuario', [TransaccionController::class, 'cuentasDelUsuario'])
         ->name('api.cuentas-del-usuario');
-    
+
+    // Copias editables + importación con detección de movimientos nuevos
+    Route::get('transacciones-hoja/documentos', [TransaccionController::class, 'documentos'])
+        ->name('transacciones.documentos');
+    Route::post('transacciones-hoja/copia', [TransaccionController::class, 'generarCopia'])
+        ->name('transacciones.hoja-calculo.copia');
+    Route::post('transacciones-hoja/importar/previsualizar', [TransaccionController::class, 'previsualizarImportacion'])
+        ->name('transacciones.hoja-calculo.importar.previsualizar');
+    Route::post('documentos/{documento}/confirmar', [TransaccionController::class, 'confirmarImportacion'])
+        ->name('documentos.confirmar');
+    Route::post('documentos/{documento}/descartar', [TransaccionController::class, 'descartarImportacion'])
+        ->name('documentos.descartar');
+    Route::get('documentos/{documento}/descargar', [TransaccionController::class, 'descargar'])
+        ->name('documentos.descargar');
+
     Route::resource('mensajes', MensajesDeEntrenamientoController::class);
     Route::resource('comisiones', InfocomisionesController::class);
     Route::resource('analistajr', GraficasController::class);

@@ -318,7 +318,7 @@ function sendMessage() {
     <div class="mb-6 sm:mb-7 md:mb-8 inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 
                 bg-white border-2 border-gray-900 rounded-full 
                 shadow-[2px_2px_0_0_#000000] sm:shadow-[3px_3px_0_0_#000000]
-                hover:border-red-600 hover:shadow-[3px_3px_0_0_#dc2626] sm:hover:shadow-[4px_4px_0_0_#dc2626]
+                hover:border-red-600 hover:shadow-[3px_3px_0_0_#d7263d] sm:hover:shadow-[4px_4px_0_0_#d7263d]
                 transition-all duration-300
                 group">
 
@@ -505,7 +505,7 @@ function sendMessage() {
                     border-2 border-gray-900
                     bg-white
                     shadow-[4px_4px_0_0_#000000] sm:shadow-[6px_6px_0_0_#000000] md:shadow-[8px_8px_0_0_#000000]
-                    group-hover:shadow-[6px_6px_0_0_#dc2626] sm:group-hover:shadow-[8px_8px_0_0_#dc2626] md:group-hover:shadow-[12px_12px_0_0_#dc2626]
+                    group-hover:shadow-[6px_6px_0_0_#d7263d] sm:group-hover:shadow-[8px_8px_0_0_#d7263d] md:group-hover:shadow-[12px_12px_0_0_#d7263d]
                     transition-all duration-500
                     transform group-hover:scale-[1.01]">
 
@@ -670,7 +670,7 @@ function sendMessage() {
                             border-2 border-gray-900
                             bg-white
                             shadow-[4px_4px_0_0_#000000] sm:shadow-[6px_6px_0_0_#000000] md:shadow-[8px_8px_0_0_#000000]
-                            group-hover:shadow-[6px_6px_0_0_#dc2626] sm:group-hover:shadow-[8px_8px_0_0_#dc2626] md:group-hover:shadow-[12px_12px_0_0_#dc2626]
+                            group-hover:shadow-[6px_6px_0_0_#d7263d] sm:group-hover:shadow-[8px_8px_0_0_#d7263d] md:group-hover:shadow-[12px_12px_0_0_#d7263d]
                             transition-all duration-500
                             transform group-hover:scale-[1.01] sm:group-hover:scale-[1.02]">
 
@@ -876,7 +876,7 @@ function sendMessage() {
                         border-2 border-gray-900
                         bg-white
                         shadow-[4px_4px_0_0_#000000] sm:shadow-[6px_6px_0_0_#000000] md:shadow-[8px_8px_0_0_#000000]
-                        group-hover:shadow-[6px_6px_0_0_#dc2626] sm:group-hover:shadow-[8px_8px_0_0_#dc2626] md:group-hover:shadow-[12px_12px_0_0_#dc2626]
+                        group-hover:shadow-[6px_6px_0_0_#d7263d] sm:group-hover:shadow-[8px_8px_0_0_#d7263d] md:group-hover:shadow-[12px_12px_0_0_#d7263d]
                         transition-all duration-500
                         transform group-hover:scale-[1.01] sm:group-hover:scale-[1.02]">
 
@@ -940,7 +940,7 @@ function sendMessage() {
                     text-center 
                     transition-all duration-500 
                     hover:border-red-600
-                    hover:shadow-[8px_8px_0_0_#dc2626]
+                    hover:shadow-[8px_8px_0_0_#d7263d]
                     shadow-[4px_4px_0_0_#000000]
                     relative
                     overflow-hidden
@@ -986,7 +986,7 @@ function sendMessage() {
                             text-center 
                             transition-all duration-500 
                             hover:border-red-600
-                            hover:shadow-[8px_8px_0_0_#dc2626]
+                            hover:shadow-[8px_8px_0_0_#d7263d]
                             shadow-[4px_4px_0_0_#000000]
                             relative
                             overflow-hidden
@@ -1030,7 +1030,7 @@ function sendMessage() {
                             text-center 
                             transition-all duration-500 
                             hover:border-red-600
-                            hover:shadow-[8px_8px_0_0_#dc2626]
+                            hover:shadow-[8px_8px_0_0_#d7263d]
                             shadow-[4px_4px_0_0_#000000]
                             relative
                             overflow-hidden
@@ -1070,7 +1070,7 @@ function sendMessage() {
         
         <!-- Indicadores de posición con estilo premium - responsive -->
         <div class="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-7 md:mt-8">
-            <span class="w-6 sm:w-7 md:w-8 h-1.5 sm:h-2 bg-gray-900 rounded-full shadow-[1px_1px_0_0_#dc2626]"></span>
+            <span class="w-6 sm:w-7 md:w-8 h-1.5 sm:h-2 bg-gray-900 rounded-full shadow-[1px_1px_0_0_#d7263d]"></span>
             <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-300 rounded-full"></span>
             <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-gray-300 rounded-full"></span>
         </div>
@@ -1447,7 +1447,7 @@ function sendMessage() {
                         <!-- Fondo decorativo -->
                         <div class="absolute inset-0 bg-gradient-to-r from-red-500/5 to-amber-500/5 rounded-xl sm:rounded-2xl -m-1"></div>
                         
-                        <div class="relative bg-white p-5 sm:p-6 md:p-7 rounded-xl border-2 border-gray-900 shadow-[3px_3px_0_0_#dc2626] sm:shadow-[4px_4px_0_0_#dc2626]">
+                        <div class="relative bg-white p-5 sm:p-6 md:p-7 rounded-xl border-2 border-gray-900 shadow-[3px_3px_0_0_#d7263d] sm:shadow-[4px_4px_0_0_#d7263d]">
                             <span class="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider bg-gray-100 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full inline-block mb-2 sm:mb-3">Oferta especial</span>
                             
                             <div class="flex items-center justify-center md:justify-start gap-1 sm:gap-2 flex-wrap">
@@ -1480,8 +1480,8 @@ function sendMessage() {
                                text-white font-bold text-sm sm:text-base
                                rounded-xl
                                transition-all duration-300
-                               shadow-[0_8px_16px_-8px_rgba(220,38,38,0.6)] sm:shadow-[0_10px_20px_-8px_rgba(220,38,38,0.6)]
-                               hover:shadow-[0_12px_20px_-8px_rgba(220,38,38,0.8)] sm:hover:shadow-[0_15px_25px_-8px_rgba(220,38,38,0.8)]
+                               shadow-[0_8px_16px_-8px_rgba(215, 38, 61,0.6)] sm:shadow-[0_10px_20px_-8px_rgba(215, 38, 61,0.6)]
+                               hover:shadow-[0_12px_20px_-8px_rgba(215, 38, 61,0.8)] sm:hover:shadow-[0_15px_25px_-8px_rgba(215, 38, 61,0.8)]
                                hover:scale-105
                                gap-2 sm:gap-3
                                border border-red-400
@@ -1732,7 +1732,7 @@ function sendMessage() {
                         border-2 border-gray-900
                         bg-white
                         shadow-[4px_4px_0_0_#000000] sm:shadow-[6px_6px_0_0_#000000] md:shadow-[8px_8px_0_0_#000000]
-                        group-hover:shadow-[6px_6px_0_0_#dc2626] sm:group-hover:shadow-[8px_8px_0_0_#dc2626] md:group-hover:shadow-[12px_12px_0_0_#dc2626]
+                        group-hover:shadow-[6px_6px_0_0_#d7263d] sm:group-hover:shadow-[8px_8px_0_0_#d7263d] md:group-hover:shadow-[12px_12px_0_0_#d7263d]
                         transition-all duration-500
                         transform group-hover:scale-[1.01] sm:group-hover:scale-[1.02]">
 
@@ -1836,6 +1836,7 @@ function sendMessage() {
             <h3 class="text-sm sm:text-base font-semibold text-white">Equipo</h3>
             <ul class="space-y-1 text-xs sm:text-sm text-gray-400">
                 <li><a href="{{ route('nosotros') }}" class="hover:text-red-400 transition inline-block py-1">Nosotros</a></li>
+                <li><a href="{{ route('blog.index') }}" class="hover:text-red-400 transition inline-block py-1">Blog / Docs</a></li>
             </ul>
         </div>
 
@@ -2093,16 +2094,16 @@ function loadMockups(videoUrl1, videoUrl2) {
    CARD ACTIVA - SOLO PARA #funciones
 ========================= */
 #funciones .card-3d.active {
-    box-shadow: 8px 8px 0 0 #dc2626;
-    border-color: #dc2626;
+    box-shadow: 8px 8px 0 0 #d7263d;
+    border-color: #d7263d;
 }
 
 /* =========================
    HOVER EFFECT - SOLO PARA #funciones
 ========================= */
 #funciones .card-3d:hover {
-    border-color: #dc2626;
-    box-shadow: 8px 8px 0 0 #dc2626;
+    border-color: #d7263d;
+    box-shadow: 8px 8px 0 0 #d7263d;
 }
 
 /* =========================
@@ -2123,11 +2124,11 @@ function loadMockups(videoUrl1, videoUrl2) {
 }
 
 #funciones .card-3d h3 span {
-    color: #dc2626;
-    background-color: #fef2f2;
+    color: #d7263d;
+    background-color: #fef2f4;
     padding: 0.25rem 0.75rem;
     border-radius: 0.5rem;
-    border: 1px solid #fecaca;
+    border: 1px solid #fdcbd1;
     box-shadow: 1px 1px 0 0 #000000;
     display: inline-block;
     font-size: 1.5rem;
@@ -2152,7 +2153,7 @@ function loadMockups(videoUrl1, videoUrl2) {
     align-items: center;
     justify-content: center;
     border-radius: 1rem;
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    background: linear-gradient(135deg, #d7263d, #b71e32);
     border: 2px solid #000000;
     box-shadow: 3px 3px 0 0 #000000;
     margin: 0 auto 2rem auto;
@@ -2180,13 +2181,13 @@ function loadMockups(videoUrl1, videoUrl2) {
     background: #111827;
     border-radius: 9999px;
     border: 1px solid #374151;
-    box-shadow: 2px 2px 0 0 #dc2626;
+    box-shadow: 2px 2px 0 0 #d7263d;
 }
 
 #funciones .card-3d .mt-6.inline-flex span.w-1\\.5 {
     width: 0.375rem;
     height: 0.375rem;
-    background: #dc2626;
+    background: #d7263d;
     border-radius: 50%;
     animation: pulse 2s infinite;
 }
@@ -2207,7 +2208,7 @@ function loadMockups(videoUrl1, videoUrl2) {
     right: 0;
     width: 6rem;
     height: 6rem;
-    background: linear-gradient(135deg, rgba(220,38,38,0.1), rgba(245,158,11,0.1));
+    background: linear-gradient(135deg, rgba(215, 38, 61,0.1), rgba(245,158,11,0.1));
     border-bottom-left-radius: 1rem;
     pointer-events: none;
 }
@@ -2276,7 +2277,7 @@ html {
 }
 
 .message-user {
-    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    background: linear-gradient(135deg, #d7263d 0%, #b71e32 100%);
     color: #ffffff;
     border-radius: 20px 20px 5px 20px;
     padding: 14px 18px;
@@ -2284,7 +2285,7 @@ html {
     align-self: flex-end;
     font-size: 0.95rem;
     font-weight: 500;
-    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    box-shadow: 0 4px 15px rgba(215, 38, 61, 0.3);
     position: relative;
 }
 
@@ -2323,7 +2324,7 @@ html {
     top: 10%;
     height: 80%;
     width: 4px;
-    background: #dc2626;
+    background: #d7263d;
     border-radius: 0 4px 4px 0;
 }
 
@@ -2342,14 +2343,14 @@ html {
 .typing span {
     width: 10px;
     height: 10px;
-    background-color: #dc2626;
+    background-color: #d7263d;
     border-radius: 50%;
     animation: pulse 1.5s infinite ease-in-out;
 }
 
-.typing span:nth-child(1) { animation-delay: 0s; background-color: #dc2626; }
-.typing span:nth-child(2) { animation-delay: 0.2s; background-color: #ef4444; }
-.typing span:nth-child(3) { animation-delay: 0.4s; background-color: #f87171; }
+.typing span:nth-child(1) { animation-delay: 0s; background-color: #d7263d; }
+.typing span:nth-child(2) { animation-delay: 0.2s; background-color: #ed465c; }
+.typing span:nth-child(3) { animation-delay: 0.4s; background-color: #f67384; }
 
 @keyframes pulse {
     0%, 60%, 100% { transform: scale(1); opacity: 0.5; }
@@ -2376,12 +2377,12 @@ html {
 }
 
 #chatBox::-webkit-scrollbar-thumb {
-    background: #dc2626;
+    background: #d7263d;
     border-radius: 10px;
 }
 
 #chatBox::-webkit-scrollbar-thumb:hover {
-    background: #ef4444;
+    background: #ed465c;
 }
 
 #userInput {
@@ -2395,9 +2396,9 @@ html {
 }
 
 #userInput:focus {
-    border-color: #dc2626;
+    border-color: #d7263d;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+    box-shadow: 0 0 0 3px rgba(215, 38, 61, 0.2);
     background: #222222;
 }
 
@@ -2407,7 +2408,7 @@ html {
 }
 
 button[onclick="sendMessage()"] {
-    background: #dc2626;
+    background: #d7263d;
     color: white;
     border: none;
     border-radius: 30px;
@@ -2415,13 +2416,13 @@ button[onclick="sendMessage()"] {
     font-weight: 600;
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    box-shadow: 0 4px 15px rgba(215, 38, 61, 0.3);
 }
 
 button[onclick="sendMessage()"]:hover {
-    background: #b91c1c;
+    background: #b71e32;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+    box-shadow: 0 8px 20px rgba(215, 38, 61, 0.4);
 }
 
 button[onclick="sendMessage()"]:active {
@@ -2430,7 +2431,7 @@ button[onclick="sendMessage()"]:active {
 
 .message-bot:first-child {
     background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-    border-left: 4px solid #dc2626;
+    border-left: 4px solid #d7263d;
 }
 
 .message-bot:hover, .message-user:hover {

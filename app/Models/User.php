@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Cashier\Billable;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -61,9 +62,33 @@ class User extends Authenticatable implements MustVerifyEmail
             'trial_ends_at' => 'datetime',
             'access_until' => 'datetime',
             'ultimo_pago_at' => 'datetime',
+            'mcp_terms_accepted_at' => 'datetime',
             'phone_number' => 'string',    // NUEVO: Cast para phone_number
             'country_code' => 'string',    // NUEVO: Cast para country_code
         ];
+    }
+
+    // =============== FOTO DE PERFIL ===============
+
+    /**
+     * URL pública de la foto de perfil, o null si no tiene una.
+     */
+    public function getProfilePhotoUrlAttribute(): ?string
+    {
+        return $this->profile_photo_path
+            ? Storage::disk('public')->url($this->profile_photo_path)
+            : null;
+    }
+
+    /**
+     * Iniciales del usuario para usar como avatar de respaldo (ej. "JM").
+     */
+    public function getInicialesAttribute(): string
+    {
+        $palabras = preg_split('/\s+/', trim($this->name));
+        $iniciales = array_map(fn ($p) => mb_strtoupper(mb_substr($p, 0, 1)), array_slice($palabras, 0, 2));
+
+        return implode('', $iniciales) ?: '?';
     }
 
     // =============== MÉTODOS NUEVOS PARA TELÉFONO ===============
@@ -421,22 +446,32 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Obtener límite de números de WhatsApp
+     * Obtener límite de números de WhatsApp.
+     *
+     * Un admin puede fijar `limite_whatsapp_override` para darle a un usuario
+     * puntual un límite distinto al de su plan (cortesía, negociación, etc.).
+     * Si no hay override, el límite depende del plan activo en Stripe.
      */
     public function getLimiteWhatsApp(): int
     {
+        if ($this->limite_whatsapp_override !== null) {
+            return (int) $this->limite_whatsapp_override;
+        }
+
         if (!$this->tieneAccesoPremium()) {
             return 0;
         }
 
         $planId = $this->getPlanActualId();
-        $precioBasico = config('services.stripe.price_basico');
-
-        if ($planId === $precioBasico) {
-            return 3;
+        if ($planId === null) {
+            return 1;
         }
 
-        return 1;
+        return match ($planId) {
+            config('services.stripe.price_basico') => 3,
+            config('services.stripe.price_pro') => 5,
+            default => 1,
+        };
     }
 
     /**

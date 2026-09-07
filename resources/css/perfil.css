@@ -1,0 +1,217 @@
+/* ====== MI PERFIL ====== */
+
+.perfil-view {
+    --pv-surface: #ffffff;
+    --pv-surface-2: #fafafa;
+    --pv-border: rgba(17,24,39,.09);
+    --pv-border-brand: rgba(215,38,61,.30);
+    --pv-text: #111827;
+    --pv-text-dim: #6b7280;
+    --pv-text-faint: #9ca3af;
+    --pv-accent: #d7263d;
+    --pv-accent-2: #b71e32;
+    --pv-accent-soft: rgba(215,38,61,.09);
+    --pv-success: #16a34a;
+    --pv-success-soft: rgba(22,163,74,.10);
+    --pv-danger: #d7263d;
+    --pv-danger-soft: rgba(215,38,61,.09);
+    --pv-shadow: 0 1px 2px rgba(17,24,39,.04), 0 8px 20px rgba(17,24,39,.04);
+
+    --pv-glass: rgba(255,255,255,.3);
+    --pv-glass-2: rgba(238,239,242,.15);
+    --pv-glass-border: rgba(215,38,61,.3);
+    --pv-glass-hairline: rgba(255,255,255,.8);
+
+    color: var(--pv-text);
+    font-size: 15px;
+    line-height: 1.5;
+    padding-bottom: 6rem;
+}
+
+@media (min-width: 640px) {
+    .perfil-view { padding-bottom: 7rem; }
+}
+
+html.dark .perfil-view {
+    --pv-surface: rgba(255,255,255,.035);
+    --pv-surface-2: rgba(255,255,255,.055);
+    --pv-border: rgba(255,255,255,.09);
+    --pv-border-brand: rgba(237,70,92,.35);
+    --pv-text: #e8eaf0;
+    --pv-text-dim: #9aa1b2;
+    --pv-text-faint: #6b7280;
+    --pv-accent: #ed465c;
+    --pv-accent-2: #f67384;
+    --pv-accent-soft: rgba(237,70,92,.14);
+    --pv-success: #22c55e;
+    --pv-success-soft: rgba(34,197,94,.14);
+    --pv-danger: #f67384;
+    --pv-danger-soft: rgba(246,115,132,.14);
+    --pv-shadow: 0 1px 2px rgba(0,0,0,.3);
+
+    --pv-glass: rgba(18,18,21,.55);
+    --pv-glass-2: rgba(6,6,8,.42);
+    --pv-glass-border: rgba(242,101,122,.28);
+    --pv-glass-hairline: rgba(255,255,255,.08);
+}
+
+/* Topbar */
+.perfil-view .pv-topbar { display: flex; align-items: center; gap: 13px; margin-bottom: 28px; flex-wrap: wrap; }
+.perfil-view .pv-title-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: var(--pv-accent-soft);
+    border: 1px solid var(--pv-border-brand);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--pv-accent);
+    flex-shrink: 0;
+}
+.perfil-view .pv-title-icon svg { width: 21px; height: 21px; }
+.perfil-view h1 {
+    font-family: 'Montserrat'; font-weight: 800; font-size: 23px;
+    margin: 0; letter-spacing: -.01em; color: var(--pv-text);
+}
+.perfil-view .pv-title-sub { font-size: 13px; color: var(--pv-text-dim); margin-top: 2px; }
+
+/* Panels */
+.perfil-view .pv-panel {
+    background: linear-gradient(155deg, var(--pv-glass), var(--pv-glass-2));
+    border: 1px solid var(--pv-glass-border);
+    border-radius: 20px;
+    padding: 26px 28px;
+    box-shadow: var(--pv-shadow), inset 0 1px 0 var(--pv-glass-hairline);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    max-width: 640px;
+    margin-bottom: 20px;
+}
+.perfil-view .pv-panel--danger {
+    border-color: rgba(215,38,61,.35);
+}
+.perfil-view .pv-panel-title {
+    font-family: 'Montserrat'; font-weight: 700; font-size: 16px;
+    color: var(--pv-text);
+    margin: 0 0 6px;
+}
+.perfil-view .pv-panel-desc {
+    font-size: 13px; color: var(--pv-text-dim);
+    margin: 0 0 20px;
+    line-height: 1.6;
+}
+
+/* Photo */
+.perfil-view .pv-photo-row { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.perfil-view .pv-photo,
+.perfil-view .pv-photo-placeholder {
+    width: 72px; height: 72px; border-radius: 50%;
+    flex-shrink: 0;
+}
+.perfil-view .pv-photo { object-fit: cover; border: 2px solid var(--pv-border-brand); }
+.perfil-view .pv-photo-placeholder {
+    display: flex; align-items: center; justify-content: center;
+    background: var(--pv-accent-soft); color: var(--pv-accent);
+    font-family: 'Montserrat'; font-weight: 700; font-size: 22px;
+    border: 2px solid var(--pv-border-brand);
+}
+.perfil-view .pv-file-label {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border-radius: 10px;
+    background: var(--pv-accent-soft); color: var(--pv-accent);
+    font-size: 12.5px; font-weight: 700; cursor: pointer;
+}
+.perfil-view .pv-file-label:hover { background: var(--pv-danger-soft); }
+.perfil-view .pv-file-label svg { width: 14px; height: 14px; }
+.perfil-view .pv-file-hint { font-size: 11.5px; color: var(--pv-text-faint); margin-top: 8px; }
+.perfil-view .pv-file-remove {
+    display: block;
+    font-size: 11.5px; color: var(--pv-text-faint);
+    background: none; border: none; padding: 0; margin-top: 6px;
+    cursor: pointer; text-decoration: underline;
+}
+.perfil-view .pv-file-remove:hover { color: var(--pv-danger); }
+
+/* Fields */
+.perfil-view .pv-field { margin-bottom: 20px; }
+.perfil-view .pv-field:last-of-type { margin-bottom: 0; }
+.perfil-view .pv-label {
+    display: block;
+    font-size: 12.5px; font-weight: 600;
+    color: var(--pv-text-dim);
+    margin-bottom: 7px;
+}
+.perfil-view .pv-input {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 12px;
+    background: var(--pv-surface-2);
+    border: 1px solid var(--pv-border);
+    color: var(--pv-text);
+    font-size: 13.5px;
+    font-family: inherit;
+}
+.perfil-view .pv-input:focus {
+    outline: none;
+    border-color: var(--pv-accent);
+    box-shadow: 0 0 0 3px var(--pv-accent-soft);
+}
+.perfil-view .pv-input-error { font-size: 12px; color: var(--pv-danger); margin-top: 6px; }
+
+.perfil-view .pv-verify-notice {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--pv-surface-2);
+    border: 1px solid var(--pv-border);
+    font-size: 12.5px; color: var(--pv-text-dim);
+    line-height: 1.6;
+}
+.perfil-view .pv-verify-notice button {
+    color: var(--pv-accent); font-weight: 600; text-decoration: underline;
+    background: none; border: none; padding: 0; cursor: pointer; font-size: inherit;
+}
+.perfil-view .pv-verify-sent { margin-top: 8px; font-size: 12px; font-weight: 600; color: var(--pv-success); }
+
+/* Buttons */
+.perfil-view .pv-form-actions { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
+.perfil-view .pv-btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 12px;
+    background: var(--pv-accent); color: #fff;
+    font-weight: 700; font-size: 13.5px;
+    border: 1px solid transparent;
+    box-shadow: 0 6px 16px -6px rgba(215,38,61,.5);
+    cursor: pointer;
+}
+.perfil-view .pv-btn-primary:hover { background: var(--pv-accent-2); }
+html.dark .perfil-view .pv-btn-primary { box-shadow: 0 8px 20px -6px rgba(255,23,68,.5); }
+
+.perfil-view .pv-btn-danger {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 12px;
+    background: var(--pv-danger-soft); color: var(--pv-danger);
+    font-weight: 700; font-size: 13.5px;
+    border: 1px solid rgba(215,38,61,.3);
+    cursor: pointer;
+}
+.perfil-view .pv-btn-danger:hover { background: rgba(215,38,61,.18); }
+
+.perfil-view .pv-btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 12px;
+    background: var(--pv-surface-2);
+    border: 1px solid var(--pv-border);
+    color: var(--pv-text-dim);
+    font-weight: 700; font-size: 13.5px;
+    cursor: pointer;
+}
+.perfil-view .pv-btn-secondary:hover { border-color: var(--pv-glass-border); color: var(--pv-text); }
+
+.perfil-view .pv-saved-msg { font-size: 12.5px; font-weight: 600; color: var(--pv-success); }
+
+/* Modal content (dentro de x-modal, que mantiene su propio fondo) */
+.perfil-view .pv-modal-body { padding: 26px; }
+.perfil-view .pv-modal-body h2 {
+    font-family: 'Montserrat'; font-weight: 700; font-size: 16px;
+    color: var(--pv-text); margin: 0 0 6px;
+}
+.perfil-view .pv-modal-body p { font-size: 13px; color: var(--pv-text-dim); margin: 0; line-height: 1.6; }
+.perfil-view .pv-modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }

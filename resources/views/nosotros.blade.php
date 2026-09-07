@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
 
         <!-- Card 1 -->
-        <div class="bg-white border-2 border-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#dc2626] hover:border-red-600 transition-all duration-300 group">
+        <div class="bg-white border-2 border-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#d7263d] hover:border-red-600 transition-all duration-300 group">
             <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center mb-4 sm:mb-5 border-2 border-gray-900 shadow-[2px_2px_0_0_#000000] group-hover:shadow-[3px_3px_0_0_#000000] transition-all">
                 <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"/>
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <!-- Card 2 -->
-        <div class="bg-white border-2 border-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#dc2626] hover:border-red-600 transition-all duration-300 group">
+        <div class="bg-white border-2 border-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#d7263d] hover:border-red-600 transition-all duration-300 group">
             <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center mb-4 sm:mb-5 border-2 border-gray-900 shadow-[2px_2px_0_0_#000000] group-hover:shadow-[3px_3px_0_0_#000000] transition-all">
                 <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"/>
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <!-- Card 3 -->
-        <div class="bg-white border-2 border-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#dc2626] hover:border-red-600 transition-all duration-300 group">
+        <div class="bg-white border-2 border-gray-900 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-[4px_4px_0_0_#000000] hover:shadow-[6px_6px_0_0_#d7263d] hover:border-red-600 transition-all duration-300 group">
             <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-500 flex items-center justify-center mb-4 sm:mb-5 border-2 border-gray-900 shadow-[2px_2px_0_0_#000000] group-hover:shadow-[3px_3px_0_0_#000000] transition-all">
                 <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-12 md:gap-16 lg:gap-20 px-4 sm:px-6">
 
         <!-- Card Juan Montalvo (CEO) -->
-        <div class="relative bg-white border-2 border-gray-900 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-14 lg:p-16 text-center shadow-[8px_8px_0_0_#000000] hover:shadow-[12px_12px_0_0_#dc2626] hover:border-red-600 transition-all duration-500 group">
+        <div class="relative bg-white border-2 border-gray-900 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-14 lg:p-16 text-center shadow-[8px_8px_0_0_#000000] hover:shadow-[12px_12px_0_0_#d7263d] hover:border-red-600 transition-all duration-500 group">
 
             <!-- Glow decorativo -->
             <div class="absolute inset-0 -z-10 flex justify-center items-center">
@@ -322,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="absolute top-12 sm:top-16 left-1/2 -translate-x-1/2 w-32 sm:w-36 md:w-40 lg:w-48 h-32 sm:h-36 md:h-40 lg:h-48 bg-red-600 rounded-full opacity-20"></div>
 
             <!-- Imagen del perfil (placeholder) -->
-            <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-br from-red-100 to-red-50 border-4 border-gray-900 flex items-center justify-center shadow-[4px_4px_0_0_#000000] group-hover:shadow-[6px_6px_0_0_#dc2626] transition-all">
+            <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-br from-red-100 to-red-50 border-4 border-gray-900 flex items-center justify-center shadow-[4px_4px_0_0_#000000] group-hover:shadow-[6px_6px_0_0_#d7263d] transition-all">
                 <span class="text-4xl sm:text-5xl font-bold text-red-600">JM</span>
             </div>
 
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
 
         <!-- Card Jesús Montejo (CTO) - Misma estructura -->
-        <div class="relative bg-white border-2 border-gray-900 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-14 lg:p-16 text-center shadow-[8px_8px_0_0_#000000] hover:shadow-[12px_12px_0_0_#dc2626] hover:border-red-600 transition-all duration-500 group">
+        <div class="relative bg-white border-2 border-gray-900 rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 md:p-14 lg:p-16 text-center shadow-[8px_8px_0_0_#000000] hover:shadow-[12px_12px_0_0_#d7263d] hover:border-red-600 transition-all duration-500 group">
 
             <div class="absolute inset-0 -z-10 flex justify-center items-center">
                 <div class="w-[60%] h-[60%] bg-red-600/10 blur-[100px] rounded-full group-hover:bg-red-600/20 transition-all"></div>
@@ -363,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <div class="absolute top-12 sm:top-16 left-1/2 -translate-x-1/2 w-32 sm:w-36 md:w-40 lg:w-48 h-32 sm:h-36 md:h-40 lg:h-48 bg-red-600 rounded-full opacity-20"></div>
 
-            <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-br from-red-100 to-red-50 border-4 border-gray-900 flex items-center justify-center shadow-[4px_4px_0_0_#000000] group-hover:shadow-[6px_6px_0_0_#dc2626] transition-all">
+            <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 mx-auto mb-6 sm:mb-8 rounded-full bg-gradient-to-br from-red-100 to-red-50 border-4 border-gray-900 flex items-center justify-center shadow-[4px_4px_0_0_#000000] group-hover:shadow-[6px_6px_0_0_#d7263d] transition-all">
                 <span class="text-4xl sm:text-5xl font-bold text-red-600">JM</span>
             </div>
 

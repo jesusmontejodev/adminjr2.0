@@ -9,18 +9,18 @@ main {
 
 /* ====== HERO ====== */
 h1 {
-    color: #ef4444; /* ROJO principal */
+    color: #ed465c; /* ROJO principal */
     font-size: 22px;
     font-weight: 800;
 }
 
 h2 {
-    color: #fca5a5; /* rojo suave */
+    color: #fba6b1; /* rojo suave */
     font-size: 15px;
 }
 
 h4 {
-    color: #ef4444;
+    color: #ed465c;
     font-size: 14px;
     font-weight: 600;
 }
@@ -37,7 +37,7 @@ h4 {
     padding: 24px;
     border-radius: 22px;
     background: rgba(255,255,255,.04);
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,7 +71,7 @@ h4 {
     width: fit-content;
     border-radius: 18px;
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -85,13 +85,13 @@ h4 {
 
 .numero-label {
     font-size: 12px;
-    color: #fca5a5;
+    color: #fba6b1;
 }
 
 .numero-phone {
     font-size: 20px;
     font-weight: 700;
-    color: #ef4444;
+    color: #ed465c;
 }
 
 /* ====== WHATSAPP ====== */
@@ -99,7 +99,7 @@ h4 {
     width: 34px;
     height: 34px;
     border-radius: 10px;
-    background: rgba(239,68,68,.18);
+    background: rgba(237, 70, 92,.18);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,9 +109,9 @@ h4 {
     margin-top: 10px;
     padding: 10px 14px;
     border-radius: 12px;
-    background: rgba(239,68,68,.18);
-    border: 1px solid rgba(239,68,68,.45);
-    color: #ef4444;
+    background: rgba(237, 70, 92,.18);
+    border: 1px solid rgba(237, 70, 92,.45);
+    color: #ed465c;
     font-size: 14px;
     font-weight: 600;
     text-align: center;
@@ -119,6 +119,110 @@ h4 {
 }
 
 .whatsapp-btn:hover {
-    background: rgba(239,68,68,.35);
+    background: rgba(237, 70, 92,.35);
     transform: translateY(-2px);
+}
+
+/* ====== SIDEBAR HUD (gaming console) ====== */
+.hud-nav {
+    --hud-accent: #d7263d;
+    --hud-accent-rgb: 215,38,61;
+    --hud-accent-2: #29e0c9;
+    --hud-gold: #ffc94d;
+    --hud-gold-rgb: 255,201,77;
+    --hud-success: #3ddc84;
+    --hud-warning: #ffb020;
+    --hud-danger: #f67384;
+    --hud-border: rgba(255,255,255,.09);
+}
+
+html.dark .hud-nav {
+    --hud-accent: #ed465c;
+    --hud-accent-rgb: 237,70,92;
+}
+
+.hud-nav .font-hud {
+    font-family: 'Chakra Petch', ui-sans-serif, system-ui, sans-serif;
+}
+
+.hud-nav .hud-num {
+    font-family: 'Chakra Petch', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+}
+
+/* Nav items: active glow bar */
+.hud-navitem {
+    position: relative;
+}
+.hud-navitem svg {
+    width: 16px;
+    height: 16px;
+}
+.hud-navitem.is-active::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 60%;
+    background: var(--hud-accent);
+    border-radius: 0 3px 3px 0;
+    box-shadow: 0 0 8px rgba(var(--hud-accent-rgb), .75);
+}
+
+/* Panel with corner brackets (vencimiento / user card) */
+.hud-panel {
+    position: relative;
+}
+.hud-panel::before,
+.hud-panel::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    opacity: .7;
+}
+.hud-panel::before {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid currentColor;
+    border-left: 2px solid currentColor;
+    border-radius: 8px 0 0 0;
+}
+.hud-panel::after {
+    bottom: -1px;
+    right: -1px;
+    border-bottom: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    border-radius: 0 0 8px 0;
+}
+
+/* Usage meters: tick pattern + glow fill */
+.hud-meter-track {
+    position: relative;
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(255,255,255,.10) 0,
+        rgba(255,255,255,.10) 1px,
+        transparent 1px,
+        transparent 8px
+    );
+}
+.hud-meter-fill {
+    box-shadow: 0 0 8px currentColor;
+}
+
+/* Urgent countdown pulse (<=3 days) */
+.hud-pulse {
+    animation: hud-pulse 1.8s ease-in-out infinite;
+}
+@keyframes hud-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .55; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .hud-pulse { animation: none; }
 }

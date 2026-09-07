@@ -1,24 +1,55 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Hoja de Cálculo') }}
+        </h2>
+    </x-slot>
+
     <style>
         :root {
+            --bg: #f3f4f6;
+            --surface: #ffffff;
+            --surface2: #f9fafb;
+            --border: #e5e7eb;
+            --border-bright: #d1d5db;
+            --accent: #d7263d;
+            --accent-hover: #b71e32;
+            --green: #16a34a;
+            --red: #d7263d;
+            --text: #111827;
+            --text-dim: #6b7280;
+            --text-dimmer: #9ca3af;
+            --header-bg: #ffffff;
+            --select-bg: rgba(215, 38, 61, 0.08);
+            --select-border: #d7263d;
+            --cell-h: 28px;
+            --col-w: 120px;
+            --row-header-w: 50px;
+
+            /* vidrio: paneles (barra superior, toolbar, formulario) sobre el lienzo de la hoja */
+            --glass-panel: rgba(255,255,255,.5);
+            --glass-border: rgba(215,38,61,.25);
+        }
+
+        html.dark {
             --bg: #0b0b0e;
             --surface: #12141a;
             --surface2: #18181b;
             --border: #ffffff17;
             --border-bright: #ffffff24;
-            --accent: #ef4444;
-            --accent-hover: #dc2626;
+            --accent: #ed465c;
+            --accent-hover: #d7263d;
             --green: #22c55e;
-            --red: #ef4444;
+            --red: #ed465c;
             --text: #f1f5f9;
             --text-dim: #94a3b8;
             --text-dimmer: #64748b;
             --header-bg: #18181b;
-            --select-bg: rgba(239, 68, 68, 0.1);
-            --select-border: #ef4444;
-            --cell-h: 28px;
-            --col-w: 120px;
-            --row-header-w: 50px;
+            --select-bg: rgba(237, 70, 92, 0.1);
+            --select-border: #ed465c;
+
+            --glass-panel: rgba(18,18,21,.6);
+            --glass-border: rgba(242,101,122,.25);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -116,7 +147,7 @@
         }
 
         .topbar-link.active {
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(237, 70, 92, 0.1);
             color: var(--accent);
             border-color: var(--accent);
         }
@@ -162,7 +193,7 @@
             white-space: nowrap;
         }
         .tb-btn:hover { background: var(--border); color: var(--text); border-color: var(--border-bright); }
-        .tb-btn.active { background: rgba(239, 68, 68, 0.2); color: var(--accent); border-color: var(--accent); }
+        .tb-btn.active { background: rgba(237, 70, 92, 0.2); color: var(--accent); border-color: var(--accent); }
 
         .tb-select, .tb-input {
             height: 28px;
@@ -350,13 +381,13 @@
         }
 
         .cell.active-cell {
-            background: rgba(239, 68, 68, 0.08) !important;
+            background: rgba(237, 70, 92, 0.08) !important;
             box-shadow: inset 0 0 0 2px var(--accent);
             z-index: 3;
         }
 
         .cell.in-range {
-            background: rgba(239, 68, 68, 0.08) !important;
+            background: rgba(237, 70, 92, 0.08) !important;
         }
 
         .cell-content {
@@ -383,12 +414,12 @@
             color: var(--text);
             padding: 0 6px;
             outline: none;
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+            box-shadow: 0 4px 20px rgba(237, 70, 92, 0.3);
         }
 
         #form-save-btn:hover {
             background: var(--accent-hover);
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 2px 8px rgba(237, 70, 92, 0.4);
         }
 
         #form-save-btn:active {
@@ -427,7 +458,7 @@
         .loading.active { display: block; }
     </style>
 
-    <div class="flex-1 flex flex-col overflow-hidden h-screen hoja-calculo-container">
+    <div class="flex-1 flex flex-col overflow-hidden h-full hoja-calculo-container">
         <!-- TOP NAVIGATION BAR -->
     <div id="topbar">
         <div class="topbar-left">
@@ -474,11 +505,28 @@
         </div>
         <div class="tb-group">
             <button class="tb-btn" id="btn-refresh" title="Recargar">🔄</button>
-            <button class="tb-btn" id="btn-export" title="Exportar CSV">↓ CSV</button>
+            <button class="tb-btn" id="btn-export" title="Descarga una copia CSV editable y la guarda en Documentos">📄 Nueva copia</button>
+            <button class="tb-btn" id="btn-import" title="Sube una copia editada para detectar movimientos nuevos">📥 Importar</button>
+            <input type="file" id="import-file-input" accept=".csv,text/csv" style="display:none;">
         </div>
         <div class="tb-group">
             <button class="tb-btn" id="btn-delete" title="Eliminar fila">🗑</button>
         </div>
+        <div class="tb-group" style="border-right:none;">
+            <a class="tb-btn" href="{{ route('transacciones.documentos') }}" title="Ver copias e importaciones anteriores">🗂 Documentos</a>
+        </div>
+    </div>
+
+    <!-- VISTA PREVIA DE IMPORTACIÓN -->
+    <div id="import-preview" style="display:none; margin: 0 12px; background: var(--surface); border: 1px solid var(--border); border-top: none; padding: 14px 16px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <strong style="font-size:13px; color: var(--text);" id="import-preview-title">Vista previa</strong>
+            <div style="display:flex; gap:8px;">
+                <button class="tb-btn" id="btn-import-confirmar" style="border-color:var(--green); color:var(--green);">✓ Confirmar e importar</button>
+                <button class="tb-btn" id="btn-import-descartar" style="border-color:var(--red); color:var(--red);">✕ Descartar</button>
+            </div>
+        </div>
+        <div id="import-preview-body" style="max-height:220px; overflow-y:auto; font-family:'IBM Plex Mono', monospace; font-size:12px;"></div>
     </div>
 
     <!-- FORMULA BAR -->
@@ -1386,18 +1434,191 @@ function updateStatusBar() {
 }
 
 // ─────────────────────────────────────────────
-//  EXPORT CSV
+//  NUEVA COPIA (exporta y guarda un Documento)
 // ─────────────────────────────────────────────
-document.getElementById('btn-export').addEventListener('click', () => {
-    let csv = COLUMNS.join(',') + '\n';
-    transacciones.forEach(tx => {
-        csv += `${tx.id},${tx.fecha},"${tx.cuenta?.nombre || '-'}",${tx.monto},${tx.tipo},"${(tx.descripcion || '').replace(/"/g, '""')}"\n`;
-    });
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = `transacciones_${new Date().toISOString().split('T')[0]}.csv`;
-    link.click();
+document.getElementById('btn-export').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-export');
+    const textoOriginal = btn.textContent;
+    btn.textContent = '⏳ Generando...';
+    btn.disabled = true;
+
+    try {
+        const params = new URLSearchParams();
+        const cuentaId = document.getElementById('cuenta-filter').value;
+        const tipo = document.getElementById('tipo-filter').value;
+        const desde = document.getElementById('fecha-desde').value;
+        const hasta = document.getElementById('fecha-hasta').value;
+        if (cuentaId) params.append('cuenta_id', cuentaId);
+        if (tipo) params.append('tipo', tipo);
+        if (desde) params.append('fecha_desde', desde);
+        if (hasta) params.append('fecha_hasta', hasta);
+
+        const response = await fetch(`{{ route('transacciones.hoja-calculo.copia') }}?${params}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/csv',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json().catch(() => ({}));
+            alert('⚠ ' + (error.message || 'No se pudo generar la copia.'));
+            return;
+        }
+
+        const blob = await response.blob();
+        const disposition = response.headers.get('Content-Disposition') || '';
+        const match = disposition.match(/filename="?([^"]+)"?/);
+        const nombreArchivo = match ? match[1] : `movimientos_${new Date().toISOString().split('T')[0]}.csv`;
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = nombreArchivo;
+        link.click();
+
+        document.getElementById('status-msg').textContent = '✓ Copia guardada en Documentos';
+    } catch (error) {
+        console.error('Error generando copia:', error);
+        alert('⚠ Error al generar la copia.');
+    } finally {
+        btn.textContent = textoOriginal;
+        btn.disabled = false;
+    }
+});
+
+// ─────────────────────────────────────────────
+//  IMPORTAR (subir copia editada, detectar movimientos nuevos)
+// ─────────────────────────────────────────────
+const importInput = document.getElementById('import-file-input');
+const importPreview = document.getElementById('import-preview');
+const importPreviewTitle = document.getElementById('import-preview-title');
+const importPreviewBody = document.getElementById('import-preview-body');
+const btnConfirmar = document.getElementById('btn-import-confirmar');
+const btnDescartar = document.getElementById('btn-import-descartar');
+let documentoPendienteId = null;
+
+document.getElementById('btn-import').addEventListener('click', () => importInput.click());
+
+importInput.addEventListener('change', async () => {
+    const archivo = importInput.files[0];
+    if (!archivo) return;
+
+    const formData = new FormData();
+    formData.append('archivo', archivo);
+
+    document.getElementById('status-msg').textContent = '⏳ Leyendo archivo...';
+
+    try {
+        const response = await fetch(`{{ route('transacciones.hoja-calculo.importar.previsualizar') }}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            alert('⚠ ' + (data.message || 'No se pudo leer el archivo.'));
+            document.getElementById('status-msg').textContent = 'LISTO';
+            return;
+        }
+
+        documentoPendienteId = data.documento_id;
+        renderImportPreview(data.nuevas, data.errores);
+        document.getElementById('status-msg').textContent = 'LISTO';
+    } catch (error) {
+        console.error('Error al importar:', error);
+        alert('⚠ Error al leer el archivo.');
+        document.getElementById('status-msg').textContent = 'LISTO';
+    } finally {
+        importInput.value = '';
+    }
+});
+
+function renderImportPreview(nuevas, errores) {
+    importPreviewTitle.textContent = `Se detectaron ${nuevas.length} movimiento(s) nuevo(s)` + (errores.length ? ` · ${errores.length} con error` : '');
+
+    let html = '';
+
+    if (nuevas.length) {
+        html += '<table style="width:100%; border-collapse:collapse;">';
+        html += '<tr style="color:var(--text-dim); text-align:left;"><th style="padding:4px 8px;">Fila</th><th style="padding:4px 8px;">Fecha</th><th style="padding:4px 8px;">Cuenta</th><th style="padding:4px 8px;">Tipo</th><th style="padding:4px 8px;">Monto</th><th style="padding:4px 8px;">Descripción</th></tr>';
+        nuevas.forEach(f => {
+            html += `<tr style="border-top:1px solid var(--border);"><td style="padding:4px 8px;">${f.fila}</td><td style="padding:4px 8px;">${f.fecha || '-'}</td><td style="padding:4px 8px;">${f.cuenta}</td><td style="padding:4px 8px;">${f.tipo}</td><td style="padding:4px 8px;">$${parseFloat(f.monto).toFixed(2)}</td><td style="padding:4px 8px;">${f.descripcion || '-'}</td></tr>`;
+        });
+        html += '</table>';
+    }
+
+    if (errores.length) {
+        html += '<div style="margin-top:10px; color:var(--red);">';
+        errores.forEach(f => {
+            html += `<div>Fila ${f.fila}: ${f.motivo}</div>`;
+        });
+        html += '</div>';
+    }
+
+    importPreviewBody.innerHTML = html || '<div style="color:var(--text-dim);">Sin filas para mostrar.</div>';
+    btnConfirmar.style.display = nuevas.length ? 'inline-flex' : 'none';
+    importPreview.style.display = 'block';
+}
+
+btnConfirmar.addEventListener('click', async () => {
+    if (!documentoPendienteId) return;
+    btnConfirmar.disabled = true;
+    btnConfirmar.textContent = '⏳ Importando...';
+
+    try {
+        const response = await fetch(`/documentos/${documentoPendienteId}/confirmar`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            }
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            alert('⚠ ' + (data.message || 'No se pudo importar.'));
+            return;
+        }
+
+        alert(`✓ ${data.importadas} de ${data.total} movimiento(s) importado(s).`);
+        importPreview.style.display = 'none';
+        documentoPendienteId = null;
+        loadTransacciones();
+    } catch (error) {
+        console.error('Error al confirmar importación:', error);
+        alert('⚠ Error al importar.');
+    } finally {
+        btnConfirmar.disabled = false;
+        btnConfirmar.textContent = '✓ Confirmar e importar';
+    }
+});
+
+btnDescartar.addEventListener('click', async () => {
+    if (!documentoPendienteId) {
+        importPreview.style.display = 'none';
+        return;
+    }
+
+    try {
+        await fetch(`/documentos/${documentoPendienteId}/descartar`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+            }
+        });
+    } catch (error) {
+        console.error('Error al descartar importación:', error);
+    } finally {
+        importPreview.style.display = 'none';
+        documentoPendienteId = null;
+    }
 });
 
 // ─────────────────────────────────────────────

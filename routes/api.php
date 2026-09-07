@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\MensajesDeEntrenamientoApiController;
 use App\Http\Controllers\Api\TransaccionesInternasController;
 use App\Http\Controllers\Api\TransaccionController;
 use App\Http\Controllers\Api\UserDataController;
+use App\Http\Controllers\Api\McpController;
 use App\Http\Controllers\SuscripcionController;
 use App\Http\Controllers\WebhookSuscripcionController;
 use Illuminate\Support\Facades\Route;
@@ -237,6 +238,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     // ============= RUTAS PARA BUSCAR POR TELÉFONO =============
 
+});
+
+// ==================== API PARA MCP (AGENTES DE IA) ====================
+// Autenticada por token personal de Sanctum (creado en /integraciones-ia).
+// Todas las acciones se derivan exclusivamente de $request->user(), nunca de
+// un parámetro de ruta/query, para que un token jamás pueda acceder a datos
+// de otro usuario.
+Route::prefix('mcp')->name('api.mcp.')->middleware(['auth:sanctum'])->group(function () {
+    Route::middleware('mcp.ability:read')->group(function () {
+        Route::get('whoami', [McpController::class, 'whoami'])->name('whoami');
+        Route::get('cuentas', [McpController::class, 'cuentas'])->name('cuentas');
+        Route::get('categorias', [McpController::class, 'categorias'])->name('categorias');
+        Route::get('transacciones', [McpController::class, 'transacciones'])->name('transacciones.index');
+    });
+
+    Route::middleware('mcp.ability:write')->group(function () {
+        Route::post('transacciones', [McpController::class, 'storeTransaccion'])->name('transacciones.store');
+    });
 });
 
 // ==================== RUTA PARA ESTADO DE API ====================

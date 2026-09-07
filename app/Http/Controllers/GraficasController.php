@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Transaccion;
 use App\Models\Cuenta;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class GraficasController extends Controller
@@ -119,7 +118,7 @@ class GraficasController extends Controller
         }
 
         $ingresos = (clone $q)->where('transacciones.tipo', 'ingreso')->sum('transacciones.monto');
-        $gastos = (clone $q)->where('transacciones.tipo', 'gasto')->sum('transacciones.monto');
+        $gastos = (clone $q)->where('transacciones.tipo', 'egreso')->sum('transacciones.monto');
         $patrimonio = Cuenta::where('id_user', $usuario_id)->sum('saldo_actual');
         $total = (clone $q)->count();
 
@@ -140,7 +139,7 @@ class GraficasController extends Controller
         $result = [];
         
         foreach ($transacciones as $tx) {
-            if ($tx->tipo !== 'gasto') continue;
+            if ($tx->tipo !== 'egreso') continue;
             
             $cat_id = $tx->categoria_id ?? 0;
             $cat_name = $tx->categoria?->nombre ?? 'Sin categoría';
@@ -191,31 +190,37 @@ class GraficasController extends Controller
      */
     private function _tendencia($usuario_id, $dias = 0, $cuenta_id = null)
     {
+        $desde = now()->subMonths(11)->startOfMonth();
+
+        $q = $this->_queryTransaccionesPorUsuario($usuario_id)
+            ->where('transacciones.fecha', '>=', $desde);
+
+        if ($cuenta_id) {
+            $q->where('transacciones.cuenta_id', $cuenta_id);
+        }
+
+        $filas = $q->select('transacciones.tipo')
+            ->selectRaw("DATE_FORMAT(transacciones.fecha, '%Y-%m') as periodo, SUM(transacciones.monto) as total")
+            ->groupBy('periodo', 'transacciones.tipo')
+            ->get()
+            ->groupBy('periodo');
+
         $meses = [];
 
         for ($i = 11; $i >= 0; $i--) {
             $fecha = now()->subMonths($i);
-            $mes = $fecha->month;
-            $año = $fecha->year;
+            $grupo = $filas->get($fecha->format('Y-m'), collect());
 
-            $q1 = $this->_queryTransaccionesPorUsuario($usuario_id)
-                ->whereMonth('transacciones.fecha', $mes)
-                ->whereYear('transacciones.fecha', $año);
-                
-            if ($cuenta_id) {
-                $q1->where('transacciones.cuenta_id', $cuenta_id);
-            }
-
-            $ingresos = (clone $q1)->where('transacciones.tipo', 'ingreso')->sum('transacciones.monto');
-            $gastos = (clone $q1)->where('transacciones.tipo', 'gasto')->sum('transacciones.monto');
+            $ingresos = floatval($grupo->firstWhere('tipo', 'ingreso')->total ?? 0);
+            $gastos = floatval($grupo->firstWhere('tipo', 'egreso')->total ?? 0);
 
             $meses[] = [
-                'mes' => intval($mes),
-                'año' => intval($año),
+                'mes' => intval($fecha->month),
+                'año' => intval($fecha->year),
                 'mes_texto' => $fecha->format('M'),
-                'ingresos' => floatval($ingresos ?? 0),
-                'gastos' => floatval($gastos ?? 0),
-                'balance' => floatval(($ingresos ?? 0) - ($gastos ?? 0))
+                'ingresos' => $ingresos,
+                'gastos' => $gastos,
+                'balance' => $ingresos - $gastos
             ];
         }
 
@@ -227,30 +232,36 @@ class GraficasController extends Controller
      */
     private function _flujo($usuario_id, $dias = 0, $cuenta_id = null)
     {
+        $desde = now()->subMonths(5)->startOfMonth();
+
+        $q = $this->_queryTransaccionesPorUsuario($usuario_id)
+            ->where('transacciones.fecha', '>=', $desde);
+
+        if ($cuenta_id) {
+            $q->where('transacciones.cuenta_id', $cuenta_id);
+        }
+
+        $filas = $q->select('transacciones.tipo')
+            ->selectRaw("DATE_FORMAT(transacciones.fecha, '%Y-%m') as periodo, SUM(transacciones.monto) as total")
+            ->groupBy('periodo', 'transacciones.tipo')
+            ->get()
+            ->groupBy('periodo');
+
         $meses = [];
 
         for ($i = 5; $i >= 0; $i--) {
             $fecha = now()->subMonths($i);
-            $mes = $fecha->month;
-            $año = $fecha->year;
+            $grupo = $filas->get($fecha->format('Y-m'), collect());
 
-            $q1 = $this->_queryTransaccionesPorUsuario($usuario_id)
-                ->whereMonth('transacciones.fecha', $mes)
-                ->whereYear('transacciones.fecha', $año);
-                
-            if ($cuenta_id) {
-                $q1->where('transacciones.cuenta_id', $cuenta_id);
-            }
-
-            $entradas = (clone $q1)->where('transacciones.tipo', 'ingreso')->sum('transacciones.monto');
-            $salidas = (clone $q1)->where('transacciones.tipo', 'gasto')->sum('transacciones.monto');
+            $entradas = floatval($grupo->firstWhere('tipo', 'ingreso')->total ?? 0);
+            $salidas = floatval($grupo->firstWhere('tipo', 'egreso')->total ?? 0);
 
             $meses[] = [
-                'mes' => intval($mes),
-                'año' => intval($año),
+                'mes' => intval($fecha->month),
+                'año' => intval($fecha->year),
                 'mes_texto' => $fecha->format('M'),
-                'entradas' => floatval($entradas ?? 0),
-                'salidas' => floatval($salidas ?? 0)
+                'entradas' => $entradas,
+                'salidas' => $salidas
             ];
         }
 
@@ -292,7 +303,7 @@ class GraficasController extends Controller
     private function _top($usuario_id, $dias = 0, $cuenta_id = null)
     {
         $q = $this->_queryTransaccionesPorUsuario($usuario_id)
-            ->where('transacciones.tipo', 'gasto');
+            ->where('transacciones.tipo', 'egreso');
 
         if ($dias > 0) {
             $q->where('transacciones.fecha', '>=', now()->subDays($dias));
@@ -339,194 +350,6 @@ class GraficasController extends Controller
                 'descripcion' => strval($tx->descripcion ?? '')
             ];
         })->toArray();
-    }
-
-    // Resumen general
-    private function obtenerResumen($usuario_id, $dias = null, $cuenta_id = null)
-    {
-        $query = $this->_queryTransaccionesPorUsuario($usuario_id);
-
-        if ($dias && $dias > 0) {
-            $query->where('transacciones.fecha', '>=', now()->subDays((int)$dias));
-        }
-
-        if ($cuenta_id) {
-            $query->where('transacciones.cuenta_id', $cuenta_id);
-        }
-
-        $total_ingresos = (clone $query)->where('transacciones.tipo', 'ingreso')->sum('transacciones.monto');
-        $total_gastos = (clone $query)->where('transacciones.tipo', 'gasto')->sum('transacciones.monto');
-
-        // Patrimonio total (suma de saldos de todas las cuentas)
-        $patrimonio = Cuenta::where('id_user', $usuario_id)->sum('saldo_actual');
-
-        return [
-            'patrimonio_total' => $patrimonio,
-            'total_ingresos' => $total_ingresos,
-            'total_gastos' => $total_gastos,
-            'balance' => $total_ingresos - $total_gastos,
-            'total_transacciones' => (clone $query)->count()
-        ];
-    }
-
-    // Por categoría
-    private function obtenerPorCategoria($usuario_id, $dias = null, $cuenta_id = null)
-    {
-        $query = $this->_queryTransaccionesPorUsuario($usuario_id)
-            ->where('transacciones.tipo', 'gasto');
-
-        if ($dias && $dias > 0) {
-            $query->where('transacciones.fecha', '>=', now()->subDays((int)$dias));
-        }
-
-        if ($cuenta_id) {
-            $query->where('transacciones.cuenta_id', $cuenta_id);
-        }
-
-        return $query
-            ->select('transacciones.categoria_id', DB::raw('SUM(transacciones.monto) as monto_total'), DB::raw('COUNT(*) as total'))
-            ->groupBy('transacciones.categoria_id')
-            ->with('categoria')
-            ->get()
-            ->map(function($item) {
-                return [
-                    'categoria' => $item->categoria,
-                    'monto_total' => $item->monto_total,
-                    'total' => $item->total
-                ];
-            });
-    }
-
-    // Por cuenta
-    private function obtenerPorCuenta($usuario_id, $dias = null, $cuenta_id = null)
-    {
-        $query = Cuenta::where('id_user', $usuario_id);
-
-        if ($cuenta_id) {
-            $query->where('id', $cuenta_id);
-        }
-
-        return $query->select('id', 'nombre', 'saldo_actual')
-            ->get()
-            ->map(function($item) {
-                return [
-                    'cuenta' => $item,
-                    'saldo' => $item->saldo_actual
-                ];
-            });
-    }
-
-    // Tendencia mensual
-    private function obtenerTendenciaMensual($usuario_id, $dias = null, $cuenta_id = null)
-    {
-        // Últimos 12 meses
-        $meses = [];
-        for ($i = 11; $i >= 0; $i--) {
-            $fecha = now()->subMonths($i);
-            $mes = $fecha->month;
-            $año = $fecha->year;
-
-            $query = $this->_queryTransaccionesPorUsuario($usuario_id)
-                ->whereMonth('transacciones.fecha', $mes)
-                ->whereYear('transacciones.fecha', $año);
-
-            if ($cuenta_id) {
-                $query->where('transacciones.cuenta_id', $cuenta_id);
-            }
-
-            $ingresos = (clone $query)->where('transacciones.tipo', 'ingreso')->sum('transacciones.monto');
-            $gastos = (clone $query)->where('transacciones.tipo', 'gasto')->sum('transacciones.monto');
-
-            $meses[] = [
-                'mes' => $mes,
-                'año' => $año,
-                'ingresos' => $ingresos,
-                'gastos' => $gastos,
-                'balance' => $ingresos - $gastos
-            ];
-        }
-
-        return $meses;
-    }
-
-    // Flujo de caja
-    private function obtenerFlujoCaja($usuario_id, $dias = null, $cuenta_id = null)
-    {
-        $meses = [];
-        for ($i = 5; $i >= 0; $i--) {
-            $fecha = now()->subMonths($i);
-            $mes = $fecha->month;
-            $año = $fecha->year;
-
-            $query = $this->_queryTransaccionesPorUsuario($usuario_id)
-                ->whereMonth('transacciones.fecha', $mes)
-                ->whereYear('transacciones.fecha', $año);
-
-            if ($cuenta_id) {
-                $query->where('transacciones.cuenta_id', $cuenta_id);
-            }
-
-            $entradas = (clone $query)->where('transacciones.tipo', 'ingreso')->sum('transacciones.monto');
-            $salidas = (clone $query)->where('transacciones.tipo', 'gasto')->sum('transacciones.monto');
-
-            $meses[] = [
-                'mes' => $mes,
-                'año' => $año,
-                'entradas' => $entradas,
-                'salidas' => $salidas
-            ];
-        }
-
-        return $meses;
-    }
-
-    // Histórico de saldo
-    private function obtenerHistoricoSaldo($usuario_id, $dias = null, $cuenta_id = null)
-    {
-        $transacciones = $this->_queryTransaccionesPorUsuario($usuario_id)
-            ->orderBy('transacciones.fecha', 'asc')
-            ->select('transacciones.fecha', 'transacciones.monto', 'transacciones.tipo')
-            ->get();
-
-        if ($dias && $dias > 0) {
-            $transacciones = $transacciones->filter(function($t) use ($dias) {
-                return $t->fecha->greaterThanOrEqualTo(now()->subDays($dias));
-            });
-        }
-
-        $saldo = 0;
-        $historico = [];
-
-        foreach ($transacciones as $tx) {
-            $saldo += ($tx->tipo === 'ingreso' ? 1 : -1) * $tx->monto;
-            $historico[] = [
-                'fecha' => $tx->fecha->format('Y-m-d'),
-                'saldo' => $saldo
-            ];
-        }
-
-        return $historico;
-    }
-
-    // Top gastos
-    private function obtenerTopGastos($usuario_id, $dias = null, $cuenta_id = null)
-    {
-        $query = $this->_queryTransaccionesPorUsuario($usuario_id)
-            ->where('transacciones.tipo', 'gasto');
-
-        if ($dias && $dias > 0) {
-            $query->where('transacciones.fecha', '>=', now()->subDays((int)$dias));
-        }
-
-        if ($cuenta_id) {
-            $query->where('transacciones.cuenta_id', $cuenta_id);
-        }
-
-        return $query
-            ->select('id', 'monto', 'descripcion', 'fecha')
-            ->orderBy('monto', 'desc')
-            ->limit(10)
-            ->get();
     }
 
     // Exportar datos

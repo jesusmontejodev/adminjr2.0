@@ -1,8 +1,12 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Asesor IA') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<div class="oa-chat-shell min-h-[calc(100vh-3rem)] overflow-hidden rounded-[28px] border border-black/5 bg-[#f7f7f8] text-[#1f1f1f] shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
-    <div class="flex h-[calc(100vh-3rem)] overflow-hidden">
+<div class="oa-chat-shell min-h-[calc(100vh-6.5rem)] sm:min-h-[calc(100vh-8rem)] overflow-hidden rounded-[28px] border border-black/5 dark:border-white/10 bg-[#f7f7f8] dark:bg-[#141417] text-[#1f1f1f] dark:text-gray-100 shadow-[0_24px_80px_rgba(15,23,42,0.08)]">
+    <div class="flex h-[calc(100vh-6.5rem)] sm:h-[calc(100vh-8rem)] overflow-hidden">
         <aside class="hidden w-72 shrink-0 flex-col border-r border-white/10 bg-[#171717] text-white lg:flex">
             <div class="border-b border-white/10 px-6 py-6">
                 <div class="flex items-start justify-between gap-3">
@@ -34,7 +38,7 @@
             </div>
 
             <div class="border-t border-white/10 p-4">
-                <a href="{{ route('chat.create') }}" class="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-4 py-3 text-sm font-semibold text-[#171717] transition hover:bg-white/90">
+                <a href="{{ route('chat.create') }}" class="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-red-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-red-700">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
@@ -43,18 +47,18 @@
             </div>
         </aside>
 
-        <section class="flex min-w-0 flex-1 flex-col bg-[#f7f7f8]">
-            <header class="border-b border-black/5 bg-[#f7f7f8]/95 px-6 py-5 backdrop-blur">
+        <section class="flex min-w-0 flex-1 flex-col bg-[#f7f7f8] dark:bg-[#141417]">
+            <header class="border-b border-black/5 dark:border-white/10 bg-[#f7f7f8]/95 dark:bg-[#141417]/95 px-6 py-5 backdrop-blur">
                 <div class="mx-auto flex w-full max-w-4xl items-center justify-between gap-4">
                     <div>
-                        <p class="text-[11px] font-medium uppercase tracking-[0.24em] text-[#10a37f]">OpenAI Style Chat</p>
-                        <h1 class="mt-2 text-2xl font-semibold tracking-tight text-[#111827]">{{ $chat->title }}</h1>
+                        <p class="text-[11px] font-medium uppercase tracking-[0.24em] text-red-600 dark:text-red-400">Asesor IA</p>
+                        <h1 class="mt-2 text-2xl font-semibold tracking-tight text-[#111827] dark:text-white">{{ $chat->title }}</h1>
                     </div>
                     <div class="flex items-center gap-3">
-                        <div class="hidden rounded-full bg-white px-4 py-2 text-sm text-slate-500 shadow-sm ring-1 ring-black/5 sm:block">
+                        <div class="hidden rounded-full bg-white dark:bg-white/5 px-4 py-2 text-sm text-slate-500 dark:text-gray-300 shadow-sm ring-1 ring-black/5 dark:ring-white/10 sm:block">
                             <span id="message-count">0</span> mensajes
                         </div>
-                        <a href="{{ route('chat.index') }}" class="inline-flex items-center justify-center rounded-full bg-white p-3 text-slate-500 shadow-sm ring-1 ring-black/5 transition hover:text-slate-700">
+                        <a href="{{ route('chat.index') }}" class="inline-flex items-center justify-center rounded-full bg-white dark:bg-white/5 p-3 text-slate-500 dark:text-gray-300 shadow-sm ring-1 ring-black/5 dark:ring-white/10 transition hover:text-slate-700 dark:hover:text-white">
                             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                             </svg>
@@ -66,39 +70,39 @@
             <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6" id="messages-container">
                 <div class="mx-auto flex min-h-full w-full max-w-4xl items-center justify-center" id="empty-state-wrapper">
                     <div class="max-w-md text-center">
-                        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
-                            <svg class="h-8 w-8 text-[#10a37f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white dark:bg-white/5 shadow-sm ring-1 ring-black/5 dark:ring-white/10">
+                            <svg class="h-8 w-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                             </svg>
                         </div>
-                        <h3 class="mt-6 text-2xl font-semibold tracking-tight text-slate-900">Haz una pregunta financiera</h3>
-                        <p class="mt-3 text-sm leading-7 text-slate-500">Obtén respuestas sobre movimientos, cuentas, ingresos y gastos con una presentación estilo ChatGPT.</p>
+                        <h3 class="mt-6 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Haz una pregunta financiera</h3>
+                        <p class="mt-3 text-sm leading-7 text-slate-500 dark:text-gray-400">Obtén respuestas sobre movimientos, cuentas, ingresos y gastos con una presentación estilo ChatGPT.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="border-t border-black/5 bg-[#f7f7f8] px-4 py-5 sm:px-6">
+            <div class="border-t border-black/5 dark:border-white/10 bg-[#f7f7f8] dark:bg-[#141417] px-4 py-5 sm:px-6">
                 <div class="mx-auto w-full max-w-4xl">
-                    <div class="rounded-[28px] bg-white p-3 shadow-[0_8px_40px_rgba(15,23,42,0.08)] ring-1 ring-black/5">
+                    <div class="rounded-[28px] bg-white dark:bg-white/5 p-3 shadow-[0_8px_40px_rgba(15,23,42,0.08)] ring-1 ring-black/5 dark:ring-white/10">
                         <div class="flex items-end gap-3">
                             <div class="min-w-0 flex-1">
                                 <label for="message-input" class="sr-only">Escribe tu mensaje</label>
                                 <textarea
                                     id="message-input"
                                     rows="1"
-                                    class="oa-input min-h-[52px] w-full resize-none border-0 bg-transparent px-3 py-3 text-[15px] leading-7 text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-0"
+                                    class="oa-input min-h-[52px] w-full resize-none border-0 bg-transparent px-3 py-3 text-[15px] leading-7 text-slate-800 dark:text-gray-100 placeholder:text-slate-400 dark:placeholder:text-gray-500 focus:outline-none focus:ring-0"
                                     placeholder="Escribe tu pregunta sobre tus finanzas..."
                                 ></textarea>
                             </div>
                             <button id="send-btn"
-                                class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#10a37f] text-white transition hover:bg-[#0d8b6c] disabled:cursor-not-allowed disabled:opacity-60"
+                                class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-red-600 text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
                                 onclick="sendMessage()">
                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2m0 0v-8"/>
                                 </svg>
                             </button>
                         </div>
-                        <div id="error-message" class="mt-2 hidden rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        <div id="error-message" class="mt-2 hidden rounded-2xl border border-red-200 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-300">
                             <p id="error-text"></p>
                         </div>
                     </div>
@@ -107,13 +111,15 @@
         </section>
     </div>
 </div>
-@endsection
 
 @push('scripts')
 @vite('resources/js/chat-api.js')
 <style>
     .oa-chat-shell {
-        background-image: radial-gradient(circle at top, rgba(16, 163, 127, 0.08), transparent 28%);
+        background-image: radial-gradient(circle at top, rgba(215, 38, 61, 0.06), transparent 28%);
+    }
+    html.dark .oa-chat-shell {
+        background-image: radial-gradient(circle at top, rgba(237, 70, 92, 0.1), transparent 28%);
     }
 
     .oa-message-copy {
@@ -128,7 +134,7 @@
         margin-left: 2px;
         vertical-align: text-bottom;
         border-radius: 999px;
-        background: #10a37f;
+        background: #ed465c;
         animation: oaBlink 1s step-end infinite;
     }
 
@@ -138,7 +144,7 @@
         height: 6px;
         margin-right: 4px;
         border-radius: 999px;
-        background: #10a37f;
+        background: #ed465c;
         animation: oaBounce 1.2s infinite ease-in-out;
     }
 
@@ -338,13 +344,13 @@
             container.innerHTML = `
                 <div class="mx-auto flex min-h-full w-full max-w-4xl items-center justify-center" id="empty-state-wrapper">
                     <div class="max-w-md text-center">
-                        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
-                            <svg class="h-8 w-8 text-[#10a37f]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-white dark:bg-white/5 shadow-sm ring-1 ring-black/5 dark:ring-white/10">
+                            <svg class="h-8 w-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                             </svg>
                         </div>
-                        <h3 class="mt-6 text-2xl font-semibold tracking-tight text-slate-900">Haz una pregunta financiera</h3>
-                        <p class="mt-3 text-sm leading-7 text-slate-500">Obtén respuestas sobre movimientos, cuentas, ingresos y gastos con una presentación estilo ChatGPT.</p>
+                        <h3 class="mt-6 text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">Haz una pregunta financiera</h3>
+                        <p class="mt-3 text-sm leading-7 text-slate-500 dark:text-gray-400">Obtén respuestas sobre movimientos, cuentas, ingresos y gastos con una presentación estilo ChatGPT.</p>
                     </div>
                 </div>
             `;
@@ -361,7 +367,7 @@
 
             const content = isThinking
                 ? `
-                    <div class="flex items-center gap-3 text-sm text-slate-500">
+                    <div class="flex items-center gap-3 text-sm text-slate-500 dark:text-gray-400">
                         <div class="oa-thinking-dots"><span></span><span></span><span></span></div>
                         <span>Analizando tu información...</span>
                     </div>
@@ -381,10 +387,10 @@
                     <div class="flex w-full max-w-3xl gap-4 ${isUser ? 'flex-row-reverse' : ''}">
                         <div class="shrink-0">${badge}</div>
                         <div class="min-w-0 flex-1">
-                            <div class="rounded-[24px] px-5 py-4 shadow-sm ring-1 ${isUser ? 'bg-[#111827] text-white ring-black/5' : 'bg-white text-slate-800 ring-black/5'}">
-                                <div class="oa-message-copy text-[15px] leading-7 ${isUser ? 'text-white/95' : 'text-slate-700'}" data-message-content="${msg.id}">${content}</div>
+                            <div class="rounded-[24px] px-5 py-4 shadow-sm ring-1 ${isUser ? 'bg-[#111827] text-white ring-black/5' : 'bg-white dark:bg-white/5 text-slate-800 ring-black/5 dark:ring-white/10'}">
+                                <div class="oa-message-copy text-[15px] leading-7 ${isUser ? 'text-white/95' : 'text-slate-700 dark:text-gray-200'}" data-message-content="${msg.id}">${content}</div>
                             </div>
-                            <div class="mt-2 px-1 text-xs ${isUser ? 'text-right text-slate-400' : 'text-slate-500'}">${meta}</div>
+                            <div class="mt-2 px-1 text-xs ${isUser ? 'text-right text-slate-400 dark:text-gray-500' : 'text-slate-500 dark:text-gray-400'}">${meta}</div>
                         </div>
                     </div>
                 </article>
@@ -507,3 +513,4 @@
     }
 </script>
 @endpush
+</x-app-layout>

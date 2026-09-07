@@ -2,7 +2,7 @@
 /* TITULOS PRINCIPALES */
 html:not(.dark) main h1,
 html:not(.dark) main h4 {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 /* =========================
@@ -17,11 +17,11 @@ html:not(.dark) main h2 {
    ========================= */
 html:not(.dark) main .hero-highlight,
 html:not(.dark) main .numero-label {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 html:not(.dark) main .hero-soon {
-    color: #ef4444;
+    color: #ed465c;
     font-weight: 600;
 }
 
@@ -37,7 +37,7 @@ html:not(.dark) main .numero-phone {
    ========================= */
 html:not(.dark) main .aplicaciones-icons {
     background: #ffffff;
-    border: 1px solid rgba(239,68,68,.45);
+    border: 1px solid rgba(237, 70, 92,.45);
     transition: border-color .25s ease, transform .25s ease;
 }
 
@@ -47,12 +47,12 @@ html:not(.dark) main .aplicaciones-icons h4 {
 }
 
 html:not(.dark) main .aplicaciones-icons:hover {
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-2px);
 }
 
 html:not(.dark) main .aplicaciones-icons:hover h4 {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 /* =========================
@@ -60,12 +60,12 @@ html:not(.dark) main .aplicaciones-icons:hover h4 {
    ========================= */
 html:not(.dark) main .numero-card {
     background: #ffffff;
-    border: 1px solid rgba(239,68,68,.45);
+    border: 1px solid rgba(237, 70, 92,.45);
     transition: border-color .25s ease, transform .25s ease;
 }
 
 html:not(.dark) main .numero-card:hover {
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-2px);
 }
 
@@ -73,19 +73,19 @@ html:not(.dark) main .numero-card:hover {
     WHATSAPP
    ========================= */
 html:not(.dark) main .whatsapp-icon {
-    background: rgba(239,68,68,.18);
+    background: rgba(237, 70, 92,.18);
 }
 
 html:not(.dark) main .whatsapp-btn {
-    background: #ef4444;
-    border: 1px solid #ef4444;
+    background: #ed465c;
+    border: 1px solid #ed465c;
     color: #ffffff;
     transition: background .25s ease, border-color .25s ease;
 }
 
 html:not(.dark) main .whatsapp-btn:hover {
-    background: #dc2626;
-    border-color: #dc2626;
+    background: #d7263d;
+    border-color: #d7263d;
 }
 
 /* =========================
@@ -97,7 +97,7 @@ html:not(.dark) main .whatsapp-btn:hover {
 /*DISEÑO DE TODOS LOS LISTADOS*/
 html:not(.dark) main .tabla-container {
     background: #ffffff;
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
     border-radius: 22px;
     overflow: hidden;
 }
@@ -114,7 +114,7 @@ html:not(.dark) main .tabla th {
     background: #d56c6c;
     color: #f8f4f4;
     text-align: left;
-    border-bottom: 1px solid rgba(239,68,68,.35);
+    border-bottom: 1px solid rgba(237, 70, 92,.35);
 }
 
 html:not(.dark) main .tabla td {
@@ -125,7 +125,7 @@ html:not(.dark) main .tabla td {
 }
 
 html:not(.dark) main .tabla tbody tr:hover {
-    background: rgba(239,68,68,.12);
+    background: rgba(237, 70, 92,.12);
 }
 
 /* =========================
@@ -181,12 +181,12 @@ html:not(.dark) main .btn-edit:hover {
 /* ELIMINAR */
 html:not(.dark) main .btn-delete {
     background: transparent;
-    border: 1.5px solid #ef4444;   /* rojo */
-    color: #ef4444;
+    border: 1.5px solid #ed465c;   /* rojo */
+    color: #ed465c;
 }
 
 html:not(.dark) main .btn-delete:hover {
-    background: #ef4444;
+    background: #ed465c;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -198,8 +198,8 @@ html:not(.dark) main .icon-circle {
     width: 38px;
     height: 38px;
     border-radius: 12px;
-    background: rgba(239,68,68,.18);
-    border: 1px solid rgba(239,68,68,.45);
+    background: rgba(237, 70, 92,.18);
+    border: 1px solid rgba(237, 70, 92,.45);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -217,8 +217,8 @@ html:not(.dark) main .btn-primary {
     border-radius: 14px;
 
     background: transparent;
-    border: 1.5px solid #ef4444;
-    color: #ef4444;
+    border: 1.5px solid #ed465c;
+    color: #ed465c;
 
     font-weight: 600;
     transition: background .25s ease, color .25s ease, transform .25s ease;
@@ -226,7 +226,7 @@ html:not(.dark) main .btn-primary {
 }
 
 html:not(.dark) main .btn-primary:hover {
-    background: #ef4444;
+    background: #ed465c;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -242,12 +242,12 @@ html:not(.dark) main .saldo-card {
     padding: 22px 26px;
     border-radius: 20px;
     background: #ffffff;
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
 }
 
 html:not(.dark) main .saldo-label {
     font-size: 13px;
-    color: #b91c1c;
+    color: #b71e32;
 }
 
 html:not(.dark) main .saldo-monto {
@@ -268,7 +268,7 @@ html:not(.dark) main .celda-flex {
 }
 
 html:not(.dark) main .celda-flex svg {
-    color: #ef4444;
+    color: #ed465c;
     flex-shrink: 0;
 }
 /* =========================
@@ -325,10 +325,10 @@ html:not(.dark) main .summary-card.border-green svg{
 
 /* EGRESOS */
 html:not(.dark) main .summary-card.border-red{
-    border:1.5px solid rgba(239,68,68,.35);
+    border:1.5px solid rgba(237, 70, 92,.35);
 }
 html:not(.dark) main .summary-card.border-red svg{
-    color:#ef4444;
+    color:#ed465c;
 }
 
 /* COSTOS */
@@ -365,7 +365,7 @@ html:not(.dark) main #transacciones-table th {
     background: #d56c6c; /* tu color */
     color: #f8f4f4;
     text-align: left;
-    border-bottom: 1px solid rgba(239,68,68,.35);
+    border-bottom: 1px solid rgba(237, 70, 92,.35);
 }
 
 /* TD */
@@ -396,7 +396,7 @@ html:not(.dark) main #transacciones-table span.w-2.h-2 {
 
 /* ICONOS DE FECHA */
 html:not(.dark) main #transacciones-table .bg-blue-100 {
-    background: #fee2e2 !important;
+    background: #fee2e6 !important;
 }
 
 /* ACCIONES */
@@ -412,13 +412,13 @@ html:not(.dark) main .btn-filtrar{
     padding:10px 22px;
     border-radius:14px;
     background:transparent;
-    border:1.5px solid #ef4444; /* rojo */
-    color:#ef4444;
+    border:1.5px solid #ed465c; /* rojo */
+    color:#ed465c;
     font-weight:600;
     transition:background .25s ease, color .25s ease, transform .25s ease;
 }
 html:not(.dark) main .btn-filtrar:hover{
-    background:#ef4444;
+    background:#ed465c;
     color:#ffffff;
     transform:translateY(-2px);
 }
@@ -428,7 +428,7 @@ html:not(.dark) main .filtros-card{
     border-radius:20px;
     padding:24px;
     margin-bottom:32px;
-    border:1.5px solid #ef4444;
+    border:1.5px solid #ed465c;
     box-shadow:0 10px 25px rgba(0,0,0,.05);
 }
 /* Header */
@@ -437,7 +437,7 @@ html:not(.dark) main .filtros-card .filtros-header{
     align-items:center;
     gap:8px;
     margin-bottom:18px;
-    color:#991b1b;
+    color:#971d2d;
     font-weight:600;
 }
 /* Labels */
@@ -460,8 +460,8 @@ html:not(.dark) main .filtros-card select{
 html:not(.dark) main .filtros-card input:focus,
 html:not(.dark) main .filtros-card select:focus{
     outline:none;
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.18);
 }
 /* Footer */
 html:not(.dark) main .filtros-card .filtros-footer{
@@ -485,9 +485,9 @@ html:not(.dark) main .btn-limpiar{
     transition:background .2s ease, transform .2s ease, border .2s ease;
 }
 html:not(.dark) main .btn-limpiar:hover{
-    background:#fee2e2;
-    border-color:#ef4444;
-    color:#991b1b;
+    background:#fee2e6;
+    border-color:#ed465c;
+    color:#971d2d;
     transform:translateY(-1px);
 }
 /* ICONO EDITAR (AMARILLO)*/
@@ -506,13 +506,13 @@ html:not(.dark) main td a[title="Editar"]:hover{
 /*ICONO ELIMINAR (ROJO)*/
 html:not(.dark) main td button[title="Eliminar"]{
     background: transparent;
-    border: 1.5px solid #ef4444;
-    color: #ef4444;
+    border: 1.5px solid #ed465c;
+    color: #ed465c;
     border-radius: 10px;
     transition: background .25s ease, transform .25s ease, color .25s ease;
 }
 html:not(.dark) main td button[title="Eliminar"]:hover{
-    background: #ef4444;
+    background: #ed465c;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -525,9 +525,9 @@ html:not(.dark) main .filtros-form select{
     padding:12px 44px 12px 16px;
     border-radius:14px;
     /* 🔥 Borde activo desde el inicio */
-    background:linear-gradient(180deg, #fff5f5, #fee2e2);
-    border:1.5px solid #ef4444;
-    color:#7f1d1d;
+    background:linear-gradient(180deg, #fff5f5, #fee2e6);
+    border:1.5px solid #ed465c;
+    color:#7d1f2b;
     font-size:.9rem;
     font-weight:500;
     cursor:pointer;
@@ -543,28 +543,28 @@ html:not(.dark) main .filtros-form select{
 }
 /* Hover */
 html:not(.dark) main .filtros-form select:hover{
-    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.18);
 }
 /* Focus */
 html:not(.dark) main .filtros-form select:focus{
     outline:none;
-    box-shadow:0 0 0 4px rgba(239,68,68,.22);
+    box-shadow:0 0 0 4px rgba(237, 70, 92,.22);
 }
 /* OPCIONES (dropdown) */
 html:not(.dark) main .filtros-form option{
     background:#ffffff;
-    color:#7f1d1d;
+    color:#7d1f2b;
     font-weight:400;
 }
 /* opción seleccionada */
 html:not(.dark) main .filtros-form option:checked{
-    background:#fee2e2;
-    color:#991b1b;
+    background:#fee2e6;
+    color:#971d2d;
 }
 /* Hover */
 html:not(.dark) main .filtros-form select:hover{
-    background: linear-gradient(180deg, #fff5f5, #fee2e2);
-    border-color: #ef4444;
+    background: linear-gradient(180deg, #fff5f5, #fee2e6);
+    border-color: #ed465c;
     transform: translateY(-1px);
 }
 
@@ -572,8 +572,8 @@ html:not(.dark) main .filtros-form select:hover{
 html:not(.dark) main .filtros-form select:focus{
     outline: none;
     background: #ffffff;
-    border-color: #ef4444;
-    box-shadow: 0 0 0 4px rgba(239,68,68,.18);
+    border-color: #ed465c;
+    box-shadow: 0 0 0 4px rgba(237, 70, 92,.18);
 }
 /* Opciones */
 html:not(.dark) main .filtros-form option{
@@ -583,8 +583,8 @@ html:not(.dark) main .filtros-form option{
 }
 /* Opción seleccionada */
 html:not(.dark) main .filtros-form option:checked{
-    background: #fee2e2;
-    color: #991b1b;
+    background: #fee2e6;
+    color: #971d2d;
 }
 /* EXPORTAR CSV – VERDE */
 html:not(.dark) main .btn-exportar-outline{
@@ -666,9 +666,9 @@ html:not(.dark) main .btn-limpiar svg{
 }
 /* Hover */
 html:not(.dark) main .btn-limpiar:hover{
-    background:#fee2e2;
-    border-color:#ef4444;
-    color:#991b1b;
+    background:#fee2e6;
+    border-color:#ed465c;
+    color:#971d2d;
     transform:translateY(-1px);
 }
 
@@ -678,7 +678,7 @@ html:not(.dark) main .btn-limpiar:hover{
    ========================= */
 /* ===== TITULO ===== */
 html:not(.dark) .whatsapp-section h2 {
-    color: #ef4444;
+    color: #ed465c;
     font-weight: 700;
 }
 
@@ -698,9 +698,9 @@ html:not(.dark) .whatsapp-section h2 {
 }
 
 .list-card:hover{
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-4px);
-    box-shadow: 0 18px 45px rgba(239,68,68,.15);
+    box-shadow: 0 18px 45px rgba(237, 70, 92,.15);
 }
 
 
@@ -744,15 +744,15 @@ html:not(.dark) main .icon-box svg{
     border-radius: 999px;
 
     background: transparent;
-    border: 1.5px solid #ef4444;
-    color: #ef4444;
+    border: 1.5px solid #ed465c;
+    color: #ed465c;
 
     font-weight: 600;
     transition: all .25s ease;
 }
 
 .btn-secondary:hover{
-    background: #ef4444;
+    background: #ed465c;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -769,9 +769,9 @@ html:not(.dark) main .icon-box svg{
 }
 
 .numero-card:hover{
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-5px);
-    box-shadow: 0 20px 48px rgba(239,68,68,.18);
+    box-shadow: 0 20px 48px rgba(237, 70, 92,.18);
 }
 
 
@@ -798,30 +798,30 @@ html:not(.dark) main .icon-box svg{
 
 .info-box{
     background: #fff5f5; /* fondo rojito suave */
-    border: 1.5px solid rgba(239,68,68,.45);
+    border: 1.5px solid rgba(237, 70, 92,.45);
     border-radius: 14px;
     padding: 14px;
 
-    box-shadow: 0 6px 16px rgba(239,68,68,.08);
+    box-shadow: 0 6px 16px rgba(237, 70, 92,.08);
     transition: all .25s ease;
 }
 
 
 .info-box:hover{
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(239,68,68,.18);
+    box-shadow: 0 10px 24px rgba(237, 70, 92,.18);
 }
 
 .info-box p{
     font-size: 12px;
-    color: #991b1b;
+    color: #971d2d;
     margin-bottom: 4px;
 }
 
 .info-box strong{
     font-size: 15px;
-    color: #7f1d1d;
+    color: #7d1f2b;
 }
 
 
@@ -884,7 +884,7 @@ html:not(.dark) .form-create .icon-circle{
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#ef4444;
+    color:#ed465c;
 }
 
 html:not(.dark) .form-create h1{
@@ -915,8 +915,8 @@ html:not(.dark) .form-create .input::placeholder{
 
 html:not(.dark) .form-create .input:focus{
     outline:none;
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.15);
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.15);
     background:#fff;
 }
 
@@ -927,8 +927,8 @@ html:not(.dark) .form-create .saldo-wrapper{
 }
 
 html:not(.dark) .form-create .btn-primary{
-    background:#ef4444;
-    border:1px solid #dc2626;
+    background:#ed465c;
+    border:1px solid #d7263d;
     color:white;
     padding:11px 22px;
     border-radius:14px;
@@ -936,7 +936,7 @@ html:not(.dark) .form-create .btn-primary{
 }
 
 html:not(.dark) .form-create .btn-primary:hover{
-    background:#dc2626;
+    background:#d7263d;
     transform:translateY(-2px);
 }
 
@@ -957,9 +957,9 @@ html:not(.dark) .form-create .alert-success{
 }
 
 html:not(.dark) .form-create .alert-error{
-    background:#fee2e2;
-    border:1px solid #fecaca;
-    color:#991b1b;
+    background:#fee2e6;
+    border:1px solid #fdcbd1;
+    color:#971d2d;
     border-radius:14px;
     padding:14px;
 }
@@ -1000,23 +1000,23 @@ html:not(.dark) select.input {
 html:not(.dark) main .filtros-form input,
 html:not(.dark) main .filtros-form select{
     background: transparent !important;
-    border: 1.5px solid #ef4444 !important;
-    color: #7f1d1d !important;
+    border: 1.5px solid #ed465c !important;
+    color: #7d1f2b !important;
     font-weight: 500;
 }
 
 /* Hover */
 html:not(.dark) main .filtros-form input:hover,
 html:not(.dark) main .filtros-form select:hover{
-    box-shadow: 0 0 0 3px rgba(239,68,68,.15);
+    box-shadow: 0 0 0 3px rgba(237, 70, 92,.15);
 }
 
 /* Focus */
 html:not(.dark) main .filtros-form input:focus,
 html:not(.dark) main .filtros-form select:focus{
     outline: none !important;
-    border-color: #dc2626 !important;
-    box-shadow: 0 0 0 4px rgba(239,68,68,.25) !important;
+    border-color: #d7263d !important;
+    box-shadow: 0 0 0 4px rgba(237, 70, 92,.25) !important;
 }
 /* =====================================================
    EDITAR NÚMERO WHATSAPP – LIGHT MODE
@@ -1024,7 +1024,7 @@ html:not(.dark) main .filtros-form select:focus{
 
 html:not(.dark) main .edit-whatsapp-card{
     background:#ffffff;
-    border:2px solid rgba(239,68,68,.35);
+    border:2px solid rgba(237, 70, 92,.35);
     border-radius:22px;
     padding:32px;
     box-shadow:0 14px 35px rgba(0,0,0,.06);
@@ -1032,7 +1032,7 @@ html:not(.dark) main .edit-whatsapp-card{
 
 /* TITULO */
 html:not(.dark) main .edit-whatsapp-title{
-    color:#ef4444;
+    color:#ed465c;
     font-weight:700;
 }
 
@@ -1043,7 +1043,7 @@ html:not(.dark) main .edit-whatsapp-subtitle{
 
 /* SECCIONES */
 html:not(.dark) main .edit-section{
-    border-top:1px solid rgba(239,68,68,.25);
+    border-top:1px solid rgba(237, 70, 92,.25);
     padding-top:24px;
 }
 
@@ -1051,7 +1051,7 @@ html:not(.dark) main .edit-section{
 html:not(.dark) main .edit-label{
     font-size:13px;
     font-weight:600;
-    color:#991b1b;
+    color:#971d2d;
 }
 
 /* INPUTS */
@@ -1071,8 +1071,8 @@ html:not(.dark) main .edit-input::placeholder{
 
 html:not(.dark) main .edit-input:focus{
     outline:none;
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.18);
     background:#ffffff;
 }
 
@@ -1091,15 +1091,15 @@ html:not(.dark) main .edit-select{
 }
 
 html:not(.dark) main .edit-select:focus{
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.18);
     background:#ffffff;
 }
 
 /* BOTONES */
 html:not(.dark) main .btn-save{
-    background:#ef4444;
-    border:1.5px solid #dc2626;
+    background:#ed465c;
+    border:1.5px solid #d7263d;
     color:#ffffff;
     padding:12px 22px;
     border-radius:14px;
@@ -1108,9 +1108,9 @@ html:not(.dark) main .btn-save{
 }
 
 html:not(.dark) main .btn-save:hover{
-    background:#dc2626;
+    background:#d7263d;
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(239,68,68,.35);
+    box-shadow:0 8px 20px rgba(237, 70, 92,.35);
 }
 
 html:not(.dark) main .btn-cancel{
@@ -1123,9 +1123,9 @@ html:not(.dark) main .btn-cancel{
 }
 
 html:not(.dark) main .btn-cancel:hover{
-    background:#fee2e2;
-    border-color:#ef4444;
-    color:#991b1b;
+    background:#fee2e6;
+    border-color:#ed465c;
+    color:#971d2d;
 }
 /* ================= DASHBOARD LANDING STYLE ================= */
 /* Basado en el diseño de la landing page de Admin Jr */
@@ -1163,7 +1163,7 @@ html:not(.dark) main .btn-cancel:hover{
     border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #dc2626;
+    color: #d7263d;
     margin-bottom: 2rem;
     box-shadow: 3px 3px 0 0 #000000;
 }
@@ -1171,7 +1171,7 @@ html:not(.dark) main .btn-cancel:hover{
 .badge-dot-red {
     width: 8px;
     height: 8px;
-    background: #dc2626;
+    background: #d7263d;
     border-radius: 50%;
     display: inline-block;
     animation: pulseRed 2s infinite;
@@ -1192,7 +1192,7 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .gradient-text {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+    background: linear-gradient(135deg, #d7263d, #971d2d);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -1202,7 +1202,7 @@ html:not(.dark) main .btn-cancel:hover{
 .hero-decoration {
     width: 100px;
     height: 3px;
-    background: linear-gradient(90deg, transparent, #dc2626, #991b1b, transparent);
+    background: linear-gradient(90deg, transparent, #d7263d, #971d2d, transparent);
     margin: 1.5rem auto;
 }
 
@@ -1238,7 +1238,7 @@ html:not(.dark) main .btn-cancel:hover{
 .stat-number {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #dc2626;
+    color: #d7263d;
 }
 
 .stat-label {
@@ -1266,7 +1266,7 @@ html:not(.dark) main .btn-cancel:hover{
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #dc2626;
+    color: #d7263d;
     margin-bottom: 1rem;
 }
 
@@ -1308,8 +1308,8 @@ html:not(.dark) main .btn-cancel:hover{
 
 .feature-card:hover {
     transform: translateY(-4px);
-    border-color: #dc2626;
-    box-shadow: 6px 6px 0 0 #dc2626;
+    border-color: #d7263d;
+    box-shadow: 6px 6px 0 0 #d7263d;
 }
 
 .feature-icon-wrapper {
@@ -1363,7 +1363,7 @@ html:not(.dark) main .btn-cancel:hover{
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #dc2626;
+    color: #d7263d;
     margin-bottom: 1rem;
 }
 
@@ -1394,7 +1394,7 @@ html:not(.dark) main .btn-cancel:hover{
 .step-number {
     width: 48px;
     height: 48px;
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+    background: linear-gradient(135deg, #d7263d, #971d2d);
     color: #ffffff;
     border-radius: 50%;
     display: flex;
@@ -1427,14 +1427,14 @@ html:not(.dark) main .btn-cancel:hover{
 
 .step-example {
     font-size: 0.8rem;
-    color: #dc2626;
-    background: #fef2f2;
+    color: #d7263d;
+    background: #fef2f4;
     padding: 0.25rem 0.75rem;
     border-radius: 0.5rem;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border: 1px solid #fecaca;
+    border: 1px solid #fdcbd1;
 }
 
 /* ================= SECURITY SECTION ================= */
@@ -1489,14 +1489,14 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .security-item:hover {
-    border-color: #dc2626;
+    border-color: #d7263d;
     transform: translateX(5px);
 }
 
 .security-icon {
     width: 40px;
     height: 40px;
-    background: #dc2626;
+    background: #d7263d;
     border-radius: 0.75rem;
     display: flex;
     align-items: center;
@@ -1527,13 +1527,13 @@ html:not(.dark) main .btn-cancel:hover{
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: #fef2f2;
+    background: #fef2f4;
     padding: 0.5rem 1.25rem;
     border-radius: 100px;
     font-size: 0.8rem;
     font-weight: 500;
-    color: #dc2626;
-    border: 1px solid #fca5a5;
+    color: #d7263d;
+    border: 1px solid #fba6b1;
 }
 
 /* ================= WHATSAPP SECTION ================= */
@@ -1542,7 +1542,7 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .whatsapp-card-modern {
-    background: #fef2f2;
+    background: #fef2f4;
     border: 2px solid #111827;
     border-radius: 1.5rem;
     position: relative;
@@ -1556,7 +1556,7 @@ html:not(.dark) main .btn-cancel:hover{
     right: 0;
     width: 300px;
     height: 300px;
-    background-image: radial-gradient(#fca5a5 1px, transparent 1px);
+    background-image: radial-gradient(#fba6b1 1px, transparent 1px);
     background-size: 20px 20px;
     opacity: 0.3;
     pointer-events: none;
@@ -1637,7 +1637,7 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .phone-number {
-    color: #dc2626;
+    color: #d7263d;
     letter-spacing: 1px;
 }
 
@@ -1652,7 +1652,7 @@ html:not(.dark) main .btn-cancel:hover{
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: #dc2626;
+    background: #d7263d;
     color: #ffffff;
     padding: 0.75rem 1.5rem;
     border-radius: 0.75rem;
@@ -1666,7 +1666,7 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .whatsapp-btn-modern:hover {
-    background: #b91c1c;
+    background: #b71e32;
     gap: 0.75rem;
     transform: translateY(-2px);
     box-shadow: 4px 4px 0 0 #000000;
@@ -1690,7 +1690,7 @@ html:not(.dark) main .btn-cancel:hover{
 .feature-dot {
     width: 6px;
     height: 6px;
-    background: #dc2626;
+    background: #d7263d;
     border-radius: 50%;
 }
 
@@ -1715,8 +1715,8 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .faq-item:hover {
-    border-color: #dc2626;
-    box-shadow: 4px 4px 0 0 #dc2626;
+    border-color: #d7263d;
+    box-shadow: 4px 4px 0 0 #d7263d;
 }
 
 .faq-question {
@@ -1731,13 +1731,13 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .faq-question:hover {
-    background: #fef2f2;
-    color: #dc2626;
+    background: #fef2f4;
+    color: #d7263d;
 }
 
 .faq-toggle {
     transition: transform 0.3s ease;
-    color: #dc2626;
+    color: #d7263d;
     display: flex;
 }
 
@@ -1770,7 +1770,7 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .cta-wrapper {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+    background: linear-gradient(135deg, #d7263d, #971d2d);
     border: 2px solid #111827;
     border-radius: 1.5rem;
     display: flex;
@@ -1793,7 +1793,7 @@ html:not(.dark) main .btn-cancel:hover{
     padding: 0.25rem 0.75rem;
     border-radius: 100px;
     font-size: 0.75rem;
-    color: #fecaca;
+    color: #fdcbd1;
     margin-bottom: 1rem;
 }
 
@@ -1805,7 +1805,7 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .cta-content p {
-    color: #fecaca;
+    color: #fdcbd1;
     margin-bottom: 2rem;
 }
 
@@ -1822,7 +1822,7 @@ html:not(.dark) main .btn-cancel:hover{
     align-items: center;
     gap: 0.5rem;
     background: #ffffff;
-    color: #dc2626;
+    color: #d7263d;
     padding: 0.875rem 1.5rem;
     border-radius: 0.75rem;
     text-decoration: none;
@@ -1833,7 +1833,7 @@ html:not(.dark) main .btn-cancel:hover{
 }
 
 .cta-primary:hover {
-    background: #fef2f2;
+    background: #fef2f4;
     transform: translateY(-2px);
     gap: 0.75rem;
     box-shadow: 4px 4px 0 0 #000000;
@@ -1841,13 +1841,13 @@ html:not(.dark) main .btn-cancel:hover{
 
 .cta-note {
     font-size: 0.75rem;
-    color: #fecaca;
+    color: #fdcbd1;
 }
 
 .cta-graphic {
     flex: 0.4;
     position: relative;
-    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    background: linear-gradient(135deg, #b71e32, #7d1f2b);
     border-left: 2px solid #111827;
 }
 

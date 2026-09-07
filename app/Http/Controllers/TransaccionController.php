@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Transaccion;
 use App\Models\Cuenta;
 use App\Models\Categoria;
+use App\Models\Documento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
+use League\Csv\Reader;
+use League\Csv\Writer;
 
 class TransaccionController extends Controller
 {
@@ -691,23 +695,307 @@ public function index(Request $request)
     /**
      * Exportar transacciones (ejemplo adicional)
      */
-    public function exportar(Request $request)
+    /**
+     * Genera una copia CSV editable de las transacciones del usuario (con los mismos
+     * filtros que la hoja de cálculo), la guarda como Documento y la entrega para descarga.
+     */
+    public function generarCopia(Request $request)
     {
         $query = $this->transaccionesDelUsuario();
-
-        // Aplicar filtros
         $this->aplicarFiltros($query, $request);
+        $transacciones = $query->orderBy('fecha', 'asc')->get();
 
-        $transacciones = $query->get();
-
-        // Verificar que hay transacciones para exportar
         if ($transacciones->isEmpty()) {
-            return back()->with('error', 'No hay transacciones para exportar con los filtros seleccionados.');
+            return response()->json([
+                'success' => false,
+                'message' => 'No hay transacciones para exportar con los filtros seleccionados.'
+            ], 400);
         }
 
-        // Aquí iría la lógica de exportación (CSV, Excel, PDF, etc.)
-        // Por ahora solo redirigimos
-        return back()->with('success', 'Exportación iniciada. Esta funcionalidad está en desarrollo.');
+        $csv = Writer::createFromString('');
+        $csv->insertOne(['ID', 'Fecha', 'Cuenta', 'Categoría', 'Tipo', 'Monto', 'Descripción']);
+
+        foreach ($transacciones as $tx) {
+            $csv->insertOne([
+                $tx->id,
+                optional($tx->fecha)->format('Y-m-d'),
+                $tx->cuenta?->nombre,
+                $tx->categoria?->nombre,
+                $tx->tipo,
+                number_format((float) $tx->monto, 2, '.', ''),
+                $tx->descripcion,
+            ]);
+        }
+
+        $userId = Auth::id();
+        $nombre = 'movimientos_' . now()->format('Y-m-d_His') . '.csv';
+        $path = "documentos/{$userId}/{$nombre}";
+
+        Storage::disk('local')->put($path, $csv->toString());
+
+        Documento::create([
+            'user_id' => $userId,
+            'nombre' => $nombre,
+            'path' => $path,
+            'tipo' => 'exportacion',
+            'estado' => 'listo',
+            'filas_detectadas' => $transacciones->count(),
+        ]);
+
+        return Storage::disk('local')->download($path, $nombre);
+    }
+
+    /**
+     * Lee un CSV subido por el usuario y separa sus filas en "nuevas" (con cuenta,
+     * monto y tipo válidos, sin ID existente) y "con error". No crea transacciones
+     * todavía: guarda un Documento pendiente de revisión para que el usuario confirme.
+     */
+    public function previsualizarImportacion(Request $request)
+    {
+        $request->validate([
+            'archivo' => 'required|file|mimes:csv,txt|max:2048',
+        ]);
+
+        $userId = Auth::id();
+
+        $cuentasUsuario = Cuenta::where('id_user', $userId)->get()->keyBy(function ($c) {
+            return mb_strtolower(trim($c->nombre));
+        });
+
+        $idsExistentes = Transaccion::whereHas('cuenta', function ($q) use ($userId) {
+            $q->where('id_user', $userId);
+        })->pluck('id')->flip();
+
+        $normalizar = function (array $registro): array {
+            $out = [];
+            foreach ($registro as $key => $value) {
+                $key = str_replace("\xEF\xBB\xBF", '', (string) $key);
+                $out[mb_strtolower(trim($key))] = is_string($value) ? trim($value) : $value;
+            }
+            return $out;
+        };
+
+        try {
+            $reader = Reader::createFromPath($request->file('archivo')->getRealPath(), 'r');
+            $reader->setHeaderOffset(0);
+            $registros = $reader->getRecords();
+        } catch (\Throwable $e) {
+            return response()->json(['success' => false, 'message' => 'No se pudo leer el archivo CSV.'], 422);
+        }
+
+        $nuevas = [];
+        $errores = [];
+
+        foreach ($registros as $numero => $registroCrudo) {
+            $registro = $normalizar($registroCrudo);
+
+            $id = (string) ($registro['id'] ?? '');
+            if ($id !== '' && $id !== '-' && $idsExistentes->has((int) $id)) {
+                continue; // ya existe como transacción: no es un movimiento nuevo
+            }
+
+            $cuentaNombre = (string) ($registro['cuenta'] ?? '');
+            $montoRaw = (string) ($registro['monto'] ?? '');
+            $tipo = mb_strtolower((string) ($registro['tipo'] ?? ''));
+
+            if ($cuentaNombre === '' && $montoRaw === '' && $tipo === '') {
+                continue; // fila totalmente vacía, se ignora
+            }
+
+            $fila = [
+                'fila' => $numero + 2,
+                'fecha' => ($registro['fecha'] ?? '') ?: null,
+                'cuenta' => $cuentaNombre,
+                'categoria' => (string) ($registro['categoría'] ?? $registro['categoria'] ?? ''),
+                'tipo' => $tipo,
+                'monto' => $montoRaw,
+                'descripcion' => (string) ($registro['descripción'] ?? $registro['descripcion'] ?? ''),
+            ];
+
+            $cuenta = $cuentasUsuario->get(mb_strtolower($cuentaNombre));
+            $monto = is_numeric($montoRaw) ? (float) $montoRaw : null;
+
+            $motivo = null;
+            if (!$cuenta) {
+                $motivo = "La cuenta \"{$cuentaNombre}\" no existe.";
+            } elseif ($monto === null || $monto <= 0) {
+                $motivo = 'El monto no es válido.';
+            } elseif (!in_array($tipo, ['ingreso', 'egreso', 'inversion', 'costo'], true)) {
+                $motivo = 'El tipo debe ser ingreso, egreso, inversión o costo.';
+            }
+
+            if ($motivo) {
+                $fila['motivo'] = $motivo;
+                $errores[] = $fila;
+                continue;
+            }
+
+            $fila['cuenta_id'] = $cuenta->id;
+            $nuevas[] = $fila;
+        }
+
+        if (empty($nuevas) && empty($errores)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se detectaron movimientos nuevos en el archivo.'
+            ], 422);
+        }
+
+        $nombreOriginal = $request->file('archivo')->getClientOriginalName();
+        $path = $request->file('archivo')->storeAs(
+            "documentos/{$userId}",
+            now()->format('Y-m-d_His') . '_' . $nombreOriginal,
+            'local'
+        );
+
+        $documento = Documento::create([
+            'user_id' => $userId,
+            'nombre' => $nombreOriginal,
+            'path' => $path,
+            'tipo' => 'importacion',
+            'estado' => 'pendiente_revision',
+            'filas_detectadas' => count($nuevas),
+            'resumen' => ['nuevas' => $nuevas, 'errores' => $errores],
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'documento_id' => $documento->id,
+            'nuevas' => $nuevas,
+            'errores' => $errores,
+        ]);
+    }
+
+    /**
+     * Crea las transacciones marcadas como "nuevas" en un Documento pendiente de revisión.
+     * Cada fila se procesa de forma independiente para que un rechazo (p.ej. saldo
+     * insuficiente) no impida importar el resto.
+     */
+    public function confirmarImportacion(Documento $documento)
+    {
+        if ($documento->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($documento->estado !== 'pendiente_revision') {
+            return response()->json(['success' => false, 'message' => 'Este documento ya fue procesado.'], 400);
+        }
+
+        $userId = Auth::id();
+
+        $categoriaDefault = Categoria::where('id_user', $userId)->first();
+        if (!$categoriaDefault) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Debes crear una categoría antes de importar movimientos.'
+            ], 400);
+        }
+
+        $categoriasUsuario = Categoria::where('id_user', $userId)->get()->keyBy(function ($c) {
+            return mb_strtolower(trim($c->nombre));
+        });
+
+        $filas = $documento->resumen['nuevas'] ?? [];
+        $resultado = [];
+        $importadas = 0;
+
+        foreach ($filas as $fila) {
+            try {
+                $this->verificarCuentaUsuario($fila['cuenta_id']);
+
+                $categoriaNombre = trim((string) ($fila['categoria'] ?? ''));
+                if ($categoriaNombre !== '') {
+                    $categoria = $categoriasUsuario->get(mb_strtolower($categoriaNombre));
+                    if (!$categoria) {
+                        $categoria = Categoria::create([
+                            'id_user' => $userId,
+                            'nombre' => $categoriaNombre,
+                            'color' => '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT),
+                            'descripcion' => 'Creada automáticamente al importar',
+                        ]);
+                        $categoriasUsuario->put(mb_strtolower($categoriaNombre), $categoria);
+                    }
+                } else {
+                    $categoria = $categoriaDefault;
+                }
+
+                $this->crearTransaccionDesdeDatos([
+                    'cuenta_id' => $fila['cuenta_id'],
+                    'categoria_id' => $categoria->id,
+                    'monto' => (float) $fila['monto'],
+                    'tipo' => $fila['tipo'],
+                    'descripcion' => $fila['descripcion'] !== '' ? $fila['descripcion'] : null,
+                    'fecha' => $fila['fecha'] ?? null,
+                ]);
+
+                $fila['resultado'] = 'importado';
+                $importadas++;
+            } catch (\Throwable $e) {
+                $fila['resultado'] = 'rechazado';
+                $fila['motivo'] = $e->getMessage();
+            }
+
+            $resultado[] = $fila;
+        }
+
+        $resumen = $documento->resumen ?? [];
+        $resumen['nuevas'] = $resultado;
+
+        $documento->update([
+            'estado' => 'importado',
+            'filas_importadas' => $importadas,
+            'resumen' => $resumen,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'importadas' => $importadas,
+            'total' => count($filas),
+            'detalle' => $resultado,
+        ]);
+    }
+
+    /**
+     * Descarta una importación pendiente de revisión sin crear transacciones.
+     */
+    public function descartarImportacion(Documento $documento)
+    {
+        if ($documento->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($documento->tipo === 'importacion' && $documento->estado === 'pendiente_revision') {
+            Storage::disk('local')->delete($documento->path);
+            $documento->update(['estado' => 'descartado']);
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    /**
+     * Historial de copias e importaciones del usuario.
+     */
+    public function documentos()
+    {
+        $documentos = Documento::where('user_id', Auth::id())->latest()->paginate(20);
+
+        return view('transacciones.documentos', compact('documentos'));
+    }
+
+    /**
+     * Descarga un documento (copia exportada o archivo importado) del usuario autenticado.
+     */
+    public function descargar(Documento $documento)
+    {
+        if ($documento->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if (!Storage::disk('local')->exists($documento->path)) {
+            abort(404, 'El archivo ya no está disponible.');
+        }
+
+        return Storage::disk('local')->download($documento->path, $documento->nombre);
     }
 
     /**
@@ -835,39 +1123,27 @@ public function index(Request $request)
                 ], 400);
             }
 
-            // Validar saldo ANTES de la transacción
-            $cuenta = Cuenta::find($validated['cuenta_id']);
-            $tipo = $validated['tipo'];
-            $monto = $validated['monto'];
-
             // Validar saldo insuficiente ANTES de crear
-            if (in_array($tipo, ['egreso', 'inversion', 'costo'])) {
-                if ($cuenta->saldo_actual < $monto) {
+            $cuenta = Cuenta::find($validated['cuenta_id']);
+            if (in_array($validated['tipo'], ['egreso', 'inversion', 'costo'])) {
+                if ($cuenta->saldo_actual < $validated['monto']) {
                     return response()->json([
                         'success' => false,
-                        'message' => 'Saldo insuficiente: ' . number_format($cuenta->saldo_actual, 2) . ' (necesitas ' . number_format($monto, 2) . ')',
+                        'message' => 'Saldo insuficiente: ' . number_format($cuenta->saldo_actual, 2) . ' (necesitas ' . number_format($validated['monto'], 2) . ')',
                         'saldo_actual' => $cuenta->saldo_actual,
-                        'monto_requerido' => $monto
+                        'monto_requerido' => $validated['monto']
                     ], 400);
                 }
             }
 
-            DB::transaction(function () use ($validated, $categoria) {
-                $cuenta = Cuenta::find($validated['cuenta_id']);
-
-                // Crear transacción
-                $transaccion = Transaccion::create([
-                    'cuenta_id'    => $validated['cuenta_id'],
-                    'categoria_id' => $categoria->id,
-                    'monto'        => $validated['monto'],
-                    'descripcion'  => $validated['descripcion'] ?? null,
-                    'fecha'        => $validated['fecha'] ?? now()->toDateString(),
-                    'tipo'         => $validated['tipo'],
-                ]);
-
-                // Actualizar saldo de la cuenta
-                $this->actualizarSaldoCuenta($cuenta, $validated['monto'], $validated['tipo']);
-            });
+            $this->crearTransaccionDesdeDatos([
+                'cuenta_id'    => $validated['cuenta_id'],
+                'categoria_id' => $categoria->id,
+                'monto'        => $validated['monto'],
+                'descripcion'  => $validated['descripcion'] ?? null,
+                'fecha'        => $validated['fecha'] ?? null,
+                'tipo'         => $validated['tipo'],
+            ]);
 
             return response()->json([
                 'success' => true,
@@ -902,5 +1178,36 @@ public function index(Request $request)
                 'error' => env('APP_DEBUG') ? $e->getMessage() : null
             ], $statusCode);
         }
+    }
+
+    /**
+     * Crea una transacción a partir de datos ya validados y actualiza el saldo de la
+     * cuenta. Lanza \Exception si el saldo es insuficiente. Usado tanto por
+     * crearDesdeHoja() (una fila) como por confirmarImportacion() (muchas filas).
+     */
+    private function crearTransaccionDesdeDatos(array $datos): Transaccion
+    {
+        $cuenta = Cuenta::find($datos['cuenta_id']);
+
+        if (in_array($datos['tipo'], ['egreso', 'inversion', 'costo']) && $cuenta->saldo_actual < $datos['monto']) {
+            throw new \Exception('Saldo insuficiente: ' . number_format($cuenta->saldo_actual, 2) . ' (necesitas ' . number_format($datos['monto'], 2) . ')');
+        }
+
+        return DB::transaction(function () use ($datos) {
+            $cuenta = Cuenta::find($datos['cuenta_id']);
+
+            $transaccion = Transaccion::create([
+                'cuenta_id'    => $datos['cuenta_id'],
+                'categoria_id' => $datos['categoria_id'],
+                'monto'        => $datos['monto'],
+                'descripcion'  => $datos['descripcion'] ?? null,
+                'fecha'        => $datos['fecha'] ?? now()->toDateString(),
+                'tipo'         => $datos['tipo'],
+            ]);
+
+            $this->actualizarSaldoCuenta($cuenta, $datos['monto'], $datos['tipo']);
+
+            return $transaccion;
+        });
     }
 }

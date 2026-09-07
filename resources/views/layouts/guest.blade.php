@@ -26,7 +26,7 @@
         <div class="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100 -z-10"></div>
         
         <!-- Patrón de puntos decorativo sutil -->
-        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, #dc2626 1px, transparent 1px); background-size: 40px 40px;"></div>
+        <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 1px 1px, #d7263d 1px, transparent 1px); background-size: 40px 40px;"></div>
         
         <!-- Elementos decorativos grandes con blur (se ven detrás) -->
         <div class="absolute top-0 left-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
@@ -71,7 +71,7 @@
                         speedX: (Math.random() - 0.5) * 0.6,
                         speedY: (Math.random() - 0.5) * 0.4,
                         opacity: Math.random() * 0.5 + 0.2,
-                        color: Math.random() > 0.7 ? '#dc2626' : '#f97316',
+                        color: Math.random() > 0.7 ? '#d7263d' : '#f97316',
                         originalSpeedX: (Math.random() - 0.5) * 0.6,
                         originalSpeedY: (Math.random() - 0.5) * 0.4
                     });
@@ -158,7 +158,7 @@
                             ctx.lineTo(p2.x, p2.y);
                             
                             const gradient = ctx.createLinearGradient(p.x, p.y, p2.x, p2.y);
-                            gradient.addColorStop(0, `rgba(220, 38, 38, ${0.12 * (1 - distance / 120)})`);
+                            gradient.addColorStop(0, `rgba(215, 38, 61, ${0.12 * (1 - distance / 120)})`);
                             gradient.addColorStop(1, `rgba(249, 115, 22, ${0.12 * (1 - distance / 120)})`);
                             
                             ctx.strokeStyle = gradient;

@@ -1,33 +1,39 @@
 {{-- resources/views/transacciones/index.blade.php --}}
 <x-app-layout>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {{-- Header mejorado --}}
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <div>
-                <h1 class="flex items-center gap-3 text-white text-xl font-bold">
-                <span class="icon-circle">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Transacciones') }}
+        </h2>
+    </x-slot>
+
+    <div class="transacciones-view relative z-10 p-6 sm:p-10">
+
+        <!-- HEADER -->
+        <div class="tv-topbar">
+            <div class="tv-title-row">
+                <span class="tv-title-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
                     </svg>
                 </span>
-                Transacciones
-            </h1>
-                <p class="text-gray-600 dark:text-gray-400 mt-1">Administra tus transacciones financieras</p>
+                <div>
+                    <h1>Transacciones</h1>
+                    <div class="tv-title-sub">
+                        {{ $transacciones->count() }} {{ $transacciones->count() == 1 ? 'transacción' : 'transacciones' }}
+                    </div>
+                </div>
             </div>
 
-            <div class="flex items-center space-x-3">
-                {{-- Botón de exportación --}}
-                <button onclick="exportTableToCSV('transacciones.csv')"
-                    class="btn-exportar-outline" title="Exportar a CSV">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="tv-actions">
+                <button onclick="exportTableToCSV('transacciones.csv')" class="tv-btn-outline" title="Exportar a CSV">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
                     Exportar CSV
                 </button>
 
-                <a href="{{ route('transacciones.create') }}"
-                    class="btn-nueva-outline">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="{{ route('transacciones.create') }}" class="tv-btn-new">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
                     Nueva Transacción
@@ -35,136 +41,130 @@
             </div>
         </div>
 
-        {{-- Mensaje de éxito --}}
-        @if (session('success'))
-            <div class="mb-6 p-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg flex items-center">
-                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                {{ session('success') }}
+        <!-- RESUMEN -->
+        <div class="tv-stats-grid">
+            <div class="tv-stat-card" style="--tv-tile-soft: var(--tv-success-soft); --tv-tile-color: var(--tv-success);">
+                <div class="tv-stat-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 0l-6 6m6-6l6 6"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="tv-stat-label">Ingresos</div>
+                    <div class="tv-stat-value tv-display">${{ number_format($totalIngresos, 2) }}</div>
+                </div>
             </div>
-        @endif
 
-        {{-- Card de filtros --}}
-        <div class="bg-white dark:bg-[#18181b] rounded-2xl shadow-lg p-6 mb-8 border border-gray-100 dark:border-gray-700">
-            <div class="flex items-center mb-4">
-                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="tv-stat-card" style="--tv-tile-soft: var(--tv-danger-soft); --tv-tile-color: var(--tv-danger);">
+                <div class="tv-stat-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v14m0 0l-6-6m6 6l6-6"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="tv-stat-label">Egresos</div>
+                    <div class="tv-stat-value tv-display">${{ number_format($totalEgresos, 2) }}</div>
+                </div>
+            </div>
+
+            <div class="tv-stat-card" style="--tv-tile-soft: var(--tv-amber-soft); --tv-tile-color: var(--tv-amber);">
+                <div class="tv-stat-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" d="M3 9h2M19 9h2M3 15h2M19 15h2"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="tv-stat-label">Costos</div>
+                    <div class="tv-stat-value tv-display">${{ number_format($totalCostos, 2) }}</div>
+                </div>
+            </div>
+
+            <div class="tv-stat-card" style="--tv-tile-soft: var(--tv-blue-soft); --tv-tile-color: var(--tv-blue);">
+                <div class="tv-stat-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 17l6-6 4 4 7-7"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 4h7v7"/>
+                    </svg>
+                </div>
+                <div>
+                    <div class="tv-stat-label">Inversiones</div>
+                    <div class="tv-stat-value tv-display">${{ number_format($totalInversion, 2) }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="tv-filters">
+            <div class="tv-filters-head">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                 </svg>
-                <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Filtros</h2>
+                Filtros
             </div>
 
-            <form action="{{ route('transacciones.index') }}" method="GET" class="space-y-4 filtros-form">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {{-- Búsqueda --}}
-                    <div class="filtros-footer ">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Buscar</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                                </svg>
-                            </div>
-                            <input type="text"
-                                name="search"
-                                placeholder="Descripción..."
-                                value="{{ request('search') }}"
-                                class="pl-10 w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition">
+            <form action="{{ route('transacciones.index') }}" method="GET">
+                <div class="tv-filter-grid">
+                    <div class="tv-field">
+                        <label>Buscar</label>
+                        <div class="tv-search-wrap">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <input type="text" name="search" placeholder="Descripción..." value="{{ request('search') }}" class="tv-input">
                         </div>
                     </div>
 
-                    {{-- Tipo --}}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo</label>
-                        <select name="tipo"
-                                class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition appearance-none bg-white dark:bg-gray-700 bg-[right_1rem_center] bg-no-repeat"
-                                style="background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\" fill=\"%236B7280\"><path fill-rule=\"evenodd\" d=\"M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z\" clip-rule=\"evenodd\"/></svg>');">
+                    <div class="tv-field">
+                        <label>Tipo</label>
+                        <select name="tipo" class="tv-select">
                             <option value="">Todos los tipos</option>
                             @foreach($tipos as $tipo)
-                                <option value="{{ $tipo }}" {{ request('tipo') == $tipo ? 'selected' : '' }}>
-                                    {{ ucfirst($tipo) }}
-                                </option>
+                                <option value="{{ $tipo }}" {{ request('tipo') == $tipo ? 'selected' : '' }}>{{ ucfirst($tipo) }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    {{-- Cuenta --}}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Cuenta</label>
-                        <select name="cuenta_id"
-                                class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition appearance-none bg-white dark:bg-gray-700 bg-[right_1rem_center] bg-no-repeat"
-                                style="background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\" fill=\"%236B7280\"><path fill-rule=\"evenodd\" d=\"M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z\" clip-rule=\"evenodd\"/></svg>');">
+                    <div class="tv-field">
+                        <label>Cuenta</label>
+                        <select name="cuenta_id" class="tv-select">
                             <option value="">Todas las cuentas</option>
                             @foreach($cuentas as $cuenta)
-                                <option value="{{ $cuenta->id }}" {{ request('cuenta_id') == $cuenta->id ? 'selected' : '' }}>
-                                    {{ $cuenta->nombre }}
-                                </option>
+                                <option value="{{ $cuenta->id }}" {{ request('cuenta_id') == $cuenta->id ? 'selected' : '' }}>{{ $cuenta->nombre }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    {{-- Categoría --}}
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Categoría</label>
-                        <select name="categoria_id"
-                                class="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition appearance-none bg-white dark:bg-gray-700 bg-[right_1rem_center] bg-no-repeat"
-                                style="background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 20 20\" fill=\"%236B7280\"><path fill-rule=\"evenodd\" d=\"M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z\" clip-rule=\"evenodd\"/></svg>');">
+                    <div class="tv-field">
+                        <label>Categoría</label>
+                        <select name="categoria_id" class="tv-select">
                             <option value="">Todas las categorías</option>
                             @foreach($categorias as $categoria)
-                                <option value="{{ $categoria->id }}" {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>
-                                    {{ $categoria->nombre }}
-                                </option>
+                                <option value="{{ $categoria->id }}" {{ request('categoria_id') == $categoria->id ? 'selected' : '' }}>{{ $categoria->nombre }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
-                {{-- Rango de fechas --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Desde</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            </div>
-                            <input type="date"
-                                   name="fecha_desde"
-                                   value="{{ request('fecha_desde') }}"
-                                   class="pl-10 w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition">
-                        </div>
+                <div class="tv-filter-grid tv-filter-grid--dates">
+                    <div class="tv-field">
+                        <label>Desde</label>
+                        <input type="date" name="fecha_desde" value="{{ request('fecha_desde') }}" class="tv-input">
                     </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Hasta</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            </div>
-                            <input type="date"
-                                   name="fecha_hasta"
-                                   value="{{ request('fecha_hasta') }}"
-                                   class="pl-10 w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition">
-                        </div>
+                    <div class="tv-field">
+                        <label>Hasta</label>
+                        <input type="date" name="fecha_hasta" value="{{ request('fecha_hasta') }}" class="tv-input">
                     </div>
                 </div>
 
-                {{-- Botones de acción --}}
-                <div class="flex flex-wrap items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                <div class="tv-filter-footer">
                     <div>
                         @if(request()->anyFilled(['search', 'tipo', 'cuenta_id', 'categoria_id', 'fecha_desde', 'fecha_hasta']))
-                            <a href="{{ route('transacciones.index') }}" class="btn-limpiar">
-                                <svg viewBox="0 0 24 24" fill="none">
-                                    <path d="M6 18L18 6M6 6l12 12"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"/>
-                                </svg>
+                            <a href="{{ route('transacciones.index') }}" class="tv-btn-clear">
+                                <svg viewBox="0 0 24 24" fill="none"><path d="M6 18L18 6M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 Limpiar filtros
                             </a>
                         @endif
                     </div>
 
-                    <button type="submit" class="btn-filtrar">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button type="submit" class="tv-btn-apply">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                         </svg>
                         Aplicar filtros
@@ -173,311 +173,139 @@
             </form>
         </div>
 
-        {{-- Resumen de transacciones --}}
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            {{-- INGRESOS --}}
-            <div class="summary-card border-green">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="summary-label">Ingresos</p>
-                        <p class="summary-amount">
-                            ${{ number_format($transacciones->where('tipo', 'ingreso')->sum('monto'), 2) }}
-                        </p>
-                    </div>
-                    <svg class="w-7 h-7 text-green-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M12 3v18"/>
-                        <path d="M17 7c0-2.2-2.2-4-5-4s-5 1.8-5 4
-                                2.2 4 5 4 5 1.8 5 4-2.2 4-5 4-5-1.8-5-4"/>
-                    </svg>
-                </div>
+        <!-- TABLA -->
+        <div class="tv-table-panel">
+            <div class="tv-table-head">
+                <h3>Lista de Transacciones</h3>
+                <p>Mostrando {{ $transacciones->count() }} {{ $transacciones->count() == 1 ? 'transacción' : 'transacciones' }}</p>
             </div>
 
-            {{-- EGRESOS --}}
-            <div class="summary-card border-red">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="summary-label">Egresos</p>
-                        <p class="summary-amount">
-                            ${{ number_format($transacciones->where('tipo', 'egreso')->sum('monto'), 2) }}
-                        </p>
+            @if($transacciones->isEmpty())
+                <div class="tv-empty">
+                    <div class="tv-empty-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                     </div>
-                    <svg class="w-7 h-7 text-red-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M12 4v12"/>
-                        <path d="M6 12l6 6 6-6"/>
-                    </svg>
+                    <h3>
+                        @if(request()->anyFilled(['search', 'tipo', 'cuenta_id', 'categoria_id', 'fecha_desde', 'fecha_hasta']))
+                            No se encontraron transacciones con los filtros aplicados
+                        @else
+                            No hay transacciones registradas
+                        @endif
+                    </h3>
+                    <p>Comienza creando tu primera transacción.</p>
+                    <a href="{{ route('transacciones.create') }}" class="tv-btn-new">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Crear transacción
+                    </a>
                 </div>
-            </div>
-
-            {{-- COSTOS --}}
-            <div class="summary-card border-amber">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="summary-label">Costos</p>
-                        <p class="summary-amount">
-                            ${{ number_format($transacciones->where('tipo', 'costo')->sum('monto'), 2) }}
-                        </p>
-                    </div>
-                    <svg class="w-7 h-7 text-yellow-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <rect x="3" y="6" width="18" height="12" rx="2"/>
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M3 9h2M19 9h2M3 15h2M19 15h2"/>
-                    </svg>
-                </div>
-            </div>
-
-            {{-- INVERSIONES --}}
-            <div class="summary-card border-blue">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="summary-label">Inversiones</p>
-                        <p class="summary-amount">
-                            ${{ number_format($transacciones->where('tipo', 'inversion')->sum('monto'), 2) }}
-                        </p>
-                    </div>
-                    <svg class="w-7 h-7 text-blue-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M3 17l6-6 4 4 7-7"/>
-                        <path d="M14 4h7v7"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-        {{-- Tabla de transacciones --}}
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700">
-            {{-- Header de tabla --}}
-            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 dark:bg-[#1a1a1a]">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Lista de Transacciones</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">
-                            Mostrando {{ $transacciones->count() }} {{ $transacciones->count() == 1 ? 'transacción' : 'transacciones' }}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Tabla responsive --}}
-            <div class="overflow-x-auto">
-                <table id="transacciones-table" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                    <thead class="bg-gray-50 dark:bg-gray-900/30">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                <a href="{{ route('transacciones.index', array_merge(request()->all(), ['sort_by' => 'fecha', 'sort_dir' => request('sort_dir') == 'asc' ? 'desc' : 'asc'])) }}"
-                                   class="group inline-flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition">
-                                    <span>Fecha</span>
-                                    @if(request('sort_by') == 'fecha')
-                                        <svg class="w-4 h-4 {{ request('sort_dir') == 'asc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                        </svg>
-                                    @else
-                                        <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                        </svg>
-                                    @endif
-                                </a>
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                Cuenta
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                Categoría
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                Tipo
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                <a href="{{ route('transacciones.index', array_merge(request()->all(), ['sort_by' => 'monto', 'sort_dir' => request('sort_dir') == 'asc' ? 'desc' : 'asc'])) }}"
-                                   class="group inline-flex items-center space-x-1 hover:text-blue-600 dark:hover:text-blue-400 transition">
-                                    <span>Monto</span>
-                                    @if(request('sort_by') == 'monto')
-                                        <svg class="w-4 h-4 {{ request('sort_dir') == 'asc' ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                        </svg>
-                                    @else
-                                        <svg class="w-4 h-4 opacity-0 group-hover:opacity-100 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
-                                        </svg>
-                                    @endif
-                                </a>
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                Descripción
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-right text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                                Acciones
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                        @forelse ($transacciones as $transaccion)
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-150">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mr-3">
-                                            <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm font-medium text-gray-900 dark:text-white">
-                                                {{ $transaccion->fecha->format('d/m/Y') }}
-                                            </div>
-                                            <div class="text-xs text-gray-500 dark:text-gray-400">
-                                                {{ $transaccion->created_at->format('h:i A') }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="w-2 h-2 {{ $transaccion->tipo === 'ingreso' ? 'bg-green-500' : ($transaccion->tipo === 'egreso' ? 'bg-red-500' : ($transaccion->tipo === 'costo' ? 'bg-orange-500' : 'bg-blue-500')) }} rounded-full mr-2"></div>
-                                        <span class="text-sm text-gray-900 dark:text-white">
-                                            {{ $transaccion->cuenta->nombre }}
-                                        </span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300">
-                                        {{ $transaccion->categoria->nombre }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
-                                        @switch($transaccion->tipo)
-                                            @case('ingreso')
-                                                bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400
-                                                @break
-                                            @case('egreso')
-                                                bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400
-                                                @break
-                                            @case('costo')
-                                                bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-400
-                                                @break
-                                            @case('inversion')
-                                                bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-400
-                                                @break
-                                            @default
-                                                bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300
-                                        @endswitch">
-                                        <span class="w-2 h-2 rounded-full mr-2
-                                            @switch($transaccion->tipo)
-                                                @case('ingreso') bg-green-500 @break
-                                                @case('egreso') bg-red-500 @break
-                                                @case('costo') bg-orange-500 @break
-                                                @case('inversion') bg-blue-500 @break
-                                                @default bg-gray-500
-                                            @endswitch"></span>
-                                        {{ ucfirst($transaccion->tipo) }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-semibold
-                                        @switch($transaccion->tipo)
-                                            @case('ingreso') text-green-600 dark:text-green-400 @break
-                                            @case('egreso') text-red-600 dark:text-red-400 @break
-                                            @case('costo') text-orange-600 dark:text-orange-400 @break
-                                            @case('inversion') text-blue-600 dark:text-blue-400 @break
-                                            @default text-gray-600 dark:text-gray-400
-                                        @endswitch">
-                                        @if($transaccion->tipo === 'ingreso')
-                                            +${{ number_format($transaccion->monto, 2) }}
-                                        @else
-                                            -${{ number_format($transaccion->monto, 2) }}
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <div class="text-sm text-gray-900 dark:text-white max-w-xs truncate">
-                                        {{ $transaccion->descripcion ?? 'Sin descripción' }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <div class="flex items-center justify-end space-x-2">
-                                        <a href="{{ route('transacciones.edit', $transaccion) }}"
-                                           class="inline-flex items-center p-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition"
-                                           title="Editar">
-                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                                            </svg>
-                                        </a>
-                                        <form action="{{ route('transacciones.destroy', $transaccion) }}"
-                                              method="POST"
-                                              class="inline-block"
-                                              onsubmit="return confirm('¿Seguro que deseas eliminar esta transacción?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                    class="inline-flex items-center p-2 text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition"
-                                                    title="Eliminar">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
+            @else
+                <div class="tv-table-scroll">
+                    <table id="transacciones-table" class="tv-table">
+                        <thead>
                             <tr>
-                                <td colspan="7" class="px-6 py-12 text-center">
-                                    <div class="max-w-sm mx-auto">
-                                        <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                                        </svg>
-                                        <h3 class="mt-4 text-lg font-medium text-gray-900 dark:text-white">
-                                            @if(request()->anyFilled(['search', 'tipo', 'cuenta_id', 'categoria_id', 'fecha_desde', 'fecha_hasta']))
-                                                No se encontraron transacciones con los filtros aplicados
-                                            @else
-                                                No hay transacciones registradas
-                                            @endif
-                                        </h3>
-                                        <p class="mt-2 text-gray-500 dark:text-gray-400">
-                                            Comienza creando tu primera transacción.
-                                        </p>
-                                        <div class="mt-6">
-                                            <a href="{{ route('transacciones.create') }}"
-                                               class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition">
-                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                                </svg>
-                                                Crear transacción
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
+                                <th>
+                                    <a href="{{ route('transacciones.index', array_merge(request()->all(), ['sort_by' => 'fecha', 'sort_dir' => request('sort_dir') == 'asc' ? 'desc' : 'asc'])) }}">
+                                        <span>Fecha</span>
+                                        @if(request('sort_by') == 'fecha')
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="{{ request('sort_dir') == 'asc' ? 'transform:rotate(180deg)' : '' }}"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>Cuenta</th>
+                                <th>Categoría</th>
+                                <th>Tipo</th>
+                                <th>
+                                    <a href="{{ route('transacciones.index', array_merge(request()->all(), ['sort_by' => 'monto', 'sort_dir' => request('sort_dir') == 'asc' ? 'desc' : 'asc'])) }}">
+                                        <span>Monto</span>
+                                        @if(request('sort_by') == 'monto')
+                                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="{{ request('sort_dir') == 'asc' ? 'transform:rotate(180deg)' : '' }}"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+                                        @endif
+                                    </a>
+                                </th>
+                                <th>Descripción</th>
+                                <th class="tv-right">Acciones</th>
                             </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            @php
+                                $tipoEstilos = [
+                                    'ingreso'   => ['soft' => 'var(--tv-success-soft)', 'color' => 'var(--tv-success)'],
+                                    'egreso'    => ['soft' => 'var(--tv-danger-soft)',  'color' => 'var(--tv-danger)'],
+                                    'costo'     => ['soft' => 'var(--tv-amber-soft)',   'color' => 'var(--tv-amber)'],
+                                    'inversion' => ['soft' => 'var(--tv-blue-soft)',    'color' => 'var(--tv-blue)'],
+                                ];
+                            @endphp
+                            @foreach ($transacciones as $transaccion)
+                                @php $estilo = $tipoEstilos[$transaccion->tipo] ?? ['soft' => 'var(--tv-surface-2)', 'color' => 'var(--tv-text-dim)']; @endphp
+                                <tr>
+                                    <td>
+                                        <div class="tv-date-cell">
+                                            <div class="tv-date-icon">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            </div>
+                                            <div>
+                                                <div class="tv-date-main">{{ $transaccion->fecha->format('d/m/Y') }}</div>
+                                                <div class="tv-date-sub">{{ $transaccion->created_at->format('h:i A') }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="tv-cuenta-cell">
+                                            <span class="tv-cuenta-dot" style="background: {{ $estilo['color'] }};"></span>
+                                            {{ $transaccion->cuenta->nombre }}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="tv-chip tv-chip-cat">{{ $transaccion->categoria->nombre }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="tv-chip" style="--tv-chip-soft: {{ $estilo['soft'] }}; --tv-chip-color: {{ $estilo['color'] }};">
+                                            <span class="tv-chip-dot"></span>
+                                            {{ ucfirst($transaccion->tipo) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="tv-amount" style="color: {{ $estilo['color'] }};">
+                                            {{ $transaccion->tipo === 'ingreso' ? '+' : '-' }}${{ number_format($transaccion->monto, 2) }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="tv-desc" title="{{ $transaccion->descripcion }}">{{ $transaccion->descripcion ?? 'Sin descripción' }}</div>
+                                    </td>
+                                    <td>
+                                        <div class="tv-row-actions">
+                                            <a href="{{ route('transacciones.edit', $transaccion) }}" class="tv-icon-btn tv-edit" title="Editar">
+                                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+                                            </a>
+                                            <form action="{{ route('transacciones.destroy', $transaccion) }}" method="POST"
+                                                  onsubmit="return confirm('¿Seguro que deseas eliminar esta transacción?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="tv-icon-btn tv-delete" title="Eliminar">
+                                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M8 6V4h8v2M6 6v14a2 2 0 002 2h8a2 2 0 002-2V6M10 11v6M14 11v6"/></svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            @endif
         </div>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            @if(session('success'))
+                showToast(@json(session('success')), 'success');
+            @endif
+            @if(session('error'))
+                showToast(@json(session('error')), 'error');
+            @endif
+        });
+
         function exportTableToCSV(filename) {
             var csv = [];
             var rows = document.querySelectorAll("#transacciones-table tr");
@@ -512,7 +340,7 @@
             downloadCSV(csv.join("\n"), filename);
 
             // Mostrar notificación de éxito
-            showExportSuccess();
+            showToast('Exportación completada. El archivo CSV se ha descargado.', 'success');
         }
 
         function downloadCSV(csv, filename) {
@@ -520,7 +348,7 @@
             var downloadLink;
 
             // CSV file
-            csvFile = new Blob(["\uFEFF" + csv], {type: "text/csv;charset=utf-8;"});
+            csvFile = new Blob(["﻿" + csv], {type: "text/csv;charset=utf-8;"});
 
             // Download link
             downloadLink = document.createElement("a");
@@ -545,46 +373,5 @@
                 document.body.removeChild(downloadLink);
             }, 100);
         }
-
-        function showExportSuccess() {
-            // Crear elemento de notificación
-            const notification = document.createElement('div');
-            notification.className = 'fixed top-4 right-4 z-50 px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl shadow-lg flex items-center animate-fade-in-down';
-            notification.innerHTML = `
-                <svg class="w-5 h-5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                </svg>
-                <span>Exportación completada. El archivo CSV se ha descargado.</span>
-            `;
-
-            document.body.appendChild(notification);
-
-            // Remover notificación después de 4 segundos
-            setTimeout(() => {
-                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 4000);
-        }
-
-        // Estilos para la animación
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeInDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            .animate-fade-in-down {
-                animation: fadeInDown 0.3s ease-out;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </x-app-layout>

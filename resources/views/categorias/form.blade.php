@@ -1,5 +1,11 @@
 <x-app-layout>
-    <div class="form-create">   
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ isset($categoria) ? __('Editar Categoría') : __('Nueva Categoría') }}
+        </h2>
+    </x-slot>
+
+    <div class="form-create">
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-white">
 
         <!-- HEADER -->

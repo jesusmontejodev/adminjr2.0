@@ -2,7 +2,7 @@
 /* TITULOS PRINCIPALES */
 html.dark main h1,
 html.dark main h4 {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 /* =========================
@@ -17,11 +17,11 @@ html.dark main h2 {
    ========================= */
 html.dark main .hero-highlight,
 html.dark main .numero-label {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 html.dark main .hero-soon {
-    color: #ef4444;
+    color: #ed465c;
     font-weight: 600;
 }
 
@@ -37,7 +37,7 @@ html.dark main .numero-phone {
    ========================= */
 html.dark main .aplicaciones-icons {
     background: #111318;
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
     transition: border-color .25s ease, transform .25s ease;
 }
 
@@ -47,12 +47,12 @@ html.dark main .aplicaciones-icons h4 {
 }
 
 html.dark main .aplicaciones-icons:hover {
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-2px);
 }
 
 html.dark main .aplicaciones-icons:hover h4 {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 /* =========================
@@ -60,12 +60,12 @@ html.dark main .aplicaciones-icons:hover h4 {
    ========================= */
 html.dark main .numero-card {
     background: #111318;
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
     transition: border-color .25s ease, transform .25s ease;
 }
 
 html.dark main .numero-card:hover {
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-2px);
 }
 
@@ -73,19 +73,19 @@ html.dark main .numero-card:hover {
     WHATSAPP
    ========================= */
 html.dark main .whatsapp-icon {
-    background: rgba(239,68,68,.15);
+    background: rgba(237, 70, 92,.15);
 }
 
 html.dark main .whatsapp-btn {
-    background: #ef4444;
-    border: 1px solid #ef4444;
+    background: #ed465c;
+    border: 1px solid #ed465c;
     color: #ffffff;
     transition: background .25s ease, border-color .25s ease;
 }
 
 html.dark main .whatsapp-btn:hover {
-    background: #dc2626;
-    border-color: #dc2626;
+    background: #d7263d;
+    border-color: #d7263d;
 }
 /* =========================
     AQUI TERMINA
@@ -94,7 +94,7 @@ html.dark main .whatsapp-btn:hover {
 
 html.dark main .tabla-container {
     background: rgba(255,255,255,.03);
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
     border-radius: 22px;
     overflow: hidden;
 }
@@ -108,10 +108,10 @@ html.dark main .tabla th {
     padding: 14px 18px;
     font-size: 13px;
     font-weight: 600;
-    background: rgba(239,68,68,.18);
-    color: #fca5a5;
+    background: rgba(237, 70, 92,.18);
+    color: #fba6b1;
     text-align: left;
-    border-bottom: 1px solid rgba(239,68,68,.35);
+    border-bottom: 1px solid rgba(237, 70, 92,.35);
 }
 
 html.dark main .tabla td {
@@ -122,7 +122,7 @@ html.dark main .tabla td {
 }
 
 html.dark main .tabla tbody tr:hover {
-    background: rgba(239,68,68,.08);
+    background: rgba(237, 70, 92,.08);
 }
 
 /* =========================
@@ -190,12 +190,12 @@ html.dark main .btn-edit:hover {
 
 html.dark main .btn-delete {
     background: transparent;
-    border: 1.5px solid rgba(239,68,68,.45);
-    color: #f87171;
+    border: 1.5px solid rgba(237, 70, 92,.45);
+    color: #f67384;
 }
 
 html.dark main .btn-delete:hover {
-    background: rgba(239,68,68,.28);
+    background: rgba(237, 70, 92,.28);
     color: #ffffff;
 }
 
@@ -207,12 +207,12 @@ html.dark main .icon-circle {
     width: 38px;
     height: 38px;
     border-radius: 12px;
-    background: rgba(239,68,68,.15);
-    border: 1px solid rgba(239,68,68,.35);
+    background: rgba(237, 70, 92,.15);
+    border: 1px solid rgba(237, 70, 92,.35);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #f87171;
+    color: #f67384;
 }
 
 /* =========================
@@ -227,8 +227,8 @@ html.dark main .btn-primary {
     border-radius: 14px;
 
     background: transparent;
-    border: 1.5px solid rgba(239,68,68,.55);
-    color: #f87171;
+    border: 1.5px solid rgba(237, 70, 92,.55);
+    color: #f67384;
 
     font-weight: 600;
     transition: background .25s ease, color .25s ease, transform .25s ease;
@@ -236,7 +236,7 @@ html.dark main .btn-primary {
 }
 
 html.dark main .btn-primary:hover {
-    background: rgba(239,68,68,.18);
+    background: rgba(237, 70, 92,.18);
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -253,12 +253,12 @@ html.dark main .saldo-card {
     padding: 22px 26px;
     border-radius: 20px;
     background: rgba(255,255,255,.03);
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
 }
 
 html.dark main .saldo-label {
     font-size: 13px;
-    color: #fca5a5;
+    color: #fba6b1;
 }
 
 html.dark main .saldo-monto {
@@ -280,7 +280,7 @@ html.dark main .celda-flex {
 }
 
 html.dark main .celda-flex svg {
-    color: #f87171;
+    color: #f67384;
     flex-shrink: 0;
 }
 /* =========================
@@ -341,10 +341,10 @@ html.dark main .summary-card.border-green svg{
 }
 
 html.dark main .summary-card.border-red{
-    border:1.5px solid rgba(239,68,68,.45);
+    border:1.5px solid rgba(237, 70, 92,.45);
 }
 html.dark main .summary-card.border-red svg{
-    color:#ef4444;
+    color:#ed465c;
 }
 
 html.dark main .summary-card.border-amber{
@@ -378,10 +378,10 @@ html.dark main #transacciones-table th{
     padding:14px 18px;
     font-size:13px;
     font-weight:600;
-    background:rgba(239,68,68,.35);
-    color:#fca5a5;
+    background:rgba(237, 70, 92,.35);
+    color:#fba6b1;
     text-align:left;
-    border-bottom:1px solid rgba(239,68,68,.35);
+    border-bottom:1px solid rgba(237, 70, 92,.35);
 }
 
 html.dark main #transacciones-table td{
@@ -408,7 +408,7 @@ html.dark main #transacciones-table span.w-2.h-2{
 }
 
 html.dark main #transacciones-table .bg-blue-100{
-    background:#7f1d1d !important;
+    background:#7d1f2b !important;
 }
 
 /* =========================
@@ -420,7 +420,7 @@ html.dark main .filtros-card{
     border-radius:20px;
     padding:24px;
     margin-bottom:32px;
-    border:1.5px solid #ef4444;
+    border:1.5px solid #ed465c;
     box-shadow:0 10px 25px rgba(0,0,0,.35);
 }
 
@@ -429,7 +429,7 @@ html.dark main .filtros-card .filtros-header{
     align-items:center;
     gap:8px;
     margin-bottom:18px;
-    color:#fca5a5;
+    color:#fba6b1;
     font-weight:600;
 }
 
@@ -453,8 +453,8 @@ html.dark main .filtros-card select{
 html.dark main .filtros-card input:focus,
 html.dark main .filtros-card select:focus{
     outline:none;
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.18);
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.18);
 }
 
 /* =========================
@@ -469,13 +469,13 @@ html.dark main .btn-filtrar{
     padding:10px 22px;
     border-radius:14px;
     background:transparent;
-    border:1.5px solid #ef4444;
-    color:#ef4444;
+    border:1.5px solid #ed465c;
+    color:#ed465c;
     font-weight:600;
     transition:background .25s ease, color .25s ease, transform .25s ease;
 }
 html.dark main .btn-filtrar:hover{
-    background:#ef4444;
+    background:#ed465c;
     color:#ffffff;
     transform:translateY(-2px);
 }
@@ -504,8 +504,8 @@ html.dark main .btn-limpiar svg{
 }
 
 html.dark main .btn-limpiar:hover{
-    background:#7f1d1d;
-    border-color:#ef4444;
+    background:#7d1f2b;
+    border-color:#ed465c;
     color:#ffffff;
     transform:translateY(-1px);
 }
@@ -527,13 +527,13 @@ html.dark main td a[title="Editar"]:hover{
 /* ELIMINAR */
 html.dark main td button[title="Eliminar"]{
     background:transparent;
-    border:1.5px solid #ef4444;
-    color:#ef4444;
+    border:1.5px solid #ed465c;
+    color:#ed465c;
     border-radius:10px;
     transition:background .25s ease, transform .25s ease, color .25s ease;
 }
 html.dark main td button[title="Eliminar"]:hover{
-    background:#ef4444;
+    background:#ed465c;
     color:#ffffff;
     transform:translateY(-2px);
 }
@@ -583,7 +583,7 @@ html.dark main .btn-nueva-outline:hover{
 
 /* ===== TITULO ===== */
 html.dark .whatsapp-section h2 {
-    color: #f87171;
+    color: #f67384;
     font-weight: 700;
 }
 
@@ -591,7 +591,7 @@ html.dark .whatsapp-section h2 {
 /* ===== CARD RESUMEN ===== */
 html.dark .list-card{
     background: transparent; /* gris neutro elegante */
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
     border-radius: 20px;
     padding: 26px;
 
@@ -603,9 +603,9 @@ html.dark .list-card{
 }
 
 html.dark .list-card:hover{
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-4px);
-    box-shadow: 0 18px 45px rgba(239,68,68,.25);
+    box-shadow: 0 18px 45px rgba(237, 70, 92,.25);
 }
 
 
@@ -615,8 +615,8 @@ html.dark .icon-box{
     height: 46px;
     border-radius: 14px;
 
-    background: rgba(239,68,68,.15);
-    border: 1.5px solid rgba(239,68,68,.45);
+    background: rgba(237, 70, 92,.15);
+    border: 1.5px solid rgba(237, 70, 92,.45);
 
     display: flex;
     align-items: center;
@@ -628,7 +628,7 @@ html.dark .icon-box{
 html.dark main .icon-box svg{
     width: 20px;
     height: 20px;
-    color: #f87171;
+    color: #f67384;
     flex-shrink: 0;
 }
 
@@ -643,15 +643,15 @@ html.dark .btn-secondary{
     border-radius: 999px;
 
     background: transparent;
-    border: 1.5px solid #ef4444;
-    color: #f87171;
+    border: 1.5px solid #ed465c;
+    color: #f67384;
 
     font-weight: 600;
     transition: all .25s ease;
 }
 
 html.dark .btn-secondary:hover{
-    background: #ef4444;
+    background: #ed465c;
     color: #ffffff;
     transform: translateY(-2px);
 }
@@ -660,7 +660,7 @@ html.dark .btn-secondary:hover{
 /* ===== NUMERO CARD ===== */
 html.dark .numero-card{
     background: #18181b; /* mismo gris neutro */
-    border: 2px solid rgba(239,68,68,.35);
+    border: 2px solid rgba(237, 70, 92,.35);
     border-radius: 22px;
 
     box-shadow: 0 14px 35px rgba(0,0,0,.4);
@@ -668,9 +668,9 @@ html.dark .numero-card{
 }
 
 html.dark .numero-card:hover{
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-5px);
-    box-shadow: 0 20px 48px rgba(239,68,68,.25);
+    box-shadow: 0 20px 48px rgba(237, 70, 92,.25);
 }
 
 
@@ -687,17 +687,17 @@ html.dark .numero-card p{
 
 /* ===== BADGE ===== */
 html.dark .numero-card span.inline-flex{
-    background: rgba(239,68,68,.15);
-    border: 1px solid rgba(239,68,68,.45);
-    color: #fca5a5;
+    background: rgba(237, 70, 92,.15);
+    border: 1px solid rgba(237, 70, 92,.45);
+    color: #fba6b1;
     font-weight: 600;
 }
 
 
 /* ===== INFO BOX ===== */
 html.dark .info-box{
-    background: rgba(239,68,68,.08);
-    border: 1.5px solid rgba(239,68,68,.35);
+    background: rgba(237, 70, 92,.08);
+    border: 1.5px solid rgba(237, 70, 92,.35);
     border-radius: 14px;
     padding: 14px;
 
@@ -706,20 +706,20 @@ html.dark .info-box{
 }
 
 html.dark .info-box:hover{
-    border-color: #ef4444;
+    border-color: #ed465c;
     transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(239,68,68,.25);
+    box-shadow: 0 10px 24px rgba(237, 70, 92,.25);
 }
 
 html.dark .info-box p{
     font-size: 12px;
-    color: #fca5a5;
+    color: #fba6b1;
     margin-bottom: 4px;
 }
 
 html.dark .info-box strong{
     font-size: 15px;
-    color: #f87171;
+    color: #f67384;
 }
 
 
@@ -729,11 +729,11 @@ html.dark .numero-card .border-t{
 }
 
 html.dark .numero-card .border-t span{
-    color: #fca5a5;
+    color: #fba6b1;
 }
 
 html.dark .numero-card .border-t .bg-gray-400{
-    background: #ef4444;
+    background: #ed465c;
 }
 
 
@@ -746,21 +746,21 @@ html.dark .badge-whatsapp-on{
     padding: 6px 14px;
     border-radius: 999px;
 
-    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    background: linear-gradient(135deg, #ed465c, #b71e32);
     color: #ffffff;
 
     font-size: 13px;
     font-weight: 700;
 
-    border: 1px solid rgba(239,68,68,.6);
-    box-shadow: 0 0 14px rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.6);
+    box-shadow: 0 0 14px rgba(237, 70, 92,.35);
 
     transition: all .25s ease;
 }
 
 html.dark .badge-whatsapp-on:hover{
     transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(239,68,68,.55);
+    box-shadow: 0 0 20px rgba(237, 70, 92,.55);
 }
 
 html.dark .badge-whatsapp-on svg{
@@ -774,7 +774,7 @@ html.dark .badge-whatsapp-on svg{
 /* ===== CARD ===== */
 html.dark .form-create .card{
     background:rgba(255,255,255,.04);
-    border:1px solid rgba(239,68,68,.35);
+    border:1px solid rgba(237, 70, 92,.35);
     border-radius:22px; /* igual que tenías */
     box-shadow:0 15px 35px rgba(0,0,0,.35); /* igual que tenías */
     backdrop-filter:blur(14px);
@@ -785,28 +785,28 @@ html.dark .form-create .icon-circle{
     width:38px;
     height:38px;
     border-radius:12px;
-    background:rgba(239,68,68,.18);
-    border:1px solid rgba(239,68,68,.45);
+    background:rgba(237, 70, 92,.18);
+    border:1px solid rgba(237, 70, 92,.45);
     display:flex;
     align-items:center;
     justify-content:center;
-    color:#ef4444;
+    color:#ed465c;
 }
 
 /* ===== TITULOS ===== */
 html.dark .form-create h1{
-    color:#ef4444;
+    color:#ed465c;
 }
 
 html.dark .form-create p{
-    color:#fca5a5;
+    color:#fba6b1;
 }
 
 /* ===== LABELS ===== */
 html.dark .form-create .label{
     font-size:13px; /* igual */
     font-weight:600; /* igual */
-    color:#fca5a5;
+    color:#fba6b1;
 }
 
 /* ===== INPUTS ===== */
@@ -825,8 +825,8 @@ html.dark .form-create .input::placeholder{
 
 html.dark .form-create .input:focus{
     outline:none;
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.18); /* mismo tamaño que tenías */
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.18); /* mismo tamaño que tenías */
     background:rgba(255,255,255,.08);
 }
 
@@ -839,8 +839,8 @@ html.dark .form-create .saldo-wrapper{
 
 /* ===== BOTÓN PRINCIPAL ===== */
 html.dark .form-create .btn-primary{
-    background:rgba(239,68,68,.25);
-    border:1px solid rgba(239,68,68,.45);
+    background:rgba(237, 70, 92,.25);
+    border:1px solid rgba(237, 70, 92,.45);
     color:#ffffff;
     padding:11px 22px; /* igual que tu bloque original */
     border-radius:14px; /* igual */
@@ -849,9 +849,9 @@ html.dark .form-create .btn-primary{
 }
 
 html.dark .form-create .btn-primary:hover{
-    background:rgba(239,68,68,.35);
+    background:rgba(237, 70, 92,.35);
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(239,68,68,.35); /* mismo tamaño */
+    box-shadow:0 8px 20px rgba(237, 70, 92,.35); /* mismo tamaño */
 }
 
 /* ===== BOTÓN CANCELAR ===== */
@@ -866,7 +866,7 @@ html.dark .form-create .btn-cancel{
 
 html.dark .form-create .btn-cancel:hover{
     background:rgba(255,255,255,.12);
-    border-color:rgba(239,68,68,.35);
+    border-color:rgba(237, 70, 92,.35);
 }
 
 /* ===== ALERT SUCCESS ===== */
@@ -880,9 +880,9 @@ html.dark .form-create .alert-success{
 
 /* ===== ALERT ERROR ===== */
 html.dark .form-create .alert-error{
-    background:rgba(239,68,68,.15);
-    border:1px solid rgba(239,68,68,.35);
-    color:#fecaca;
+    background:rgba(237, 70, 92,.15);
+    border:1px solid rgba(237, 70, 92,.35);
+    color:#fdcbd1;
     border-radius:14px;
     padding:14px; /* igual */
 }
@@ -910,23 +910,23 @@ html.dark .form-create select.input{
 html.dark main .filtros-form input,
 html.dark main .filtros-form select{
     background: transparent !important;
-    border: 1.5px solid rgba(239,68,68,.65) !important;
-    color: #fca5a5 !important;
+    border: 1.5px solid rgba(237, 70, 92,.65) !important;
+    color: #fba6b1 !important;
     font-weight: 500;
 }
 
 /* Hover */
 html.dark main .filtros-form input:hover,
 html.dark main .filtros-form select:hover{
-    box-shadow: 0 0 0 3px rgba(239,68,68,.20);
+    box-shadow: 0 0 0 3px rgba(237, 70, 92,.20);
 }
 
 /* Focus */
 html.dark main .filtros-form input:focus,
 html.dark main .filtros-form select:focus{
     outline: none !important;
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 0 4px rgba(239,68,68,.30) !important;
+    border-color: #ed465c !important;
+    box-shadow: 0 0 0 4px rgba(237, 70, 92,.30) !important;
 }
 /* =========================
    FIX CONTENEDORES AZULES
@@ -939,10 +939,10 @@ html.dark main .bg-slate-800,
 html.dark main .bg-slate-900,
 html.dark main .bg-blue-900 {
     background: #18181b !important; /* gris neutro elegante */
-    border: 1px solid rgba(239,68,68,.35);
+    border: 1px solid rgba(237, 70, 92,.35);
 }
 select {
-    color: #fca5a5; /* rojo claro */
+    color: #fba6b1; /* rojo claro */
 }
 
 select option {
@@ -955,7 +955,7 @@ select option {
 
 html.dark main .edit-whatsapp-card{
     background:#18181b;
-    border:2px solid rgba(239,68,68,.35);
+    border:2px solid rgba(237, 70, 92,.35);
     border-radius:22px;
     padding:32px;
     box-shadow:0 18px 45px rgba(0,0,0,.45);
@@ -974,7 +974,7 @@ html.dark main .edit-whatsapp-subtitle{
 
 /* SECCIONES */
 html.dark main .edit-section{
-    border-top:1px solid rgba(239,68,68,.25);
+    border-top:1px solid rgba(237, 70, 92,.25);
     padding-top:24px;
 }
 
@@ -982,7 +982,7 @@ html.dark main .edit-section{
 html.dark main .edit-label{
     font-size:13px;
     font-weight:600;
-    color:#fca5a5;
+    color:#fba6b1;
 }
 
 /* INPUTS */
@@ -1002,8 +1002,8 @@ html.dark main .edit-input::placeholder{
 
 html.dark main .edit-input:focus{
     outline:none;
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.25);
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.25);
     background:rgba(255,255,255,.08);
 }
 
@@ -1022,14 +1022,14 @@ html.dark main .edit-select{
 }
 
 html.dark main .edit-select:focus{
-    border-color:#ef4444;
-    box-shadow:0 0 0 3px rgba(239,68,68,.25);
+    border-color:#ed465c;
+    box-shadow:0 0 0 3px rgba(237, 70, 92,.25);
 }
 
 /* BOTONES */
 html.dark main .btn-save{
-    background:rgba(239,68,68,.25);
-    border:1.5px solid rgba(239,68,68,.45);
+    background:rgba(237, 70, 92,.25);
+    border:1.5px solid rgba(237, 70, 92,.45);
     color:#ffffff;
     padding:12px 22px;
     border-radius:14px;
@@ -1038,9 +1038,9 @@ html.dark main .btn-save{
 }
 
 html.dark main .btn-save:hover{
-    background:rgba(239,68,68,.4);
+    background:rgba(237, 70, 92,.4);
     transform:translateY(-2px);
-    box-shadow:0 8px 20px rgba(239,68,68,.35);
+    box-shadow:0 8px 20px rgba(237, 70, 92,.35);
 }
 
 html.dark main .btn-cancel{
@@ -1054,10 +1054,10 @@ html.dark main .btn-cancel{
 
 html.dark main .btn-cancel:hover{
     background:rgba(255,255,255,.12);
-    border-color:rgba(239,68,68,.35);
+    border-color:rgba(237, 70, 92,.35);
 }
 .edit-whatsapp-title{
-    color: #ef4444; /* rojo intenso */
+    color: #ed465c; /* rojo intenso */
     font-weight: 700;
 }
 /* =====================================================
@@ -1070,7 +1070,7 @@ html.dark main .btn-cancel:hover{
 html.dark .hero-badge {
     background: #1f1f1f;
     border-color: #3a3a3a;
-    color: #f87171;
+    color: #f67384;
     box-shadow: 3px 3px 0 0 #000000;
 }
 
@@ -1079,7 +1079,7 @@ html.dark .hero-title {
 }
 
 html.dark .gradient-text {
-    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    background: linear-gradient(135deg, #ed465c, #b71e32);
     -webkit-background-clip: text;
     background-clip: text;
 }
@@ -1095,7 +1095,7 @@ html.dark .hero-stats {
 }
 
 html.dark .stat-number {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 html.dark .stat-label {
@@ -1110,7 +1110,7 @@ html.dark .stat-divider {
    SECTION HEADERS - DARK MODE
    ========================= */
 html.dark .section-tag {
-    color: #ef4444;
+    color: #ed465c;
 }
 
 html.dark .section-header h2 {
@@ -1131,8 +1131,8 @@ html.dark .feature-card {
 }
 
 html.dark .feature-card:hover {
-    border-color: #ef4444;
-    box-shadow: 6px 6px 0 0 #ef4444;
+    border-color: #ed465c;
+    box-shadow: 6px 6px 0 0 #ed465c;
 }
 
 html.dark .feature-card h3 {
@@ -1144,7 +1144,7 @@ html.dark .feature-card p {
 }
 
 html.dark .feature-icon svg {
-    stroke: #ef4444;
+    stroke: #ed465c;
 }
 
 /* =========================
@@ -1165,7 +1165,7 @@ html.dark .how-it-works-header p {
 }
 
 html.dark .step-number {
-    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    background: linear-gradient(135deg, #ed465c, #b71e32);
     border-color: #3a3a3a;
     box-shadow: 3px 3px 0 0 #000000;
 }
@@ -1179,13 +1179,13 @@ html.dark .step-content p {
 }
 
 html.dark .step-example {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
-    border-color: rgba(239, 68, 68, 0.3);
+    background: rgba(237, 70, 92, 0.12);
+    color: #f67384;
+    border-color: rgba(237, 70, 92, 0.3);
 }
 
 html.dark .step-example svg {
-    stroke: #f87171;
+    stroke: #f67384;
 }
 
 /* =========================
@@ -1206,7 +1206,7 @@ html.dark .security-header p {
 }
 
 html.dark .shield-icon svg {
-    stroke: #ef4444;
+    stroke: #ed465c;
 }
 
 html.dark .security-item {
@@ -1216,11 +1216,11 @@ html.dark .security-item {
 
 html.dark .security-item:hover {
     background: #333333;
-    border-color: #ef4444;
+    border-color: #ed465c;
 }
 
 html.dark .security-icon {
-    background: #ef4444;
+    background: #ed465c;
     border-color: #3a3a3a;
 }
 
@@ -1233,9 +1233,9 @@ html.dark .security-content p {
 }
 
 html.dark .security-badge {
-    background: rgba(239, 68, 68, 0.12);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #f87171;
+    background: rgba(237, 70, 92, 0.12);
+    border-color: rgba(237, 70, 92, 0.3);
+    color: #f67384;
 }
 
 /* =========================
@@ -1246,7 +1246,7 @@ html.dark .security-badge {
 }
 
 .whatsapp-wrapper {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+    background: linear-gradient(135deg, #d7263d, #971d2d);
     border: 2px solid #111827;
     border-radius: 1.5rem;
     display: flex;
@@ -1268,7 +1268,7 @@ html.dark .security-badge {
     padding: 0.25rem 0.75rem;
     border-radius: 100px;
     font-size: 0.75rem;
-    color: #fecaca;
+    color: #fdcbd1;
     margin-bottom: 1rem;
 }
 
@@ -1280,7 +1280,7 @@ html.dark .security-badge {
 }
 
 .whatsapp-content p {
-    color: #fecaca;
+    color: #fdcbd1;
     margin-bottom: 2rem;
 }
 
@@ -1324,7 +1324,7 @@ html.dark .security-badge {
 .whatsapp-content .whatsapp-description {
     font-size: 0.85rem;
     margin-bottom: 1.5rem;
-    color: #fecaca;
+    color: #fdcbd1;
 }
 
 .whatsapp-btn-primary {
@@ -1332,7 +1332,7 @@ html.dark .security-badge {
     align-items: center;
     gap: 0.75rem;
     background: #ffffff;
-    color: #dc2626;
+    color: #d7263d;
     padding: 0.875rem 1.5rem;
     border-radius: 0.75rem;
     text-decoration: none;
@@ -1344,7 +1344,7 @@ html.dark .security-badge {
 }
 
 .whatsapp-btn-primary:hover {
-    background: #fef2f2;
+    background: #fef2f4;
     transform: translateY(-2px);
     gap: 1rem;
     box-shadow: 4px 4px 0 0 #000000;
@@ -1363,18 +1363,18 @@ html.dark .security-badge {
     align-items: center;
     gap: 0.5rem;
     font-size: 0.75rem;
-    color: #fecaca;
+    color: #fdcbd1;
 }
 
 .feature-mini svg {
-    stroke: #fecaca;
+    stroke: #fdcbd1;
 }
 
 /* LADO GRÁFICO */
 .whatsapp-graphic {
     flex: 0.4;
     position: relative;
-    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    background: linear-gradient(135deg, #b71e32, #7d1f2b);
     border-left: 2px solid #111827;
     display: flex;
     align-items: center;
@@ -1436,12 +1436,12 @@ html.dark .whatsapp-wrapper {
 
 html.dark .whatsapp-btn-primary {
     background: #ffffff;
-    color: #dc2626;
+    color: #d7263d;
     border-color: #3a3a3a;
 }
 
 html.dark .whatsapp-btn-primary:hover {
-    background: #fef2f2;
+    background: #fef2f4;
 }
 
 html.dark .whatsapp-graphic {
@@ -1500,8 +1500,8 @@ html.dark .faq-item {
 }
 
 html.dark .faq-item:hover {
-    border-color: #ef4444;
-    box-shadow: 4px 4px 0 0 #ef4444;
+    border-color: #ed465c;
+    box-shadow: 4px 4px 0 0 #ed465c;
 }
 
 html.dark .faq-question {
@@ -1509,12 +1509,12 @@ html.dark .faq-question {
 }
 
 html.dark .faq-question:hover {
-    background: rgba(239, 68, 68, 0.1);
-    color: #f87171;
+    background: rgba(237, 70, 92, 0.1);
+    color: #f67384;
 }
 
 html.dark .faq-toggle svg {
-    stroke: #f87171;
+    stroke: #f67384;
 }
 
 html.dark .faq-answer {
@@ -1530,14 +1530,14 @@ html.dark .faq-answer p {
    CTA SECTION - DARK MODE (MANTIENE GRADIENTE ROJO)
    ========================= */
 html.dark .cta-wrapper {
-    background: linear-gradient(135deg, #dc2626, #991b1b);
+    background: linear-gradient(135deg, #d7263d, #971d2d);
     border-color: #3a3a3a;
     box-shadow: 8px 8px 0 0 #000000;
 }
 
 html.dark .cta-badge {
     background: rgba(255, 255, 255, 0.2);
-    color: #fecaca;
+    color: #fdcbd1;
 }
 
 html.dark .cta-content h2 {
@@ -1545,26 +1545,26 @@ html.dark .cta-content h2 {
 }
 
 html.dark .cta-content p {
-    color: #fecaca;
+    color: #fdcbd1;
 }
 
 html.dark .cta-primary {
     background: #ffffff;
-    color: #dc2626;
+    color: #d7263d;
     border-color: #3a3a3a;
     box-shadow: 3px 3px 0 0 #000000;
 }
 
 html.dark .cta-primary:hover {
-    background: #fef2f2;
+    background: #fef2f4;
 }
 
 html.dark .cta-note {
-    color: #fecaca;
+    color: #fdcbd1;
 }
 
 html.dark .cta-graphic {
-    background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+    background: linear-gradient(135deg, #b71e32, #7d1f2b);
     border-left-color: #3a3a3a;
 }
 
@@ -1594,8 +1594,8 @@ html.dark .filtros-form select {
 
 html.dark .filtros-form input:focus,
 html.dark .filtros-form select:focus {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+    border-color: #ed465c !important;
+    box-shadow: 0 0 0 3px rgba(237, 70, 92, 0.2) !important;
 }
 
 /* =========================
@@ -1615,8 +1615,8 @@ html.dark .form-create select.input {
 
 html.dark .form-create .input:focus,
 html.dark .form-create select.input:focus {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+    border-color: #ed465c !important;
+    box-shadow: 0 0 0 3px rgba(237, 70, 92, 0.2) !important;
 }
 
 /* =========================
@@ -1636,8 +1636,8 @@ html.dark .edit-select {
 
 html.dark .edit-input:focus,
 html.dark .edit-select:focus {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+    border-color: #ed465c !important;
+    box-shadow: 0 0 0 3px rgba(237, 70, 92, 0.2) !important;
 }
 
 /* =========================
@@ -1653,7 +1653,7 @@ html.dark .list-card {
 html.dark .aplicaciones-icons:hover,
 html.dark .numero-card:hover,
 html.dark .list-card:hover {
-    border-color: #ef4444 !important;
+    border-color: #ed465c !important;
 }
 
 /* =========================
@@ -1670,7 +1670,7 @@ html.dark .list-card:hover {
    EXTRAS - BORDES Y SOMBRAS CONSISTENTES
    ========================= */
 html.dark .hero-decoration {
-    background: linear-gradient(90deg, transparent, #ef4444, #991b1b, transparent);
+    background: linear-gradient(90deg, transparent, #ed465c, #971d2d, transparent);
 }
 
 html.dark .step-connector {
@@ -1704,6 +1704,6 @@ html.dark .btn-action {
 html.dark .btn-primary:hover,
 html.dark .btn-secondary:hover,
 html.dark .btn-action:hover {
-    border-color: #ef4444;
-    color: #f87171;
+    border-color: #ed465c;
+    color: #f67384;
 }

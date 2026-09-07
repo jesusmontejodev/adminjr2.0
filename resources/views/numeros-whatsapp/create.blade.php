@@ -1,145 +1,121 @@
 <x-app-layout>
-    <div class="form-create relative">
-    <div class="relative z-10 max-w-lg mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Agregar Número de WhatsApp') }}
+        </h2>
+    </x-slot>
+
+    <div class="whatsapp-view relative z-10 p-6 sm:p-10">
 
         <!-- HEADER -->
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-10">
-            <span class="icon-circle">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
-                </svg>
-            </span>
-            <h1 class="text-white text-xl font-bold">
-                Agregar número de WhatsApp
-            </h1>
-            <button type="submit" class="btn-primary">
-                        <a href="{{ route('numeros-whatsapp.index') }}" class="text-white/60 hover:text-white transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 18l-6-6 6-6"/>
-            </svg>
-            </a>
-</button>
-        </div>
-        <!-- CARD -->
-<div class="card max-w-md mx-auto">
-    <form action="{{ route('numeros-whatsapp.store') }}"
-          method="POST"
-          class="space-y-6">
-        @csrf
-
-        <div class="space-y-6 p-6">
-
-            {{-- País --}}
-            <div class="space-y-2">
-                <label for="pais" class="label block">
-                    País *
-                </label>
-
-                <select name="pais"
-                        id="pais"
-                        class="input w-full 
-                            bg-neutral-900 
-                            border border-red-500/60 
-                            text-red-300 
-                            focus:outline-none 
-                            focus:ring-2 
-                            focus:ring-red-500/40 
-                            focus:border-red-500 
-                            rounded-xl"
-                        required>
-                    <option value="">Selecciona un país</option>
-                    @foreach($paises as $codigo => $nombre)
-                        <option value="{{ $codigo }}"
-                                {{ old('pais') == $codigo ? 'selected' : '' }}>
-                            {{ $nombre }} ({{ $codigo }})
-                        </option>
-                    @endforeach
-                </select>
-
-                @error('pais')
-                    <p class="error-text">{{ $message }}</p>
-                @enderror
+        <div class="wa-topbar">
+            <div class="wa-title-row">
+                <span class="wa-title-icon">
+                    <svg fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326z"/>
+                    </svg>
+                </span>
+                <div>
+                    <h1>Agregar número de WhatsApp</h1>
+                    <div class="wa-title-sub">Conecta un número para automatizar tu atención por WhatsApp</div>
+                </div>
             </div>
 
-            {{-- Número --}}
-            <div class="space-y-2">
-                <label for="numero_local" class="label block">
-                    Número de teléfono *
-                    <span id="codigo-pais-hint"
-                          class="text-xs text-white/50 ml-2"></span>
-                </label>
+            <a href="{{ route('numeros-whatsapp.index') }}" class="wa-btn-secondary">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6"/>
+                </svg>
+                Volver
+            </a>
+        </div>
 
-                <div class="relative w-full">
-                    <span id="codigo-pais-display"
-                          class="absolute left-4 top-1/2 -translate-y-1/2 text-white/60 font-medium pointer-events-none">
-                        +
-                    </span>
+        <!-- MENSAJES -->
+        @if (session('error'))
+            <div class="wa-alert wa-alert--error">{{ session('error') }}</div>
+        @endif
 
-                    <input type="tel"
-                           name="numero_local"
-                           id="numero_local"
-                           class="input w-full pl-14"
-                           placeholder="5512345678"
-                           value="{{ old('numero_local') }}"
-                           required>
+        <!-- FORMULARIO -->
+        <div class="wa-form-panel">
+            <form action="{{ route('numeros-whatsapp.store') }}" method="POST">
+                @csrf
+
+                {{-- País --}}
+                <div class="wa-field">
+                    <label for="pais" class="wa-label">País *</label>
+                    <select name="pais" id="pais" class="wa-select" required>
+                        <option value="">Selecciona un país</option>
+                        @foreach($paises as $codigo => $nombre)
+                            <option value="{{ $codigo }}" {{ old('pais') == $codigo ? 'selected' : '' }}>
+                                {{ $nombre }} ({{ $codigo }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('pais') <p class="wa-input-error">{{ $message }}</p> @enderror
                 </div>
 
-                <p class="text-xs text-white/50">
-                    Ingresa solo el número local (sin código de país)
-                </p>
+                {{-- Número --}}
+                <div class="wa-field">
+                    <label for="numero_local" class="wa-label">
+                        Número de teléfono *
+                        <span id="codigo-pais-hint" class="wa-label-hint"></span>
+                    </label>
 
-                @error('numero_local')
-                    <p class="error-text">{{ $message }}</p>
-                @enderror
-            </div>
+                    <div class="wa-input-prefix-wrap">
+                        <span id="codigo-pais-display" class="wa-input-prefix">+</span>
+                        <input type="tel" name="numero_local" id="numero_local" class="wa-input"
+                            placeholder="5512345678"
+                            value="{{ old('numero_local') }}"
+                            required>
+                    </div>
 
-            {{-- Etiqueta --}}
-            <div class="space-y-2">
-                <label for="etiqueta" class="label block">
-                    Etiqueta
-                    <span class="text-xs text-white/50">(opcional)</span>
-                </label>
+                    <p class="wa-input-note">Ingresa solo el número local (sin código de país)</p>
+                    @error('numero_local') <p class="wa-input-error">{{ $message }}</p> @enderror
+                </div>
 
-                <input type="text"
-                       name="etiqueta"
-                       id="etiqueta"
-                       class="input w-full"
-                       placeholder="Ej: Personal, Trabajo, Marketing..."
-                       value="{{ old('etiqueta') }}">
-            </div>
+                {{-- Etiqueta --}}
+                <div class="wa-field">
+                    <label for="etiqueta" class="wa-label">
+                        Etiqueta
+                        <span class="wa-label-hint">(opcional)</span>
+                    </label>
+                    <input type="text" name="etiqueta" id="etiqueta" class="wa-input"
+                        placeholder="Ej: Personal, Trabajo, Marketing..."
+                        value="{{ old('etiqueta') }}">
+                </div>
 
+                <div class="wa-form-foot">
+                    <a href="{{ route('numeros-whatsapp.index') }}" class="wa-btn-secondary">Cancelar</a>
+                    <button type="submit" class="wa-btn-new">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        Conectar número
+                    </button>
+                </div>
+            </form>
         </div>
 
-        {{-- FOOTER --}}
-        <div class="flex justify-between items-center px-6 py-4 border-t border-white/10">
-            <a href="{{ route('numeros-whatsapp.index') }}"
-               class="btn-cancel">
-                Cancelar
-            </a>
-
-            <button type="submit"
-                    class="btn-primary">
-                Conectar número
-            </button>
-        </div>
-
-    </form>
-</div>
         <!-- INFO -->
-        <div class="mt-6 info-box">
-            <h4 class="text-red-400 font-semibold mb-2">Requisitos importantes</h4>
-            <ul class="text-sm text-gray/70 space-y-2">
-                <li>✔ El número debe estar registrado en WhatsApp Business API</li>
-                <li>✔ Asegúrate de tener los permisos necesarios</li>
-                <li>✔ Solo puedes tener un número marcado como principal</li>
+        <div class="wa-info-panel">
+            <h4>Requisitos importantes</h4>
+            <ul>
+                <li>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    El número debe estar registrado en WhatsApp Business API
+                </li>
+                <li>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    Asegúrate de tener los permisos necesarios
+                </li>
+                <li>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    Solo puedes tener un número marcado como principal
+                </li>
             </ul>
         </div>
 
     </div>
-</div>
 
-    <!-- JS ORIGINAL COMPLETO (SIN CAMBIOS) -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const paisSelect = document.getElementById('pais');
@@ -160,11 +136,11 @@
                 if (codigo && codigosPais[codigo]) {
                     codigoDisplay.textContent = codigosPais[codigo];
                     codigoHint.textContent = `Código: ${codigosPais[codigo]}`;
-                    numeroInput.style.paddingLeft = '4rem';
+                    numeroInput.style.paddingLeft = (codigosPais[codigo].length * 8 + 30) + 'px';
                 } else {
                     codigoDisplay.textContent = '+';
                     codigoHint.textContent = '';
-                    numeroInput.style.paddingLeft = '3rem';
+                    numeroInput.style.paddingLeft = '';
                 }
             }
 

@@ -9,8 +9,9 @@ export default defineConfig({
                 'resources/css/estructura.css',
                 'resources/css/temas-claro.css',
                 'resources/css/tema-oscuro.css',
+                'resources/css/cuentas.css',
+                'resources/css/dashboard.css',
                 'resources/js/app.js',
-                'resources/js/analistajr/dashboard.js',
                 'resources/js/chat-api.js'
             ],
             refresh: true,

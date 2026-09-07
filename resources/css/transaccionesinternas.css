@@ -1,0 +1,190 @@
+/* ====== TRANSACCIONES INTERNAS ====== */
+
+.transaccionesinternas-view {
+    --ti-surface: #ffffff;
+    --ti-surface-2: #fafafa;
+    --ti-border: rgba(17,24,39,.09);
+    --ti-border-brand: rgba(215, 38, 61,.30);
+    --ti-text: #111827;
+    --ti-text-dim: #6b7280;
+    --ti-text-faint: #9ca3af;
+    --ti-accent: #d7263d;
+    --ti-accent-2: #b71e32;
+    --ti-accent-soft: rgba(215, 38, 61,.09);
+    --ti-success: #16a34a;
+    --ti-success-soft: rgba(22,163,74,.10);
+    --ti-danger: #d7263d;
+    --ti-danger-soft: rgba(215, 38, 61,.09);
+    --ti-shadow: 0 1px 2px rgba(17,24,39,.04), 0 8px 20px rgba(17,24,39,.04);
+
+    --ti-glass: rgba(255,255,255,.3);
+    --ti-glass-2: rgba(238,239,242,.15);
+    --ti-glass-border: rgba(215,38,61,.3);
+    --ti-glass-hairline: rgba(255,255,255,.8);
+
+    color: var(--ti-text);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+html.dark .transaccionesinternas-view {
+    --ti-surface: rgba(255,255,255,.035);
+    --ti-surface-2: rgba(255,255,255,.055);
+    --ti-border: rgba(255,255,255,.09);
+    --ti-border-brand: rgba(237, 70, 92,.35);
+    --ti-text: #e8eaf0;
+    --ti-text-dim: #9aa1b2;
+    --ti-text-faint: #6b7280;
+    --ti-accent: #ed465c;
+    --ti-accent-2: #f67384;
+    --ti-accent-soft: rgba(237, 70, 92,.14);
+    --ti-success: #22c55e;
+    --ti-success-soft: rgba(34,197,94,.14);
+    --ti-danger: #f67384;
+    --ti-danger-soft: rgba(246, 115, 132,.14);
+    --ti-shadow: 0 1px 2px rgba(0,0,0,.3);
+
+    --ti-glass: rgba(18,18,21,.55);
+    --ti-glass-2: rgba(6,6,8,.42);
+    --ti-glass-border: rgba(242,101,122,.28);
+    --ti-glass-hairline: rgba(255,255,255,.08);
+}
+
+.transaccionesinternas-view .ti-display {
+    font-family: 'Montserrat', ui-sans-serif, sans-serif;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Topbar */
+.transaccionesinternas-view .ti-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+    flex-wrap: wrap;
+}
+.transaccionesinternas-view .ti-title-row { display: flex; align-items: center; gap: 13px; }
+.transaccionesinternas-view .ti-title-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: var(--ti-accent-soft);
+    border: 1px solid var(--ti-border-brand);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ti-accent);
+    flex-shrink: 0;
+}
+.transaccionesinternas-view .ti-title-icon svg { width: 21px; height: 21px; }
+.transaccionesinternas-view h1 {
+    font-family: 'Montserrat';
+    font-weight: 800;
+    font-size: 23px;
+    margin: 0;
+    letter-spacing: -.01em;
+    color: var(--ti-text);
+}
+.transaccionesinternas-view .ti-title-sub { font-size: 13px; color: var(--ti-text-dim); margin-top: 2px; }
+
+.transaccionesinternas-view .ti-btn-new {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 12px;
+    background: var(--ti-accent); color: #fff;
+    font-weight: 700; font-size: 13.5px;
+    border: 1px solid transparent;
+    box-shadow: 0 6px 16px -6px rgba(215, 38, 61,.5);
+    cursor: pointer;
+    text-decoration: none;
+}
+.transaccionesinternas-view .ti-btn-new:hover { background: var(--ti-accent-2); }
+.transaccionesinternas-view .ti-btn-new svg { width: 16px; height: 16px; }
+html.dark .transaccionesinternas-view .ti-btn-new { box-shadow: 0 8px 20px -6px rgba(255,23,68,.5); }
+html.dark .transaccionesinternas-view .ti-btn-new:hover { box-shadow: 0 10px 26px -6px rgba(255,23,68,.65); }
+
+/* Tabla */
+.transaccionesinternas-view .ti-table-panel {
+    background: linear-gradient(155deg, var(--ti-glass), var(--ti-glass-2));
+    border: 1px solid var(--ti-glass-border);
+    border-radius: 18px;
+    box-shadow: var(--ti-shadow), inset 0 1px 0 var(--ti-glass-hairline);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    overflow: hidden;
+}
+.transaccionesinternas-view .ti-table-scroll { overflow-x: auto; }
+.transaccionesinternas-view .ti-table { width: 100%; border-collapse: collapse; min-width: 680px; }
+.transaccionesinternas-view .ti-table th {
+    text-align: left;
+    padding: 12px 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--ti-text-faint);
+    border-bottom: 1px solid var(--ti-border);
+    white-space: nowrap;
+}
+.transaccionesinternas-view .ti-table th.ti-right { text-align: right; }
+.transaccionesinternas-view .ti-table td {
+    padding: 13px 20px;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--ti-border);
+    vertical-align: middle;
+}
+.transaccionesinternas-view .ti-table tbody tr:last-child td { border-bottom: none; }
+.transaccionesinternas-view .ti-table tbody tr:hover { background: var(--ti-accent-soft); }
+
+.transaccionesinternas-view .ti-date-cell { display: flex; align-items: center; gap: 11px; }
+.transaccionesinternas-view .ti-date-icon {
+    width: 34px; height: 34px; border-radius: 10px;
+    background: var(--ti-accent-soft); color: var(--ti-accent);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.transaccionesinternas-view .ti-date-icon svg { width: 16px; height: 16px; }
+.transaccionesinternas-view .ti-date-main { font-weight: 600; color: var(--ti-text); }
+.transaccionesinternas-view .ti-date-sub { font-size: 11.5px; color: var(--ti-text-faint); margin-top: 1px; }
+
+.transaccionesinternas-view .ti-flow { display: flex; align-items: center; gap: 9px; }
+.transaccionesinternas-view .ti-flow-acc {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 600; font-size: 13px;
+}
+.transaccionesinternas-view .ti-flow-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.transaccionesinternas-view .ti-flow-arrow { color: var(--ti-text-faint); flex-shrink: 0; }
+.transaccionesinternas-view .ti-flow-arrow svg { width: 16px; height: 16px; }
+
+.transaccionesinternas-view .ti-amount { font-family: 'Montserrat'; font-weight: 700; font-size: 13.5px; color: var(--ti-text); }
+.transaccionesinternas-view .ti-desc {
+    max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    color: var(--ti-text-dim);
+}
+
+.transaccionesinternas-view .ti-row-actions { display: flex; align-items: center; justify-content: flex-end; gap: 7px; }
+.transaccionesinternas-view .ti-icon-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 9px;
+    border: 1.5px solid var(--ti-btn-border, var(--ti-border));
+    color: var(--ti-btn-color, var(--ti-text-dim));
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+}
+.transaccionesinternas-view .ti-icon-btn svg { width: 14px; height: 14px; }
+.transaccionesinternas-view .ti-icon-btn.ti-edit { --ti-btn-border: var(--ti-glass-border); --ti-btn-color: var(--ti-text-dim); }
+.transaccionesinternas-view .ti-icon-btn.ti-edit:hover { --ti-btn-color: var(--ti-accent); background: var(--ti-accent-soft); }
+.transaccionesinternas-view .ti-icon-btn.ti-delete { --ti-btn-border: rgba(215, 38, 61,.4); --ti-btn-color: var(--ti-accent); }
+.transaccionesinternas-view .ti-icon-btn.ti-delete:hover { background: var(--ti-danger-soft); }
+
+/* Empty state */
+.transaccionesinternas-view .ti-empty {
+    padding: 56px 30px;
+    text-align: center;
+}
+.transaccionesinternas-view .ti-empty-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: var(--ti-surface-2);
+    border: 1px solid var(--ti-border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ti-text-faint);
+    margin: 0 auto 16px;
+}
+.transaccionesinternas-view .ti-empty-icon svg { width: 26px; height: 26px; }
+.transaccionesinternas-view .ti-empty h3 { font-family: 'Montserrat'; font-weight: 700; font-size: 15px; margin: 0 0 6px; color: var(--ti-text); }
+.transaccionesinternas-view .ti-empty p { font-size: 13px; color: var(--ti-text-dim); margin: 0 0 18px; }
+.transaccionesinternas-view .ti-empty .ti-btn-new { margin: 0 auto; }
